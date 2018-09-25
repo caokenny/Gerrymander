@@ -21,7 +21,13 @@ html, body {
 }
 
 #usercontrol {
-    background-color: red;
+    background-color: black;
     margin-left: auto;
     height: 100%;
+}
+
+#usercontroltitle {
+    color: white;
+    font-size: 20px;
+    margin: 0;
 }
