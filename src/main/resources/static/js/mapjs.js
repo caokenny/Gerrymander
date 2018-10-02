@@ -7,16 +7,15 @@ var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8
     accessToken: 'pk.eyJ1IjoiY2Fva2VubnkiLCJhIjoiY2ptZHhzcmJoMHVlYjNwbW90cm1kZW11bSJ9.C6aOC-2bLmc9SIXXjI0tyQ'
 }).addTo(mymap);
 
-// mymap.dragging.disable();
-// mymap.touchZoom.disable();
-// mymap.doubleClickZoom.disable();
-// mymap.scrollWheelZoom.disable();
-
 //Add geoJSON
 
 var states = L.geoJSON(usageo, {
-    style: function () {
-        return {color: "black", fillColor: "blue", fillOpacity: 1}
+    style: function (feature) {
+        if (feature.properties.name === "Kansas") {
+            return {color: "orange", fillColor: "orange", fillOpacity: 1}
+        } else {
+            return {color: "black", fillColor: "blue", fillOpacity: 1}
+        }
     }
 }).addTo(mymap);
 
@@ -29,3 +28,14 @@ var continents = L.geoJSON(continentsgeo, {
         }
     }
 }).addTo(mymap);
+
+L.geoJSON(kansasgeo, {
+    style: function (feature) {
+        if (feature.properties.KS_GEO_ID === 1) {
+            return {fillColor: "red"};
+        }
+        if (feature.properties.KS_GEO_ID === 2) {
+            return {fillColor: "black"};
+        }
+    }
+});

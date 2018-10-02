@@ -23,14 +23,10 @@ html, body {
 
 #usercontrol {
     background-color: black;
-    margin-left: auto;
+    margin-left: 70%;
     height: 100%;
-}
-
-#usercontroltitle {
-    color: white;
-    font-size: 20px;
-    margin: 0;
+    width: auto;
+    margin-top: 0;
 }
 
 #mapheader {
@@ -70,4 +66,8 @@ html, body {
 #nav li:hover {
     color: #1A2739;
     background-color: #B8DBF2;
+}
+
+
+#measurescontainer {
 }
