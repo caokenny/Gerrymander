@@ -11,11 +11,7 @@ var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8
 
 var states = L.geoJSON(usageo, {
     style: function (feature) {
-        if (feature.properties.name === "Kansas" || feature.properties.name === "Colorado" || feature.properties.name === "Missouri") {
-            return {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1}
-        } else {
-            return {color: "black", fillColor: "blue", fillOpacity: 1}
-        }
+        return {color: "black", fillColor: "blue", fillOpacity: 1}
     }
 }).addTo(mymap);
 
@@ -29,13 +25,44 @@ var continents = L.geoJSON(continentsgeo, {
     }
 }).addTo(mymap);
 
-L.geoJSON(kansasgeo, {
-    style: function (feature) {
-        if (feature.properties.KS_GEO_ID === 1) {
-            return {fillColor: "red"};
-        }
-        if (feature.properties.KS_GEO_ID === 2) {
-            return {fillColor: "black"};
-        }
+//L.geoJSON(kansasgeo, {
+//    style: function (feature) {
+//        if (feature.properties.KS_GEO_ID === 1) {
+//            return {fillColor: "red"};
+//        }
+//        if (feature.properties.KS_GEO_ID === 2) {
+//            return {fillColor: "black"};
+//        }
+//    }
+//});
+
+var coloradoEvent = L.geoJSON(colorado, {
+    style: function() {
+        return {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1}
     }
+}).addTo(mymap);
+
+coloradoEvent.on('click', function(event) {
+    mymap.fitBounds(event.layer.getBounds())
 });
+
+var kansasEvent = L.geoJSON(kansas, {
+    style: function() {
+        return {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1}
+    }
+}).addTo(mymap);
+
+kansasEvent.on('click', function(event) {
+    mymap.fitBounds(event.layer.getBounds())
+});
+
+var missouriEvent = L.geoJSON(missouri, {
+    style: function() {
+        return {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1}
+    }
+}).addTo(mymap);
+
+missouriEvent.on('click', function(event) {
+    mymap.fitBounds(event.layer.getBounds())
+});
+
