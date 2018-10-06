@@ -11,8 +11,8 @@ var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8
 
 var states = L.geoJSON(usageo, {
     style: function (feature) {
-        if (feature.properties.name === "Kansas") {
-            return {color: "orange", fillColor: "orange", fillOpacity: 1}
+        if (feature.properties.name === "Kansas" || feature.properties.name === "Colorado" || feature.properties.name === "Missouri") {
+            return {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1}
         } else {
             return {color: "black", fillColor: "blue", fillOpacity: 1}
         }

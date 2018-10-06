@@ -3,40 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Team Falcon</title>
-    <link rel="stylesheet" type="text/css" href="/css/indexCSS.css"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
-            integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
-            crossorigin=""></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/indexCSS.css"/>
 
 
 </head>
 <body>
-    <div id="wrapper">
+<div id="wrapper">
 
-        <div id="mapheader">
-            <ul id="nav">
-                <li><a href="#">Home</a></li>
-            </ul>
-        </div>
-
-        <div id="mapid"></div>
-
-        <script src="/js/us-states.js"></script>
-        <script src="/js/continents.js"></script>
-        <script src="/js/KS_final.js"></script>
-        <script src="/js/mapjs.js"></script>
-
-
-        <div id="usercontrol">
-            <div id="measurescontainer">
-                <h1>idk yet</h1>
-            </div>
-        </div>
+    <div id="mapheader">
+        <ul id="nav">
+            <li><a href="#">Home</a></li>
+        </ul>
     </div>
+
+    <div id="mapid"></div>
+
+
+    <div id="usercontrol">
+        <div id="buttons">
+            <button class="algoButtons" type="button" style="margin-right: 20px;">Update</button>
+            <button class="algoButtons" type="button">Run</button>
+        </div>
+        <div id="measuresContainer">
+            <h2 class="measureSliderTitle">Compactness</h2>
+            <input type="range" min="1" max="100" value="50" class="measureSlider" id="compactnessSlider">
+            <h2 class="measureSliderTitle">Population</h2>
+            <input type="range" min="1" max="100" value="50" class="measureSlider" id="populationSlider">
+            <h2 class="measureSliderTitle">Partisan Fairness</h2>
+            <input type="range" min="1" max="100" value="50" class="measureSlider" id="partisanFairnessSlider">
+            <h2 class="measureSliderTitle">Efficiency Gap</h2>
+            <input type="range" min="1" max="100" value="50" class="measureSlider" id="efficiencyGapSlider">
+        </div>
+        <textarea id="summaryBox" readonly>Summary</textarea>
+
+
+
+    </div>
+</div>
+
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+            integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+            crossorigin=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/js/us-states.js"></script>
+    <script src="/js/continents.js"></script>
+    <script src="/js/KS_final.js"></script>
+    <script src="/js/mapjs.js"></script>
 
 </body>
 </html>
