@@ -192,10 +192,10 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="22" />
     <option name="width" value="1280" />
-    <option name="height" value="707" />
+    <option name="height" value="708" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -371,7 +371,6 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Spring Boot.CourseApiApp" />
       <item itemvalue="Application.CourseApiApp" />
     </list>
     <recent_temporary>
