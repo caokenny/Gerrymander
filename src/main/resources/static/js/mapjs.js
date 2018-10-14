@@ -73,6 +73,7 @@ coloradoEvent.on('click', function(event) {
         document.getElementById("measuresContainer").style.display = "flex";
         document.getElementById("summaryBox").style.display = "block";
         document.getElementById("usercontrol").style.backgroundColor = "black";
+        document.getElementById("algorithmChoiceDiv").style.display = "flex";
         kansasEvent.setStyle({fillColor: "blue", fillOpacity: 1});
         missouriEvent.setStyle({fillColor: "blue", fillOpacity: 1});
         mymap.fitBounds(event.layer.getBounds());
@@ -107,6 +108,7 @@ kansasEvent.on('click', function(event) {
         document.getElementById("measuresContainer").style.display = "flex";
         document.getElementById("summaryBox").style.display = "block";
         document.getElementById("usercontrol").style.backgroundColor = "black";
+        document.getElementById("algorithmChoiceDiv").style.display = "block";
         coloradoEvent.setStyle({fillColor: "blue", fillOpacity: 1});
         missouriEvent.setStyle({fillColor: "blue", fillOpacity: 1});
         mymap.fitBounds(event.layer.getBounds());
@@ -141,6 +143,7 @@ missouriEvent.on('click', function(event) {
         document.getElementById("measuresContainer").style.display = "flex";
         document.getElementById("summaryBox").style.display = "block";
         document.getElementById("usercontrol").style.backgroundColor = "black";
+        document.getElementById("algorithmChoiceDiv").style.display = "block";
         kansasEvent.setStyle({fillColor: "blue", fillOpacity: 1});
         coloradoEvent.setStyle({fillColor: "blue", fillOpacity: 1});
         mymap.fitBounds(event.layer.getBounds());
@@ -180,4 +183,5 @@ function goHome() {
     document.getElementById("summaryBox").style.display = "none";
     document.getElementById("usercontrol").style.backgroundColor = "orange";
     document.getElementById("welcomeDiv").style.display = "block";
+    document.getElementById("algorithmChoiceDiv").style.display = "none";
 }

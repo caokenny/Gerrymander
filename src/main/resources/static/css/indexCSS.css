@@ -91,6 +91,7 @@ html, body {
     flex-direction: column;
     margin: auto;
     height: 50%;
+    bottom: 10px;
 }
 
 #summaryBox {
@@ -105,10 +106,11 @@ html, body {
 
 #buttons {
     /*display: flex;*/
+    position: relative;
     display: none;
     flex-direction: row;
     justify-content: center;
-    margin-top: 30px;
+    top: 70px;
 }
 
 .algoButtons {
@@ -187,6 +189,16 @@ input[type=text], input[type=password] {
     font-weight: bold;
 }
 
+#algorithmChoiceDiv {
+    position: relative;
+    display: none;
+    margin: auto;
+    top: 70px;
+}
+
+#algorithmChoice {
+    font-size: 18px;
+}
 
 
 
