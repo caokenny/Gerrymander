@@ -15,10 +15,11 @@ html, body {
 }
 
 #mapid {
+    position: relative;
     height: 100%;
     width: 70%;
     float: left;
-    z-index: 5;
+    z-index: 1;
 }
 
 #usercontrol {
@@ -36,7 +37,7 @@ html, body {
     height: auto;
     width: auto;
     padding: 2% 5px 10px 5%;
-    z-index: 10;
+    z-index: 2;
 }
 
 #nav {
@@ -85,14 +86,16 @@ html, body {
 }
 
 #measuresContainer {
-    display: flex;
+    /*display: flex;*/
+    display: none;
     flex-direction: column;
     margin: auto;
     height: 50%;
 }
 
 #summaryBox {
-    display: block;
+    /*display: block;*/
+    display: none;
     height: 25%;
     width: 50%;
     margin: 0 auto 50px auto;
@@ -101,7 +104,8 @@ html, body {
 }
 
 #buttons {
-    display: flex;
+    /*display: flex;*/
+    display: none;
     flex-direction: row;
     justify-content: center;
     margin-top: 30px;
@@ -115,14 +119,73 @@ html, body {
 }
 
 
+#welcomeDiv {
+    align-self: center;
+    margin-top: 50%;
+    text-align: center;
+}
 
 
+#loginDiv, #registerDiv {
+    position: fixed;
+    display: none;
+    z-index: 3;
+    left: 25%;
+    top: 25%;
+    width: 25%;
+    background-color: #fefefe;
+    overflow: none;
+    border: 1px solid #888;
+}
+
+#loginDiv {
+    height: 25%;
+}
+
+#registerDiv {
+    height: 30%;
+}
+
+#logincontent, #registercontent {
+    margin: 4% auto 15% auto;
+    width: 40%;
+    padding-bottom: 30px;
+}
+
+input[type=text], input[type=password] {
+    width: 90%;
+    padding: 12px 20px;
+    margin: 8px 26px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size:16px;
+}
+
+.loginSubmit {
+    background-color: blue;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 26px;
+    border: none;
+    width: 90%;
+    font-size: 20px;
+}
+
+.closeLoginBox:hover, .closeLoginBox:focus {
+    color: red;
+    cursor: pointer;
+}
 
 
-
-
-
-
+.closeLoginBox {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
 
 
 

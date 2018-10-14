@@ -42,6 +42,10 @@ var continents = L.geoJSON(continentsgeo, {
 
 var initialStyle = {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1};
 
+var onColorado = false;
+var onKansas = false;
+var onMissouri = false;
+
 
 var coloradoEvent = L.geoJSON(colorado, {
     style: function() {
@@ -49,40 +53,11 @@ var coloradoEvent = L.geoJSON(colorado, {
     }
 }).addTo(mymap);
 
-coloradoEvent.on('click', function(event) {
-    mymap.fitBounds(event.layer.getBounds())
-});
-
-coloradoEvent.on('mouseover', function () {
-    this.setStyle({
-        color: 'white'
-    });
-});
-
-coloradoEvent.on('mouseout', function () {
-    this.setStyle(initialStyle);
-});
-
 var kansasEvent = L.geoJSON(kansas, {
     style: function() {
         return {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1}
     }
 }).addTo(mymap);
-
-kansasEvent.on('click', function(event) {
-    mymap.fitBounds(event.layer.getBounds())
-});
-
-kansasEvent.on('mouseover', function () {
-    this.setStyle({
-        color: 'white'
-    });
-});
-
-kansasEvent.on('mouseout', function () {
-    this.setStyle(initialStyle);
-});
-
 
 var missouriEvent = L.geoJSON(missouri, {
     style: function() {
@@ -90,20 +65,119 @@ var missouriEvent = L.geoJSON(missouri, {
     }
 }).addTo(mymap);
 
+coloradoEvent.on('click', function(event) {
+    if (onKansas === false && onMissouri === false) {
+        onColorado = true;
+        document.getElementById("welcomeDiv").style.display = "none";
+        document.getElementById("buttons").style.display = "flex";
+        document.getElementById("measuresContainer").style.display = "flex";
+        document.getElementById("summaryBox").style.display = "block";
+        document.getElementById("usercontrol").style.backgroundColor = "black";
+        kansasEvent.setStyle({fillColor: "blue", fillOpacity: 1});
+        missouriEvent.setStyle({fillColor: "blue", fillOpacity: 1});
+        mymap.fitBounds(event.layer.getBounds());
+    }
+});
+
+coloradoEvent.on('mouseover', function () {
+    if (onColorado === false && onKansas === false && onMissouri === false) {
+        this.setStyle({
+            color: 'white'
+        });
+    } else if (onColorado === true) {
+        this.setStyle(initialStyle);
+    } else {
+        this.setStyle({fillColor: "blue", fillOpacity: 1});
+    }
+});
+
+coloradoEvent.on('mouseout', function () {
+    if (onKansas === true || onMissouri === true) {
+        this.setStyle({fillColor: "blue", fillOpacity: 1});
+    } else {
+        this.setStyle(initialStyle);
+    }
+});
+
+kansasEvent.on('click', function(event) {
+    if (onColorado === false && onMissouri === false) {
+        onKansas = true;
+        document.getElementById("welcomeDiv").style.display = "none";
+        document.getElementById("buttons").style.display = "flex";
+        document.getElementById("measuresContainer").style.display = "flex";
+        document.getElementById("summaryBox").style.display = "block";
+        document.getElementById("usercontrol").style.backgroundColor = "black";
+        coloradoEvent.setStyle({fillColor: "blue", fillOpacity: 1});
+        missouriEvent.setStyle({fillColor: "blue", fillOpacity: 1});
+        mymap.fitBounds(event.layer.getBounds());
+    }
+});
+
+kansasEvent.on('mouseover', function () {
+    if (onColorado === false && onKansas === false && onMissouri === false) {
+        this.setStyle({
+            color: 'white'
+        });
+    } else if (onKansas === true) {
+        this.setStyle(initialStyle);
+    } else {
+        this.setStyle({fillColor: "blue", fillOpacity: 1});
+    }
+});
+
+kansasEvent.on('mouseout', function () {
+    if (onColorado === true || onMissouri === true) {
+        this.setStyle({fillColor: "blue", fillOpacity: 1});
+    } else {
+        this.setStyle(initialStyle);
+    }
+});
+
 missouriEvent.on('click', function(event) {
-    mymap.fitBounds(event.layer.getBounds())
+    if (onColorado === false && onKansas === false) {
+        onMissouri = true;
+        document.getElementById("welcomeDiv").style.display = "none";
+        document.getElementById("buttons").style.display = "flex";
+        document.getElementById("measuresContainer").style.display = "flex";
+        document.getElementById("summaryBox").style.display = "block";
+        document.getElementById("usercontrol").style.backgroundColor = "black";
+        kansasEvent.setStyle({fillColor: "blue", fillOpacity: 1});
+        coloradoEvent.setStyle({fillColor: "blue", fillOpacity: 1});
+        mymap.fitBounds(event.layer.getBounds());
+    }
 });
 
 missouriEvent.on('mouseover', function () {
-    this.setStyle({
-        color: 'white'
-    });
+    if (onColorado === false && onKansas === false && onMissouri === false) {
+        this.setStyle({
+            color: 'white'
+        });
+    } else if (onMissouri === true) {
+        this.setStyle(initialStyle);
+    } else {
+        this.setStyle({fillColor: "blue", fillOpacity: 1});
+    }
 });
 
 missouriEvent.on('mouseout', function () {
-    this.setStyle(initialStyle);
+    if (onColorado === true || onKansas === true) {
+        this.setStyle({fillColor: "blue", fillOpacity: 1});
+    } else {
+        this.setStyle(initialStyle);
+    }
 });
 
 function goHome() {
+    onColorado = false;
+    onKansas = false;
+    onMissouri = false;
+    coloradoEvent.setStyle(initialStyle);
+    kansasEvent.setStyle(initialStyle);
+    missouriEvent.setStyle(initialStyle);
     mymap.setView([37.0902, -95.7129], 4);
+    document.getElementById("buttons").style.display = "none";
+    document.getElementById("measuresContainer").style.display = "none";
+    document.getElementById("summaryBox").style.display = "none";
+    document.getElementById("usercontrol").style.backgroundColor = "orange";
+    document.getElementById("welcomeDiv").style.display = "block";
 }

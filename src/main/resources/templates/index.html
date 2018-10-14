@@ -13,11 +13,30 @@
 <body>
 <div id="wrapper">
 
+    <div id="loginDiv">
+        <form id="logincontent">
+            <span class="closeLoginBox" onclick="closeLogin()">&times;</span>
+            <input type="text" placeholder="Enter Username">
+            <input type="password" placeholder="Enter Password">
+            <button class="loginSubmit" type="submit">Login</button>
+        </form>
+    </div>
+
+    <div id="registerDiv">
+        <form id="registercontent">
+            <span class="closeLoginBox" onclick="closeRegister()">&times;</span>
+            <input type="text" placeholder="Enter Username">
+            <input type="password" placeholder="Enter Password">
+            <input type="password" placeholder="Verify Password">
+            <button class="loginSubmit" type="submit">Register</button>
+        </form>
+    </div>
+
     <div id="mapheader">
         <ul id="nav">
-            <li><a href="#" onclick='goHome()'>Home</a></li>
-            <li><a href="#">Log In</a></li>
-            <li><a href="#">Register</a></li>
+            <li><a href="#" onclick="goHome()">Home</a></li>
+            <li><a href="#" onclick="popupLogin()">Log In</a></li>
+            <li><a href="#" onclick="popupRegister()">Register</a></li>
         </ul>
     </div>
 
@@ -25,6 +44,9 @@
 
 
     <div id="usercontrol">
+        <div id="welcomeDiv">
+            <h1 id="welcomeMessage">Welcome <br/> to <br/> Team Falcon's <br/> Project</h1>
+        </div>
         <div id="buttons">
             <button class="algoButtons" type="button" style="margin-right: 20px;">Update</button>
             <button class="algoButtons" type="button">Run</button>
@@ -56,6 +78,7 @@
     <script src="/js/Colorado.js"></script>
     <script src="/js/Kansas.js"></script>
     <script src="/js/Missouri.js"></script>
+    <script src="/js/indexjs.js"></script>
     <script src="/js/mapjs.js"></script>
 
 </body>
