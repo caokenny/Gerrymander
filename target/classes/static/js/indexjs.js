@@ -62,15 +62,16 @@ $('.loginSubmit').click(function () {
 $('.colorChange').click(function () {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/color", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onload = function () {
         document.getElementById("usercontrol").style.backgroundColor = xhr.responseText;
     };
 
-    var formdata = new FormData();
-    formdata.append("color", $(this).val());
+    // var formdata = new FormData();
+    // formdata.append("color", $(this).val());
 
-    xhr.send(formdata);
+    xhr.send("color=" + $(this).val());
 });
 
 
