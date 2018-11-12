@@ -56,6 +56,9 @@
     <div id="usercontrol">
         <div id="welcomeDiv">
             <h1 id="welcomeMessage">Welcome <br/> to <br/> Team Falcon's <br/> Project. <br/> Click on a state to continue.</h1>
+            <button class="colorChange" value="red">Red</button>
+            <button class="colorChange" value="blue">Blue</button>
+            <button class="colorChange" value="white">White</button>
         </div>
         <div id="buttons">
             <button class="algoButtons" type="button" style="margin-right: 20px;">Update</button>

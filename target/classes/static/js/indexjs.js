@@ -59,6 +59,20 @@ $('.loginSubmit').click(function () {
     xhr.send(formData);
 });
 
+$('.colorChange').click(function () {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/color", true);
+
+    xhr.onload = function () {
+        document.getElementById("usercontrol").style.backgroundColor = xhr.responseText;
+    };
+
+    var formdata = new FormData();
+    formdata.append("color", $(this).val());
+
+    xhr.send(formdata);
+});
+
 
 
 

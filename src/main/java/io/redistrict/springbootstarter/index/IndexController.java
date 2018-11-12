@@ -6,10 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @Controller
 public class IndexController {
@@ -42,5 +44,12 @@ public class IndexController {
         request.getSession().setAttribute("username", username);
         request.getSession().setAttribute("loggedInUser", true);
         return "redirect:/index";
+    }
+
+    @PostMapping("/color")
+    @ResponseBody
+    public String colorChange(@RequestParam("color") String color) {
+//        System.out.println(color);
+        return color;
     }
 }
