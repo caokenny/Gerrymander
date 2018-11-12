@@ -14,7 +14,7 @@ public class CourseApiApp extends SpringBootServletInitializer {
 
 
     public static void main(String[] args) {
-
+    //test
         SpringApplication.run(CourseApiApp.class, args);
     }
 }
