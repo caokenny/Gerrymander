@@ -123,7 +123,7 @@ html, body {
 
 #welcomeDiv {
     align-self: center;
-    margin-top: 50%;
+    /*margin-top: 50%;*/
     text-align: center;
 }
 
@@ -146,11 +146,11 @@ html, body {
 }
 
 #registerDiv {
-    height: 300px;
+    height: 360px;
 }
 
 #logincontent, #registercontent {
-    padding-top: 50px;
+    padding-top: 45px;
     margin: auto;
     width: 100%;
 }
@@ -165,7 +165,7 @@ input[type=text], input[type=password] {
     font-size:16px;
 }
 
-.loginSubmit {
+.loginSubmit, .registerSubmit {
     background-color: blue;
     color: white;
     padding: 14px 20px;

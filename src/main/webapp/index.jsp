@@ -1,7 +1,8 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <%--<meta charset="UTF-8">--%>
     <title>Team Falcon</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
@@ -14,10 +15,10 @@
 <div id="wrapper">
 
     <div id="loginDiv">
-        <form id="logincontent">
+        <form id="logincontent" method="post">
             <span class="closeLoginBox" onclick="closeLogin()">&times;</span>
-            <input type="text" placeholder="Enter Username">
-            <input type="password" placeholder="Enter Password">
+            <input type="text" name="username" id="loginUsername" placeholder="Enter Username" required>
+            <input type="password" name="password" id="loginPassword" placeholder="Enter Password" required>
             <button class="loginSubmit" type="submit">Login</button>
         </form>
     </div>
@@ -25,18 +26,27 @@
     <div id="registerDiv">
         <form id="registercontent">
             <span class="closeLoginBox" onclick="closeRegister()">&times;</span>
-            <input type="text" placeholder="Enter Username">
-            <input type="password" placeholder="Enter Password">
-            <input type="password" placeholder="Verify Password">
-            <button class="loginSubmit" type="submit">Register</button>
+            <input type="text" id="registerUsername" placeholder="Enter Username" required>
+            <input type="password" id="registerPassword" placeholder="Enter Password" required>
+            <input type="password" placeholder="Verify Password" required>
+            <input type="email" id="registerEmail" placeholder="Enter Email Address" required>
+            <button class="registerSubmit" type="submit">Register</button>
         </form>
     </div>
 
     <div id="mapheader">
         <ul id="nav">
-            <li><a href="#" onclick="goHome()">Home</a></li>
-            <li><a href="#" onclick="popupLogin()">Log In</a></li>
-            <li><a href="#" onclick="popupRegister()">Register</a></li>
+            <c:choose>
+                <c:when test="${empty loggedInUser}">
+                    <li><a href="#" onclick="goHome()">Home</a></li>
+                    <li><a href="#" onclick="popupLogin()">Log In</a></li>
+                    <li><a href="#" onclick="popupRegister()">Register</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li><a href="#" onclick="goHome()">Home</a></li>
+                    <li>Welcome ${username}</li>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </div>
 
@@ -45,7 +55,7 @@
 
     <div id="usercontrol">
         <div id="welcomeDiv">
-            <h1 id="welcomeMessage">Welcome <br/> to <br/> Team Falcon's <br/> Project</h1>
+            <h1 id="welcomeMessage">Welcome <br/> to <br/> Team Falcon's <br/> Project. <br/> Click on a state to continue.</h1>
         </div>
         <div id="buttons">
             <button class="algoButtons" type="button" style="margin-right: 20px;">Update</button>

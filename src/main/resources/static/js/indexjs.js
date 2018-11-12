@@ -32,3 +32,40 @@ function closeRegister() {
     var registerBox = document.getElementById("registerDiv");
     registerBox.style.display = "none";
 }
+
+$('.registerSubmit').click(function () {
+    var username = $("#registerUsername").val();
+    var password = $("#registerPassword").val();
+    var email = $("#registerEmail").val();
+    $.post("/register", {username : username, password: password, email : email}, function() {
+        alert("Successful");
+    })
+});
+
+// $('.loginSubmit').click(function () {
+//     var username = $("#loginUsername").val();
+//     var password = $("#loginPassword").val();
+//     $.post("/login", {username : username, password : password}, function () {
+//         alert("Successful");
+//     })
+// });
+
+
+$('.loginSubmit').click(function () {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '/login', false);
+
+    var formData = new FormData(document.getElementById("logincontent"));
+    xhr.send(formData);
+});
+
+
+
+
+
+
+
+
+
+
+

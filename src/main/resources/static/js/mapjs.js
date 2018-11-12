@@ -28,17 +28,6 @@ var continents = L.geoJSON(continentsgeo, {
     }
 }).addTo(mymap);
 
-//L.geoJSON(kansasgeo, {
-//    style: function (feature) {
-//        if (feature.properties.KS_GEO_ID === 1) {
-//            return {fillColor: "red"};
-//        }
-//        if (feature.properties.KS_GEO_ID === 2) {
-//            return {fillColor: "black"};
-//        }
-//    }
-//});
-
 
 var initialStyle = {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1};
 
@@ -112,6 +101,10 @@ kansasEvent.on('click', function(event) {
         coloradoEvent.setStyle({fillColor: "blue", fillOpacity: 1});
         missouriEvent.setStyle({fillColor: "blue", fillOpacity: 1});
         mymap.fitBounds(event.layer.getBounds());
+        mymap.dragging.enable();
+        mymap.doubleClickZoom.enable();
+        mymap.scrollWheelZoom.enable();
+        zoomKansas();
     }
 });
 
@@ -170,6 +163,7 @@ missouriEvent.on('mouseout', function () {
     }
 });
 
+
 function goHome() {
     onColorado = false;
     onKansas = false;
@@ -185,3 +179,42 @@ function goHome() {
     document.getElementById("welcomeDiv").style.display = "block";
     document.getElementById("algorithmChoiceDiv").style.display = "none";
 }
+
+// function zoomKansas() {
+//     L.geoJSON(kansasgeo, {
+//         style: function (feature) {
+//             if (feature.properties.KS_GEO_ID === 7) {
+//                 return {fillColor: "red", fillOpacity: 1, color: "black"};
+//             }
+//             else if (feature.properties.KS_GEO_ID === 8) {
+//                 return {fillColor: "yellow", fillOpacity: 1, color: "black"};
+//             }
+//             else if (feature.properties.KS_GEO_ID === 11) {
+//                 return {fillColor: "green", fillOpacity: 1, color: "black"};
+//             }
+//             else if (feature.properties.KS_GEO_ID === 10) {
+//                 return {fillColor: "purple", fillOpacity: 1, color: "black"};
+//             } else {
+//                 return {color: "black"}
+//             }
+//         }
+//     }).addTo(mymap);
+// }
+
+
+// L.geoJSON(kansasgeo, {
+//    style: function (feature) {
+//        if (feature.properties.KS_GEO_ID === 6) {
+//            return {fillColor: "red", fillOpacity: 1};
+//        }
+//        if (feature.properties.KS_GEO_ID === 7) {
+//            return {fillColor: "black", fillOpacity: 1};
+//        }
+//        if (feature.properties.KS_GEO_ID === 10) {
+//            return {fillColor: "green", fillOpacity: 1};
+//        }
+//        if (feature.properties.KS_GEO_ID === 9) {
+//            return {fillColor: "purple", fillOpacity: 1};
+//        }
+//    }
+// }).addTo(mymap);
