@@ -50,12 +50,23 @@
         </ul>
     </div>
 
+    <div id="infoPopup">
+        <p class="precinctInfo" id="population"></p>
+    </div>
+
     <div id="mapid"></div>
 
 
     <div id="usercontrol">
         <div id="welcomeDiv">
-            <h1 id="welcomeMessage">Welcome <br/> to <br/> Team Falcon's <br/> Project. <br/> Click on a state to continue.</h1>
+            <h1 id="welcomeMessage">Welcome <br/> to <br/> Team Falcon's <br/> Project. <br/> Click on/select a state to continue.</h1>
+            <select id="stateSelectMenu">
+                <option value="colorado">Colorado</option>
+                <option value="kansas">Kansas</option>
+                <option value="missouri">Missouri</option>
+            </select>
+            <button id="selectStateSubmit">Go</button>
+
             <button class="colorChange" value="red">Red</button>
             <button class="colorChange" value="blue">Blue</button>
             <button class="colorChange" value="white">White</button>
@@ -93,7 +104,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="/js/us-states.js"></script>
     <script src="/js/continents.js"></script>
+    <script src="/js/CO_final.js"></script>
     <script src="/js/KS_final.js"></script>
+    <script src="/js/mo_final.js"></script>
     <script src="/js/Colorado.js"></script>
     <script src="/js/Kansas.js"></script>
     <script src="/js/Missouri.js"></script>

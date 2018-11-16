@@ -202,9 +202,17 @@ input[type=text], input[type=password] {
 }
 
 
-
-
-
+#infoPopup {
+    display: none;
+    position: absolute;
+    height: 100px;
+    width: auto;
+    margin-top: 3%;
+    margin-left: 60%;
+    z-index: 3;
+    background-color: black;
+    color: white;
+}
 
 
 
