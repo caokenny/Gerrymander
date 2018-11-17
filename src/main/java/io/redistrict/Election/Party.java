@@ -4,5 +4,5 @@ public enum Party {
     DEMOCRAT,
     REPUBLICAN,
     GREEN,
-    OTHER;
+    OTHER
 }
