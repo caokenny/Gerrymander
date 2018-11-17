@@ -1,4 +1,4 @@
-package io.redistrict.RegionGrowing.RgServices;
+package io.redistrict.RegionGrowing.RgUtilities;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

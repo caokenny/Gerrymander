@@ -1,8 +1,7 @@
-package io.redistrict.RegionGrowing.RgServices;
+package io.redistrict.RegionGrowing.RgUtilities;
 
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 import java.util.stream.IntStream;
 
 public class ColorRandomizer {

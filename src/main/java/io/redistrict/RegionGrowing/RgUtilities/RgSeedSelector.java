@@ -1,4 +1,4 @@
-package io.redistrict.RegionGrowing.RgServices;
+package io.redistrict.RegionGrowing.RgUtilities;
 
 import io.redistrict.Territory.Precinct;
 
