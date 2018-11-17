@@ -1,4 +1,6 @@
-package io.redistrict.backend;
+package io.redistrict.Territory;
+
+import io.redistrict.Election.ElectionData;
 
 import java.util.Collection;
 import java.util.List;
@@ -19,12 +21,7 @@ public class Precinct {
         this.population = population;
         this.precinctId = precinctId;
     }
-    public Map<Party, Integer> getElectionResults(ElectionType eType){
 
-    }
-    public Party getWinningParty(ElectionType eType){
-
-    }
     public Collection<Precinct> getNeighbors(){
         return neighbors;
     }
@@ -38,9 +35,7 @@ public class Precinct {
     public int getParentDistrictID() {
         return parentDistrictID;
     }
-    public void updatePrecinct(District newDistrict){
 
-    }
     public Precinct getRandomNeighbor(){
         int i = neighbors.size();
         Random rand = new Random();
