@@ -8,22 +8,23 @@ import io.redistrict.Utils.NeighborsPropertiesLoader;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.awt.*;
 import java.util.Set;
 
 @Controller
+@RequestMapping("hi")
 public class RegionGrowingController {
 
-    @RequestMapping(value ="/pickRgSeed", method = RequestMethod.GET)
+    @RequestMapping("/pickrgseed")
     @ResponseBody
-    public String assignSeedDistrict(String stateName, int numOfSeed){
+    public String assignSeedDistrict(String stateName , int numOfSeed){
         Set<Precinct> precinctSet = NeighborsPropertiesLoader.getPrecincts("src/main/resources/MO_Neighbors.properties");
-        Set<Color> colorSet = ColorRandomizer.pickRandomColors(3);
-        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(precinctSet,3);
+        Set<Color> colorSet = ColorRandomizer.pickRandomColors(numOfSeed);
+        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(precinctSet,numOfSeed);
         JSONObject initSeedJson = JsonColorConverter.precinctColorToJson(colorSet,seeds);
         return initSeedJson.toString();
+
     }
 }
