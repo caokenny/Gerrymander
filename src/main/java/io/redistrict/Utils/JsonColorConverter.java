@@ -1,10 +1,13 @@
-package io.redistrict.RegionGrowing.RgUtilities;
+package io.redistrict.Utils;
 
+import io.redistrict.Territory.Precinct;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.awt.*;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.stream.IntStream;
 
 
 public class JsonColorConverter {
@@ -25,5 +28,19 @@ public class JsonColorConverter {
         });
         resultObj.put("Colors",colorsJsonArr);
         return resultObj;
+    }
+    public static JSONObject precinctColorToJson(Collection<Color> colors, Collection<Precinct> precincts){
+        if(colors.size() != precincts.size())
+            return null;
+
+        JSONObject colorJson = convertToJson(colors);
+        JSONArray colorsArrJson = colorJson.getJSONArray("Colors");
+        Iterator<Precinct> precinctIterator =  precincts.iterator();
+
+        for(int index = 0 ; precinctIterator.hasNext();index ++){
+          JSONObject colorArrElement = colorsArrJson.getJSONObject(index);
+          colorArrElement.put("precinctID",precinctIterator.next().getPrecinctId());
+        }
+        return colorJson;
     }
 }

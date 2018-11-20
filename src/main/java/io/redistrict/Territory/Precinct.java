@@ -21,6 +21,12 @@ public class Precinct {
         this.population = population;
         this.precinctId = precinctId;
     }
+    public Precinct(int precinctId){
+        this.precinctId = precinctId;
+    }
+    public Precinct(String precinctId){
+        this.precinctId = Integer.parseInt(precinctId);
+    }
 
     public Collection<Precinct> getNeighbors(){
         return neighbors;
@@ -44,5 +50,10 @@ public class Precinct {
     }
     public int getPrecinctId(){
         return precinctId;
+    }
+
+    @Override
+    public String toString() {
+        return "Precinct id= "+precinctId;
     }
 }
