@@ -1,6 +1,7 @@
 package io.redistrict.backend;
 
 import java.util.Map;
+import java.util.Random;
 
 public class State {
     private int population;
@@ -19,7 +20,7 @@ public class State {
      * @return numbero of districts
      */
     public int getNumDistrict(){
-
+        return districts.size
     }
 
     /**
@@ -29,7 +30,12 @@ public class State {
     public String getStateName(){
         return stateName;
     }
+    public State getSimulatedState(){
+        while(badMoves < 25){
+            District district = getRandomDistrict();
 
+        }
+    }
     /**
      * Returns the state after it was simulated and modified
      * @return modified State
@@ -56,7 +62,10 @@ public class State {
 
     }
     public District getRandomDistrict(){
-
+        int numDistricts = districts.size();
+        Random rand = new Random();
+        int n = rand.nextInt(numDistricts) + 0;
+        return districts.get(n);
     }
     public void addToMoveStack(Move move){
 
