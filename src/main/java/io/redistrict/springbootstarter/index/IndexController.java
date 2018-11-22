@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @Controller
+@RequestMapping("/index")
 public class IndexController {
 
     @RequestMapping("/")
