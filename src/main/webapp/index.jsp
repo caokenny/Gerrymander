@@ -73,7 +73,7 @@
         </div>
         <div id="buttons">
             <button class="algoButtons" type="button" style="margin-right: 20px;">Update</button>
-            <button class="algoButtons" type="button">Run</button>
+            <button class="algoButtons" type="button" id="runButton">Run</button>
         </div>
         <div id="algorithmChoiceDiv">
             <select id="algorithmChoice">
