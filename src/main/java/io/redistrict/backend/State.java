@@ -20,7 +20,7 @@ public class State {
      * @return numbero of districts
      */
     public int getNumDistrict(){
-        return districts.size
+        return districts.size();
     }
 
     /**
@@ -33,16 +33,15 @@ public class State {
     public State getSimulatedState(){
         while(badMoves < 25){
             District district = getRandomDistrict();
-
+            district.modifyDistrict();
+            int newScore = getDistrictScore(district);
+            if(newScore > )
         }
     }
     /**
      * Returns the state after it was simulated and modified
      * @return modified State
      */
-    public State getSimulatedState(){
-        return this;
-    }
     public Map<Integer, Precinct> getAllPrecincts() {
         return allPrecincts;
     }
@@ -73,7 +72,7 @@ public class State {
     public void addToDistrictList(District district){
 
     }
-    public void executeMove(Mve move){
+    public void executeMove(Move move){
 
     }
     public float calculateIdealPop(){

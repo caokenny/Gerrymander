@@ -65,6 +65,7 @@ public class District {
         population += precinct.getPopulation();
         //Need to add the new precinct's election vote results into this districts precinvt vote results hash
         //Change new border precincts. Add new precincts data into election Result
+
     }
 
     /**
@@ -118,6 +119,10 @@ public class District {
      */
     public Precinct getRandomPrecinct(){
         //Return a random precinct
+        int numPrecincts = precincts.size();
+        Random rand = new Random();
+        int n = rand.nextInt(numPrecincts) + 0;
+        return precincts.get(n);
     }
 
     /**
@@ -127,6 +132,12 @@ public class District {
      */
     public boolean removeAdjPrec(Precinct precinct){
 
+    }
+    public Precinct modifyDistrict(){
+        Precinct precinct = getRandomPrecinct();
+        Precinct pNeighbor = precinct.getRandomNeighbor();
+        addPrecinct(pNeighbor);
+        Move move = new Move
     }
 
 }
