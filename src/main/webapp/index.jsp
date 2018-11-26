@@ -67,9 +67,8 @@
             </select>
             <button id="selectStateSubmit">Go</button>
 
-            <button class="colorChange" value="red">Red</button>
-            <button class="colorChange" value="blue">Blue</button>
-            <button class="colorChange" value="white">White</button>
+            <button class="colorChange">Change Color</button>
+            <button class="connect">Connect</button>
         </div>
         <div id="buttons">
             <button class="algoButtons" type="button" style="margin-right: 20px;">Update</button>
@@ -102,6 +101,9 @@
             integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
             crossorigin=""></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/js/us-states.js"></script>
     <script src="/js/continents.js"></script>
     <script src="/js/CO_final.js"></script>

@@ -1,6 +1,10 @@
 package io.redistrict.springbootstarter.index;
 
 import io.redistrict.user.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,13 +19,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @Controller
-@RequestMapping("/index")
 public class IndexController {
 
-    @RequestMapping("/")
-    public String home() {
-        return "index";
-    }
+//    @RequestMapping("/")
+//    public String home() {
+//        return "index";
+//    }
 
     @PostMapping("/register")
     public String register(HttpServletRequest request) {
@@ -48,10 +51,19 @@ public class IndexController {
         return "redirect:/index";
     }
 
-    @PostMapping("/color")
-    @ResponseBody
-    public String colorChange(@RequestParam("color") String color) {
-//        System.out.println(color);
-        return color;
+    @Autowired
+    private SimpMessagingTemplate template;
+
+    @MessageMapping("/color")
+    public void color() throws InterruptedException {
+        for (int i = 0; i < 5; i++) {
+            if (i % 2 == 0) {
+                this.template.convertAndSend("/index/change", "red");
+                Thread.sleep(1000);
+            } else {
+                this.template.convertAndSend("/index/change", "blue");
+                Thread.sleep(1000);
+            }
+        }
     }
 }
