@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.awt.*;
@@ -18,15 +19,19 @@ import java.util.Set;
 @RequestMapping("/rg")
 public class RegionGrowingController {
 
-    @RequestMapping("/pickrgseed")
+    @RequestMapping(value = "/pickrgseed", method = RequestMethod.GET)
     @ResponseBody
-    public String assignSeedDistrict(/*String stateName , */@RequestParam("seeds") String seedsRequest){
-        int numOfSeed = Integer.parseInt(seedsRequest);
+    public String assignSeedDistrict(String stateName , String numOfSeed){
+        int seedNum = Integer.parseInt(numOfSeed);
         Set<Precinct> precinctSet = NeighborsPropertiesLoader.getPrecincts("src/main/resources/MO_Neighbors.properties");
-        Set<Color> colorSet = ColorRandomizer.pickRandomColors(numOfSeed);
-        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(precinctSet,numOfSeed);
+        Set<Color> colorSet = ColorRandomizer.pickRandomColors(seedNum);
+        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(precinctSet,seedNum);
         JSONObject initSeedJson = JsonColorConverter.precinctColorToJson(colorSet,seeds);
-        return initSeedJson.toString();
+
+        if(initSeedJson !=null ){
+            return initSeedJson.toString();}
+
+        return "{}";
 
     }
 }

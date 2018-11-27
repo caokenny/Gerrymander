@@ -22,8 +22,6 @@ public class NeighborsPropertiesLoader {
             prop.load(inputFile);
             Set<String> pID = prop.stringPropertyNames();
             pID.forEach(id -> resultSet.add(new Precinct(id)));
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
         }catch (IOException e){
             e.printStackTrace();
         }

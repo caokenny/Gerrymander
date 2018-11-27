@@ -39,7 +39,7 @@ public class JsonColorConverter {
 
         for(int index = 0 ; precinctIterator.hasNext();index ++){
           JSONObject colorArrElement = colorsArrJson.getJSONObject(index);
-          colorArrElement.put("precinctID",precinctIterator.next().getPrecinctId());
+          colorArrElement.put("GEOID10",precinctIterator.next().getGeoID10());
         }
         return colorJson;
     }

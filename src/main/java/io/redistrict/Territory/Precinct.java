@@ -11,6 +11,7 @@ public class Precinct {
 
     private int population;
     private int precinctId;
+    private String geoID10;
     private List<ElectionData> electionData;
     private List<Precinct> neighbors;
     private int parentDistrictID;
@@ -21,11 +22,11 @@ public class Precinct {
         this.population = population;
         this.precinctId = precinctId;
     }
-    public Precinct(int precinctId){
+    /*public Precinct(int precinctId){
         this.precinctId = precinctId;
-    }
-    public Precinct(String precinctId){
-        this.precinctId = Integer.parseInt(precinctId);
+    }*/
+    public Precinct(String geoID10){
+        this.geoID10 = geoID10;
     }
 
     public Collection<Precinct> getNeighbors(){
@@ -50,6 +51,14 @@ public class Precinct {
     }
     public int getPrecinctId(){
         return precinctId;
+    }
+
+    public String getGeoID10() {
+        return geoID10;
+    }
+
+    public void setGeoID10(String geoID10) {
+        this.geoID10 = geoID10;
     }
 
     @Override
