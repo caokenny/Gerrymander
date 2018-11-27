@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8b5a9a6-0ca3-4947-ac6a-ca97b97b2692" name="Default" comment="seedSelection mostly done. Need clean Data from jin to complete">
+    <list default="true" id="e8b5a9a6-0ca3-4947-ac6a-ca97b97b2692" name="Default" comment="- made changes to precinct class to take a geoid10 value&#10;- return for rgcontroller is now on geoid10 instead of precinctID&#10;- note few geoID10 have characters included">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborsPropertiesLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborsPropertiesLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/MO_Neighbors.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MO_Neighbors.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/MO_Neighbors.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/springbootstarter/CourseApiApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/springbootstarter/CourseApiApp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/springbootstarter/index/IndexController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/springbootstarter/index/IndexController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonColorConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonColorConverter.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -254,7 +250,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="1" />
-          <entry key="java" value="72" />
+          <entry key="java" value="73" />
           <entry key="js" value="3" />
           <entry key="jsp" value="2" />
           <entry key="properties" value="10" />
@@ -265,7 +261,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="72" />
+          <entry key="JAVA" value="73" />
           <entry key="JSP" value="2" />
           <entry key="JavaScript" value="3" />
           <entry key="PLAIN_TEXT" value="2" />
@@ -276,15 +272,15 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="86" />
-          <entry key="java" value="6377" />
-          <entry key="txt" value="371" />
+          <entry key="java" value="6503" />
+          <entry key="txt" value="737" />
           <entry key="xml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="6377" />
-          <entry key="PLAIN_TEXT" value="457" />
+          <entry key="JAVA" value="6503" />
+          <entry key="PLAIN_TEXT" value="823" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
@@ -310,8 +306,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="28" column="35" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
+            <state relative-caret-position="255">
+              <caret line="31" column="44" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -320,10 +316,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonColorConverter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="129">
+              <caret line="31" column="29" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2">
-              <caret line="39" column="5" lean-forward="true" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+            <state relative-caret-position="217">
+              <caret line="55" column="32" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
               <folding>
                 <element signature="e#745#746#0" expanded="true" />
                 <element signature="e#789#790#0" expanded="true" />
@@ -337,6 +342,9 @@
                 <element signature="e#1094#1095#0" expanded="true" />
                 <element signature="e#1314#1315#0" expanded="true" />
                 <element signature="e#1347#1348#0" expanded="true" />
+                <element signature="e#1394#1395#0" expanded="true" />
+                <element signature="e#1440#1441#0" expanded="true" />
+                <element signature="e#1478#1479#0" expanded="true" />
                 <element signature="e#1393#1394#0" expanded="true" />
                 <element signature="e#1442#1443#0" expanded="true" />
               </folding>
@@ -425,7 +433,6 @@
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgUtilities/ColorRandomizer.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborFileLoader.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/FileLoaderTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonColorConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/testClass.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/Test.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/index/testController.java" />
@@ -435,6 +442,7 @@
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/index/IndexController.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborsPropertiesLoader.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonColorConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java" />
       </list>
     </option>
@@ -568,7 +576,7 @@
     <property name="SearchEverywhereHistoryKey" value="application context&#9;PSI&#9;JAVA://org.apache.catalina.core.ApplicationContext" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543304711706" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543305568305" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -798,7 +806,14 @@
       <option name="project" value="LOCAL" />
       <updated>1542688410089</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="-update change to take string for num of seeds and parse to integer instead&#10;-updated neighbors properties file to use geoid_10">
+      <created>1543304944479</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1543304944479</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -807,7 +822,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131162000" />
+    <option name="totallyTimeSpent" value="131871000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -820,6 +835,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="40" y="23" width="1280" height="739" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49744898" visible="true" weight="0.30613893" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -831,7 +847,7 @@
       <window_info id="Web" order="7" sideWeight="0.502551" side_tool="true" weight="0.18174475" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3292683" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49919224" visible="true" weight="0.36012363" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49919224" weight="0.36012363" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39911798" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -842,7 +858,7 @@
       <window_info anchor="bottom" id="Java Enterprise" order="10" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="12" weight="0.33197278" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.32655826" />
+      <window_info active="true" anchor="bottom" id="Messages" order="13" visible="true" weight="0.32612056" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24973376" />
@@ -904,7 +920,9 @@
     <MESSAGE value="started rgController. added Mo_neighor file." />
     <MESSAGE value="cleaned neighbor files to properties file." />
     <MESSAGE value="seedSelection mostly done. Need clean Data from jin to complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="seedSelection mostly done. Need clean Data from jin to complete" />
+    <MESSAGE value="-update change to take string for num of seeds and parse to integer instead&#10;-updated neighbors properties file to use geoid_10" />
+    <MESSAGE value="- made changes to precinct class to take a geoid10 value&#10;- return for rgcontroller is now on geoid10 instead of precinctID&#10;- note few geoID10 have characters included" />
+    <option name="LAST_COMMIT_MESSAGE" value="- made changes to precinct class to take a geoid10 value&#10;- return for rgcontroller is now on geoid10 instead of precinctID&#10;- note few geoID10 have characters included" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/IndexController.java" />
@@ -1030,13 +1048,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/FileLoaderTest.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/testClass.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/Test.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonColorConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgUtilities/ColorRandomizer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1118,10 +1129,17 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/MO_Neighbors.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborsPropertiesLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2">
-          <caret line="39" column="5" lean-forward="true" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+        <state relative-caret-position="217">
+          <caret line="55" column="32" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
           <folding>
             <element signature="e#745#746#0" expanded="true" />
             <element signature="e#789#790#0" expanded="true" />
@@ -1135,23 +1153,26 @@
             <element signature="e#1094#1095#0" expanded="true" />
             <element signature="e#1314#1315#0" expanded="true" />
             <element signature="e#1347#1348#0" expanded="true" />
+            <element signature="e#1394#1395#0" expanded="true" />
+            <element signature="e#1440#1441#0" expanded="true" />
+            <element signature="e#1478#1479#0" expanded="true" />
             <element signature="e#1393#1394#0" expanded="true" />
             <element signature="e#1442#1443#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborsPropertiesLoader.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonColorConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+        <state relative-caret-position="129">
+          <caret line="31" column="29" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="28" column="35" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
+        <state relative-caret-position="255">
+          <caret line="31" column="44" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -26,7 +26,11 @@ public class RegionGrowingController {
         Set<Color> colorSet = ColorRandomizer.pickRandomColors(seedNum);
         Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(precinctSet,seedNum);
         JSONObject initSeedJson = JsonColorConverter.precinctColorToJson(colorSet,seeds);
-        return initSeedJson.toString();
+
+        if(initSeedJson !=null ){
+            return initSeedJson.toString();}
+
+        return "{}";
 
     }
 }
