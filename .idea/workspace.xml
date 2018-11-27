@@ -3,6 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="e8b5a9a6-0ca3-4947-ac6a-ca97b97b2692" name="Default" comment="seedSelection mostly done. Need clean Data from jin to complete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborsPropertiesLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborsPropertiesLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/MO_Neighbors.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MO_Neighbors.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/MO_Neighbors.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/springbootstarter/CourseApiApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/springbootstarter/CourseApiApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/springbootstarter/index/IndexController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/springbootstarter/index/IndexController.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -247,36 +254,36 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="1" />
-          <entry key="java" value="68" />
+          <entry key="java" value="72" />
           <entry key="js" value="3" />
           <entry key="jsp" value="2" />
-          <entry key="properties" value="9" />
-          <entry key="txt" value="1" />
+          <entry key="properties" value="10" />
+          <entry key="txt" value="2" />
           <entry key="xml" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="68" />
+          <entry key="JAVA" value="72" />
           <entry key="JSP" value="2" />
           <entry key="JavaScript" value="3" />
-          <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Properties" value="9" />
+          <entry key="PLAIN_TEXT" value="2" />
+          <entry key="Properties" value="10" />
           <entry key="XML" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="86" />
-          <entry key="java" value="6171" />
+          <entry key="java" value="6377" />
           <entry key="txt" value="371" />
           <entry key="xml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="6171" />
+          <entry key="JAVA" value="6377" />
           <entry key="PLAIN_TEXT" value="457" />
           <entry key="XML" value="2" />
         </counts>
@@ -290,12 +297,21 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborsPropertiesLoader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="203">
+              <caret line="28" column="35" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -303,28 +319,26 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/CourseApiApp.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/index/IndexController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="48" column="5" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
+            <state relative-caret-position="-2">
+              <caret line="39" column="5" lean-forward="true" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
               <folding>
-                <element signature="e#702#703#0" expanded="true" />
-                <element signature="e#732#733#0" expanded="true" />
+                <element signature="e#745#746#0" expanded="true" />
+                <element signature="e#789#790#0" expanded="true" />
+                <element signature="e#838#839#0" expanded="true" />
+                <element signature="e#870#871#0" expanded="true" />
+                <element signature="e#902#903#0" expanded="true" />
+                <element signature="e#935#936#0" expanded="true" />
+                <element signature="e#978#979#0" expanded="true" />
+                <element signature="e#1015#1016#0" expanded="true" />
+                <element signature="e#1055#1056#0" expanded="true" />
+                <element signature="e#1094#1095#0" expanded="true" />
+                <element signature="e#1314#1315#0" expanded="true" />
+                <element signature="e#1347#1348#0" expanded="true" />
+                <element signature="e#1393#1394#0" expanded="true" />
+                <element signature="e#1442#1443#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -364,7 +378,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Kenny" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
   </component>
@@ -410,17 +424,17 @@
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgServices/RgSeedSelector.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgUtilities/ColorRandomizer.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborFileLoader.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborsPropertiesLoader.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/FileLoaderTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonColorConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/testClass.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/Test.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/index/testController.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/index/testcontroller.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/index/RegionGrowingController.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/CourseApiApp.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/index/IndexController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborsPropertiesLoader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java" />
       </list>
     </option>
@@ -456,9 +470,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="40" />
     <option name="y" value="23" />
     <option name="width" value="1280" />
-    <option name="height" value="719" />
+    <option name="height" value="739" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -468,6 +483,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -478,13 +494,67 @@
             <path>
               <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
               <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="redistrict" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="redistrict" type="462c0819:PsiDirectoryNode" />
+              <item name="RegionGrowing" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="redistrict" type="462c0819:PsiDirectoryNode" />
+              <item name="Territory" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="redistrict" type="462c0819:PsiDirectoryNode" />
+              <item name="Utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -498,7 +568,7 @@
     <property name="SearchEverywhereHistoryKey" value="application context&#9;PSI&#9;JAVA://org.apache.catalina.core.ApplicationContext" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542921218442" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543304711706" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -510,22 +580,22 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="io.redistrict.RegionGrowing" />
+      <recent name="io.redistrict.RegionGrowing.RgServices" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="io.redistrict.springbootstarter.index" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/webapp" />
       <recent name="$PROJECT_DIR$/src/main/resources/templates" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp" />
       <recent name="$PROJECT_DIR$/src/main/resources/json" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="io.redistrict.RegionGrowing" />
-      <recent name="io.redistrict.RegionGrowing.RgServices" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="io.redistrict.springbootstarter.index" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -543,6 +613,20 @@
   <component name="RunManager" selected="Spring Boot.CourseApiApp">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CourseApiApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="io.redistrict.springbootstarter.CourseApiApp" />
+      <module name="CSE308" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.redistrict.springbootstarter.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -601,9 +685,12 @@
     <list>
       <item itemvalue="Application.Unnamed" />
       <item itemvalue="Spring Boot.CourseApiApp" />
+      <item itemvalue="Application.CourseApiApp" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.CourseApiApp" />
+        <item itemvalue="Application.CourseApiApp" />
         <item itemvalue="Spring Boot.CourseApiApp" />
         <item itemvalue="Spring Boot.CourseApiApp" />
       </list>
@@ -720,7 +807,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128423000" />
+    <option name="totallyTimeSpent" value="131162000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -732,10 +819,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="719" extended-state="6" />
-    <editor active="true" />
+    <frame x="40" y="23" width="1280" height="739" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49744898" visible="true" weight="0.2786753" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49744898" visible="true" weight="0.30613893" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -745,7 +831,7 @@
       <window_info id="Web" order="7" sideWeight="0.502551" side_tool="true" weight="0.18174475" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3292683" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49919224" weight="0.36163175" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49919224" visible="true" weight="0.36012363" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39911798" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -903,11 +989,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/MO_Neighbors.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-763" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Election/Party.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -946,21 +1027,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/MO_Neighbors.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-71758" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/FileLoaderTest.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/testClass.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/Test.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborsPropertiesLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonColorConverter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="585">
@@ -979,13 +1048,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="14" column="82" selection-start-line="14" selection-start-column="82" selection-end-line="14" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="56" column="42" selection-start-line="56" selection-start-column="42" selection-end-line="56" selection-end-column="42" />
         </state>
       </provider>
     </entry>
@@ -1033,16 +1095,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/index/RegionGrowingController.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/index/testcontroller.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/CourseApiApp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1054,15 +1106,57 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="48" column="5" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
-          <folding>
-            <element signature="e#702#703#0" expanded="true" />
-            <element signature="e#732#733#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/MO_Neighbors.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/MO_Neighbors.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2">
+          <caret line="39" column="5" lean-forward="true" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+          <folding>
+            <element signature="e#745#746#0" expanded="true" />
+            <element signature="e#789#790#0" expanded="true" />
+            <element signature="e#838#839#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
+            <element signature="e#902#903#0" expanded="true" />
+            <element signature="e#935#936#0" expanded="true" />
+            <element signature="e#978#979#0" expanded="true" />
+            <element signature="e#1015#1016#0" expanded="true" />
+            <element signature="e#1055#1056#0" expanded="true" />
+            <element signature="e#1094#1095#0" expanded="true" />
+            <element signature="e#1314#1315#0" expanded="true" />
+            <element signature="e#1347#1348#0" expanded="true" />
+            <element signature="e#1393#1394#0" expanded="true" />
+            <element signature="e#1442#1443#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborsPropertiesLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="28" column="35" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

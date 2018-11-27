@@ -10,22 +10,23 @@ import java.util.Set;
 public class Precinct {
 
     private int population;
-    private int precinctId;
+    //private int precinctId;
+    private String precinctId;
     private List<ElectionData> electionData;
     private List<Precinct> neighbors;
     private int parentDistrictID;
     private Set<Precinct> borderPrecincts;
     private boolean isBorder;
 
-    public Precinct(int population, int precinctId){
+    public Precinct(int population, String precinctId){
         this.population = population;
         this.precinctId = precinctId;
     }
-    public Precinct(int precinctId){
+    /*public Precinct(int precinctId){
         this.precinctId = precinctId;
-    }
+    }*/
     public Precinct(String precinctId){
-        this.precinctId = Integer.parseInt(precinctId);
+        this.precinctId = precinctId;
     }
 
     public Collection<Precinct> getNeighbors(){
@@ -48,7 +49,7 @@ public class Precinct {
         int n = rand.nextInt(i) - 1;
         return neighbors.get(n);
     }
-    public int getPrecinctId(){
+    public String getPrecinctId(){
         return precinctId;
     }
 
