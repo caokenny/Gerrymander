@@ -9,7 +9,8 @@ public class Precinct {
 
     private int population;
     private int precinctId;
-//    private List<ElectionData> electionData;
+    private String geoID10;
+    private List<ElectionData> electionData;
     private List<Precinct> neighbors;
     private int parentDistrictID;
     private Set<Precinct> borderPrecincts;
@@ -20,19 +21,20 @@ public class Precinct {
         this.population = population;
         this.precinctId = precinctId;
     }
-//    public Map<Party, Integer> getElectionResults(ElectionType eType){
-//
-//    }
-//    public Party getWinningParty(ElectionType eType){
-//
-//    }
+    public Precinct(int precinctId){
+        this.precinctId = precinctId;
+    }
+    public Precinct(String geoID10){
+        this.geoID10 = geoID10;
+    }
+
     public Collection<Precinct> getNeighbors(){
         return neighbors;
     }
     public int getPopulation(){
         return population;
     }
-    public void setParentDistrictId(int id){
+    public void setParentDistrict(int id){
         parentDistrictID = id;
     }
 
@@ -56,5 +58,18 @@ public class Precinct {
     }
     public int getPrecinctId(){
         return precinctId;
+    }
+
+    public String getGeoID10() {
+        return geoID10;
+    }
+
+    public void setGeoID10(String geoID10) {
+        this.geoID10 = geoID10;
+    }
+
+    @Override
+    public String toString() {
+        return "Precinct id= "+precinctId;
     }
 }
