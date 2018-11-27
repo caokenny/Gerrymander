@@ -9,29 +9,30 @@ public class Precinct {
 
     private int population;
     private int precinctId;
-    private List<ElectionData> electionData;
+//    private List<ElectionData> electionData;
     private List<Precinct> neighbors;
     private int parentDistrictID;
     private Set<Precinct> borderPrecincts;
     private boolean isBorder;
+    private District parentDistrict;
 
     public Precinct(int population, int precinctId){
         this.population = population;
         this.precinctId = precinctId;
     }
-    public Map<Party, Integer> getElectionResults(ElectionType eType){
-
-    }
-    public Party getWinningParty(ElectionType eType){
-
-    }
+//    public Map<Party, Integer> getElectionResults(ElectionType eType){
+//
+//    }
+//    public Party getWinningParty(ElectionType eType){
+//
+//    }
     public Collection<Precinct> getNeighbors(){
         return neighbors;
     }
     public int getPopulation(){
         return population;
     }
-    public void setParentDistrict(int id){
+    public void setParentDistrictId(int id){
         parentDistrictID = id;
     }
 
@@ -40,6 +41,12 @@ public class Precinct {
     }
     public void updatePrecinct(District newDistrict){
 
+    }
+    public void setParentDistrict(District district){
+        parentDistrict = district;
+    }
+    public District getParentDistrict(){
+        return parentDistrict;
     }
     public Precinct getRandomNeighbor(){
         int i = neighbors.size();

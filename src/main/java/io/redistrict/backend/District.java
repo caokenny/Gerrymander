@@ -7,8 +7,8 @@ public class District {
     private int districtId;
     private int population;
     private Map<Integer, Precinct> precincts;
-    private Map<Integer, ElectionData> precinctVoteResults;
-    private Map<Party, Integer> electionResult;
+//    private Map<Integer, ElectionData> precinctVoteResults;
+//    private Map<Party, Integer> electionResult;
     private Set<Precinct> borderPrecinct;
 
     public District(int districtId, int population){
@@ -19,42 +19,42 @@ public class District {
      * Iterates through electionResults and gets Party with highest votes
      * @return Winning party of the district
      */
-    public Party getWinningParty(){
-        HashMap<Party, Integer> partyResults = new HashMap<Party, Integer>();
-        Set set = electionResult.entrySet();
-        Iterator iterator = set.iterator();
-        while(iterator.hasNext()){
-            Map.Entry entry = (Map.Entry)iterator.next();
-            if(!partyResults.containsKey(entry.getKey())){
-                //Does not contain the current party in question
-                partyResults.put((Party)entry.getKey(), entry.getValue());
-            }
-            else{
-                //The party is already in our hashmap. Need to update value
-                partyResults.put(entry.getKey(), partyResults.get(entry.getKey()) + (Integer)entry.getValue();
-            }
-        }
-        Party winningParty = null;
-        int max = 0;
-        Set results = partyResults.entrySet();
-        Iterator loop = results.iterator();
-        while(loop.hasNext()){
-            Map.Entry entry = (Map.Entry)iterator.next();
-            if((Integer)entry.getValue() > max){
-                max = (Integer) entry.getValue();
-                winningParty = (Party)entry.getKey();
-            }
-        }
-        return winningParty;
-    }
+//    public Party getWinningParty(){
+//        HashMap<Party, Integer> partyResults = new HashMap<Party, Integer>();
+//        Set set = electionResult.entrySet();
+//        Iterator iterator = set.iterator();
+//        while(iterator.hasNext()){
+//            Map.Entry entry = (Map.Entry)iterator.next();
+//            if(!partyResults.containsKey(entry.getKey())){
+//                //Does not contain the current party in question
+//                partyResults.put((Party)entry.getKey(), entry.getValue());
+//            }
+//            else{
+//                //The party is already in our hashmap. Need to update value
+//                partyResults.put(entry.getKey(), partyResults.get(entry.getKey()) + (Integer)entry.getValue();
+//            }
+//        }
+//        Party winningParty = null;
+//        int max = 0;
+//        Set results = partyResults.entrySet();
+//        Iterator loop = results.iterator();
+//        while(loop.hasNext()){
+//            Map.Entry entry = (Map.Entry)iterator.next();
+//            if((Integer)entry.getValue() > max){
+//                max = (Integer) entry.getValue();
+//                winningParty = (Party)entry.getKey();
+//            }
+//        }
+//        return winningParty;
+//    }
 
     /**
      * Returns a map of <Precincts, ElectionData> in the current district
      * @return Map of Precinct Vote Results (PrecinctID, ElectionData)
      */
-    public Map<Integer, ElectionData> getPrecinctVoteResults(){
-        return precinctVoteResults;
-    }
+//    public Map<Integer, ElectionData> getPrecinctVoteResults(){
+//        return precinctVoteResults;
+//    }
 
     /**
      * Adds the new precinct to the current District
@@ -67,7 +67,9 @@ public class District {
         //Change new border precincts. Add new precincts data into election Result
 
     }
-
+    public int getDistrictId(){
+        return districtId;
+    }
     /**
      * Removes the precinct from our current District
      * @param precinct
@@ -91,9 +93,9 @@ public class District {
      * Returns a map of the Partys and the votes of the current District
      * @return Map of the Partys and number of Votes each party got
      */
-    public Map<Party, Integer> getElectionResult(){
-        return electionResult;
-    }
+//    public Map<Party, Integer> getElectionResult(){
+//        return electionResult;
+//    }
 
     /**
      * Returns a Collection of all Precincts neighboring the District
@@ -101,6 +103,7 @@ public class District {
      */
     public Collection<Precinct> getAdjPrecs(){
         //return a list of all the adjacent neighbors?
+        return null;
     }
 
     /**
@@ -110,6 +113,7 @@ public class District {
      */
     public District makeSeedDistrict(Precinct seed){
         //Call constructor with seed's info to make a new district. return it
+        return null;
     }
 
     /**
@@ -131,13 +135,16 @@ public class District {
      * @return whether the removal was successful or not.
      */
     public boolean removeAdjPrec(Precinct precinct){
-
+        return false;
     }
-    public Precinct modifyDistrict(){
+    public Move modifyDistrict(){
         Precinct precinct = getRandomPrecinct();
         Precinct pNeighbor = precinct.getRandomNeighbor();
         addPrecinct(pNeighbor);
-        Move move = new Move
+        Move move = new Move(pNeighbor, pNeighbor.getParentDistrict(), precinct.getParentDistrict());
+        pNeighbor.setParentDistrict(precinct.getParentDistrict());
+        pNeighbor.setParentDistrictId(precinct.getParentDistrictID());
+        return move;
     }
 
 }

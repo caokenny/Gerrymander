@@ -7,13 +7,14 @@ public class State {
     private int population;
     private String stateName;
     private Map<Integer, District> districts;
-    private Map<Integer, ElectionData> districtVoteResults;
-    private Map<Party, Integer> stateElectionResult;
-    private Stack<Move> moves;
+//    private Map<Integer, ElectionData> districtVoteResults;
+//    private Map<Party, Integer> stateElectionResult;
+//    private Stack<Move> moves;
     private Map<Integer, Precinct> allPrecincts;
     private Map<Integer, Precinct> unassignedPrecincts;
-    private AlgorithmType type;
+//    private AlgorithmType type;
     private Map<District, Float> popScores;
+    private int badMoves = 0;
 
     /**
      * Returns the number of districts in the State
@@ -33,10 +34,18 @@ public class State {
     public State getSimulatedState(){
         while(badMoves < 25){
             District district = getRandomDistrict();
-            district.modifyDistrict();
+            int oldScore = getDistrictScore(district);
+            Move move = district.modifyDistrict();
             int newScore = getDistrictScore(district);
-            if(newScore > )
+            if(newScore > oldScore){
+                addToMoveStack(move);
+            }
+            else{
+                badMoves++;
+                undoLastMove(move);
+            }
         }
+        return this;
     }
     /**
      * Returns the state after it was simulated and modified
@@ -45,20 +54,22 @@ public class State {
     public Map<Integer, Precinct> getAllPrecincts() {
         return allPrecincts;
     }
-    public Map<Party, Integer> getStateVoteResults(){
-        return stateElectionResult;
-    }
-    public Map<Integer, ElectionData> getDistrictVoteResult(){
-        return districtVoteResults;
-    }
+//    public Map<Party, Integer> getStateVoteResults(){
+//        return stateElectionResult;
+//    }
+//    public Map<Integer, ElectionData> getDistrictVoteResult(){
+//        return districtVoteResults;
+//    }
     public int getPopulation(){
         return population;
     }
     public void updatePrecinct(Move move){
 
     }
-    public void undoLastMove(){
-
+    public void undoLastMove(Move move){
+        Precinct p = move.getPrecinct();
+        p.setParentDistrict(move.getSrcDistrict());
+        p.setParentDistrictId(move.getSrcDistrict().getDistrictId());
     }
     public District getRandomDistrict(){
         int numDistricts = districts.size();
@@ -76,13 +87,13 @@ public class State {
 
     }
     public float calculateIdealPop(){
-
+        return 0;
     }
     public float updatePopScores(District source, District dest, float score1, float score2){
-
+        return 0;
     }
     public int getDistrictScore(District d){
-
+        return 0;
     }
     public void updateDistrictScore(float score, District dest){
 

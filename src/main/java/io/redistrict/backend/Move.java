@@ -5,10 +5,18 @@ public class Move {
     private Precinct precinct;
     private District srcDistrict;
     private District dstDistrict;
-    public Move(String stateName, Precinct precinct, District srcDistrict, District dstDistrict){
-        this.stateName = stateName;
+    public Move(Precinct precinct, District srcDistrict, District dstDistrict){
         this.precinct = precinct;
         this.srcDistrict = srcDistrict;
         this.dstDistrict = dstDistrict;
+    }
+    public Precinct getPrecinct(){
+        return precinct;
+    }
+    public District getSrcDistrict(){
+        return srcDistrict;
+    }
+    public District getDstDistrict(){
+        return dstDistrict;
     }
 }
