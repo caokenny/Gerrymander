@@ -137,7 +137,7 @@ html, body {
     width: 400px;
     margin: auto;
     background-color: #fefefe;
-    overflow: none;
+    overflow: hidden;
     border: 1px solid #888;
 }
 
@@ -155,7 +155,7 @@ html, body {
     width: 100%;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
     width: 90%;
     padding: 12px 20px;
     margin: 8px 26px;

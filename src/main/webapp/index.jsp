@@ -24,12 +24,12 @@
     </div>
 
     <div id="registerDiv">
-        <form id="registercontent">
+        <form id="registercontent" method="post">
             <span class="closeLoginBox" onclick="closeRegister()">&times;</span>
-            <input type="text" id="registerUsername" placeholder="Enter Username" required>
-            <input type="password" id="registerPassword" placeholder="Enter Password" required>
-            <input type="password" placeholder="Verify Password" required>
-            <input type="email" id="registerEmail" placeholder="Enter Email Address" required>
+            <input type="text" name="username" id="registerUsername" placeholder="Enter Username" required>
+            <input type="password" name="password" id="registerPassword" placeholder="Enter Password" required>
+            <input type="password" name="verifypassword" id="registerVerifyPassword" placeholder="Verify Password" required>
+            <input type="email" name="email" id="registerEmail" placeholder="Enter Email Address" required>
             <button class="registerSubmit" type="submit">Register</button>
         </form>
     </div>
@@ -45,6 +45,9 @@
                 <c:otherwise>
                     <li><a href="#" onclick="goHome()">Home</a></li>
                     <li>Welcome ${username}</li>
+                    <li><form id="logoutForm">
+                        <button class="logoutButton" type="submit">Logout</button>
+                    </form> </li>
                 </c:otherwise>
             </c:choose>
         </ul>

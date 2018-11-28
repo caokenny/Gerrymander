@@ -34,30 +34,52 @@ function closeRegister() {
 }
 
 $('.registerSubmit').click(function () {
-    var username = $("#registerUsername").val();
-    var password = $("#registerPassword").val();
-    var email = $("#registerEmail").val();
-    $.post("/register", {username : username, password: password, email : email}, function() {
-        alert("Successful");
-    })
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/register", false);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function() {
+        if (xhr.responseText !== "Success") {
+            alert(xhr.responseText);
+        }
+    };
+
+    xhr.send(
+        "username=" + $('#registerUsername').val() +
+        "&password=" + $('#registerPassword').val() +
+        "&verifypassword=" + $('#registerVerifyPassword').val() +
+        "&email=" + $('#registerEmail').val() +
+        "&admin=false");
 });
-
-// $('.loginSubmit').click(function () {
-//     var username = $("#loginUsername").val();
-//     var password = $("#loginPassword").val();
-//     $.post("/login", {username : username, password : password}, function () {
-//         alert("Successful");
-//     })
-// });
-
 
 $('.loginSubmit').click(function () {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", '/login', false);
+    xhr.open("POST", "/login", false);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    var formData = new FormData(document.getElementById("logincontent"));
-    xhr.send(formData);
+    xhr.onreadystatechange = function () {
+        if (xhr.responseText !== "Success") {
+            alert(xhr.responseText);
+        }
+    };
+
+    xhr.send(
+        "username=" + $('#loginUsername') +
+            "&password=" + $('#loginPassword')
+    );
 });
+
+$('.logoutButton').click(function () {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/logout", false);
+
+    xhr.onreadystatechange = function() {
+        $.get("/");
+    };
+
+    xhr.send();
+});
+
 
 var stompClient = null;
 function connect() {

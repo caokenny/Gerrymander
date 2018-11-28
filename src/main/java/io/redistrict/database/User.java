@@ -1,16 +1,24 @@
-package io.redistrict.user;
+package io.redistrict.database;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer id;
     private String username;
     private String password;
     private String email;
+    private boolean admin;
 
-    public User(String username, String password, String email) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
+    public Integer getId() { return this.id; }
+
+    public void setId(Integer id) { this.id = id; }
 
     public String getUsername() {
         return this.username;
@@ -34,6 +42,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean getAdmin() {
+        return this.admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
 
