@@ -1,4 +1,7 @@
-package io.redistrict.backend;
+package io.redistrict.Territory;
+
+import io.redistrict.Election.ElectionData;
+import io.redistrict.Territory.District;
 
 import java.util.Collection;
 import java.util.List;
@@ -71,5 +74,9 @@ public class Precinct {
     @Override
     public String toString() {
         return "Precinct id= "+precinctId;
+    }
+
+    public void setParentDistrictId(int parentDistrictID) {
+        this.parentDistrictID = parentDistrictID;;
     }
 }

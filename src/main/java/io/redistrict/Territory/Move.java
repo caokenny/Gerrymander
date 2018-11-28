@@ -1,4 +1,6 @@
-package io.redistrict.backend;
+package io.redistrict.Territory;
+
+import io.redistrict.Territory.District;
 
 public class Move {
     private String stateName;
