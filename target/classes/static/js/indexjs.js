@@ -64,8 +64,8 @@ $('.loginSubmit').click(function () {
     };
 
     xhr.send(
-        "username=" + $('#loginUsername') +
-            "&password=" + $('#loginPassword')
+        "username=" + $('#loginUsername').val() +
+            "&password=" + $('#loginPassword').val()
     );
 });
 

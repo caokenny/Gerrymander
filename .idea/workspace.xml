@@ -2,32 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="337afbc5-67fb-4788-920c-d8bb0ec4c022" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/database/DatabaseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/database/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/index/IndexController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/CourseApiApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/CourseApiApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/WebSocketConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/index/IndexController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/database/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/database/DatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/database/DatabaseController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/indexjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/indexjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/MO_Neighbors.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MO_Neighbors.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/MO_Neighbors.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgController/RegionGrowingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgController/RegionGrowingController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/Precinct.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/Precinct.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/JsonColorConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/JsonColorConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/NeighborsPropertiesLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/NeighborsPropertiesLoader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/springbootstarter/CourseApiApp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/springbootstarter/WebSocketConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/springbootstarter/index/IndexController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/user/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/css/indexCSS.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/css/indexCSS.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/indexjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/indexjs.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,8 +27,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/database/DatabaseController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="77" column="25" lean-forward="true" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
+            <state relative-caret-position="248">
+              <caret line="61" column="41" lean-forward="true" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,22 +39,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/indexjs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="97" column="38" lean-forward="true" selection-start-line="97" selection-start-column="38" selection-end-line="97" selection-end-column="38" />
+            <state relative-caret-position="272">
+              <caret line="67" column="51" selection-start-line="67" selection-start-column="51" selection-end-line="67" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/index/IndexController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#645#646#0" expanded="true" />
-                <element signature="e#675#676#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="102">
+              <caret line="6" column="36" lean-forward="true" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -134,10 +106,10 @@
         <option value="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/index/IndexController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/database/DatabaseController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/static/js/indexjs.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
       </list>
     </option>
   </component>
@@ -265,7 +237,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543444380634" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543444726911" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RunDashboard">
@@ -323,18 +295,18 @@
       <workItem from="1543250338008" duration="7296000" />
       <workItem from="1543354000331" duration="570000" />
       <workItem from="1543424744142" duration="4780000" />
-      <workItem from="1543431951003" duration="12418000" />
+      <workItem from="1543431951003" duration="12756000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17407000" />
+    <option name="totallyTimeSpent" value="17745000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.1108742" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1108742" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -342,7 +314,7 @@
       <window_info id="Favorites" order="5" side_tool="true" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Web" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run Dashboard" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Run Dashboard" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.31419286" />
@@ -463,6 +435,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="48" column="82" lean-forward="true" selection-start-line="48" selection-start-column="82" selection-end-line="48" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/index/IndexController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
@@ -475,24 +454,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="48" column="82" lean-forward="true" selection-start-line="48" selection-start-column="82" selection-end-line="48" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="24" selection-start-column="24" selection-end-column="24" />
+        <state relative-caret-position="102">
+          <caret line="6" column="36" lean-forward="true" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/database/DatabaseController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="77" column="25" lean-forward="true" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
+        <state relative-caret-position="248">
+          <caret line="61" column="41" lean-forward="true" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -501,8 +473,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/indexjs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="97" column="38" lean-forward="true" selection-start-line="97" selection-start-column="38" selection-end-line="97" selection-end-column="38" />
+        <state relative-caret-position="272">
+          <caret line="67" column="51" selection-start-line="67" selection-start-column="51" selection-end-line="67" selection-end-column="51" />
         </state>
       </provider>
     </entry>

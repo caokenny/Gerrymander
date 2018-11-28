@@ -58,6 +58,8 @@ public class DatabaseController {
         Iterable<User> iterable = userRepository.findAll();
 
         for (User user : iterable) {
+            System.out.println(user.getUsername());
+            System.out.println(username);
             if (user.getUsername().toLowerCase().equals(username.toLowerCase())) {
                 if (user.getPassword().equals(password)) {
                     request.getSession().setAttribute("username", username);
