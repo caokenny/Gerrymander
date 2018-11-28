@@ -11,9 +11,11 @@ public class Precinct {
 
     private int population;
     private int precinctId;
+    private String name;
     private String geoID10;
     private List<ElectionData> electionData;
     private List<Precinct> neighbors;
+    private Set<String> neighborIds;
     private int parentDistrictID;
     private Set<Precinct> borderPrecincts;
     private boolean isBorder;
@@ -21,6 +23,13 @@ public class Precinct {
     public Precinct(int population, int precinctId){
         this.population = population;
         this.precinctId = precinctId;
+    }
+    public Precinct(int precinctId, String geoID10, String name, int population)
+    {
+        this.name = name;
+        this.precinctId = precinctId;
+        this.population = population;
+        this.geoID10 = geoID10;
     }
     /*public Precinct(int precinctId){
         this.precinctId = precinctId;
@@ -63,6 +72,17 @@ public class Precinct {
 
     @Override
     public String toString() {
-        return "Precinct id= "+precinctId;
+        return "Precinct id= "+precinctId
+                +"\nname= " + name
+                +"\ngeoid10= " + geoID10
+                +"\npopulation= "+population;
+    }
+
+    public Set<String> getNeighborIds() {
+        return neighborIds;
+    }
+
+    public void setNeighborIds(Set<String> neighborIds) {
+        this.neighborIds = neighborIds;
     }
 }
