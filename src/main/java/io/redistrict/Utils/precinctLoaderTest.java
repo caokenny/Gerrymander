@@ -1,25 +1,15 @@
 package io.redistrict.Utils;
 
-import io.redistrict.Territory.Precinct;
-
-import java.util.Map;
-import java.util.Set;
+import io.redistrict.AppData.AppData;
+import io.redistrict.Territory.StateEnum;
 
 public class precinctLoaderTest {
-    public static void main(String [] args){
-        /*Properties precinctLoaderProp = new Properties();
-        InputStream precinctLoaderFile = null;
-        try {
-            precinctLoaderFile = new FileInputStream("src/main/resources/PrecinctLoader.properties");
-            precinctLoaderProp.load(precinctLoaderFile);
-            PrecinctLoader.setProperties(precinctLoaderProp);
-        }catch (IOException e){
-            e.printStackTrace();
-        }*/
+    public static void main(String [] args) {
+
         NeighborsLoader.loadDefaultProperties();
-        PrecinctLoader.loadDefaultProperties();
-        Map<String,Precinct> allPrecinct = PrecinctLoader.loadPrecinct("MO");
-//        NeighborsLoader.loadNeighbors(allPrecinct,"MO");
-//        allPrecinct.forEach((k,v)->System.out.println(k+":"+v.getNeighborIds()));
+        StateLoader.loadDefaultProperties();
+        AppData.setStateMap(StateLoader.loadAllStates(StateEnum.values()));
+        //System.out.println(new AppData().toString());
     }
+
 }

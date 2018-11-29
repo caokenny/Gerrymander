@@ -29,7 +29,7 @@ public class NeighborsLoader {
                 JSONArray neighborValues =  (JSONArray) neighborJSObj.get(key);
                 Precinct keyPrecinct = precinctMap.get(key);
 
-                neighborValues.forEach( n-> neighbors.add((String)n) );
+                neighborValues.forEach(n-> neighbors.add((String)n));
                 keyPrecinct.setNeighborIds(neighbors);
             }
             return true;

@@ -2,6 +2,8 @@ package io.redistrict.Utils;
 
 
 import io.redistrict.Territory.Precinct;
+import io.redistrict.Territory.State;
+import io.redistrict.Territory.StateEnum;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,11 +13,25 @@ import java.io.*;
 import java.util.*;
 
 
-public class PrecinctLoader {
+public class StateLoader {
 
     private static Properties properties = new Properties();
 
-    public static Map<String,Precinct> loadPrecinct(String stateName){
+
+    public static Map<String, State> loadAllStates(StateEnum [] arr){
+         Map<String,State> stateMap = new LinkedHashMap<>();
+
+         for(StateEnum stateEnum : arr) {
+             String stateName = stateEnum.toString();
+             Map<String, Precinct> allPrecincts = loadPrecincts(stateName);
+             State currentState = new State(stateName, allPrecincts);
+             stateMap.put(stateName, currentState);
+         }
+        return stateMap;
+    }
+
+
+    public static Map<String,Precinct> loadPrecincts(String stateName){
 
         String filePath = properties.getProperty(stateName);
         Map<String,Precinct> precinctMap =null;
@@ -32,6 +48,7 @@ public class PrecinctLoader {
 
         return precinctMap;
     }
+
     /*
     get map of GEOID10 to Precinct from JSONArray
      */
@@ -42,9 +59,8 @@ public class PrecinctLoader {
         for(Object obj : jsonArray){
             JSONObject precinctJsObj = (JSONObject) obj;
             Long population = (Long) precinctJsObj.get(properties.getProperty("POPULATION"));
-            String geoId10 = (String)precinctJsObj.get(properties.getProperty("GEOID10"));
-            String name = (String)precinctJsObj.get(properties.getProperty("NAME10"));
-
+            String geoId10 = getStringValue(precinctJsObj.get(properties.getProperty("GEOID10")));
+            String name = getStringValue(precinctJsObj.get(properties.getProperty("NAME10")));
             precinctMap.put(geoId10,new Precinct(idNum++,geoId10,name,population.intValue()));
         }
 
@@ -56,17 +72,20 @@ public class PrecinctLoader {
     }
 
     public static void setProperties(Properties properties) {
-        PrecinctLoader.properties = properties;
+        StateLoader.properties = properties;
     }
 
     public static void loadDefaultProperties(){
 
         try {
-            InputStream precinctLoaderFile = new FileInputStream("src/main/resources/PrecinctLoader.properties");
+            InputStream precinctLoaderFile = new FileInputStream("src/main/resources/state_loader.properties");
             properties.load(precinctLoaderFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private static String getStringValue(Object obj){
+        return obj instanceof Long? Long.toString((Long)obj) : (String)obj;
     }
 
 }

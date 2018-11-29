@@ -26,5 +26,15 @@ public class AppData {
     public static void setStateMap(Map<String, State> stateMap) {
         AppData.stateMap = stateMap;
     }
+
+    public String toString(){
+        String result = "";
+        for(String stateName : stateMap.keySet()){
+            result += "State: "+ stateName
+                    +" Precinct size: "
+                    +stateMap.get(stateName).getAllPrecincts().size()+"\n";
+        }
+        return result;
+    }
 }
 
