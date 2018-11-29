@@ -5,20 +5,20 @@ import io.redistrict.Territory.District;
 public class Move {
     private String stateName;
     private Precinct precinct;
-    private District srcDistrict;
-    private District dstDistrict;
-    public Move(Precinct precinct, District srcDistrict, District dstDistrict){
+    private int srcDistrictID;
+    private int dstDistrictID;
+    public Move(Precinct precinct, int srcDistrictID, int dstDistrictID){
         this.precinct = precinct;
-        this.srcDistrict = srcDistrict;
-        this.dstDistrict = dstDistrict;
+        this.srcDistrictID = srcDistrictID;
+        this.dstDistrictID = dstDistrictID;
     }
     public Precinct getPrecinct(){
         return precinct;
     }
-    public District getSrcDistrict(){
-        return srcDistrict;
+    public int getSrcDistrictID(){
+        return srcDistrictID;
     }
-    public District getDstDistrict(){
-        return dstDistrict;
+    public int getDstDistrictID(){
+        return dstDistrictID;
     }
 }

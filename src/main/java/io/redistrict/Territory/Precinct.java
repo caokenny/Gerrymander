@@ -18,7 +18,6 @@ public class Precinct {
     private int parentDistrictID;
     private Set<Precinct> borderPrecincts;
     private boolean isBorder;
-    private District parentDistrict;
 
     public Precinct(int population, int precinctId){
         this.population = population;
@@ -31,27 +30,14 @@ public class Precinct {
         this.geoID10 = geoID10;
     }
 
-    public Collection<Precinct> getNeighbors(){
+    public List<Precinct> getNeighbors(){
         return neighbors;
     }
     public int getPopulation(){
         return population;
     }
-    public void setParentDistrict(int id){
-        parentDistrictID = id;
-    }
-
     public int getParentDistrictID() {
         return parentDistrictID;
-    }
-    public void updatePrecinct(District newDistrict){
-
-    }
-    public void setParentDistrict(District district){
-        parentDistrict = district;
-    }
-    public District getParentDistrict(){
-        return parentDistrict;
     }
     public Precinct getRandomNeighbor(){
         int i = neighbors.size();
@@ -78,5 +64,14 @@ public class Precinct {
 
     public void setParentDistrictId(int parentDistrictID) {
         this.parentDistrictID = parentDistrictID;;
+    }
+    public boolean isBorder(){
+        return isBorder;
+    }
+    public void setIsBorder(boolean isBorder){
+        this.isBorder = isBorder;
+    }
+    public List<ElectionData> getElectionData(){
+        return electionData;
     }
 }
