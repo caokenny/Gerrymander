@@ -1,8 +1,5 @@
-//Display map
 var mymap = L.map('mapid', {zoomControl: false}).setView([37.0902, -95.7129], 4);
-// mymap.dragging.disable();
 mymap.doubleClickZoom.disable();
-// mymap.scrollWheelZoom.disable();
 
 var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -13,24 +10,26 @@ var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8
 
 //Add geoJSON
 
+
 var states = L.geoJSON(usageo, {
     style: function (feature) {
         return {color: "black", fillColor: "blue", fillOpacity: 1}
     }
 }).addTo(mymap);
 
-var continents = L.geoJSON(continentsgeo, {
-    style: function (feature) {
-        if (feature.properties.CONTINENT !== "North America") {
-            return {color: "black", opacity: 1, fillColor: "black", fillOpacity: 1};
-        } else {
-            return {color: "black"};
-        }
-    }
-}).addTo(mymap);
+// var continents = L.geoJSON(continentsgeo, {
+//     style: function (feature) {
+//         if (feature.properties.CONTINENT !== "North America") {
+//             return {color: "black", opacity: 1, fillColor: "black", fillOpacity: 1};
+//         } else {
+//             return {color: "black"};
+//         }
+//     }
+// }).addTo(mymap);
 
 
 var initialStyle = {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1};
+
 
 var statesArr = [
     {name : "colorado", jsvar : colorado, precinctsVar: coloradogeo},
