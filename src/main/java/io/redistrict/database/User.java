@@ -1,25 +1,38 @@
 package io.redistrict.database;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class User {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private Integer uid;
     private String username;
     private String password;
     private String email;
     private boolean admin;
+    private String salt;
 
-    public Integer getId() { return this.id; }
+    public User(){}
 
-    public void setId(Integer id) { this.id = id; }
+    public User(String username, String password, String email, String salt, boolean admin) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.salt = salt;
+        this.admin = admin;
+    }
 
+    @Id
+    @NotNull
+    @GeneratedValue
+    @Column(name = "uid", unique = true)
+    public Integer getUid() { return this.uid; }
+
+    public void setUid(Integer uid) { this.uid = uid; }
+
+    @NotNull
+    @Column(name = "username", unique = true)
     public String getUsername() {
         return this.username;
     }
@@ -28,6 +41,8 @@ public class User {
         this.username = username;
     }
 
+    @NotNull
+    @Column(name = "password")
     public String getPassword() {
         return this.password;
     }
@@ -36,6 +51,8 @@ public class User {
         this.password = password;
     }
 
+    @NotNull
+    @Column(name = "email")
     public String getEmail() {
         return this.email;
     }
@@ -44,6 +61,8 @@ public class User {
         this.email = email;
     }
 
+    @NotNull
+    @Column(name = "admin")
     public boolean getAdmin() {
         return this.admin;
     }
@@ -52,5 +71,13 @@ public class User {
         this.admin = admin;
     }
 
+    @NotNull
+    @Column(name = "salt")
+    public String getSalt() {
+        return salt;
+    }
 
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 }
