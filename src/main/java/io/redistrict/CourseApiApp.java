@@ -1,20 +1,20 @@
-package io.redistrict.springbootstarter;
+package io.redistrict;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "io.redistrict")
 public class CourseApiApp extends SpringBootServletInitializer {
-    @Override
-    protected SpringApplicationBuilder configure (SpringApplicationBuilder application) {
-        return application.sources(CourseApiApp.class);
-    }
+//    @Override
+//    protected SpringApplicationBuilder configure (SpringApplicationBuilder application) {
+//        return application.sources(CourseApiApp.class);
+//    }
 
 
     public static void main(String[] args) {
-    //test
         SpringApplication.run(CourseApiApp.class, args);
     }
 }
