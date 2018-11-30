@@ -152,7 +152,6 @@ public class State {
         removeFromUnassigned(precinct.getGeoID10());
         if(srcDist != null){
             districts.get(srcDistId).removePrecinct(precinct);
-            System.out.println("I SHOULD NEVER BEEEEE HEREERERERERER 1!!!!!!!!!!!!!!!!!!!");
         }
 
         districts.get(destDistId).addPrecinct(precinct);
