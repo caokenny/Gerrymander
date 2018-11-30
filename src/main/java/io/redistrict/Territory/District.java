@@ -42,7 +42,7 @@ public class District {
         precinct.setParentDistrictID(districtId);
         allDPrecincts.put(precinct.getGeoID10(), precinct);
         population += precinct.getPopulation();
-        precinctVoteResults.put(precinct.getGeoID10(), precinct.getElectionData());
+//        precinctVoteResults.put(precinct.getGeoID10(), precinct.getElectionData());
         if(isBorderPrecinct(precinct)) {
             precinct.setIsBorder(true);
             borderPrecincts.add(precinct);

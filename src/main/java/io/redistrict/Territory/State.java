@@ -150,9 +150,13 @@ public class State {
         District srcDist = districts.get(srcDistId);
         District destDist = districts.get(destDistId);
         removeFromUnassigned(precinct.getGeoID10());
-        if(srcDist == null){
-            districts.get(destDist.getDistrictId()).addPrecinct(precinct);
+        if(srcDist != null){
+            districts.get(srcDistId).removePrecinct(precinct);
+            System.out.println("I SHOULD NEVER BEEEEE HEREERERERERER 1!!!!!!!!!!!!!!!!!!!");
         }
-        districts.get(destDist.getDistrictId()).updateBorderPrecincts(unassignedPrecinctIds);
+
+        districts.get(destDistId).addPrecinct(precinct);
+        districts.get(destDistId).updateBorderPrecincts(unassignedPrecinctIds);
+
     }
 }

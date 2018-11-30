@@ -24,12 +24,13 @@ public class precinctLoaderTest {
         State mo = AppData.getState("MO");
         Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(mo.getAllPrecincts().values(),3);
         State rgState = algorithm.startRg(seeds, mo.getStateName());
-        District district1 = rgState.getDistricts().get(1);
+
+        /*District district1 = rgState.getDistricts().get(1);
         System.out.println("{ \"geoid\": [");
         for(String pId : district1.getAllDPrecincts().keySet()){
             System.out.println("\"" + pId + "\",");
         }
-        System.out.println("]}");
+        System.out.println("]}");*/
 
     }
 
