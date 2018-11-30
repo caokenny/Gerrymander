@@ -19,8 +19,7 @@ public class District {
         this.districtId = districtId;
         this.population= startPrecinct.getPopulation();
         this.allDPrecincts = new LinkedHashMap<>();
-        this.borderPrecincts = new LinkedHashSet<>();
-
+        this.borderPrecincts = new ArrayList<>();
         allDPrecincts.put(startPrecinct.getGeoID10(),startPrecinct);
         borderPrecincts.add(startPrecinct);
         this.numOfNeighbors = startPrecinct.getNeighbors().size();
@@ -33,7 +32,6 @@ public class District {
     public void setDistrictId(int districtId) {
         this.districtId = districtId;
     }
-
 
     public Map<String, List<ElectionData>> getPrecinctVoteResults(){
         return precinctVoteResults;
@@ -62,8 +60,6 @@ public class District {
         if(precinct.isBorder()) {
             borderPrecincts.remove(precinct);
         }
-        //Remove the precincts election vote results from hash.
-        //Change border precincts again. Remove precincts data from election Result
     }
 
     public int getPopulation(){
@@ -74,11 +70,8 @@ public class District {
         return electionResult;
     }
 
-
-    public void updateBorderPrecincts(Set<String> unassignedPrecinctIds)
-    {
+    public void updateBorderPrecincts(Set<String> unassignedPrecinctIds) {
         borderPrecincts.clear();
-
         for(String precinctId: allDPrecincts.keySet()){
             Precinct currentPrecinct = allDPrecincts.get(precinctId);
             if(isBorder(currentPrecinct,unassignedPrecinctIds))
@@ -89,9 +82,7 @@ public class District {
     }
 
     private boolean isBorder(Precinct precinct, Set<String> unassignedPrecinctIds){
-
         List<Precinct> neighbors = precinct.getNeighbors();
-
         for(Precinct neighbor : neighbors)
         {
             if (unassignedPrecinctIds.contains(neighbor.getGeoID10()))
@@ -136,11 +127,9 @@ public class District {
         while(iterator.hasNext()){
             Map.Entry entry = (Map.Entry)iterator.next();
             if(!partyResults.containsKey(entry.getKey())){
-                //Does not contain the current party in question
                 partyResults.put((Party)entry.getKey(), (int)entry.getValue());
             }
             else{
-                //The party is already in our hashmap. Need to update value
                 partyResults.put((Party)entry.getKey(), partyResults.get(entry.getKey()) + (Integer)entry.getValue());
             }
         }
@@ -181,7 +170,7 @@ public class District {
         return move;
     }
     public int getDistrictID(){
-        return districtID;
+        return districtId;
     }
 }
 

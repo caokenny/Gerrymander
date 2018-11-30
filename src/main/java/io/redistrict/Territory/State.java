@@ -24,6 +24,11 @@ public class State {
         this.stateName = state.getStateName();
         this.allPrecincts= new HashMap<>(state.getAllPrecincts());
     }
+    public State(String name, Map<String,Precinct> allPrecincts){
+        this.stateName=name;
+        this.allPrecincts = allPrecincts;
+        districts = new LinkedHashMap<>();
+    }
 
     public int getNumDistrict(){
         return districts.size();
@@ -142,18 +147,12 @@ public class State {
         Precinct precinct = move.getPrecinct();
         int destDistId = move.getDstDistrictID();
         int srcDistId = move.getSrcDistrictID();
-
         District srcDist = districts.get(srcDistId);
         District destDist = districts.get(destDistId);
-
         removeFromUnassigned(precinct.getGeoID10());
-
         if(srcDist == null){
             districts.get(destDist.getDistrictId()).addPrecinct(precinct);
         }
-
         districts.get(destDist.getDistrictId()).updateBorderPrecincts(unassignedPrecinctIds);
     }
-
-
 }
