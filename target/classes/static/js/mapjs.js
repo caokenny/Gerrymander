@@ -1,7 +1,5 @@
 var mymap = L.map('mapid', {zoomControl: false}).setView([37.0902, -95.7129], 4);
-// mymap.dragging.disable();
 mymap.doubleClickZoom.disable();
-// mymap.scrollWheelZoom.disable();
 
 var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -12,54 +10,50 @@ var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8
 
 //Add geoJSON
 
+
 var states = L.geoJSON(usageo, {
     style: function (feature) {
         return {color: "black", fillColor: "blue", fillOpacity: 1}
     }
 }).addTo(mymap);
 
-var continents = L.geoJSON(continentsgeo, {
-    style: function (feature) {
-        if (feature.properties.CONTINENT !== "North America") {
-            return {color: "black", opacity: 1, fillColor: "black", fillOpacity: 1};
-        } else {
-            return {color: "black"};
-        }
-    }
-}).addTo(mymap);
+// var continents = L.geoJSON(continentsgeo, {
+//     style: function (feature) {
+//         if (feature.properties.CONTINENT !== "North America") {
+//             return {color: "black", opacity: 1, fillColor: "black", fillOpacity: 1};
+//         } else {
+//             return {color: "black"};
+//         }
+//     }
+// }).addTo(mymap);
 
 
 var initialStyle = {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1};
 
+
 var statesArr = [
-    colorado,
-    kansas,
-    missouri
+    {name : "colorado", jsvar : colorado, precinctsVar: coloradogeo},
+    {name : "kansas", jsvar : kansas, precinctsVar: kansasgeo},
+    {name : "missouri", jsvar : missouri, precinctsVar: missourigeo}
 ];
 
-var stateNamesArr = [
-    "colorado",
-    "kansas",
-    "missouri"
-];
 
 var geoJSONEvents = [];
 
 var i;
 for (i = 0; i < statesArr.length; i++) {
-    geoJSONEvents[i] = {stateName : stateNamesArr[i], geo : L.geoJSON(statesArr[i], {
-            style: function () {
-                return {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1}
-            }
-        }).addTo(mymap)};
+    geoJSONEvents[i] = {stateName : statesArr[i].name, geo : L.geoJSON(statesArr[i].jsvar, {
+        style: function () {
+            return {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1}
+        }
+    }).addTo(mymap), precincts : L.geoJSON(statesArr[i].precinctsVar)};
 }
 
 var onStateAlready = false;
 
 for (i = 0; i < geoJSONEvents.length; i++) {
-    geoJSONEvents[i].geo.on('click', function (event) {
-        console.log(event);
-        zoomState(event, this);
+    geoJSONEvents[i].geo.on('click', function () {
+        zoomState(this.getBounds(), this);
     });
 
     geoJSONEvents[i].geo.on('mouseover', function () {
@@ -77,18 +71,23 @@ for (i = 0; i < geoJSONEvents.length; i++) {
     });
 }
 
-// $('#selectStateSubmit').click(function (event) {
-//     var selectMenu = document.getElementById("stateSelectMenu");
-//     var selected = selectMenu.options[selectMenu.selectedIndex].value;
-//     var i;
-//     for (i = 0; i < geoJSONEvents.length; i++) {
-//         if (geoJSONEvents[i].stateName === selected) {
-//             $(geoJSONEvents[i].geo).trigger("click");
-//         }
-//     }
-// });
+function addPrecincts() {
+    console.log(geoJSONEvents[0].geo.getAttribution());
+}
 
-function zoomState(event, geoObj) {
+$('#selectStateSubmit').click(function () {
+    var selectMenu = document.getElementById("stateSelectMenu");
+    var selected = selectMenu.options[selectMenu.selectedIndex].value;
+    var i;
+    for (i = 0; i < geoJSONEvents.length; i++) {
+        if (geoJSONEvents[i].stateName === selected) {
+            geoJSONEvents[i].geo.fire('click');
+            break;
+        }
+    }
+});
+
+function zoomState(bounds, geoObj) {
     if (!onStateAlready) {
         onStateAlready = true;
         document.getElementById("welcomeDiv").style.display = "none";
@@ -97,44 +96,35 @@ function zoomState(event, geoObj) {
         document.getElementById("summaryBox").style.display = "block";
         document.getElementById("usercontrol").style.backgroundColor = "black";
         document.getElementById("algorithmChoiceDiv").style.display = "flex";
+        // var j;
+        // for (j = 0; j < geoJSONEvents.length; j++) {
+        //     geoJSONEvents[j].geo.setStyle({fillColor: "blue", fillOpacity: 1});
+        // }
+        // geoObj.setStyle(initialStyle);
         var j;
         for (j = 0; j < geoJSONEvents.length; j++) {
-            geoJSONEvents[j].geo.setStyle({fillColor: "blue", fillOpacity: 1});
+            mymap.removeLayer(geoJSONEvents[j].geo);
         }
-        geoObj.setStyle(initialStyle);
-        L.geoJSON(kansasgeo, {
-            style: function (feature) {
-                if (feature.properties.KS_GEO_ID === 10) {
-                    return {fillColor: "red", fillOpacity: 1};
-                }
-                if (feature.properties.KS_GEO_ID === 7) {
-                    return {fillColor: "black", fillOpacity: 1};
-                }
-                if (feature.properties.KS_GEO_ID === 11) {
-                    return {fillColor: "#FFFF00", fillOpacity: 1};
-                }
-                // if (feature.properties.KS_GEO_ID === 9) {
-                //     return {fillColor: "purple", fillOpacity: 1};
-                // }
-                // if (feature.properties.KS_GEO_ID === 16) {
-                //     return {fillColor: "yellow", fillOpacity: 1};
-                // }
-                // if (feature.properties.KS_GEO_ID === 17) {
-                //     return {fillColor: "white", fillOpacity: 1};
-                // }
+        geoObj.addTo(mymap);
+        for (j = 0; j < geoJSONEvents.length; j++) {
+            if (mymap.hasLayer(geoJSONEvents[j].geo)) {
+                geoJSONEvents[j].precincts.addTo(mymap);
             }
-        }).addTo(mymap);
-        mymap.fitBounds(event.layer.getBounds());
+        }
+        mymap.fitBounds(bounds);
     }
 }
-
-
 
 function goHome() {
     onStateAlready = false;
     var j;
     for (j = 0; j < geoJSONEvents.length; j++) {
-        geoJSONEvents[j].geo.setStyle(initialStyle);
+        if (!mymap.hasLayer(geoJSONEvents[j].geo)) {
+            geoJSONEvents[j].geo.addTo(mymap);
+        }
+        if (mymap.hasLayer(geoJSONEvents[j].precincts)) {
+            mymap.removeLayer(geoJSONEvents[j].precincts);
+        }
     }
     mymap.setView([37.0902, -95.7129], 4);
     document.getElementById("buttons").style.display = "none";

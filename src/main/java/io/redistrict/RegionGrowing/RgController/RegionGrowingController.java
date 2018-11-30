@@ -9,6 +9,7 @@ import io.redistrict.Utils.JsonColorConverter;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,7 +19,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Controller
-@RequestMapping("rg")
+@RequestMapping("/rg")
 public class RegionGrowingController {
 
     @RequestMapping(value = "/pickrgseed", method = RequestMethod.GET)
