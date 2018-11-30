@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import java.awt.*;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.stream.IntStream;
 
 
 public class JsonColorConverter {
