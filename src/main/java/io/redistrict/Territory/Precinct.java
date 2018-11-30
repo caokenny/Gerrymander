@@ -15,7 +15,6 @@ public class Precinct {
     private String geoID10;
     private List<ElectionData> electionData;
     private List<Precinct> neighbors;
-    private Set<String> neighborIds;
     private int parentDistrictID;
     private boolean isBorder;
 
@@ -77,11 +76,7 @@ public class Precinct {
                 +"\npopulation= "+population;
     }
 
-    public Set<String> getNeighborIds() {
-        return neighborIds;
-    }
-
-    public void setNeighborIds(Set<String> neighborIds) {
-        this.neighborIds = neighborIds;
+    public void setNeighbors(List<Precinct> neighbors) {
+        this.neighbors = neighbors;
     }
 }

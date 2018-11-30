@@ -24,13 +24,14 @@ public class NeighborsLoader {
             JSONObject neighborJSObj =  (JSONObject) new JSONParser().parse(fileReader);
 
             for(Object o : neighborJSObj.keySet()){
-                Set<String> neighbors = new LinkedHashSet<>();
+                List <Precinct> neighbors = new ArrayList<>();
                 String key = (String)o;
                 JSONArray neighborValues =  (JSONArray) neighborJSObj.get(key);
                 Precinct keyPrecinct = precinctMap.get(key);
 
-                neighborValues.forEach(n-> neighbors.add((String)n));
-                keyPrecinct.setNeighborIds(neighbors);
+                neighborValues.forEach(n-> neighbors.add( precinctMap.get((String)n)));
+                //keyPrecinct.setNeighborIds(neighbors);
+                keyPrecinct.setNeighbors(neighbors);
             }
             return true;
         }catch (IOException | ParseException e){
