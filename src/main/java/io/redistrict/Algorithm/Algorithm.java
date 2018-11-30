@@ -6,12 +6,16 @@ import io.redistrict.Territory.Move;
 import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
 import io.redistrict.Utils.NeighborFinder;
+import io.redistrict.Utils.NeighborsLoader;
 import io.redistrict.Utils.PrecinctSelector;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 public class Algorithm {
 
+    private static Properties properties;
     public State startRg(Set<Precinct> seeds, String stateName){
         State state = makeRgState(seeds,stateName);
         Map<Integer,District> possibleDistricts = new LinkedHashMap<>(state.getDistricts());
@@ -23,6 +27,40 @@ public class Algorithm {
             state.executeMove(move);
             if(rgDistrict.getNumOfNeighbors()== 0){
                 possibleDistricts.remove(rgDistrict.getDistrictId());
+            }
+        }
+        return state;
+    }
+    public State getSimulatedState(String stateName){
+        int badMoves = 0;
+        State state = AppData.getState(stateName.toUpperCase());
+        int max_bad_move = Integer.parseInt(properties.getProperty("max_bad_moves"));
+        double accecptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
+        double constantMultiplier = Double.parseDouble(properties.getProperty("constant_multiplier"));
+
+        while(badMoves < max_bad_move){
+            District district = state.getRandomDistrict();
+            double oldScore = state.getDistrictScore(district);
+            Move move = district.modifyDistrict();
+            Precinct modifiedPrecinct = move.getPrecinct();
+            modifiedPrecinct.setParentDistrictID(move.getDstDistrictID());
+            District srcDistrict = state.getDistricts().get(move.getSrcDistrictID());
+            District dstDistrict =state.getDistricts().get(move.getDstDistrictID());
+            srcDistrict.removePrecinct(modifiedPrecinct);
+            dstDistrict.addPrecinct(modifiedPrecinct);
+            double newScore = state.getDistrictScore(district);
+            if(newScore > oldScore){
+                state.addToMoveStack(move);
+            }
+            else{
+                badMoves++;
+                boolean acceptBadMove = state.acceptBadMove(oldScore, newScore, accecptanceConstant);
+                if(acceptBadMove){
+                    state.addToMoveStack(move);
+                }
+                else
+                    state.undoLastMove(move);
+                accecptanceConstant *= constantMultiplier;
             }
         }
         return state;
@@ -75,5 +113,13 @@ public class Algorithm {
                 (state.getAllPrecincts(),state.getUnassignedPrecinctIds(),borderPrecincts);
         district.setNumOfNeighbors(unassignedNeighbors.size()-1);
         return PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
+    }
+    public static void loadDefaultProperties(){
+        InputStream aStream = Algorithm.class.getClassLoader().getResourceAsStream("algorithm.properties");
+        try{
+            properties.load(aStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package io.redistrict.Territory;
 
+import io.redistrict.Algorithm.Algorithm;
 import io.redistrict.Election.ElectionData;
 import io.redistrict.Election.Party;
 
@@ -16,9 +17,6 @@ public class State {
     private Map<String, Precinct> unassignedPrecincts;
     private Set<String> unassignedPrecinctIds;
     private Map<District, Float> popScores;
-
-    private double acceptConstant = 0.85;
-    private int badMoves = 0;
 
     public State(State state){
         this.stateName = state.getStateName();
@@ -37,34 +35,8 @@ public class State {
     public String getStateName(){
         return stateName;
     }
-    public State getSimulatedState(){
-        while(badMoves < 25){
-            District district = getRandomDistrict();
-            double oldScore = getDistrictScore(district);
-            Move move = district.modifyDistrict();
-            Precinct modifiedPrecinct = move.getPrecinct();
-            modifiedPrecinct.setParentDistrictID(move.getDstDistrictID());
-            District srcDistrict = districts.get(move.getSrcDistrictID());
-            District dstDistrict = districts.get(move.getDstDistrictID());
-            srcDistrict.removePrecinct(modifiedPrecinct);
-            dstDistrict.addPrecinct(modifiedPrecinct);
-            double newScore = getDistrictScore(district);
-            if(newScore > oldScore){
-                addToMoveStack(move);
-            }
-            else{
-                badMoves++;
-                boolean acceptBadMove = acceptBadMove(oldScore, newScore);
-                if(acceptBadMove){
-                    addToMoveStack(move);
-                }
-                else
-                    undoLastMove(move);
-            }
-        }
-        return this;
-    }
-    public boolean acceptBadMove(double oldScore, double newScore){
+
+    public boolean acceptBadMove(double oldScore, double newScore,double acceptConstant){
         double exponent = (newScore - oldScore) / acceptConstant;
         double acceptProb = Math.pow(Math.E, exponent);
         Random rand = new Random();
@@ -158,4 +130,5 @@ public class State {
         districts.get(destDistId).updateBorderPrecincts(unassignedPrecinctIds);
 
     }
+
 }

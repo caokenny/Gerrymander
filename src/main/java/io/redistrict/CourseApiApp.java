@@ -1,5 +1,6 @@
 package io.redistrict;
 
+import io.redistrict.Algorithm.Algorithm;
 import io.redistrict.AppData.AppData;
 import io.redistrict.Territory.State;
 import io.redistrict.Territory.StateEnum;
@@ -23,6 +24,8 @@ public class CourseApiApp extends SpringBootServletInitializer {
     public static void main(String[] args) {
         NeighborsLoader.loadDefaultProperties();
         StateLoader.loadDefaultProperties();
+        Algorithm.loadDefaultProperties();
+
         AppData.setStateMap(StateLoader.loadAllStates(StateEnum.values()));
 
         SpringApplication.run(CourseApiApp.class, args);
