@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8b5a9a6-0ca3-4947-ac6a-ca97b97b2692" name="Default" comment="Merged with Jackie's branch">
+    <list default="true" id="e8b5a9a6-0ca3-4947-ac6a-ca97b97b2692" name="Default" comment="Simulated annealing almost finished. Need to implement a way to calculate district score">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/District.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Move.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -251,7 +247,7 @@
         <counts>
           <entry key="java" value="3908" />
           <entry key="js" value="7" />
-          <entry key="txt" value="365" />
+          <entry key="txt" value="461" />
           <entry key="xml" value="5" />
         </counts>
       </usages-collector>
@@ -259,7 +255,7 @@
         <counts>
           <entry key="JAVA" value="3908" />
           <entry key="JavaScript" value="7" />
-          <entry key="PLAIN_TEXT" value="365" />
+          <entry key="PLAIN_TEXT" value="461" />
           <entry key="XML" value="5" />
         </counts>
       </usages-collector>
@@ -305,8 +301,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="548">
-              <caret line="61" column="30" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
+            <state relative-caret-position="-622">
+              <caret line="39" column="33" lean-forward="true" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#744#745#0" expanded="true" />
@@ -552,7 +548,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543516442985" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543529434038" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -698,7 +694,7 @@
       <workItem from="1543289256958" duration="3017000" />
       <workItem from="1543361943940" duration="375000" />
       <workItem from="1543464670186" duration="766000" />
-      <workItem from="1543508654752" duration="6129000" />
+      <workItem from="1543508654752" duration="8162000" />
     </task>
     <task id="LOCAL-00001" summary="All continents are now blacked out except for NA">
       <created>1537896933111</created>
@@ -749,17 +745,24 @@
       <option name="project" value="LOCAL" />
       <updated>1543372543119</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Simulated annealing almost finished. Need to implement a way to calculate district score">
+      <created>1543516553117</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1543516553117</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117453000" />
+    <option name="totallyTimeSpent" value="119486000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1613" height="873" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49744898" visible="true" weight="0.16141479" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49744898" visible="true" weight="0.16141479" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -841,7 +844,8 @@
     <MESSAGE value="Currently working on modifyDistrict. Need to make a new move and return it to state Class to calculate OF" />
     <MESSAGE value="Need to add Party election results in after confirming the Move in State class" />
     <MESSAGE value="Merged with Jackie's branch" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merged with Jackie's branch" />
+    <MESSAGE value="Simulated annealing almost finished. Need to implement a way to calculate district score" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simulated annealing almost finished. Need to implement a way to calculate district score" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/springbootstarter/IndexController.java" />
@@ -998,8 +1002,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="61" column="30" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
+        <state relative-caret-position="-622">
+          <caret line="39" column="33" lean-forward="true" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#744#745#0" expanded="true" />
