@@ -1,37 +1,23 @@
 package io.redistrict.Territory;
 
+import io.redistrict.Territory.District;
+
 public class Move {
     private Precinct precinct;
-    private District srcDistrict;
-    private District destDistrict;
-
-    public Move(Precinct precinct, District srcDistrict, District destDistrict) {
+    private int srcDistrictID;
+    private int dstDistrictID;
+    public Move(Precinct precinct, int srcDistrictID, int dstDistrictID){
         this.precinct = precinct;
-        this.srcDistrict = srcDistrict;
-        this.destDistrict = destDistrict;
+        this.srcDistrictID = srcDistrictID;
+        this.dstDistrictID = dstDistrictID;
     }
-
-    public Precinct getPrecinct() {
+    public Precinct getPrecinct(){
         return precinct;
     }
-
-    public void setPrecinct(Precinct precinct) {
-        this.precinct = precinct;
+    public int getSrcDistrictID(){
+        return srcDistrictID;
     }
-
-    public District getSrcDistrict() {
-        return srcDistrict;
-    }
-
-    public void setSrcDistrict(District srcDistrict) {
-        this.srcDistrict = srcDistrict;
-    }
-
-    public District getDestDistrict() {
-        return destDistrict;
-    }
-
-    public void setDestDistrict(District destDistrict) {
-        this.destDistrict = destDistrict;
+    public int getDstDistrictID(){
+        return dstDistrictID;
     }
 }

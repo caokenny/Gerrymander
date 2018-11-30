@@ -1,6 +1,7 @@
 package io.redistrict.Territory;
 
 import io.redistrict.Election.ElectionData;
+import io.redistrict.Territory.District;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,40 +17,36 @@ public class Precinct {
     private List<ElectionData> electionData;
     private List<Precinct> neighbors;
     private int parentDistrictID;
+    private Set<Precinct> borderPrecincts;
     private boolean isBorder;
 
     public Precinct(int population, int precinctId){
         this.population = population;
         this.precinctId = precinctId;
     }
-    public Precinct(int precinctId, String geoID10, String name, int population)
-    {
+    public Precinct(int precinctId, String geoID10, String name, int population) {
         this.name = name;
         this.precinctId = precinctId;
         this.population = population;
         this.geoID10 = geoID10;
     }
-    /*public Precinct(int precinctId){
-        this.precinctId = precinctId;
-    }*/
     public Precinct(String geoID10){
         this.geoID10 = geoID10;
     }
 
-    public Collection<Precinct> getNeighbors(){
+    public List<Precinct> getNeighbors(){
         return neighbors;
     }
     public int getPopulation(){
         return population;
     }
-    public void setParentDistrict(int id){
+    public void setParentDistrictID(int id){
         parentDistrictID = id;
     }
 
     public int getParentDistrictID() {
         return parentDistrictID;
     }
-
     public Precinct getRandomNeighbor(){
         int i = neighbors.size();
         Random rand = new Random();
@@ -79,4 +76,14 @@ public class Precinct {
     public void setNeighbors(List<Precinct> neighbors) {
         this.neighbors = neighbors;
     }
+    public boolean isBorder(){
+        return isBorder;
+    }
+    public void setIsBorder(boolean isBorder){
+        this.isBorder = isBorder;
+    }
+    public List<ElectionData> getElectionData(){
+        return electionData;
+    }
+
 }
