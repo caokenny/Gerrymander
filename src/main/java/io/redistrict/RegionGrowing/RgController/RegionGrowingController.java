@@ -25,7 +25,7 @@ public class RegionGrowingController {
     @ResponseBody
     public String assignSeedDistrict(String stateName , String numOfSeed){
         int seedNum = Integer.parseInt(numOfSeed);
-        State state = AppData.getStateMap().get(stateName);
+        State state = AppData.getState(stateName);
         Collection<Precinct> precinctSet = state.getAllPrecincts().values();
         Set<Color> colorSet = ColorRandomizer.pickRandomColors(seedNum);
         Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(precinctSet,seedNum);

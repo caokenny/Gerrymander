@@ -17,7 +17,6 @@ public class Precinct {
     private List<Precinct> neighbors;
     private Set<String> neighborIds;
     private int parentDistrictID;
-    private Set<Precinct> borderPrecincts;
     private boolean isBorder;
 
     public Precinct(int population, int precinctId){

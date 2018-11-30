@@ -9,47 +9,30 @@ public class District {
 
     private int districtId;
     private int population;
-    private Map<Integer, Precinct> precincts;
+    private Map<String, Precinct> allDPrecincts;
     private Map<Integer, ElectionData> precinctVoteResults;
     private Map<Party, Integer> electionResult;
-    private Set<Precinct> borderPrecinct;
+    private Set<Precinct> borderPrecincts;
+    private int numOfNeighbors;
 
-    public District(int districtId, int population){
-        //Need more than just these two fields in constructor
+    public District(int districtId,Precinct startPrecinct){
+        this.districtId = districtId;
+        this.population= startPrecinct.getPopulation();
+        this.allDPrecincts = new LinkedHashMap<>();
+        this.borderPrecincts = new LinkedHashSet<>();
+
+        allDPrecincts.put(startPrecinct.getGeoID10(),startPrecinct);
+        borderPrecincts.add(startPrecinct);
+        this.numOfNeighbors = startPrecinct.getNeighborIds().size();
     }
 
-    /**
-     * Iterates through electionResults and gets Party with highest votes
-     * @return Winning party of the district
-     */
-//    public Party getWinningParty(){
-//        HashMap<Party, Integer> partyResults = new HashMap<Party, Integer>();
-//        Set set = electionResult.entrySet();
-//        Iterator iterator = set.iterator();
-//        while(iterator.hasNext()){
-//            Map.Entry entry = (Map.Entry)iterator.next();
-//            if(!partyResults.containsKey(entry.getKey())){
-//                //Does not contain the current party in question
-//                partyResults.put((Party)entry.getKey(), entry.getValue());
-//            }
-//            else{
-//                //The party is already in our hashmap. Need to update value
-//                partyResults.put(entry.getKey(), partyResults.get(entry.getKey()) + (Integer)entry.getValue();
-//            }
-//        }
-//        Party winningParty = null;
-//        int max = 0;
-//        Set results = partyResults.entrySet();
-//        Iterator loop = results.iterator();
-//        while(loop.hasNext()){
-//            Map.Entry entry = (Map.Entry)iterator.next();
-//            if((Integer)entry.getValue() > max){
-//                max = (Integer) entry.getValue();
-//                winningParty = (Party)entry.getKey();
-//            }
-//        }
-//        return winningParty;
-//    }
+    public int getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(int districtId) {
+        this.districtId = districtId;
+    }
 
     /**
      * Returns a map of <Precincts, ElectionData> in the current district
@@ -64,10 +47,9 @@ public class District {
      * @param precinct
      */
     public void addPrecinct(Precinct precinct){
-        precincts.put(precinct.getPrecinctId(), precinct);
+        allDPrecincts.put(precinct.getGeoID10(), precinct);
         population += precinct.getPopulation();
-        //Need to add the new precinct's election vote results into this districts precinvt vote results hash
-        //Change new border precincts. Add new precincts data into election Result
+
     }
 
     /**
@@ -75,10 +57,10 @@ public class District {
      * @param precinct
      */
     public void removePrecinct(Precinct precinct){
-        precincts.remove(precinct);
+        allDPrecincts.remove(precinct);
         population -= precinct.getPopulation();
-        //Remove the precincts election vote results from hash.
-        //Change border precincts again. Remove precincts data from election Result
+        //Remove the allDPrecincts election vote results from hash.
+        //Change border allDPrecincts again. Remove allDPrecincts data from election Result
     }
 
     /**
@@ -97,46 +79,60 @@ public class District {
         return electionResult;
     }
 
-    /**
-     * Returns a Collection of all Precincts neighboring the District
-     * @return Collection of neighbor Precincts
-     */
-    public Collection<Precinct> getAdjPrecs(){
-        //return a list of all the adjacent neighbors?
-        //TODO
-        return null;
+
+    public void updateBorderPrecincts(Set<String> unassignedPrecinctIds)
+    {
+        borderPrecincts.clear();
+
+        for(String precinctId: allDPrecincts.keySet()){
+            Precinct currentPrecinct = allDPrecincts.get(precinctId);
+            if(isBorder(currentPrecinct,unassignedPrecinctIds))
+            {
+                borderPrecincts.add(currentPrecinct);
+            }
+        }
     }
 
-    /**
-     * Creates a new District with only one precinct, the seed
-     * @param seed
-     * @return new District
-     */
-    public District makeSeedDistrict(Precinct seed){
-        //Call constructor with seed's info to make a new district. return it
-        //TODO
-        return null;
+    private boolean isBorder(Precinct precinct, Set<String> unassignedPrecinctIds){
+
+        Set<String> neighborIds = precinct.getNeighborIds();
+
+        for(String id : neighborIds)
+        {
+            if (unassignedPrecinctIds.contains(id))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
-    /**
-     * Returns a random precinct from the District's set of precincts
-     * @return random precinct
-     *
-     */
-    public Precinct getRandomPrecinct(){
-        //Return a random precinct
-        //TODO
-        return null;
+    public Set<Precinct> getBorderPrecincts() {
+        return borderPrecincts;
     }
 
-    /**
-     * Removes the adjacent neighbor from the District
-     * @param precinct
-     * @return whether the removal was successful or not.
-     */
-    public boolean removeAdjPrec(Precinct precinct){
-        //TODO
-        return true;
+    public void setBorderPrecincts(Set<Precinct> borderPrecincts) {
+        this.borderPrecincts = borderPrecincts;
     }
 
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+
+    public int getNumOfNeighbors() {
+        return numOfNeighbors;
+    }
+
+    public void setNumOfNeighbors(int numOfNeighbors) {
+        this.numOfNeighbors = numOfNeighbors;
+    }
+
+    public Map<String, Precinct> getAllDPrecincts() {
+        return allDPrecincts;
+    }
+
+    public void setAllDPrecincts(Map<String, Precinct> allDPrecincts) {
+        this.allDPrecincts = allDPrecincts;
+    }
 }
+

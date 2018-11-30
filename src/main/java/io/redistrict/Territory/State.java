@@ -3,8 +3,7 @@ package io.redistrict.Territory;
 import io.redistrict.Election.ElectionData;
 import io.redistrict.Election.Party;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class State {
     private int population;
@@ -14,10 +13,13 @@ public class State {
     private Map<Party, Integer> stateElectionResult;
 //    private Stack<Move> moves;
     private Map<String, Precinct> allPrecincts;
-    private Map<Integer, Precinct> unassignedPrecincts;
-//    private AlgorithmType type;
+    private Set<String> unassignedPrecinctIds;
     private Map<District, Float> popScores;
 
+    public State(State state){
+        this.stateName = state.getStateName();
+        this.allPrecincts= new HashMap<>(state.getAllPrecincts());
+    }
 
     public State(String name, Map<String,Precinct> allPrecincts){
         this.stateName=name;
@@ -60,35 +62,58 @@ public class State {
     public int getPopulation(){
         return population;
     }
-//    public void updatePrecinct(Move move){
-//
-//    }
-//    public void undoLastMove(){
-//
-//    }
-//    public District getRandomDistrict(){
-//
-//    }
-//    public void addToMoveStack(Move move){
-//
-//    }
+
     public void addToDistrictList(District district){
 
     }
-//    public void executeMove(Move move){
-//
-//    }
-//    public float calculateIdealPop(){
-//
-//    }
-//    public float updatePopScores(District source, District dest, float score1, float score2){
-//
-//    }
-//    public int getDistrictScore(District d){
-//
-//    }
+
     public void updateDistrictScore(float score, District dest){
 
+    }
+
+    /**
+     * set unassigned precinct to allPrecinct. Used in RG.
+     */
+    public void resetUnassignedPrecinctIds(){
+        unassignedPrecinctIds = new LinkedHashSet<>(allPrecincts.keySet());
+    }
+
+    public Map<Integer, District> getDistricts() {
+        return districts;
+    }
+
+    public void setDistricts(Map<Integer, District> districts) {
+        this.districts = districts;
+    }
+
+    public Set<String> getUnassignedPrecinctIds() {
+        return unassignedPrecinctIds;
+    }
+
+    public void setUnassignedPrecinctIds(Set<String> unassignedPrecinctIds) {
+        this.unassignedPrecinctIds = unassignedPrecinctIds;
+    }
+
+    public void removeFromUnassigned(Set<String> removalIds){
+        removalIds.forEach(id-> unassignedPrecinctIds.remove(id));
+    }
+
+    public void removeFromUnassigned(String id){
+        unassignedPrecinctIds.remove(id);
+    }
+
+    public void executeMove(Move move){
+        Precinct precinct = move.getPrecinct();
+        District destDist = move.getDestDistrict();
+        District srcDist = move.getSrcDistrict();
+
+        removeFromUnassigned(precinct.getGeoID10());
+
+        if(srcDist == null){
+            districts.get(destDist.getDistrictId()).addPrecinct(precinct);
+        }
+
+        districts.get(destDist.getDistrictId()).updateBorderPrecincts(unassignedPrecinctIds);
     }
 
 }

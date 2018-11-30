@@ -36,5 +36,9 @@ public class AppData {
         }
         return result;
     }
+
+    public static State getState(String stateName){
+        return new State(stateMap.get(stateName.toUpperCase()));
+    }
 }
 
