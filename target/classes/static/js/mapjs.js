@@ -170,7 +170,7 @@ $('#runButton').click(function () {
             console.log("ERROR : ", e);
         }
     });
-    
+
 });
 
 function validateAlgorithmSuccess() {}
