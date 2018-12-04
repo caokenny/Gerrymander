@@ -15,7 +15,7 @@ import java.util.*;
 
 public class Algorithm {
 
-    private static Properties properties;
+    private static Properties properties = new Properties();
     public State startRg(Set<Precinct> seeds, String stateName){
         State state = makeRgState(seeds,stateName);
         Map<Integer,District> possibleDistricts = new LinkedHashMap<>(state.getDistricts());
@@ -115,7 +115,7 @@ public class Algorithm {
         return PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
     }
     public static void loadDefaultProperties(){
-        InputStream aStream = Algorithm.class.getClassLoader().getResourceAsStream("algorithm.properties");
+        InputStream aStream = Algorithm.class.getClassLoader().getResourceAsStream("algorithms.properties");
         try{
             properties.load(aStream);
         } catch (IOException e) {
