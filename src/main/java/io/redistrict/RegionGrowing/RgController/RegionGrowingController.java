@@ -25,6 +25,7 @@ public class RegionGrowingController {
     @RequestMapping(value = "/pickrgseed", method = RequestMethod.GET)
     @ResponseBody
     public String assignSeedDistrict(String stateName , String numOfSeed){
+        System.out.println("Picking RG Seeds");
         int seedNum = Integer.parseInt(numOfSeed);
         State state = AppData.getState(stateName);
         Collection<Precinct> precinctSet = state.getAllPrecincts().values();
