@@ -16,6 +16,7 @@ public class District {
     private Map<Party, Integer> electionResult;
     private List<Precinct> borderPrecincts;
     private int numOfNeighbors;
+    private String seedPrecinctId;
 
     private static Properties properties = new Properties();
     public District(int districtId,Precinct startPrecinct){
@@ -26,6 +27,7 @@ public class District {
         allDPrecincts.put(startPrecinct.getGeoID10(),startPrecinct);
         borderPrecincts.add(startPrecinct);
         this.numOfNeighbors = startPrecinct.getNeighbors().size();
+        this.seedPrecinctId = startPrecinct.getGeoID10();
     }
 
     public int getDistrictId() {
@@ -174,42 +176,6 @@ public class District {
     }
     public int getDistrictID(){
         return districtId;
-    }
-    public static void loadDefaultProperties(){
-        InputStream aStream = District.class.getClassLoader().getResourceAsStream("algorithms.properties");
-        try{
-            properties.load(aStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public double calculateSchwartzberg(double area, double perimeter) {
-        // equalAreaRadius = r = sqrt(A/PI)
-        double r = Math.sqrt(area/Math.PI);
-        // equalAreaPerimeter = C = 2pi * r (Circumference)
-        double equalAreaPerimeter = 2 * Math.PI * r;
-        // Schwartzberg score = 1 / (Perimeter of district / C )
-        double score = 1 / (perimeter/equalAreaPerimeter);
-        return score;
-    }
-    public double calculatePolsbyPopper(double area, double perimeter) {
-        // Formula: (4Pi * area) / (Perimeter^2)
-        double polsbyPopperScore = (4 * Math.PI * area) / Math.pow(perimeter, 2);
-        return polsbyPopperScore;
-    }
-    public float calculatePopEqualScore(float idealPop) {
-        float score = 1;
-        if (population <= idealPop) return score;
-        float difference = population - idealPop;
-        float lowerThreshold = Float.parseFloat(properties.getProperty("population_lowThreshold"));
-        float midThreshold = Float.parseFloat(properties.getProperty("population_midThreshold"));
-        float highThreshold = Float.parseFloat(properties.getProperty("population_highThreshold"));
-        float lowPenalty = Float.parseFloat(properties.getProperty("population_lowPenalty"));
-        float midPenalty = Float.parseFloat(properties.getProperty("population_midPenalty"));
-        float highPenalty = Float.parseFloat(properties.getProperty("population_highPenalty"));
-        if (difference <= lowerThreshold) return score - lowPenalty;
-        else if (difference > lowerThreshold && difference <= midThreshold) return score - midPenalty;
-        else return score - highPenalty;
     }
 }
 
