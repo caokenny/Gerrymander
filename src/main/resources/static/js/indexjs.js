@@ -1,6 +1,5 @@
 var loginOpen = false;
 var registerOpen = false;
-var loggedInUser;
 
 function popupLogin() {
     if (registerOpen === true) {
@@ -33,67 +32,6 @@ function closeRegister() {
     var registerBox = document.getElementById("registerDiv");
     registerBox.style.display = "none";
 }
-
-$('.registerSubmit').click(function () {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/register", false);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    var username = $('#registerUsername').val();
-    var email = $('#registerEmail').val();
-
-    xhr.onreadystatechange = function() {
-        if (xhr.responseText !== "Success") {
-            alert(xhr.responseText);
-        } else {
-            alert(xhr.responseText);
-            $('#loginButton').css('display', 'none');
-            $('#registerButton').css('display', 'none');
-            $('#logoutButton').css('display', 'block');
-
-            loggedInUser = username.toLowerCase();
-            closeRegister();
-        }
-    };
-
-    xhr.send(
-        "username=" + username +
-        "&password=" + $('#registerPassword').val() +
-        "&verifypassword=" + $('#registerVerifyPassword').val() +
-        "&email=" + email +
-        "&admin=false");
-});
-
-$('.loginSubmit').click(function () {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/login", false);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    var username = $('#loginUsername').val();
-
-    xhr.onreadystatechange = function () {
-        if (xhr.responseText !== "Success") {
-            alert(xhr.responseText);
-        } else {
-            $('#loginButton').css('display', 'none');
-            $('#registerButton').css('display', 'none');
-            $('#logoutButton').css('display', 'block');
-            loggedInUser = username.toLowerCase();
-            closeLogin();
-        }
-    };
-
-    xhr.send(
-        "username=" + username +
-            "&password=" + $('#loginPassword').val()
-    );
-});
-
-$('#logoutButton').click(function () {
-    loggedInUser = null;
-    $('#loginButton').css('display', 'block');
-    $('#registerButton').css('display', 'block');
-    $('#logoutButton').css('display', 'none');
-});
 
 
 // var stompClient = null;

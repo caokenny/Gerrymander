@@ -34,65 +34,73 @@ function closeRegister() {
     registerBox.style.display = "none";
 }
 
-$('.registerSubmit').click(function () {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/register", false);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+// $('.registerSubmit').click(function () {
+//     var username = $('#registerUsername').val();
+//     var password = $('#registerPassword').val();
+//     var verifyPassword = $('#registerVerifyPassword').val();
+//     var email = $('#registerEmail').val();
+//     $.ajax({
+//         url : "/register",
+//         async : false,
+//         method : "POST",
+//         data : {"username" : username, "password" : password, "verifypassword" : verifyPassword, "email" : email, "admin" : false},
+//         success : function (data) {
+//             if (data !== "Success") {
+//                 alert(data);
+//             } else {
+//                 alert(data);
+//                 $('#loginButton').css('display', 'none');
+//                 $('#registerButton').css('display', 'none');
+//                 $('#logoutButton').css('display', 'block');
+//                 $('#registerUsername').val("");
+//                 $('#registerPassword').val("");
+//                 $('#registerVerifyPassword').val("");
+//                 $('#registerEmail').val("");
+//
+//                 loggedInUser = username.toLowerCase();
+//                 closeRegister();
+//             }
+//         }
+//     });
+// });
 
-    var username = $('#registerUsername').val();
-    var email = $('#registerEmail').val();
+// $('.loginSubmit').click(function () {
+//     var username = $('#loginUsername').val();
+//     var password = $('#loginPassword').val();
+//
+//     $.ajax({
+//         url: "/login",
+//         async: false,
+//         method: "POST",
+//         data: {"username" : username, "password" : password},
+//         success : function (data) {
+//             if (data !== "Success") {
+//                 alert(data);
+//             } else {
+//                 $('#loginButton').css('display', 'none');
+//                 $('#registerButton').css('display', 'none');
+//                 $('#logoutButton').css('display', 'block');
+//
+//                 $('#loginPassword').val("");
+//
+//                 loggedInUser = username.toLowerCase();
+//                 closeLogin();
+//             }
+//         }
+//     })
+// });
+//
+// $('#logoutButton').click(function () {
+//     $.ajax({
+//         url: "/logout",
+//         async: false,
+//         method: "POST"
+//     });
+//
+// });
 
-    xhr.onreadystatechange = function() {
-        if (xhr.responseText !== "Success") {
-            alert(xhr.responseText);
-        } else {
-            alert(xhr.responseText);
-            $('#loginButton').css('display', 'none');
-            $('#registerButton').css('display', 'none');
-            $('#logoutButton').css('display', 'block');
+$('#updateButton').click(function () {
 
-            loggedInUser = username.toLowerCase();
-            closeRegister();
-        }
-    };
-
-    xhr.send(
-        "username=" + username +
-        "&password=" + $('#registerPassword').val() +
-        "&verifypassword=" + $('#registerVerifyPassword').val() +
-        "&email=" + email +
-        "&admin=false");
-});
-
-$('.loginSubmit').click(function () {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/login", false);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    var username = $('#loginUsername').val();
-
-    xhr.onreadystatechange = function () {
-        if (xhr.responseText !== "Success") {
-            alert(xhr.responseText);
-        } else {
-            $('#loginButton').css('display', 'none');
-            $('#registerButton').css('display', 'none');
-            $('#logoutButton').css('display', 'block');
-            loggedInUser = username.toLowerCase();
-            closeLogin();
-        }
-    };
-
-    xhr.send(
-        "username=" + username +
-            "&password=" + $('#loginPassword').val()
-    );
-});
-
-$('#logoutButton').click(function () {
-    loggedInUser = null;
-    $('#loginButton').css('display', 'block');
-    $('#registerButton').css('display', 'block');
-    $('#logoutButton').css('display', 'none');
 });
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" manifest="index.cache" xmlns:form="http://www.w3.org/1999/html">
 <head>
-    <!--<meta charset="UTF-8">-->
+    <meta charset="UTF-8">
     <title>Team Falcon</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
@@ -13,32 +13,51 @@
 <body>
 <div id="wrapper">
 
-    <div id="loginDiv">
-        <form onsubmit="return false" id="logincontent" method="post">
+    <div id="loginDiv" th:style="${loginFail} ? 'display:block' : 'display:none'">
+        <form action="/user/login" id="logincontent" method="post" modelAttribute="user">
             <span class="closeLoginBox" onclick="closeLogin()">&times;</span>
             <input type="text" name="username" id="loginUsername" placeholder="Enter Username" required>
             <input type="password" name="password" id="loginPassword" placeholder="Enter Password" required>
+            <div th:if="${loginFail}">
+                Username/Password is incorrect.
+            </div>
             <button class="loginSubmit" type="submit">Login</button>
         </form>
     </div>
 
-    <div id="registerDiv">
-        <form onsubmit="return false" id="registercontent" method="post">
+    <div id="registerDiv" th:style="${registerFail} ? 'display:block' : 'display:none'">
+        <form action="/user/register" id="registercontent" method="POST" modelAttribute="user">
             <span class="closeLoginBox" onclick="closeRegister()">&times;</span>
             <input type="text" name="username" id="registerUsername" placeholder="Enter Username" required>
+            <div th:if="${userTaken == true}">
+                Username is already registered.
+            </div>
             <input type="password" name="password" id="registerPassword" placeholder="Enter Password" required>
-            <input type="password" name="verifypassword" id="registerVerifyPassword" placeholder="Verify Password" required>
+            <input type="password" name="passwordConfirm" id="registerVerifyPassword" placeholder="Verify Password" required>
+            <div th:if="${pwNoMatch == true}">
+                Passwords do not match.
+            </div>
             <input type="email" name="email" id="registerEmail" placeholder="Enter Email Address" required>
+            <input name="admin" style="display: none" value="false">
             <button class="registerSubmit" type="submit">Register</button>
         </form>
     </div>
 
     <div id="mapheader">
         <ul id="nav">
-            <li><a href="#" onclick="goHome()">Home</a></li>
-            <li><a href="#" onclick="popupLogin()" id="loginButton">Log In</a></li>
-            <li><a href="#" onclick="popupRegister()" id="registerButton">Register</a></li>
-            <li><a href="#" id="logoutButton" style="display: none">Logout</a> </li>
+            <div th:if="${loggedIn == false}">
+                <li><a href="#" onclick="goHome()">Home</a></li>
+                <li><a href="#" onclick="popupLogin()" id="loginButton">Log In</a></li>
+                <li><a href="#" onclick="popupRegister()" id="registerButton">Register</a></li>
+            </div>
+            <div th:unless="${loggedIn == false}">
+                <li><a href="#" onclick="goHome()">Home</a></li>
+                <li><a href="/user/logout">Logout</a></li>
+            </div>
+            <!--<li><a href="#" onclick="goHome()">Home</a></li>-->
+            <!--<li><a href="#" onclick="popupLogin()" id="loginButton">Log In</a></li>-->
+            <!--<li><a href="#" onclick="popupRegister()" id="registerButton">Register</a></li>-->
+            <!--<li><a href="#" id="logoutButton" style="display: none">Logout</a> </li>-->
         </ul>
     </div>
 
@@ -89,22 +108,22 @@
     </div>
 </div>
 
-    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
-            integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
-            crossorigin=""></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="/webjars/jquery/jquery.min.js"></script>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="/js/us-states.js"></script>
-    <script src="/js/CO_final.js"></script>
-    <script src="/js/KS_final.js"></script>
-    <script src="/js/mo_final.js"></script>
-    <script src="/js/Colorado.js"></script>
-    <script src="/js/Kansas.js"></script>
-    <script src="/js/Missouri.js"></script>
-    <script src="/js/indexjs.js"></script>
-    <script src="/js/mapjs.js"></script>
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+        integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+        crossorigin=""></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script src="/js/us-states.js"></script>
+<script src="/js/CO_final.js"></script>
+<script src="/js/KS_final.js"></script>
+<script src="/js/mo_final.js"></script>
+<script src="/js/Colorado.js"></script>
+<script src="/js/Kansas.js"></script>
+<script src="/js/Missouri.js"></script>
+<script src="/js/indexjs.js"></script>
+<script src="/js/mapjs.js"></script>
 
 </body>
 </html>
