@@ -79,10 +79,11 @@ public class State {
         districts.put(district.getDistrictID(), district);
     }
     public float calculateIdealPop(){
-        return 0;
+        return (float)population / districts.size();
     }
-    public float updatePopScores(District source, District dest, float score1, float score2){
-        return 0;
+    public void updatePopScores(District source, District dest, float score1, float score2){
+        popScores.put(source, score1);
+        popScores.put(dest, score2);
     }
     public double getDistrictScore(District d){
         return 0;
@@ -128,7 +129,18 @@ public class State {
 
         districts.get(destDistId).addPrecinct(precinct);
         districts.get(destDistId).updateBorderPrecincts(unassignedPrecinctIds);
+        updatePopulationEqualityMeasure(move);
 
+    }
+    public void updatePopulationEqualityMeasure(Move m) {
+        float idealPop = calculateIdealPop();
+        int srcDistrictID = m.getSrcDistrictID();
+        int destDistrictID = m.getDstDistrictID();
+        District src = districts.get(srcDistrictID);
+        District dest = districts.get(destDistrictID);
+        float score1 = src.calculatePopEqualScore(idealPop);
+        float score2 = dest.calculatePopEqualScore(idealPop);
+        updatePopScores(src, dest, score1, score2);
     }
 
 }
