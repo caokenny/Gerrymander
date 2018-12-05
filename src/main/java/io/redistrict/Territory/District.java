@@ -14,6 +14,7 @@ public class District {
     private Map<Party, Integer> electionResult;
     private List<Precinct> borderPrecincts;
     private int numOfNeighbors;
+    private String seedPrecinctId;
 
     public District(int districtId,Precinct startPrecinct){
         this.districtId = districtId;
@@ -23,6 +24,7 @@ public class District {
         allDPrecincts.put(startPrecinct.getGeoID10(),startPrecinct);
         borderPrecincts.add(startPrecinct);
         this.numOfNeighbors = startPrecinct.getNeighbors().size();
+        this.seedPrecinctId = startPrecinct.getGeoID10();
     }
 
     public int getDistrictId() {
@@ -171,6 +173,23 @@ public class District {
     }
     public int getDistrictID(){
         return districtId;
+    }
+
+    public static Set<District> makeSeedDistricts(Collection<Precinct> precincts){
+        int districtID=1;
+        Set<District> seedDistricts = new LinkedHashSet<>();
+        for(Precinct p : precincts){
+            seedDistricts.add(new District(districtID++,p));
+        }
+        return  seedDistricts;
+    }
+
+    public String getSeedPrecinctId() {
+        return seedPrecinctId;
+    }
+
+    public void setSeedPrecinctId(String seedPrecinctId) {
+        this.seedPrecinctId = seedPrecinctId;
     }
 }
 
