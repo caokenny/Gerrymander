@@ -1,6 +1,5 @@
 var loginOpen = false;
 var registerOpen = false;
-var loggedInUser;
 
 function popupLogin() {
     if (registerOpen === true) {
@@ -33,75 +32,6 @@ function closeRegister() {
     var registerBox = document.getElementById("registerDiv");
     registerBox.style.display = "none";
 }
-
-// $('.registerSubmit').click(function () {
-//     var username = $('#registerUsername').val();
-//     var password = $('#registerPassword').val();
-//     var verifyPassword = $('#registerVerifyPassword').val();
-//     var email = $('#registerEmail').val();
-//     $.ajax({
-//         url : "/register",
-//         async : false,
-//         method : "POST",
-//         data : {"username" : username, "password" : password, "verifypassword" : verifyPassword, "email" : email, "admin" : false},
-//         success : function (data) {
-//             if (data !== "Success") {
-//                 alert(data);
-//             } else {
-//                 alert(data);
-//                 $('#loginButton').css('display', 'none');
-//                 $('#registerButton').css('display', 'none');
-//                 $('#logoutButton').css('display', 'block');
-//                 $('#registerUsername').val("");
-//                 $('#registerPassword').val("");
-//                 $('#registerVerifyPassword').val("");
-//                 $('#registerEmail').val("");
-//
-//                 loggedInUser = username.toLowerCase();
-//                 closeRegister();
-//             }
-//         }
-//     });
-// });
-
-// $('.loginSubmit').click(function () {
-//     var username = $('#loginUsername').val();
-//     var password = $('#loginPassword').val();
-//
-//     $.ajax({
-//         url: "/login",
-//         async: false,
-//         method: "POST",
-//         data: {"username" : username, "password" : password},
-//         success : function (data) {
-//             if (data !== "Success") {
-//                 alert(data);
-//             } else {
-//                 $('#loginButton').css('display', 'none');
-//                 $('#registerButton').css('display', 'none');
-//                 $('#logoutButton').css('display', 'block');
-//
-//                 $('#loginPassword').val("");
-//
-//                 loggedInUser = username.toLowerCase();
-//                 closeLogin();
-//             }
-//         }
-//     })
-// });
-//
-// $('#logoutButton').click(function () {
-//     $.ajax({
-//         url: "/logout",
-//         async: false,
-//         method: "POST"
-//     });
-//
-// });
-
-$('#updateButton').click(function () {
-
-});
 
 
 // var stompClient = null;
