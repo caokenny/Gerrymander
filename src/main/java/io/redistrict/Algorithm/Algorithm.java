@@ -125,5 +125,10 @@ public class Algorithm {
             e.printStackTrace();
         }
     }
-
+    public void setAlgorithmData(AlgorithmData data) {
+        this.data = data;
+    }
+    public AlgorithmData getAlgorithmData() {
+        return data;
+    }
 }
