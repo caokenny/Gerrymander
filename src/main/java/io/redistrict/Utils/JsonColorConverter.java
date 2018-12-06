@@ -1,5 +1,6 @@
 package io.redistrict.Utils;
 
+import io.redistrict.Territory.District;
 import io.redistrict.Territory.Precinct;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -42,4 +43,22 @@ public class JsonColorConverter {
         }
         return colorJson;
     }
+
+    public static JSONObject districtColorToJson(Collection<Color> colors, Collection<District> districts){
+        if(colors.size() != districts.size())
+            return null;
+
+        JSONObject colorJson = convertToJson(colors);
+        JSONArray colorsArrJson = colorJson.getJSONArray("Colors");
+        Iterator<District> districtIterator =  districts.iterator();
+
+        for(int index = 0 ; districtIterator.hasNext();index ++){
+            JSONObject colorArrElement = colorsArrJson.getJSONObject(index);
+            District currentDistrict = districtIterator.next();
+            colorArrElement.put("DistrictId",currentDistrict.getDistrictId());
+            colorArrElement.put("GEOID10",currentDistrict.getSeedPrecinctId());
+        }
+        return colorJson;
+    }
+
 }
