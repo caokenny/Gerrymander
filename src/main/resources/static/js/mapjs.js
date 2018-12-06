@@ -8,7 +8,7 @@ var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8
     accessToken: 'pk.eyJ1IjoiY2Fva2VubnkiLCJhIjoiY2ptZHhzcmJoMHVlYjNwbW90cm1kZW11bSJ9.C6aOC-2bLmc9SIXXjI0tyQ'
 }).addTo(mymap);
 
-var colors = {"01" : "red", "02" : "green", "03" : "purple", "04" : "yellow"};
+var colors = {"01" : "red", "02" : "green", "03" : "purple", "04" : "yellow", "05" : "orange", "06" : "pink", "07" : "gray", "08" : "brown"};
 
 //Add geoJSON
 
@@ -79,8 +79,8 @@ function zoomState(bounds, geoObj, stateName) {
         geoObj.addTo(mymap).setStyle(initialStyle);
         $.getJSON("/js/" + stateName + "_district.json", function (data) {
             districtLayer = L.geoJSON(data, {
-                style: function () {
-                    return {color: "black", opacity: 1};
+                style: function (feature) {
+                    return {fillColor: colors[feature.properties.DISTRICT], fillOpacity: 1, color: "black", opacity: 1};
                 }
             }).addTo(mymap);
         });
@@ -103,9 +103,11 @@ function checkZoom() {
         var currentZoomLevel = mymap.getZoom();
         if (currentZoomLevel > zoomLevel) {
             mymap.addLayer(precinctLayer);
+            mymap.removeLayer(districtLayer);
         } else if (currentZoomLevel <= zoomLevel) {
             if (mymap.hasLayer(precinctLayer)) {
                 mymap.removeLayer(precinctLayer);
+                mymap.addLayer(districtLayer);
             }
         }
     })
