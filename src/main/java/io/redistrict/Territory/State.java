@@ -1,6 +1,5 @@
 package io.redistrict.Territory;
 
-import io.redistrict.Algorithm.Algorithm;
 import io.redistrict.Election.ElectionData;
 import io.redistrict.Election.Party;
 
@@ -19,8 +18,9 @@ public class State {
     private Map<District, Float> popScores;
 
     public State(State state){
+        //if u want districts set it urself
         this.stateName = state.getStateName();
-        this.allPrecincts= new HashMap<>(state.getAllPrecincts());
+        this.allPrecincts= new LinkedHashMap<>(state.getAllPrecincts());
     }
     public State(String name, Map<String,Precinct> allPrecincts){
         this.stateName=name;
@@ -76,7 +76,7 @@ public class State {
         moves.add(move);
     }
     public void addToDistrictList(District district){
-        districts.put(district.getDistrictID(), district);
+        districts.put(district.getDistrictId(), district);
     }
     public float calculateIdealPop(){
         return (float)population / districts.size();
@@ -141,6 +141,16 @@ public class State {
         float score1 = src.calculatePopEqualScore(idealPop);
         float score2 = dest.calculatePopEqualScore(idealPop);
         updatePopScores(src, dest, score1, score2);
+    }
+
+    public void assignAllUnassignedPrecincts(int districtId){
+        District d = districts.get(districtId);
+        for(String id : unassignedPrecincts.keySet()){
+            Precinct unassignedP=  unassignedPrecincts.get(id);
+            d.addPrecinct(unassignedP);
+            //TODO UPDATE BORDERS AND SCORES
+
+        }
     }
 
 }

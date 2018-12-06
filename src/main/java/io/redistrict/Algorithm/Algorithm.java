@@ -1,13 +1,13 @@
 package io.redistrict.Algorithm;
 
 import io.redistrict.AppData.AppData;
+import io.redistrict.AppData.MoveUpdate;
 import io.redistrict.AppData.MoveUpdater;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Move;
 import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
 import io.redistrict.Utils.NeighborFinder;
-import io.redistrict.Utils.NeighborsLoader;
 import io.redistrict.Utils.PrecinctSelector;
 
 import java.io.IOException;
@@ -18,6 +18,40 @@ public class Algorithm {
 
     private static Properties properties = new Properties();
     private AlgorithmData data = new AlgorithmData();
+
+    public MoveUpdater do10RgIteration(){
+        State state = data.getWorkingState();
+        Map<Integer,District> rgDistricts= state.getDistricts();
+        List<MoveUpdate> updates = new ArrayList<>();
+        int iterationsDone = 0;
+
+        while (!state.getUnassignedPrecinctIds().isEmpty() && iterationsDone <=10){
+            // IF ONLY 1 DISTRICT THEN WE ASSIGN ALL TO IT
+            if(rgDistricts.size() == 1){
+                District district = rgDistricts.values().iterator().next();
+                MoveUpdater updater = assignAll(district,state);
+                return updater;
+            }
+            //ELSE
+            District rgDistrict = selectRgDistrict(rgDistricts);
+            Precinct rgPrecinct = selectRgAdditionPrecinct(rgDistrict,state);
+            state.removeFromUnassigned(rgPrecinct.getGeoID10());
+            Move move = new Move(rgPrecinct,-1,rgDistrict.getDistrictId());
+            state.executeMove(move);
+            updates.add(new MoveUpdate(move.getSrcDistrictID(),move.getDstDistrictID(),move.getPrecinct().getGeoID10()));
+
+            if(rgDistrict.getNumOfNeighbors() == 0) {
+             rgDistricts.remove(rgDistrict);
+            }
+            iterationsDone++;
+        }
+
+        MoveUpdater updater = new MoveUpdater();
+        updater.setUpdates(updates);
+        return updater;
+    }
+
+
 
     public State startRg(Set<Precinct> seeds, String stateName){
         State state = makeRgState(seeds,stateName);
@@ -126,4 +160,23 @@ public class Algorithm {
         }
     }
 
+    public AlgorithmData getData() {
+        return data;
+    }
+
+    public void setData(AlgorithmData data) {
+        this.data = data;
+    }
+
+    private MoveUpdater assignAll(District loneDistrict , State state){
+        List<MoveUpdate> updates = new ArrayList<>();
+        for(String precinctId : state.getUnassignedPrecinctIds()){
+            updates.add(new MoveUpdate(-1,loneDistrict.getDistrictId(),precinctId));
+        }
+        state.assignAllUnassignedPrecincts(loneDistrict.getDistrictId());
+
+        MoveUpdater updater = new MoveUpdater();
+        updater.setUpdates(updates);
+        return  updater;
+    }
 }

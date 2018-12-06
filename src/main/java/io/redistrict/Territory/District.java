@@ -174,9 +174,7 @@ public class District {
         Move move = new Move(pNeighbor, pNeighbor.getParentDistrictID(), precinct.getParentDistrictID());
         return move;
     }
-    public int getDistrictID(){
-        return districtId;
-    }
+
     public static void loadDefaultProperties(){
         InputStream aStream = District.class.getClassLoader().getResourceAsStream("algorithms.properties");
         try{
