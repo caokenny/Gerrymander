@@ -166,27 +166,27 @@ $('#updateButton').on('click', function () {
     })
 });
 
-$('#runButton').on('click', function () {
-    // var a = $('#algorithmChoice').val();
-    var compactness = $('#compactnessSlider').val();
-    var population = $('#populationSlider').val();
-    var partisanFariness = $('#partisanFairnessSlider').val();
-    var efficiencyGap = $('#efficiencyGapSlider').val();
-    var measuresObj = {"compactness" : compactness, "population" : population, "partisanFairness" : partisanFariness, "efficiencyGap" : efficiencyGap};
-    do {
-        $.ajax({
-            url: "/rg/",
-            type: "POST",
-            async: true,
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(measuresObj),
-            success: function (data) {
-                updatePrecinctVisual(data);
-            }
-        })
-    } while (data !== "");
-});
+// $('#runButton').on('click', function () {
+//     // var a = $('#algorithmChoice').val();
+//     var compactness = $('#compactnessSlider').val();
+//     var population = $('#populationSlider').val();
+//     var partisanFariness = $('#partisanFairnessSlider').val();
+//     var efficiencyGap = $('#efficiencyGapSlider').val();
+//     var measuresObj = {"compactness" : compactness, "population" : population, "partisanFairness" : partisanFariness, "efficiencyGap" : efficiencyGap};
+//     do {
+//         $.ajax({
+//             url: "/rg/",
+//             type: "POST",
+//             async: true,
+//             contentType: "application/json",
+//             dataType: "json",
+//             data: JSON.stringify(measuresObj),
+//             success: function (data) {
+//                 updatePrecinctVisual(data);
+//             }
+//         })
+//     } while (data !== "");
+// });
 
 var precinctMove;
 function updatePrecinctVisual(response) {
@@ -202,3 +202,59 @@ function updatePrecinctVisual(response) {
     }
 }
 
+var summaryBox = $('#summaryBox');
+$('#runButton').click(function () {
+    var s;
+    var req;
+    var a = $('#algorithmChoice').val();
+    var m1 = $('#compactnessSlider').val();
+    var m2 = $('#populationSlider').val();
+    var m3 = $('#partisanFairnessSlider').val();
+    var m4 = $('#efficiencyGapSlider').val();
+    console.log(a); // prints rg
+    console.log(m1); // prints value correctly
+    var algObj = {"compactness": m1, "populationEquality": m2, "partisanFairness": m3, "efficencyGap": m4, "algorithm": a};
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/startAlgorithm",
+        data: JSON.stringify(algObj),
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+            var json = JSON.stringify(data, null, 4);
+            summaryBox.val(summaryBox.val() + json);
+            console.log("SUCCESS : ", data);
+            continueAlgorithm();
+        },
+        error: function (e) {
+            var json = "Ajax Response" + e.responseText;
+            summaryBox.val(summaryBox.val() + json);
+            console.log("ERROR : ", e);
+        }
+    });
+});
+var stopAlgorithm = false;
+function continueAlgorithm() {
+    var countObj = {counter: 0};
+    $.ajax({
+        type: "POST",
+        url: "/continueAlgorithm",
+        contentType: "application/json",
+        data: JSON.stringify(countObj),
+        dataType: 'json',
+        cache: false,
+        success: function (data) {
+            var json = JSON.stringify(data, null, 4);
+            summaryBox.val(summaryBox.val() + "\n" + data["successful"]);
+            console.log("SUCCESS : ", data["successful"]);
+            if (data["successful"] === 5)
+                stopAlgorithm = true;
+            if (!stopAlgorithm)
+                continueAlgorithm();
+            else
+                return;
+        }
+    });
+}
