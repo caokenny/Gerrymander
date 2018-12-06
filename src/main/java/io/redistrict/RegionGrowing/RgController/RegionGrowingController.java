@@ -4,6 +4,7 @@ import io.redistrict.Algorithm.Algorithm;
 import io.redistrict.Algorithm.AlgorithmEntry;
 import io.redistrict.Algorithm.AlgorithmManager;
 import io.redistrict.AppData.AppData;
+import io.redistrict.AppData.MoveUpdater;
 import io.redistrict.RegionGrowing.RgUtilities.ColorRandomizer;
 import io.redistrict.RegionGrowing.RgUtilities.RgSeedSelector;
 import io.redistrict.Territory.District;
@@ -19,8 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import java.awt.*;
 
 import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Set;
 
 @Controller
@@ -32,18 +31,19 @@ public class RegionGrowingController {
 
     @RequestMapping(value = "/pickrgseed", method = RequestMethod.GET)
     @ResponseBody
-    public String assignRandomSeedDistrict(/*String stateName , String numOfSeed*/){
-        System.out.println("Picking RG Seeds");
-        int seedNum = 3;//Integer.parseInt(numOfSeed);
-        State state = AppData.getState("MO"/*stateName*/);
+    public String assignRandomSeedDistrict(String stateName , String numOfSeed){
+
+        int seedNum = Integer.parseInt(numOfSeed);
+        State state = AppData.getState(stateName);
         Collection<Precinct> precinctSet = state.getAllPrecincts().values();
         Set<Color> colorSet = ColorRandomizer.pickRandomColors(seedNum);
         Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(precinctSet,seedNum);
         Set<District> seedDistricts = District.makeSeedDistricts(seeds);
-        AlgorithmManager.setCurrentSeeds(seeds);
+        AlgorithmManager.setStartingSeeds(seeds);
 
         JSONObject initSeedJson = JsonColorConverter.districtColorToJson(colorSet,seedDistricts);
-
+        initSeedJson.put("Test",AlgorithmManager.getCurrentState());
+        AlgorithmManager.setCurrentState("NY");
         return initSeedJson.toString();
 
     }
@@ -52,10 +52,11 @@ public class RegionGrowingController {
     @ResponseBody
     public void startRg(@RequestBody AlgorithmEntry entry) {
         Algorithm rgAlg = new Algorithm();
+        MoveUpdater updater = rgAlg.getUpdater();
         AlgorithmManager.setEntry(entry);
         AlgorithmManager.setCurrentAlgorithm(rgAlg);
 
-        rgAlg.startRg(AlgorithmManager.getCurrentSeeds(), entry.getStateAbbrv());
+        rgAlg.startRg(AlgorithmManager.getStartingSeeds(), entry.getStateAbbrv());
 
     }
 }

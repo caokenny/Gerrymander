@@ -5,16 +5,17 @@ import io.redistrict.Territory.Precinct;
 import java.util.Set;
 
 public class AlgorithmManager {
-    private static Set<Precinct> currentSeeds;
+    private static Set<Precinct> startingSeeds;
     private static AlgorithmEntry entry;
+    private static String currentState;
     private static Algorithm currentAlgorithm;
 
-    public static Set<Precinct> getCurrentSeeds() {
-        return currentSeeds;
+    public static Set<Precinct> getStartingSeeds() {
+        return startingSeeds;
     }
 
-    public static void setCurrentSeeds(Set<Precinct> currentSeeds) {
-        AlgorithmManager.currentSeeds = currentSeeds;
+    public static void setStartingSeeds(Set<Precinct> startingSeeds) {
+        AlgorithmManager.startingSeeds = startingSeeds;
     }
 
     public static AlgorithmEntry getEntry() {
@@ -31,5 +32,13 @@ public class AlgorithmManager {
 
     public static void setCurrentAlgorithm(Algorithm currentAlgorithm) {
         AlgorithmManager.currentAlgorithm = currentAlgorithm;
+    }
+
+    public static String getCurrentState() {
+        return currentState;
+    }
+
+    public static void setCurrentState(String currentState) {
+        AlgorithmManager.currentState = currentState;
     }
 }
