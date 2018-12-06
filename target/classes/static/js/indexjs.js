@@ -33,7 +33,6 @@ function closeRegister() {
     registerBox.style.display = "none";
 }
 
-<<<<<<< HEAD
 // $('#runButton').click(function () {
 //     var s;
 //     var req;
@@ -68,19 +67,6 @@ function closeRegister() {
 //
 //             console.log("ERROR : ", e);
 //         }
-=======
-
-// var stompClient = null;
-// function connect() {
-//     var socket = new SockJS('/websocket-example');
-//     stompClient = Stomp.over(socket);
-//     stompClient.connect({}, function (frame) {
-//         console.log("Connected: " + frame);
-//         stompClient.subscribe("/index/change", function (color) {
-//             document.getElementById("usercontrol").style.backgroundColor = color.body;
-//             console.log(color.body);
-//         });
->>>>>>> master
 //     });
 //
 // });
