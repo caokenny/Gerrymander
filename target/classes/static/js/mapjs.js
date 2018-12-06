@@ -10,32 +10,13 @@ var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8
 
 //Add geoJSON
 
-
-var states = L.geoJSON(usageo, {
+L.geoJSON(usageo, {
     style: function (feature) {
         return {color: "black", fillColor: "blue", fillOpacity: 1}
     }
 }).addTo(mymap);
 
-// var continents = L.geoJSON(continentsgeo, {
-//     style: function (feature) {
-//         if (feature.properties.CONTINENT !== "North America") {
-//             return {color: "black", opacity: 1, fillColor: "black", fillOpacity: 1};
-//         } else {
-//             return {color: "black"};
-//         }
-//     }
-// }).addTo(mymap);
-
-
 var initialStyle = {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1};
-
-
-// var statesArr = [
-//     {name : "colorado", jsvar : colorado, precinctsVar: coloradogeo},
-//     {name : "kansas", jsvar : kansas, precinctsVar: kansasgeo},
-//     {name : "missouri", jsvar : missouri, precinctsVar: missourigeo}
-// ];
 
 var onStateAlready = false;
 
@@ -126,8 +107,6 @@ function checkZoom() {
         }
     })
 }
-
-
 
 // function addPrecincts() {
 //     console.log(geoJSONEvents[0].geo.getAttribution());

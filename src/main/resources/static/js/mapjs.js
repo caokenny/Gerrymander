@@ -8,6 +8,8 @@ var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8
     accessToken: 'pk.eyJ1IjoiY2Fva2VubnkiLCJhIjoiY2ptZHhzcmJoMHVlYjNwbW90cm1kZW11bSJ9.C6aOC-2bLmc9SIXXjI0tyQ'
 }).addTo(mymap);
 
+var colors = {"01" : "red", "02" : "green", "03" : "purple", "04" : "yellow"};
+
 //Add geoJSON
 
 L.geoJSON(usageo, {
@@ -87,7 +89,8 @@ function zoomState(bounds, geoObj, stateName) {
             precinctLayer = L.geoJSON(data, {
                 style: function () {
                     return {color: "black", opacity: 1};
-                }
+                },
+                name: stateName
             });
         });
         zoomLevel = mymap.getBoundsZoom(bounds);
@@ -138,53 +141,62 @@ function goHome() {
     precinctLayer = null;
     districtLayer = null;
     mymap.setView([37.0902, -95.7129], 4);
-    document.getElementById("buttons").style.display = "none";
-    document.getElementById("measuresContainer").style.display = "none";
-    document.getElementById("summaryBox").style.display = "none";
-    document.getElementById("usercontrol").style.backgroundColor = "orange";
-    document.getElementById("welcomeDiv").style.display = "block";
-    document.getElementById("algorithmChoiceDiv").style.display = "none";
+    $('#buttons').css("display", "none");
+    $('#measuresContainer').css("display", "none");
+    $('#summaryBox').css("display", "none");
+    $('#usercontrol').css("backgroundColor", "orange");
+    $('#welcomeDiv').css("display", "block");
+    $('#algorithmChoiceDiv').css("display", "none");
 }
 
-// $('#runButton').click(function () {
-//     var s;
-//     var req;
-//     var a = $('#algorithmChoice').val();
-//     var m1 = $('#compactnessSlider').val();
-//     var m2 = $('#populationSlider').val();
-//     var m3 = $('#partisanFairnessSlider').val();
-//     var m4 = $('#efficiencyGapSlider').val();
-//     console.log(a); // prints rg
-//     console.log(m1); // prints value correctly
-//     var algObj = {"state": s, "compactness": m1, "populationEquality": m2, "partisanFairness": m3, "efficencyGap": m4, "algorithm": a};
-//     $.ajax({
-//         type: "POST",
-//         contentType: "application/json",
-//         url: "/algorithm",
-//         data: JSON.stringify(algObj),
-//         dataType: 'json',
-//         cache: false,
-//         timeout: 600000,
-//         success: function (data) {
-//
-//             var json = "<h4>Ajax Response</h4><pre>"
-//                 + JSON.stringify(data, null, 4) + "</pre>";
-//             $('#measuresContainer').html(json);
-//
-//             console.log("SUCCESS : ", data);
-//         },
-//         error: function (e) {
-//             var json = "<h4>Ajax Response</h4><pre>"
-//                 + e.responseText + "</pre>";
-//             $('#measuresContainer').html(json);
-//
-//             console.log("ERROR : ", e);
-//         }
-//     });
-//
-// });
-//
-// function validateAlgorithmSuccess() {}
-// if (req.readyState === 4 && req.status === 200) {
-//     alert(req.responseText);
-// }
+$('#updateButton').on('click', function () {
+    var dataObj = {"stateName": precinctLayer.options.name, "seedNum" : 3};
+    $.ajax({
+        url: "/rg/pickrgseed",
+        async: true,
+        dataType: "json",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(dataObj),
+        success: function (response) {
+            updatePrecinctVisual(response);
+        }
+    })
+});
+
+$('#runButton').on('click', function () {
+    // var a = $('#algorithmChoice').val();
+    var compactness = $('#compactnessSlider').val();
+    var population = $('#populationSlider').val();
+    var partisanFariness = $('#partisanFairnessSlider').val();
+    var efficiencyGap = $('#efficiencyGapSlider').val();
+    var measuresObj = {"compactness" : compactness, "population" : population, "partisanFairness" : partisanFariness, "efficiencyGap" : efficiencyGap};
+    do {
+        $.ajax({
+            url: "/rg/",
+            type: "POST",
+            async: true,
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(measuresObj),
+            success: function (data) {
+                updatePrecinctVisual(data);
+            }
+        })
+    } while (data !== "");
+});
+
+var precinctMove;
+function updatePrecinctVisual(response) {
+    if (response === "") { return; }
+    var jsonObj = JSON.parse(response);
+    for (var i = 0; i < jsonObj.Moves.length; i++) {
+        precinctMove = jsonObj.Moves[i];
+        precinctLayer.setStyle(function (feature) {
+            if (feature.properties.GEOID10 === precinctMove.GEOID10) {
+                return {fillColor : colors[precinctMove.District], fillOpacity : 1};
+            }
+        });
+    }
+}
+

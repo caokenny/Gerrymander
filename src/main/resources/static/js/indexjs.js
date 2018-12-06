@@ -33,81 +33,49 @@ function closeRegister() {
     registerBox.style.display = "none";
 }
 
-
-// var stompClient = null;
-// function connect() {
-//     var socket = new SockJS('/websocket-example');
-//     stompClient = Stomp.over(socket);
-//     stompClient.connect({}, function (frame) {
-//         console.log("Connected: " + frame);
-//         stompClient.subscribe("/index/change", function (color) {
-//             document.getElementById("usercontrol").style.backgroundColor = color.body;
-//             console.log(color.body);
-//         });
-//     });
-// }
-//
-// $(function () {
-//     $('.connect').click( function () {
-//         connect();
-//     });
-//     $('.colorChange').click(function () {
-//         stompClient.send("/app/color");
-//     })
-// });
-
-
-
-// $('.colorChange').click(function () {
-//     var xhr = new XMLHttpRequest();
-//     xhr.open("POST", "/index/color", true);
-//     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-//
-//     xhr.onload = function () {
-//         document.getElementById("usercontrol").style.backgroundColor = xhr.responseText;
-//     };
-//
-//     // var formdata = new FormData();
-//     // formdata.append("color", $(this).val());
-//
-//     xhr.send("color=" + $(this).val());
-// });
-
-
-// var color;
 // $('#runButton').click(function () {
-//     var xhr = new XMLHttpRequest();
-//     xhr.open("POST", "/rg/pickrgseed", true);
-//     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//     var s;
+//     var req;
+//     var a = $('#algorithmChoice').val();
+//     var m1 = $('#compactnessSlider').val();
+//     var m2 = $('#populationSlider').val();
+//     var m3 = $('#partisanFairnessSlider').val();
+//     var m4 = $('#efficiencyGapSlider').val();
+//     console.log(a); // prints rg
+//     console.log(m1); // prints value correctly
+//     var algObj = {"state": s, "compactness": m1, "populationEquality": m2, "partisanFairness": m3, "efficencyGap": m4, "algorithm": a};
+//     $.ajax({
+//         type: "POST",
+//         contentType: "application/json",
+//         url: "/algorithm",
+//         data: JSON.stringify(algObj),
+//         dataType: 'json',
+//         cache: false,
+//         timeout: 600000,
+//         success: function (data) {
 //
-//     xhr.onload = function () {
-//         //Change precinct colors here
-//         var obj = JSON.parse(xhr.responseText);
-//         for (var i = 0; i < obj.Colors.length; i++) {
-//             color = obj.Colors[i];
-//             // console.log(color.red);
-//             // console.log(color.blue);
-//             // console.log(color.green);
-//             // console.log(color.precinctID);
-//             var index;
-//             for (var j = 0; j < geoJSONEvents.length; j++) {
-//                 if (mymap.hasLayer(geoJSONEvents[j].geo)) {
-//                     // geoJSONEvents[j].precincts.addTo(mymap);
-//                     index = j;
-//                     break;
-//                 }
-//             }
-//             geoJSONEvents[index].precincts.setStyle(function (feature) {
-//                 // if (feature.properties.GEOID10 === "290032") {
-//                 //     return {fillColor : "purple", fillOpacity : 1}
-//                 // }
-//                 return {fillColor : "rgb(" + color.red + "," + color.green + "," + color.blue + ")", fillOpacity : 1};
-//             });
+//             var json = "<h4>Ajax Response</h4><pre>"
+//                 + JSON.stringify(data, null, 4) + "</pre>";
+//             $('#measuresContainer').html(json);
+//
+//             console.log("SUCCESS : ", data);
+//         },
+//         error: function (e) {
+//             var json = "<h4>Ajax Response</h4><pre>"
+//                 + e.responseText + "</pre>";
+//             $('#measuresContainer').html(json);
+//
+//             console.log("ERROR : ", e);
 //         }
-//     };
+//     });
 //
-//     xhr.send("seeds=3");
 // });
+//
+// function validateAlgorithmSuccess() {}
+// if (req.readyState === 4 && req.status === 200) {
+//     alert(req.responseText);
+// }
+
 
 
 
