@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" manifest="index.cache" xmlns:form="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" manifest="/resources/index.cache">
 <head>
     <meta charset="UTF-8">
     <title>Team Falcon</title>
@@ -82,7 +82,7 @@
             <!--<button class="connect">Connect</button>-->
         </div>
         <div id="buttons">
-            <button class="algoButtons" type="button" style="margin-right: 20px;">Update</button>
+            <button class="algoButtons" type="button" id="updateButton" style="margin-right: 20px;">Update</button>
             <button class="algoButtons" type="button" id="runButton">Run</button>
         </div>
         <div id="algorithmChoiceDiv">
@@ -111,14 +111,11 @@
 <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
         integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
         crossorigin=""></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
 <script src="/webjars/jquery/jquery.min.js"></script>
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <script src="/js/us-states.js"></script>
-<script src="/js/CO_final.js"></script>
-<script src="/js/KS_final.js"></script>
-<script src="/js/mo_final.js"></script>
 <script src="/js/Colorado.js"></script>
 <script src="/js/Kansas.js"></script>
 <script src="/js/Missouri.js"></script>

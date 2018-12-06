@@ -29,9 +29,9 @@ public class RegionGrowingController {
 
     @RequestMapping(value = "/pickrgseed", method = RequestMethod.GET)
     @ResponseBody
-    public String assignRandomSeedDistrict(String stateName , String numOfSeed){
-
-        int seedNum = Integer.parseInt(numOfSeed);
+    public String assignSeedDistrict(String stateName , int seedNum){
+        System.out.println("Picking RG Seeds");
+//        int seedNum = Integer.parseInt(numOfSeed);
         State state = AppData.getState(stateName);
         Collection<Precinct> precinctSet = state.getAllPrecincts().values();
         Set<Color> colorSet = ColorRandomizer.pickRandomColors(seedNum);
