@@ -17,8 +17,7 @@ import java.util.*;
 public class Algorithm {
 
     private static Properties properties = new Properties();
-    private MoveUpdater updater = new MoveUpdater();
-
+    private AlgorithmData data = new AlgorithmData();
 
     public State startRg(Set<Precinct> seeds, String stateName){
         State state = makeRgState(seeds,stateName);
@@ -29,7 +28,6 @@ public class Algorithm {
             state.removeFromUnassigned(rgPrecinct.getGeoID10());
             Move move = new Move(rgPrecinct,-1,rgDistrict.getDistrictId());
             state.executeMove(move);
-            updater.addToUpdates(move);
             if(rgDistrict.getNumOfNeighbors()== 0){
                 possibleDistricts.remove(rgDistrict.getDistrictId());
             }
@@ -128,11 +126,4 @@ public class Algorithm {
         }
     }
 
-    public MoveUpdater getUpdater() {
-        return updater;
-    }
-
-    public void setUpdater(MoveUpdater updater) {
-        this.updater = updater;
-    }
 }

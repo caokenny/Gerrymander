@@ -1,6 +1,6 @@
 package io.redistrict.Algorithm;
 
-public class AlgorithmEntry {
+public class AlgorithmWeights {
     private double compactness;
     private double populationEquality;
     private double partisanFairness;
@@ -46,9 +46,6 @@ public class AlgorithmEntry {
 
     public void setAlgorithm(String algorithm) {
         this.algorithm = algorithm;
-    }
-    public String toString(){
-        return "this is an algorithm entry with compactness of:" +compactness;
     }
 
     public String getStateAbbrv() {

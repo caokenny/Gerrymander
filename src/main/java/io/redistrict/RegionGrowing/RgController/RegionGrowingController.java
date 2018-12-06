@@ -1,10 +1,8 @@
 package io.redistrict.RegionGrowing.RgController;
 
 import io.redistrict.Algorithm.Algorithm;
-import io.redistrict.Algorithm.AlgorithmEntry;
-import io.redistrict.Algorithm.AlgorithmManager;
+import io.redistrict.Algorithm.AlgorithmWeights;
 import io.redistrict.AppData.AppData;
-import io.redistrict.AppData.MoveUpdater;
 import io.redistrict.RegionGrowing.RgUtilities.ColorRandomizer;
 import io.redistrict.RegionGrowing.RgUtilities.RgSeedSelector;
 import io.redistrict.Territory.District;
@@ -39,24 +37,16 @@ public class RegionGrowingController {
         Set<Color> colorSet = ColorRandomizer.pickRandomColors(seedNum);
         Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(precinctSet,seedNum);
         Set<District> seedDistricts = District.makeSeedDistricts(seeds);
-        AlgorithmManager.setStartingSeeds(seeds);
 
         JSONObject initSeedJson = JsonColorConverter.districtColorToJson(colorSet,seedDistricts);
-        initSeedJson.put("Test",AlgorithmManager.getCurrentState());
-        AlgorithmManager.setCurrentState("NY");
         return initSeedJson.toString();
 
     }
 
     @PostMapping(value = "/startRg")
     @ResponseBody
-    public void startRg(@RequestBody AlgorithmEntry entry) {
-        Algorithm rgAlg = new Algorithm();
-        MoveUpdater updater = rgAlg.getUpdater();
-        AlgorithmManager.setEntry(entry);
-        AlgorithmManager.setCurrentAlgorithm(rgAlg);
-
-        rgAlg.startRg(AlgorithmManager.getStartingSeeds(), entry.getStateAbbrv());
-
+    public void startRg(@RequestBody AlgorithmWeights entry) {
+        Algorithm algorithm = new Algorithm();
+        AppData.setCurrentAlgorithm(algorithm);
     }
 }

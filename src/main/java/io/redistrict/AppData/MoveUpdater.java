@@ -17,19 +17,4 @@ public class MoveUpdater {
         this.updates = updates;
     }
 
-    public void addToUpdates(Move move){
-        updates.add(new MoveUpdate(move.getSrcDistrictID(),move.getDstDistrictID(),move.getPrecinct().getGeoID10()));
-    }
-    public void removeFromBack(){
-        if(updates.size() ==0)
-            return;
-        MoveUpdate toBeRemoved = updates.get(updates.size()-1);
-        updates.remove(toBeRemoved);
-    }
-    public void removeFromFront(){
-        if(updates.size()==0)
-            return;
-        updates.remove(0);
-
-    }
 }

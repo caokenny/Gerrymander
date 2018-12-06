@@ -1,5 +1,6 @@
 package io.redistrict.AppData;
 
+import io.redistrict.Algorithm.Algorithm;
 import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
 
@@ -10,6 +11,7 @@ public class AppData {
     /** this is only temporary! will be removed later with stateMap only **/
     private static Map<String, Precinct> precinctMap;
     private static Map<String, State> stateMap;
+    private static Algorithm currentAlgorithm;
 
     public static Map<String, Precinct> getPrecinctMap() {
         return precinctMap;
@@ -39,6 +41,14 @@ public class AppData {
 
     public static State getState(String stateName){
         return new State(stateMap.get(stateName.toUpperCase()));
+    }
+
+    public static Algorithm getCurrentAlgorithm() {
+        return currentAlgorithm;
+    }
+
+    public static void setCurrentAlgorithm(Algorithm currentAlgorithm) {
+        AppData.currentAlgorithm = currentAlgorithm;
     }
 }
 
