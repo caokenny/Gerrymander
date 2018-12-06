@@ -325,7 +325,7 @@
       <workItem from="1543896310887" duration="735000" />
       <workItem from="1543958327085" duration="8433000" />
       <workItem from="1544046744039" duration="16341000" />
-      <workItem from="1544076158991" duration="707000" />
+      <workItem from="1544076158991" duration="1122000" />
     </task>
     <task id="LOCAL-00001" summary="deleted backend package">
       <created>1543561610898</created>
@@ -352,7 +352,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49168000" />
+    <option name="totallyTimeSpent" value="49583000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
