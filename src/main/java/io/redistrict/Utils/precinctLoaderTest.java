@@ -46,7 +46,7 @@ public class precinctLoaderTest {
         Set<String> unassignedPrecinctIds = currentAlgorithm.getData().getWorkingState().getUnassignedPrecinctIds();
         while (!unassignedPrecinctIds.isEmpty()) {
             MoveUpdater updater = currentAlgorithm.do10RgIteration();
-            System.out.println(unassignedPrecinctIds.size() + " precincts left");
+            System.out.println(updater.getUpdates().size());
         }
 
     }
