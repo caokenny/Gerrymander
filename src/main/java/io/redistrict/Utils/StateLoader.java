@@ -25,6 +25,7 @@ public class StateLoader {
              String stateName = stateEnum.toString();
              Map<String, Precinct> allPrecincts = loadPrecincts(stateName);
              State currentState = new State(stateName, allPrecincts);
+             //TODO make default districts
              stateMap.put(stateName, currentState);
          }
         return stateMap;
@@ -40,7 +41,7 @@ public class StateLoader {
             FileReader fileReader = new FileReader(filePath);
             JSONArray precinctArray = (JSONArray) new JSONParser().parse(fileReader);
             precinctMap = makePrecinctSet(precinctArray);
-            NeighborsLoader.loadNeighbors(precinctMap,stateName);
+            NeighborsLoader.loadNeighbors(precinctMap,stateName); //set all the nieghbors for each precinct in the map
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();

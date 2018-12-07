@@ -1,17 +1,17 @@
 package io.redistrict.Utils;
 
 import io.redistrict.Algorithm.Algorithm;
+import io.redistrict.Algorithm.AlgorithmData;
+import io.redistrict.Algorithm.AlgorithmType;
 import io.redistrict.AppData.AppData;
+import io.redistrict.AppData.MoveUpdater;
 import io.redistrict.RegionGrowing.RgUtilities.RgSeedSelector;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
 import io.redistrict.Territory.StateEnum;
 
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class precinctLoaderTest {
     public static void main(String [] args) {
@@ -20,17 +20,34 @@ public class precinctLoaderTest {
         StateLoader.loadDefaultProperties();
         AppData.setStateMap(StateLoader.loadAllStates(StateEnum.values()));
 
-        Algorithm algorithm = new Algorithm();
+        //setup
         State mo = AppData.getState("MO");
         Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(mo.getAllPrecincts().values(),3);
-        State rgState = algorithm.startRg(seeds, mo.getStateName());
+        Map<Integer,District> seedDistricts = District.makeSeedDistricts(seeds);
+        mo.setDistricts(seedDistricts);
+        mo.resetUnassignedPrecinctIds();
 
-        /*District district1 = rgState.getDistricts().get(1);
-        System.out.println("{ \"geoid\": [");
-        for(String pId : district1.getAllDPrecincts().keySet()){
-            System.out.println("\"" + pId + "\",");
+        Algorithm algorithm = new Algorithm();
+        AlgorithmData data = new AlgorithmData();
+        data.setWorkingState(mo);
+        data.setStartingSeeds(seeds);
+        data.setType(AlgorithmType.RG);
+        algorithm.setData(data);
+        AppData.setCurrentAlgorithm(algorithm);
+
+        //Start
+        Algorithm currentAlgorithm = AppData.getCurrentAlgorithm();
+        if(currentAlgorithm == null){
+            System.out.println("ALGORITHM IS NULL");
         }
-        System.out.println("]}");*/
+        // set weight variable to current algorithm
+        //currentAlgorithm.getData().setWeights(weights);
+
+        Set<String> unassignedPrecinctIds = currentAlgorithm.getData().getWorkingState().getUnassignedPrecinctIds();
+        while (!unassignedPrecinctIds.isEmpty()) {
+            MoveUpdater updater = currentAlgorithm.do10RgIteration();
+            System.out.println(unassignedPrecinctIds.size() + " precincts left");
+        }
 
     }
 

@@ -16,6 +16,7 @@ public class Precinct {
     private String geoID10;
     private List<ElectionData> electionData;
     private List<Precinct> neighbors;
+    private List<Precinct> unassignedNeighbors;
     private int parentDistrictID;
     private Set<Precinct> borderPrecincts;
     private boolean isBorder;
@@ -86,4 +87,23 @@ public class Precinct {
         return electionData;
     }
 
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Precinct> getUnassignedNeighbors() {
+        return unassignedNeighbors;
+    }
+
+    public void setUnassignedNeighbors(List<Precinct> unassignedNeighbors) {
+        this.unassignedNeighbors = unassignedNeighbors;
+    }
 }
