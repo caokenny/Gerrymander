@@ -92,14 +92,18 @@
             </select>
         </div>
         <div id="measuresContainer">
-            <h2 class="measureSliderTitle">Compactness</h2>
-            <input type="range" min="1" max="100" value="50" class="measureSlider" id="compactnessSlider">
+            <h2 class="measureSliderTitle">Compactness </h2>
+            <input type="range" min="1" max="100" value="50" class="measureSlider" id="compactnessSlider" data-thumbwidth="20">
+            <output id="compactnessOutput" name="rangeVal">50</output>
             <h2 class="measureSliderTitle">Population</h2>
-            <input type="range" min="1" max="100" value="50" class="measureSlider" id="populationSlider">
+            <input type="range" min="1" max="100" value="50" class="measureSlider" id="populationSlider" data-thumbwidth="20">
+            <output id="populationOutput" name="rangeVal">50</output>
             <h2 class="measureSliderTitle">Partisan Fairness</h2>
-            <input type="range" min="1" max="100" value="50" class="measureSlider" id="partisanFairnessSlider">
+            <input type="range" min="1" max="100" value="50" class="measureSlider" id="partisanFairnessSlider" data-thumbwidth="20">
+            <output id="pfOutput" name="rangeVal">50</output>
             <h2 class="measureSliderTitle">Efficiency Gap</h2>
-            <input type="range" min="1" max="100" value="50" class="measureSlider" id="efficiencyGapSlider">
+            <input type="range" min="1" max="100" value="50" class="measureSlider" id="efficiencyGapSlider" data-thumbwidth="20">
+            <output id="egOutput" name="rangeVal">50</output>
         </div>
         <textarea id="summaryBox" readonly>Summary</textarea>
 

@@ -14,7 +14,9 @@ var colors = {"01" : "red", "02" : "green", "03" : "purple", "04" : "yellow", "0
 
 L.geoJSON(usageo, {
     style: function (feature) {
-        return {color: "black", fillColor: "blue", fillOpacity: 1}
+        if (feature.properties.name !== "Colorado" && feature.properties.name !== "Kansas" && feature.properties.name !== "Missouri") {
+            return {color: "black", fillColor: "blue", fillOpacity: 1}
+        }
     }
 }).addTo(mymap);
 
@@ -60,6 +62,7 @@ for ( i = 0; i < stateNames.length; i++) {
 
 var precinctLayer;
 var districtLayer;
+var stateLayer;
 // var color = {"1" :}
 var zoomLevel;
 
@@ -74,9 +77,16 @@ function zoomState(bounds, geoObj, stateName) {
         $('#algorithmChoiceDiv').css("display", "flex");
         var j;
         for (j = 0; j < stateEvents.length; j++) {
-            mymap.removeLayer(stateEvents[j]);
+            // mymap.removeLayer(stateEvents[j]);
+            if (stateEvents[j] !== geoObj) {
+                stateEvents[j].setStyle(function () {
+                    return {fillColor: "blue"};
+                });
+            }
         }
-        geoObj.addTo(mymap).setStyle(initialStyle);
+        stateLayer = geoObj;
+
+        // geoObj.addTo(mymap).setStyle(initialStyle);
         $.getJSON("/js/" + stateName + "_district.json", function (data) {
             districtLayer = L.geoJSON(data, {
                 style: function (feature) {
@@ -87,8 +97,8 @@ function zoomState(bounds, geoObj, stateName) {
         mymap.fitBounds(bounds);
         $.getJSON("/js/" + stateName + "_final.json", function (data) {
             precinctLayer = L.geoJSON(data, {
-                style: function () {
-                    return {color: "black", opacity: 1};
+                style: function (feature) {
+                    return {color: "black", opacity: 0.5, fillColor: colors[feature.properties.DISTRICT], fillOpacity: 1};
                 },
                 name: stateName
             });
@@ -132,9 +142,7 @@ function goHome() {
     if (onStateAlready) {
         var j;
         for (j = 0; j < stateEvents.length; j++) {
-            if (!mymap.hasLayer(stateEvents[j])) {
-                stateEvents[j].addTo(mymap);
-            }
+            stateEvents[j].setStyle(initialStyle);
         }
         mymap.removeLayer(precinctLayer);
         mymap.removeLayer(districtLayer);

@@ -87,6 +87,7 @@ html, body {
 
 #measuresContainer {
     /*display: flex;*/
+    position: relative;
     display: none;
     flex-direction: column;
     margin: auto;
@@ -214,10 +215,62 @@ input[type=text], input[type=password], input[type=email] {
     color: white;
 }
 
+input[type=range]::-webkit-slider-runnable-track {
+    position: relative;
+    height: 12px;
+    border: 1px solid #b2b2b2;
+    border-radius: 5px;
+    background-color: #e2e2e2;
+    box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
 
+input[type=range]::-webkit-slider-thumb {
+    position: relative;
+    top: -5px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #999;
+    -webkit-appearance: none;
+    background-color: #fff;
+    box-shadow: inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 100%;
+    cursor: pointer;
+}
 
+output {
+    position: absolute;
+    display: none;
+    width: 50px;
+    height: 24px;
+    border: 1px solid #e2e2e2;
+    background-color: #fff;
+    border-radius: 3px;
+    color: #777;
+    font-size: .8em;
+    line-height: 24px;
+    text-align: center;
+}
 
+#compactnessOutput {
+    top: 60px;
+}
 
+#populationOutput {
+    top: 180px;
+}
+
+#pfOutput {
+    top: 300px;
+}
+
+#egOutput {
+    top: 410px;
+}
+
+input[type=range]:active + output {
+    display: block;
+    transform: translateX(-50%);
+}
 
 
 
