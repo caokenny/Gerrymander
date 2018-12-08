@@ -19,6 +19,8 @@ public class District {
     private String seedPrecinctId;
 
     private static Properties properties = new Properties();
+
+
     public District(int districtId,Precinct startPrecinct){
         this.districtId = districtId;
         this.population= startPrecinct.getPopulation();
@@ -26,7 +28,8 @@ public class District {
         this.borderPrecincts = new ArrayList<>();
         allDPrecincts.put(startPrecinct.getGeoID10(),startPrecinct);
         borderPrecincts.add(startPrecinct);
-        this.numOfNeighbors = startPrecinct.getNeighbors().size();
+        if(startPrecinct.getNeighbors() !=null)
+            this.numOfNeighbors = startPrecinct.getNeighbors().size();
         this.seedPrecinctId = startPrecinct.getGeoID10();
     }
 
@@ -230,5 +233,7 @@ public class District {
     public void setSeedPrecinctId(String seedPrecinctId) {
         this.seedPrecinctId = seedPrecinctId;
     }
+
+
 }
 

@@ -1,6 +1,7 @@
 package io.redistrict.Utils;
 
 
+import io.redistrict.Territory.District;
 import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
 import io.redistrict.Territory.StateEnum;
@@ -23,47 +24,70 @@ public class StateLoader {
 
          for(StateEnum stateEnum : arr) {
              String stateName = stateEnum.toString();
-             Map<String, Precinct> allPrecincts = loadPrecincts(stateName);
-             State currentState = new State(stateName, allPrecincts);
+             StateData stateData = loadStateData(stateName);
+             State currentState = new State(stateName, stateData.getAllPrecinct());
+             currentState.setDefaultDistrict(stateData.getDefaultDistricts());
              stateMap.put(stateName, currentState);
          }
         return stateMap;
     }
 
+    public static Map<Integer, District> loadDefaultDistricts(Map<String , Precinct> allPrecinct){
+        Map<Integer,District> defaultDistrict = new LinkedHashMap<>();
 
-    public static Map<String,Precinct> loadPrecincts(String stateName){
+        for(Precinct precinct : allPrecinct.values()){
+            int parentId = precinct.getParentDistrictID();
+            if(defaultDistrict.get(parentId) == null){
+                District newDistrict = new District(parentId,precinct);
+                defaultDistrict.put(parentId,newDistrict);
+            }
+            else{
+                defaultDistrict.get(parentId).addPrecinct(precinct);
+            }
+        }
+        return defaultDistrict;
+    }
+
+
+    public static StateData loadStateData(String stateName){
 
         String filePath = properties.getProperty(stateName);
         Map<String,Precinct> precinctMap =null;
+        StateData stateData = new StateData();
 
         try {
             FileReader fileReader = new FileReader(filePath);
             JSONArray precinctArray = (JSONArray) new JSONParser().parse(fileReader);
-            precinctMap = makePrecinctSet(precinctArray);
+            precinctMap = getPrecinctData(precinctArray);
             NeighborsLoader.loadNeighbors(precinctMap,stateName);
-
+            Map<Integer,District> defaultDistrict = loadDefaultDistricts(precinctMap);
+            stateData.setDefaultDistricts(defaultDistrict);
+            stateData.setAllPrecinct(precinctMap);
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-
-        return precinctMap;
+        return stateData;
     }
 
     /*
     get map of GEOID10 to Precinct from JSONArray
      */
-    private static Map<String,Precinct> makePrecinctSet(JSONArray jsonArray)
+    private static Map<String, Precinct> getPrecinctData(JSONArray jsonArray)
     {
-        int idNum=1;
         Map<String, Precinct> precinctMap = new HashMap<>();
+
         for(Object obj : jsonArray){
             JSONObject precinctJsObj = (JSONObject) obj;
             Long population = (Long) precinctJsObj.get(properties.getProperty("POPULATION"));
             String geoId10 = getStringValue(precinctJsObj.get(properties.getProperty("GEOID10")));
             String name = getStringValue(precinctJsObj.get(properties.getProperty("NAME10")));
-            precinctMap.put(geoId10,new Precinct(idNum++,geoId10,name,population.intValue()));
-        }
+            Long districtId = (Long) precinctJsObj.get(properties.get("DISTRICTID"));
 
+            Precinct precinct = new Precinct(geoId10,name,population.intValue());
+            precinct.setParentDistrictID(districtId.intValue());
+
+            precinctMap.put(geoId10,precinct);
+        }
         return precinctMap;
     }
 

@@ -166,27 +166,27 @@ $('#updateButton').on('click', function () {
     })
 });
 
-// $('#runButton').on('click', function () {
-//     // var a = $('#algorithmChoice').val();
-//     var compactness = $('#compactnessSlider').val();
-//     var population = $('#populationSlider').val();
-//     var partisanFariness = $('#partisanFairnessSlider').val();
-//     var efficiencyGap = $('#efficiencyGapSlider').val();
-//     var measuresObj = {"compactness" : compactness, "population" : population, "partisanFairness" : partisanFariness, "efficiencyGap" : efficiencyGap};
-//     do {
-//         $.ajax({
-//             url: "/rg/",
-//             type: "POST",
-//             async: true,
-//             contentType: "application/json",
-//             dataType: "json",
-//             data: JSON.stringify(measuresObj),
-//             success: function (data) {
-//                 updatePrecinctVisual(data);
-//             }
-//         })
-//     } while (data !== "");
-// });
+$('#runButton').on('click', function () {
+    // var a = $('#algorithmChoice').val();
+    var compactness = $('#compactnessSlider').val();
+    var population = $('#populationSlider').val();
+    var partisanFariness = $('#partisanFairnessSlider').val();
+    var efficiencyGap = $('#efficiencyGapSlider').val();
+    var measuresObj = {"compactness" : compactness, "population" : population, "partisanFairness" : partisanFariness, "efficiencyGap" : efficiencyGap};
+    do {
+        $.ajax({
+            url: "/rg/",
+            type: "POST",
+            async: true,
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(measuresObj),
+            success: function (data) {
+                updatePrecinctVisual(data);
+            }
+        })
+    } while (data !== "");
+});
 
 var precinctMove;
 function updatePrecinctVisual(response) {
@@ -224,7 +224,7 @@ $('#runButton').click(function () {
         timeout: 600000,
         success: function (data) {
             var json = JSON.stringify(data, null, 4);
-            summaryBox.val(summaryBox.val() + json);
+            summaryBox.val(summaryBox.val() + "\n" + json);
             console.log("SUCCESS : ", data);
             continueAlgorithm();
         },

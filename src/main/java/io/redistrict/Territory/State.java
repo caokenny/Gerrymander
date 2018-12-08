@@ -17,10 +17,15 @@ public class State {
     private Map<String, Precinct> unassignedPrecincts;
     private Set<String> unassignedPrecinctIds;
     private Map<District, Float> popScores;
+    private Map<Integer,District> defaultDistrict;
+
 
     public State(State state){
         this.stateName = state.getStateName();
-        this.allPrecincts= new HashMap<>(state.getAllPrecincts());
+        this.allPrecincts= new LinkedHashMap<>(state.getAllPrecincts());
+        this.defaultDistrict = new LinkedHashMap<>(state.getDefaultDistrict());
+        this.population= state.getPopulation();
+        districts = new LinkedHashMap<>();
     }
     public State(String name, Map<String,Precinct> allPrecincts){
         this.stateName=name;
@@ -143,4 +148,19 @@ public class State {
         updatePopScores(src, dest, score1, score2);
     }
 
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+    public Map<Integer, District> getDefaultDistrict() {
+        return defaultDistrict;
+    }
+
+    public void setDefaultDistrict(Map<Integer, District> defaultDistrict) {
+        this.defaultDistrict = defaultDistrict;
+    }
 }

@@ -11,7 +11,6 @@ import java.util.Set;
 public class Precinct {
 
     private int population;
-    private int precinctId;
     private String name;
     private String geoID10;
     private List<ElectionData> electionData;
@@ -20,13 +19,12 @@ public class Precinct {
     private Set<Precinct> borderPrecincts;
     private boolean isBorder;
 
-    public Precinct(int population, int precinctId){
+
+    public Precinct(int population){
         this.population = population;
-        this.precinctId = precinctId;
     }
-    public Precinct(int precinctId, String geoID10, String name, int population) {
+    public Precinct(String geoID10, String name, int population) {
         this.name = name;
-        this.precinctId = precinctId;
         this.population = population;
         this.geoID10 = geoID10;
     }
@@ -53,10 +51,6 @@ public class Precinct {
         int n = rand.nextInt(i) - 1;
         return neighbors.get(n);
     }
-    public int getPrecinctId(){
-        return precinctId;
-    }
-
     public String getGeoID10() {
         return geoID10;
     }
@@ -67,8 +61,7 @@ public class Precinct {
 
     @Override
     public String toString() {
-        return "Precinct id= "+precinctId
-                +"\nname= " + name
+        return "name= " + name
                 +"\ngeoid10= " + geoID10
                 +"\npopulation= "+population;
     }
@@ -86,4 +79,31 @@ public class Precinct {
         return electionData;
     }
 
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setElectionData(List<ElectionData> electionData) {
+        this.electionData = electionData;
+    }
+
+    public Set<Precinct> getBorderPrecincts() {
+        return borderPrecincts;
+    }
+
+    public void setBorderPrecincts(Set<Precinct> borderPrecincts) {
+        this.borderPrecincts = borderPrecincts;
+    }
+
+    public void setBorder(boolean border) {
+        isBorder = border;
+    }
 }
