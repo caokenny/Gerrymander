@@ -1,6 +1,8 @@
 package io.redistrict.Algorithm;
 
 import io.redistrict.AppData.AppData;
+import io.redistrict.AppData.MoveUpdate;
+import io.redistrict.AppData.MoveUpdater;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Move;
 import io.redistrict.Territory.Precinct;
@@ -68,15 +70,22 @@ public class Algorithm {
         }
         return state;
     }
-    public State getSimulatedState(String stateName){
+    public State getSimulatedState(String variant){
+        List<MoveUpdate> updates = new ArrayList<>();
+        int iterationsDone = 0;
+        State state = data.getWorkingState();
         int badMoves = 0;
-        State state = AppData.getState(stateName.toUpperCase());
         int max_bad_move = Integer.parseInt(properties.getProperty("max_bad_moves"));
-        double accecptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
+        double acceptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
         double constantMultiplier = Double.parseDouble(properties.getProperty("constant_multiplier"));
 
-        while(badMoves < max_bad_move){
-            District district = state.getRandomDistrict();
+        while(badMoves < max_bad_move && iterationsDone < 10){
+            District district;
+            if(variant.equals("random"))
+                district = state.getRandomDistrict();
+            else{
+                district = state.getLowestScoreDistrict();
+            }
             double oldScore = state.getDistrictScore(district);
             Move move = district.modifyDistrict();
             Precinct modifiedPrecinct = move.getPrecinct();
@@ -90,14 +99,15 @@ public class Algorithm {
                 state.addToMoveStack(move);
             }
             else{
-                badMoves++;
-                boolean acceptBadMove = state.acceptBadMove(oldScore, newScore, accecptanceConstant);
+                boolean acceptBadMove = state.acceptBadMove(oldScore, newScore, acceptanceConstant);
                 if(acceptBadMove){
                     state.addToMoveStack(move);
                 }
-                else
+                else {
                     state.undoLastMove(move);
-                accecptanceConstant *= constantMultiplier;
+                    badMoves++;
+                }
+                acceptanceConstant *= constantMultiplier;
             }
         }
         return state;
@@ -160,4 +170,25 @@ public class Algorithm {
         }
     }
 
+    public MoveUpdater changePrecinct() {
+        State state = data.getWorkingState();
+        Map<Integer,District> districts= state.getDefaultDistrict();
+        List<MoveUpdate> updates = new ArrayList<>();
+        District targetDistrict = districts.get(data.getTargetDistrict());
+        Precinct selectedPrecinct = state.getAllPrecincts().get(data.getSelectedPrecinct());
+        double oldSchwartzbergScore = districts.get(targetDistrict).calculateSchwartzberg(targetDistrict.getArea(), targetDistrict.getPerimeter());
+        double oldPolsbyPopperScore =districts.get(targetDistrict).calculatePolsbyPopper(targetDistrict.getArea(), targetDistrict.getPerimeter());
+        float oldPopulationScore = districts.get(targetDistrict).calculatePopEqualScore(state.calculateIdealPop());
+
+        Move move = new Move(selectedPrecinct,selectedPrecinct.getParentDistrictID(), targetDistrict.getDistrictID());
+        state.executeRgMove(move);
+        double newSchwartzbergScore = districts.get(targetDistrict).calculateSchwartzberg(targetDistrict.getArea(), targetDistrict.getPerimeter());
+        double newPolsbyPopperScore =districts.get(targetDistrict).calculatePolsbyPopper(targetDistrict.getArea(), targetDistrict.getPerimeter());
+        float newPopulationScore = districts.get(targetDistrict).calculatePopEqualScore(state.calculateIdealPop());
+        //Need to somehow pass the scores back to front end
+        updates.add(new MoveUpdate(move.getSrcDistrictID(),move.getDstDistrictID(),move.getPrecinct().getGeoID10()));
+        MoveUpdater updater = new MoveUpdater();
+        updater.setUpdates(updates);
+        return updater;
+    }
 }

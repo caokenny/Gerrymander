@@ -135,7 +135,14 @@ public class State {
         destDist.addPrecinct(precinct);
         destDist.updateBorderPrecinctsForRg(unassignedPrecinctIds);
         updatePopulationEqualityMeasure(move);
-
+    }
+    public void executeMove(Move move){
+        Precinct precinct = move.getPrecinct();
+        District srcDistrict = getDistricts().get(move.getSrcDistrictID());
+        District dstDistrict = getDistricts().get(move.getDstDistrictID());
+        srcDistrict.removePrecinct(precinct);
+        dstDistrict.addPrecinct(precinct);
+        updatePopulationEqualityMeasure(move);
     }
     public void updatePopulationEqualityMeasure(Move m) {
         float score1;
@@ -170,6 +177,9 @@ public class State {
         unassignedPrecinctIds.clear();
     }
 
+    public District getLowestScoreDistrict() {
+        return districts.get(0);
+    }
     public void setPopulation(int population) {
         this.population = population;
     }
