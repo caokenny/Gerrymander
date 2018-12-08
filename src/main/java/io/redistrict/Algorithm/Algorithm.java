@@ -1,13 +1,11 @@
 package io.redistrict.Algorithm;
 
 import io.redistrict.AppData.AppData;
-import io.redistrict.AppData.MoveUpdater;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Move;
 import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
 import io.redistrict.Utils.NeighborFinder;
-import io.redistrict.Utils.NeighborsLoader;
 import io.redistrict.Utils.PrecinctSelector;
 
 import java.io.IOException;

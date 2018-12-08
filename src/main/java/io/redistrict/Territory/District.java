@@ -19,14 +19,16 @@ public class District {
     private String seedPrecinctId;
     private static Properties properties = new Properties();
 
+
     public District(int districtId,Precinct startPrecinct){
         this.districtId = districtId;
         this.population= startPrecinct.getPopulation();
         this.allDPrecincts = new LinkedHashMap<>();
         this.borderRgPrecincts = new ArrayList<>();
         allDPrecincts.put(startPrecinct.getGeoID10(),startPrecinct);
-        borderRgPrecincts.add(startPrecinct);
-        this.numOfNeighbors = startPrecinct.getNeighbors().size();
+        borderPrecincts.add(startPrecinct);
+        if(startPrecinct.getNeighbors() !=null)
+            this.numOfNeighbors = startPrecinct.getNeighbors().size();
         this.seedPrecinctId = startPrecinct.getGeoID10();
     }
 
@@ -173,7 +175,9 @@ public class District {
         Move move = new Move(pNeighbor, pNeighbor.getParentDistrictID(), precinct.getParentDistrictID());
         return move;
     }
-
+    public int getDistrictID(){
+        return districtId;
+    }
     public static void loadDefaultProperties(){
         InputStream aStream = District.class.getClassLoader().getResourceAsStream("algorithms.properties");
         try{

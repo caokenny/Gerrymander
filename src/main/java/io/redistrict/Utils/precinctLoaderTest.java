@@ -8,8 +8,10 @@ import io.redistrict.AppData.MoveUpdater;
 import io.redistrict.RegionGrowing.RgUtilities.RgSeedSelector;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Precinct;
+
 import io.redistrict.Territory.State;
 import io.redistrict.Territory.StateEnum;
+
 
 import java.util.*;
 
@@ -18,6 +20,8 @@ public class precinctLoaderTest {
 
         NeighborsLoader.loadDefaultProperties();
         StateLoader.loadDefaultProperties();
+        Algorithm.loadDefaultProperties();
+
         AppData.setStateMap(StateLoader.loadAllStates(StateEnum.values()));
 
         //setup

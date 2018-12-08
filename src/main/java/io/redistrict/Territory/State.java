@@ -1,5 +1,6 @@
 package io.redistrict.Territory;
 
+import io.redistrict.Algorithm.Algorithm;
 import io.redistrict.Election.ElectionData;
 import io.redistrict.Election.Party;
 
@@ -19,9 +20,7 @@ public class State {
     public State(State state){
         //if u want districts set it urself
         this.stateName = state.getStateName();
-        this.allPrecincts= new LinkedHashMap<>(state.getAllPrecincts());
-        this.population=calculateStatePopulation();
-        districts = new LinkedHashMap<>();
+        this.allPrecincts= new HashMap<>(state.getAllPrecincts());
     }
     public State(String name, Map<String,Precinct> allPrecincts){
         this.stateName=name;
@@ -105,7 +104,6 @@ public class State {
     public void resetUnassignedPrecinctIds(){
         unassignedPrecinctIds = new LinkedHashSet<>(allPrecincts.keySet());
     }
-
     public Map<Integer, District> getDistricts() {
         return districts;
     }
@@ -172,4 +170,19 @@ public class State {
         unassignedPrecinctIds.clear();
     }
 
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
+    }
+
+    public Map<Integer, District> getDefaultDistrict() {
+        return defaultDistrict;
+    }
+
+    public void setDefaultDistrict(Map<Integer, District> defaultDistrict) {
+        this.defaultDistrict = defaultDistrict;
+    }
 }

@@ -21,13 +21,13 @@ public class Precinct {
     private Set<Precinct> borderPrecincts;
     private boolean isBorder;
 
-    public Precinct(int population, int precinctId){
+
+    public Precinct(int population){
         this.population = population;
         this.precinctId = precinctId;
     }
-    public Precinct(int precinctId, String geoID10, String name, int population) {
+    public Precinct(String geoID10, String name, int population) {
         this.name = name;
-        this.precinctId = precinctId;
         this.population = population;
         this.geoID10 = geoID10;
     }
@@ -54,10 +54,6 @@ public class Precinct {
         int n = rand.nextInt(i) - 1;
         return neighbors.get(n);
     }
-    public int getPrecinctId(){
-        return precinctId;
-    }
-
     public String getGeoID10() {
         return geoID10;
     }
@@ -68,8 +64,7 @@ public class Precinct {
 
     @Override
     public String toString() {
-        return "Precinct id= "+precinctId
-                +"\nname= " + name
+        return "name= " + name
                 +"\ngeoid10= " + geoID10
                 +"\npopulation= "+population;
     }
@@ -99,11 +94,19 @@ public class Precinct {
         this.name = name;
     }
 
-    public List<Precinct> getUnassignedNeighbors() {
-        return unassignedNeighbors;
+    public void setElectionData(List<ElectionData> electionData) {
+        this.electionData = electionData;
     }
 
-    public void setUnassignedNeighbors(List<Precinct> unassignedNeighbors) {
-        this.unassignedNeighbors = unassignedNeighbors;
+    public Set<Precinct> getBorderPrecincts() {
+        return borderPrecincts;
+    }
+
+    public void setBorderPrecincts(Set<Precinct> borderPrecincts) {
+        this.borderPrecincts = borderPrecincts;
+    }
+
+    public void setBorder(boolean border) {
+        isBorder = border;
     }
 }
