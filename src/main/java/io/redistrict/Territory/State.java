@@ -143,4 +143,6 @@ public class State {
         updatePopScores(src, dest, score1, score2);
     }
 
+    public District getLowestScoreDistrict() {
+    }
 }

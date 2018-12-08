@@ -31,15 +31,20 @@ public class Algorithm {
         }
         return state;
     }
-    public State getSimulatedState(String stateName){
+    public State getSimulatedState(String stateName, String variant){
         int badMoves = 0;
         State state = AppData.getState(stateName.toUpperCase());
         int max_bad_move = Integer.parseInt(properties.getProperty("max_bad_moves"));
-        double accecptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
+        double acceptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
         double constantMultiplier = Double.parseDouble(properties.getProperty("constant_multiplier"));
 
         while(badMoves < max_bad_move){
-            District district = state.getRandomDistrict();
+            District district;
+            if(variant.equals("random"))
+                district = state.getRandomDistrict();
+            else{
+                district = state.getLowestScoreDistrict();
+            }
             double oldScore = state.getDistrictScore(district);
             Move move = district.modifyDistrict();
             Precinct modifiedPrecinct = move.getPrecinct();
@@ -53,14 +58,15 @@ public class Algorithm {
                 state.addToMoveStack(move);
             }
             else{
-                badMoves++;
-                boolean acceptBadMove = state.acceptBadMove(oldScore, newScore, accecptanceConstant);
+                boolean acceptBadMove = state.acceptBadMove(oldScore, newScore, acceptanceConstant);
                 if(acceptBadMove){
                     state.addToMoveStack(move);
                 }
-                else
+                else {
                     state.undoLastMove(move);
-                accecptanceConstant *= constantMultiplier;
+                    badMoves++;
+                }
+                acceptanceConstant *= constantMultiplier;
             }
         }
         return state;
