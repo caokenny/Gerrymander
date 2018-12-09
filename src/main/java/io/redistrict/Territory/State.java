@@ -1,5 +1,6 @@
 package io.redistrict.Territory;
 
+import io.redistrict.Algorithm.Algorithm;
 import io.redistrict.Election.ElectionData;
 import io.redistrict.Election.Party;
 

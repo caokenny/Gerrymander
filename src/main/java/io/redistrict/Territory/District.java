@@ -255,28 +255,29 @@ public class District {
         GeometryCollection geometryCollection = (GeometryCollection) geoFac.buildGeometry(precinctGeometries);
         return geometryCollection.getArea();
     }
-    public double getPerimeter(Map<String, Precinct> map){
+    public double getPerimeter(Map<String, Precinct> map) {
         ArrayList<Feature> featureList = new ArrayList<>();
-        for(Precinct precinct : map.values()){
+        for (Precinct precinct : map.values()) {
             Feature feature = (Feature) GeoJSONFactory.create(precinct.getGeoJsonString());
             featureList.add(feature);
         }
         GeoJSONReader reader = new GeoJSONReader();
         ArrayList<Geometry> precinctGeometries = new ArrayList<Geometry>();
-        for(Feature feature : featureList){
+        for (Feature feature : featureList) {
             Geometry precinctGeometry = reader.read(feature.getGeometry());
             precinctGeometries.add(precinctGeometry);
         }
         GeometryFactory geoFac = new GeometryFactory();
         GeometryCollection geometryCollection = (GeometryCollection) geoFac.buildGeometry(precinctGeometries);
         return geometryCollection.getLength();
-
-    public String getSeedPrecinctId() {
-        return seedPrecinctId;
     }
+//    public String getSeedPrecinctId() {
+////        return seedPrecinctId;
+////    }
 
     public void setSeedPrecinctId(String seedPrecinctId) {
         this.seedPrecinctId = seedPrecinctId;
+
     }
 
 

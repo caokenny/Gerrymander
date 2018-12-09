@@ -196,4 +196,8 @@ public class Algorithm {
         updater.setUpdates(updates);
         return updater;
     }
+
+    public void setData(AlgorithmData data) {
+        this.data = data;
+    }
 }
