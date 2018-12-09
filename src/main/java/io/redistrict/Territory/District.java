@@ -2,6 +2,13 @@ package io.redistrict.Territory;
 
 import io.redistrict.Election.ElectionData;
 import io.redistrict.Election.Party;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryCollection;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.wololo.geojson.Feature;
+import org.wololo.geojson.GeoJSON;
+import org.wololo.geojson.GeoJSONFactory;
+import org.wololo.jts2geojson.GeoJSONReader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -226,7 +233,40 @@ public class District {
         }
         return  seedDistricts;
     }
+    public double getArea(Map<String, Precinct> map){
+        // parse Geometry from Feature
+        ArrayList<Feature> featureList = new ArrayList<>();
+        for(Precinct precinct : map.values()){
+            Feature feature = (Feature) GeoJSONFactory.create(precinct.getGeoJsonString());
+            featureList.add(feature);
+        }
+        GeoJSONReader reader = new GeoJSONReader();
+        ArrayList<Geometry> precinctGeometries = new ArrayList<Geometry>();
+        for(Feature feature : featureList){
+            Geometry precinctGeometry = reader.read(feature.getGeometry());
+            precinctGeometries.add(precinctGeometry);
+        }
+        GeometryFactory geoFac = new GeometryFactory();
+        GeometryCollection geometryCollection = (GeometryCollection) geoFac.buildGeometry(precinctGeometries);
+        return geometryCollection.getArea();
+    }
+    public double getPerimeter(Map<String, Precinct> map){
+        ArrayList<Feature> featureList = new ArrayList<>();
+        for(Precinct precinct : map.values()){
+            Feature feature = (Feature) GeoJSONFactory.create(precinct.getGeoJsonString());
+            featureList.add(feature);
+        }
+        GeoJSONReader reader = new GeoJSONReader();
+        ArrayList<Geometry> precinctGeometries = new ArrayList<Geometry>();
+        for(Feature feature : featureList){
+            Geometry precinctGeometry = reader.read(feature.getGeometry());
+            precinctGeometries.add(precinctGeometry);
+        }
+        GeometryFactory geoFac = new GeometryFactory();
+        GeometryCollection geometryCollection = (GeometryCollection) geoFac.buildGeometry(precinctGeometries);
+        return geometryCollection.getLength();
 
+    }
     public String getSeedPrecinctId() {
         return seedPrecinctId;
     }

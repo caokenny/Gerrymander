@@ -2,11 +2,12 @@ package io.redistrict.Territory;
 
 import io.redistrict.Election.ElectionData;
 import io.redistrict.Territory.District;
+import org.locationtech.jts.geom.Geometry;
+import org.wololo.geojson.Feature;
+import org.wololo.geojson.GeoJSONFactory;
+import org.wololo.jts2geojson.GeoJSONReader;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class Precinct {
 
@@ -20,21 +21,25 @@ public class Precinct {
     private int parentDistrictID;
     private Set<Precinct> borderPrecincts;
     private boolean isBorder;
+    private String geoJsonString;
 
 
     public Precinct(int population){
         this.population = population;
         this.precinctId = precinctId;
     }
-    public Precinct(String geoID10, String name, int population) {
+    public Precinct(String geoID10, String name, int population, String geoJsonString) {
         this.name = name;
         this.population = population;
         this.geoID10 = geoID10;
+        this.geoJsonString = geoJsonString;
     }
     public Precinct(String geoID10){
         this.geoID10 = geoID10;
     }
-
+    public String getGeoJsonString(){
+        return geoJsonString;
+    }
     public List<Precinct> getNeighbors(){
         return neighbors;
     }
@@ -108,5 +113,17 @@ public class Precinct {
 
     public void setBorder(boolean border) {
         isBorder = border;
+    }
+    public double getArea(){
+        Feature feature = (Feature) GeoJSONFactory.create(geoJsonString);
+        GeoJSONReader reader = new GeoJSONReader();
+        Geometry precinctGeometry = reader.read(feature.getGeometry());
+        return precinctGeometry.getArea();
+    }
+    public double getPerimeter(){
+        Feature feature = (Feature) GeoJSONFactory.create(geoJsonString);
+        GeoJSONReader reader = new GeoJSONReader();
+        Geometry precinctGeometry = reader.read(feature.getGeometry());
+        return precinctGeometry.getLength();
     }
 }
