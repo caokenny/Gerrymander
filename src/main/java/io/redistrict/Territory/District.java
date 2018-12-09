@@ -64,7 +64,7 @@ public class District {
         precinct.setParentDistrictID(-1);
         allDPrecincts.remove(precinct);
         population -= precinct.getPopulation();
-        precinctVoteResults.remove(precinct.getGeoID10(), precinct.getElectionData());
+//        precinctVoteResults.remove(precinct.getGeoID10(), precinct.getElectionData());
         if(precinct.isBorder()) {
             borderPrecincts.remove(precinct);
         }
@@ -206,6 +206,7 @@ public class District {
         float score = 1;
         if (population <= idealPop) return score;
         float difference = population - idealPop;
+        System.out.println(properties.getProperty("population_lowThreshold"));
         float lowerThreshold = Float.parseFloat(properties.getProperty("population_lowThreshold"));
         float midThreshold = Float.parseFloat(properties.getProperty("population_midThreshold"));
         float highThreshold = Float.parseFloat(properties.getProperty("population_highThreshold"));

@@ -45,10 +45,16 @@ public class Precinct {
     public int getParentDistrictID() {
         return parentDistrictID;
     }
-    public Precinct getRandomNeighbor(){
+//    Gives ArrayIndexOutOfBoundsException: -1 because 0 is inclusive whne using rand.nextInt()
+//    public Precinct getRandomNeighbor(){
+//        int i = neighbors.size();
+//        Random rand = new Random();
+//        int n = rand.nextInt(i) - 1;
+//        return neighbors.get(n);
+//    }
+    public Precinct getRandomNeighbor() {
         int i = neighbors.size();
-        Random rand = new Random();
-        int n = rand.nextInt(i) - 1;
+        int n = (int)(Math.random() * i);
         return neighbors.get(n);
     }
     public String getGeoID10() {

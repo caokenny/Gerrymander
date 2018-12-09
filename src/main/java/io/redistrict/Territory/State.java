@@ -12,11 +12,11 @@ public class State {
     private Map<Integer, District> districts;
     private Map<Integer, ElectionData> districtVoteResults;
     private Map<Party, Integer> stateElectionResult;
-    private Stack<Move> moves;
+    private Stack<Move> moves = new Stack<Move>();
     private Map<String, Precinct> allPrecincts;
     private Map<String, Precinct> unassignedPrecincts;
     private Set<String> unassignedPrecinctIds;
-    private Map<District, Float> popScores;
+    private Map<District, Float> popScores = new HashMap<>();
     private Map<Integer,District> defaultDistrict;
 
 
@@ -61,21 +61,25 @@ public class State {
         return districtVoteResults;
     }
     public int getPopulation(){
+        for (Integer i : defaultDistrict.keySet())
+            population += defaultDistrict.get(i).getPopulation();
         return population;
     }
     public void undoLastMove(Move move){
         Precinct modifiedPrecinct = move.getPrecinct();
         modifiedPrecinct.setParentDistrictID(move.getSrcDistrictID());
-        District srcDistrict = districts.get(move.getSrcDistrictID());
-        District dstDistrict = districts.get(move.getDstDistrictID());
+        District srcDistrict = defaultDistrict.get(move.getSrcDistrictID());
+        District dstDistrict = defaultDistrict.get(move.getDstDistrictID());
         dstDistrict.removePrecinct(modifiedPrecinct);
         srcDistrict.addPrecinct(modifiedPrecinct);
     }
     public District getRandomDistrict(){
-        int numDistricts = districts.size();
-        Random rand = new Random();
-        int n = rand.nextInt(numDistricts) + 0;
-        return districts.get(n);
+        int numDistricts = defaultDistrict.size();
+//        Random rand = new Random();
+//        int n = rand.nextInt(numDistricts) + 0;
+        // when n == 0 it returns null because it is a Map with values starting from 1
+        int n = (int)(Math.random() * numDistricts) + 1;
+        return defaultDistrict.get(n);
     }
     public void addToMoveStack(Move move){
         moves.add(move);
@@ -91,10 +95,18 @@ public class State {
         popScores.put(dest, score2);
     }
     public double getDistrictScore(District d){
-        return 0;
+        return popScores.get(d);
     }
     public void updateDistrictScore(float score, District dest){
-
+        popScores.put(dest, score);
+    }
+    public void initPopScores() {
+        float idealPop = (float)population / defaultDistrict.size();
+        System.out.println("ideal pop: " + idealPop);
+        for (Integer i : defaultDistrict.keySet()) {
+            District d = defaultDistrict.get(i);
+            popScores.put(d, d.calculatePopEqualScore(idealPop));
+        }
     }
     public void resetUnassignedPrecinctIds(){
         unassignedPrecinctIds = new LinkedHashSet<>(allPrecincts.keySet());
@@ -162,5 +174,9 @@ public class State {
 
     public void setDefaultDistrict(Map<Integer, District> defaultDistrict) {
         this.defaultDistrict = defaultDistrict;
+    }
+
+    public Stack<Move> getMoves() {
+        return moves;
     }
 }

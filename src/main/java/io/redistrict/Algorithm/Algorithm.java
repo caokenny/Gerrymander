@@ -1,6 +1,7 @@
 package io.redistrict.Algorithm;
 
 import io.redistrict.AppData.AppData;
+import io.redistrict.AppData.MoveUpdater;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Move;
 import io.redistrict.Territory.Precinct;
@@ -128,5 +129,41 @@ public class Algorithm {
     }
     public AlgorithmData getAlgorithmData() {
         return data;
+    }
+    public Stack<Move> run10SA(){
+        int badMoves = 0;
+        int count = 0;
+        State s = data.getWorkingState();
+        int max_bad_move = Integer.parseInt(properties.getProperty("max_bad_moves"));
+        double accecptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
+        double constantMultiplier = Double.parseDouble(properties.getProperty("constant_multiplier"));
+
+        while(badMoves < max_bad_move && count < 10){
+            District district = s.getRandomDistrict();
+            double oldScore = s.getDistrictScore(district);
+            Move move = district.modifyDistrict();
+            Precinct modifiedPrecinct = move.getPrecinct();
+            modifiedPrecinct.setParentDistrictID(move.getDstDistrictID());
+            District srcDistrict = s.getDefaultDistrict().get(move.getSrcDistrictID());
+            District dstDistrict =s.getDefaultDistrict().get(move.getDstDistrictID());
+            srcDistrict.removePrecinct(modifiedPrecinct);
+            dstDistrict.addPrecinct(modifiedPrecinct);
+            double newScore = s.getDistrictScore(district);
+            if(newScore > oldScore){
+                s.addToMoveStack(move);
+            }
+            else{
+                badMoves++;
+                boolean acceptBadMove = s.acceptBadMove(oldScore, newScore, accecptanceConstant);
+                if(acceptBadMove){
+                    s.addToMoveStack(move);
+                }
+                else
+                    s.undoLastMove(move);
+                accecptanceConstant *= constantMultiplier;
+            }
+            count++;
+        }
+        return s.getMoves();
     }
 }
