@@ -17,4 +17,7 @@ public class MoveUpdater {
         this.updates = updates;
     }
 
+    public String toString(){
+        return updates.toString();
+    }
 }
