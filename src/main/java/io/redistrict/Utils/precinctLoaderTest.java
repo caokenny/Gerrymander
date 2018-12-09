@@ -21,7 +21,7 @@ public class precinctLoaderTest {
         AppData.setStateMap(StateLoader.loadAllStates(StateEnum.values()));
 
         //setup
-        State mo = AppData.getState("MO");
+        State mo = AppData.getState("CO");
         Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(mo.getAllPrecincts().values(),3);
         Map<Integer,District> seedDistricts = District.makeSeedDistricts(seeds);
         mo.setDistricts(seedDistricts);

@@ -56,14 +56,14 @@ public class District {
             precinct.setIsBorder(false);
 
     }
-
+    //***** THIS NEED TO BE MODIFY FOR SA
     public void removePrecinct(Precinct precinct){
         precinct.setParentDistrictID(-1);
         allDPrecincts.remove(precinct);
         population -= precinct.getPopulation();
         precinctVoteResults.remove(precinct.getGeoID10(), precinct.getElectionData());
         if(precinct.isBorder()) {
-            borderRgPrecincts.remove(precinct);
+            borderRgPrecincts.remove(precinct); //*** THIS WONT WORK FOR SA HERE
         }
     }
 
@@ -166,7 +166,7 @@ public class District {
      */
     public Precinct getRandomPrecinct(){
         //Return a random precinct
-        int numPrecincts = borderRgPrecincts.size();
+        int numPrecincts = borderRgPrecincts.size(); //*** WONT WORK FOR SA
         Random rand = new Random();
         int n = rand.nextInt(numPrecincts) + 0;
         return borderRgPrecincts.get(n);
