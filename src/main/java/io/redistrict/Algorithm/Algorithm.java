@@ -176,14 +176,15 @@ public class Algorithm {
         List<MoveUpdate> updates = new ArrayList<>();
         District targetDistrict = districts.get(data.getTargetDistrict());
         Precinct selectedPrecinct = state.getAllPrecincts().get(data.getSelectedPrecinct());
-        double oldSchwartzbergScore = districts.get(targetDistrict).calculateSchwartzberg(targetDistrict.getArea(), targetDistrict.getPerimeter());
-        double oldPolsbyPopperScore =districts.get(targetDistrict).calculatePolsbyPopper(targetDistrict.getArea(), targetDistrict.getPerimeter());
+        Map<String, Precinct> allPrecincts = targetDistrict.getAllDPrecincts();
+        double oldSchwartzbergScore = districts.get(targetDistrict).calculateSchwartzberg(targetDistrict.getArea(allPrecincts), targetDistrict.getPerimeter(allPrecincts));
+        double oldPolsbyPopperScore =districts.get(targetDistrict).calculatePolsbyPopper(targetDistrict.getArea(allPrecincts), targetDistrict.getPerimeter(allPrecincts));
         float oldPopulationScore = districts.get(targetDistrict).calculatePopEqualScore(state.calculateIdealPop());
 
         Move move = new Move(selectedPrecinct,selectedPrecinct.getParentDistrictID(), targetDistrict.getDistrictID());
         state.executeRgMove(move);
-        double newSchwartzbergScore = districts.get(targetDistrict).calculateSchwartzberg(targetDistrict.getArea(), targetDistrict.getPerimeter());
-        double newPolsbyPopperScore =districts.get(targetDistrict).calculatePolsbyPopper(targetDistrict.getArea(), targetDistrict.getPerimeter());
+        double newSchwartzbergScore = districts.get(targetDistrict).calculateSchwartzberg(targetDistrict.getArea(allPrecincts), targetDistrict.getPerimeter(allPrecincts));
+        double newPolsbyPopperScore =districts.get(targetDistrict).calculatePolsbyPopper(targetDistrict.getArea(allPrecincts), targetDistrict.getPerimeter(allPrecincts));
         float newPopulationScore = districts.get(targetDistrict).calculatePopEqualScore(state.calculateIdealPop());
         //Need to somehow pass the scores back to front end
         updates.add(new MoveUpdate(move.getSrcDistrictID(),move.getDstDistrictID(),move.getPrecinct().getGeoID10()));
