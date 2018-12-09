@@ -126,4 +126,12 @@ public class Precinct {
         Geometry precinctGeometry = reader.read(feature.getGeometry());
         return precinctGeometry.getLength();
     }
+
+    public List<Precinct> getUnassignedNeighbors() {
+        return unassignedNeighbors;
+    }
+
+    public void setUnassignedNeighbors(List<Precinct> unassignedNeighbors) {
+        this.unassignedNeighbors = unassignedNeighbors;
+    }
 }

@@ -20,7 +20,7 @@ public class TestClassJinOliver {
         Algorithm algorithm = new Algorithm();
         AlgorithmData data = new AlgorithmData();
         data.setType(AlgorithmType.SA);
-        algorithm.setAlgorithmData(data);
+        algorithm.setData(data);
 
         //IF YOU HAVE WEIGHTS YOU WANT TO USE TO TEST. USE AlgorithmWeights setters to set them.
         //WEIGHTS ARE ALL EMPTY RN

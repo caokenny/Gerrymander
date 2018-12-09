@@ -170,6 +170,10 @@ public class Algorithm {
         }
     }
 
+    public AlgorithmData getData() {
+        return data;
+    }
+
     public MoveUpdater changePrecinct() {
         State state = data.getWorkingState();
         Map<Integer,District> districts= state.getDefaultDistrict();

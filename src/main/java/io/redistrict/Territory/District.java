@@ -33,7 +33,7 @@ public class District {
         this.allDPrecincts = new LinkedHashMap<>();
         this.borderRgPrecincts = new ArrayList<>();
         allDPrecincts.put(startPrecinct.getGeoID10(),startPrecinct);
-        borderPrecincts.add(startPrecinct);
+        borderRgPrecincts.add(startPrecinct);
         if(startPrecinct.getNeighbors() !=null)
             this.numOfNeighbors = startPrecinct.getNeighbors().size();
         this.seedPrecinctId = startPrecinct.getGeoID10();
@@ -64,14 +64,14 @@ public class District {
             precinct.setIsBorder(false);
 
     }
-
+    //***** THIS NEED TO BE MODIFY FOR SA
     public void removePrecinct(Precinct precinct){
         precinct.setParentDistrictID(-1);
         allDPrecincts.remove(precinct);
         population -= precinct.getPopulation();
         precinctVoteResults.remove(precinct.getGeoID10(), precinct.getElectionData());
         if(precinct.isBorder()) {
-            borderRgPrecincts.remove(precinct);
+            borderRgPrecincts.remove(precinct); //*** THIS WONT WORK FOR SA HERE
         }
     }
 
@@ -167,9 +167,14 @@ public class District {
         }
         return false;
     }
+
+    /**
+     *
+     * THIS MIGHT NEED TO BE RIDDEN AGAIN FOR SA
+     */
     public Precinct getRandomPrecinct(){
         //Return a random precinct
-        int numPrecincts = borderRgPrecincts.size();
+        int numPrecincts = borderRgPrecincts.size(); //*** WONT WORK FOR SA
         Random rand = new Random();
         int n = rand.nextInt(numPrecincts) + 0;
         return borderRgPrecincts.get(n);
@@ -266,7 +271,6 @@ public class District {
         GeometryCollection geometryCollection = (GeometryCollection) geoFac.buildGeometry(precinctGeometries);
         return geometryCollection.getLength();
 
-    }
     public String getSeedPrecinctId() {
         return seedPrecinctId;
     }
@@ -274,5 +278,7 @@ public class District {
     public void setSeedPrecinctId(String seedPrecinctId) {
         this.seedPrecinctId = seedPrecinctId;
     }
+
+
 }
 
