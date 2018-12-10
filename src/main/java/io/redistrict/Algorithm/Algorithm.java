@@ -139,17 +139,19 @@ public class Algorithm {
         double constantMultiplier = Double.parseDouble(properties.getProperty("constant_multiplier"));
 
         while(badMoves < max_bad_move && count < 10){
-            District district = s.getRandomDistrict();
-            double oldScore = s.getDistrictScore(district);
-            Move move = district.modifyDistrict();
+            District d = s.getLowestPopScoreDistrict();
+            int distOldPop = d.getPopulation();
+            double oldScore = s.getDistrictScore(d);
+            Move move = d.moveLargestBorderPrec();
             Precinct modifiedPrecinct = move.getPrecinct();
             modifiedPrecinct.setParentDistrictID(move.getDstDistrictID());
             District srcDistrict = s.getDefaultDistrict().get(move.getSrcDistrictID());
             District dstDistrict =s.getDefaultDistrict().get(move.getDstDistrictID());
             srcDistrict.removePrecinct(modifiedPrecinct);
             dstDistrict.addPrecinct(modifiedPrecinct);
-            double newScore = s.getDistrictScore(district);
-            if(newScore > oldScore){
+            int distNewPop = d.getPopulation();
+            double newScore = s.getDistrictScore(d);
+            if(distOldPop > distNewPop){
                 s.addToMoveStack(move);
             }
             else{

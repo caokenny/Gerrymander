@@ -179,4 +179,13 @@ public class State {
     public Stack<Move> getMoves() {
         return moves;
     }
+
+    public District getLowestPopScoreDistrict() {
+        District dist = getRandomDistrict();
+        for (District d : popScores.keySet()) {
+            if (popScores.get(d) < popScores.get(dist))
+                dist = d;
+        }
+        return dist;
+    }
 }
