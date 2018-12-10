@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c77e916c-c31a-429c-a2c5-3feff5c60ac3" name="Default Changelist" comment="finished 10iterations of rg and able to pass 10iterations of data to client side">
+    <list default="true" id="c77e916c-c31a-429c-a2c5-3feff5c60ac3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonStringTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/District.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/precinctLoaderTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/precinctLoaderTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/StateLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/StateLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/state_loader.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/state_loader.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/state_loader.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/state_loader.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,39 +20,44 @@
     <session id="1098789428">
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="4" />
-          <entry key="java" value="69" />
+          <entry key="JSON" value="3" />
+          <entry key="class" value="8" />
+          <entry key="java" value="77" />
           <entry key="json" value="2" />
-          <entry key="properties" value="1" />
+          <entry key="properties" value="4" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="4" />
-          <entry key="JAVA" value="69" />
-          <entry key="JSON" value="2" />
-          <entry key="Properties" value="1" />
+          <entry key="CLASS" value="8" />
+          <entry key="JAVA" value="77" />
+          <entry key="JSON" value="5" />
+          <entry key="Properties" value="4" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2751" />
-          <entry key="txt" value="96" />
+          <entry key="java" value="3245" />
+          <entry key="properties" value="62" />
+          <entry key="txt" value="191" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2751" />
-          <entry key="PLAIN_TEXT" value="96" />
+          <entry key="JAVA" value="3245" />
+          <entry key="PLAIN_TEXT" value="191" />
+          <entry key="Properties" value="62" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.12" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
     </session>
@@ -58,16 +65,50 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/StateLoader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="513">
+              <caret line="97" lean-forward="true" selection-start-line="97" selection-end-line="97" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="72" column="19" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
+            <state relative-caret-position="345">
+              <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
               <folding>
                 <element signature="e#932#933#0" expanded="true" />
                 <element signature="e#964#965#0" expanded="true" />
                 <element signature="e#1825#1826#0" expanded="true" />
                 <element signature="e#1856#1857#0" expanded="true" />
+                <element signature="e#2957#2958#0" expanded="true" />
+                <element signature="e#2993#2994#0" expanded="true" />
+                <element signature="e#3051#3052#0" expanded="true" />
+                <element signature="e#3101#3102#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonStringTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="60" lean-forward="true" selection-start-line="18" selection-start-column="60" selection-end-line="18" selection-end-column="60" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/state_loader.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -98,6 +139,9 @@
       <find>s</find>
       <find>borderrgprecinct</find>
       <find>borderrgprecincts</find>
+      <find>exec</find>
+      <find>obj</find>
+      <find>score</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -115,11 +159,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborsLoader.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/StateLoader.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/StateEnum.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/NeighborFinder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/AppData/MoveUpdater.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/AppData/MoveUpdate.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/PrecinctSelector.java" />
@@ -129,6 +171,10 @@
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Test/TestClassJinOliver.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/District.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonStringTest.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/state_loader.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/StateLoader.java" />
       </list>
     </option>
   </component>
@@ -157,16 +203,17 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="10" />
-    <option name="y" value="47" />
-    <option name="width" value="1904" />
-    <option name="height" value="943" />
+    <option name="x" value="1" />
+    <option name="y" value="23" />
+    <option name="width" value="1877" />
+    <option name="height" value="978" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -207,22 +254,19 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="redistrict" type="462c0819:PsiDirectoryNode" />
-              <item name="Territory" type="462c0819:PsiDirectoryNode" />
+              <item name="Utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
               <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="redistrict" type="462c0819:PsiDirectoryNode" />
-              <item name="Utils" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -233,7 +277,12 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544343487538" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544419262383" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -247,7 +296,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.precinctLoaderTest">
+  <component name="RunManager" selected="Application.JsonStringTest">
+    <configuration name="JsonStringTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="io.redistrict.Utils.JsonStringTest" />
+      <module name="Gerrymander" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.redistrict.Utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="precinctLoaderTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="io.redistrict.Utils.precinctLoaderTest" />
       <module name="Gerrymander" />
@@ -277,9 +339,11 @@
     <list>
       <item itemvalue="Spring Boot.CourseApiApp" />
       <item itemvalue="Application.precinctLoaderTest" />
+      <item itemvalue="Application.JsonStringTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.JsonStringTest" />
         <item itemvalue="Application.precinctLoaderTest" />
         <item itemvalue="Spring Boot.CourseApiApp" />
       </list>
@@ -290,7 +354,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0b4b3a27-77ab-4c66-8b5a-f44f1ffdc3dc" name="Default Changelist" comment="" />
+      <changelist id="c77e916c-c31a-429c-a2c5-3feff5c60ac3" name="Default Changelist" comment="" />
       <created>1544105209455</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -304,6 +368,8 @@
       <workItem from="1544138909568" duration="410000" />
       <workItem from="1544139504853" duration="12645000" />
       <workItem from="1544155776958" duration="801000" />
+      <workItem from="1544396822638" duration="717000" />
+      <workItem from="1544416959141" duration="2764000" />
     </task>
     <task id="LOCAL-00001" summary="finished 10iterations of rg and able to pass 10iterations of data to client side">
       <created>1544153466301</created>
@@ -312,16 +378,23 @@
       <option name="project" value="LOCAL" />
       <updated>1544153466301</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added comments to district class where it will neeed modification for SA">
+      <created>1544344116691</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1544344116691</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14901000" />
+    <option name="totallyTimeSpent" value="18432000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="719" extended-state="6" />
+    <frame x="1" y="23" width="1877" height="978" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1720517" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18038148" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -330,8 +403,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32376397" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32057416" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.3227991" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32054177" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.41945773" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -463,16 +536,10 @@
     <MESSAGE value="added getter and setter for AlgorithmData in Algorithm class&#10;Added continueAlgorithm method to AlgorithmController&#10;Update summaryBox after return from continueAlgorithm in mapjs.js&#10;Added Gson to pom.xml" />
     <MESSAGE value="changes ks_data districtid: 99" />
     <MESSAGE value="finished 10iterations of rg and able to pass 10iterations of data to client side" />
-    <option name="LAST_COMMIT_MESSAGE" value="finished 10iterations of rg and able to pass 10iterations of data to client side" />
+    <MESSAGE value="added comments to district class where it will neeed modification for SA" />
+    <option name="LAST_COMMIT_MESSAGE" value="added comments to district class where it will neeed modification for SA" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/ObjectiveFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmWeights.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -531,9 +598,6 @@
           <caret line="4" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/state_loader.properties">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor" />
@@ -607,9 +671,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#526#527#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -659,9 +720,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="684">
           <caret line="71" selection-start-line="69" selection-end-line="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -669,27 +727,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="22" column="26" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2070">
-          <caret line="171" column="38" selection-start-line="171" selection-start-column="38" selection-end-line="171" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67">
-          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/StateLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
         </state>
       </provider>
     </entry>
@@ -702,25 +739,103 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/District.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+        <state relative-caret-position="184">
+          <caret line="206" column="27" selection-start-line="206" selection-start-column="17" selection-end-line="206" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/ObjectiveFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1305">
+          <caret line="116" column="5" selection-start-line="116" selection-start-column="5" selection-end-line="116" selection-end-column="5" />
           <folding>
-            <element signature="e#3708#3709#0" expanded="true" />
-            <element signature="e#3760#3761#0" expanded="true" />
+            <element signature="e#3209#3210#0" expanded="true" />
+            <element signature="e#3268#3269#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/algorithms.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar!/org/json/simple/parser/Yylex.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="308" selection-start-line="308" selection-end-line="308" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar!/org/json/simple/parser/JSONParser.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/CO1.JSON">
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state relative-caret-position="45">
+          <caret line="3" column="18" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="18" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="72" column="19" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
+        <state relative-caret-position="345">
+          <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
           <folding>
             <element signature="e#932#933#0" expanded="true" />
             <element signature="e#964#965#0" expanded="true" />
             <element signature="e#1825#1826#0" expanded="true" />
             <element signature="e#1856#1857#0" expanded="true" />
+            <element signature="e#2957#2958#0" expanded="true" />
+            <element signature="e#2993#2994#0" expanded="true" />
+            <element signature="e#3051#3052#0" expanded="true" />
+            <element signature="e#3101#3102#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/state_loader.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/JsonStringTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="60" lean-forward="true" selection-start-line="18" selection-start-column="60" selection-end-line="18" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/StateLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="97" lean-forward="true" selection-start-line="97" selection-end-line="97" />
         </state>
       </provider>
     </entry>

@@ -19,15 +19,17 @@ public class Precinct {
     private int parentDistrictID;
     private Set<Precinct> borderPrecincts;
     private boolean isBorder;
+    String geoJsonString;
 
 
     public Precinct(int population){
         this.population = population;
     }
-    public Precinct(String geoID10, String name, int population) {
+    public Precinct(String geoID10, String name, int population, String geoJsonString) {
         this.name = name;
         this.population = population;
         this.geoID10 = geoID10;
+        this.geoJsonString = geoJsonString;
     }
     public Precinct(String geoID10){
         this.geoID10 = geoID10;
@@ -114,5 +116,13 @@ public class Precinct {
 
     public void setUnassignedNeighbors(List<Precinct> unassignedNeighbors) {
         this.unassignedNeighbors = unassignedNeighbors;
+    }
+
+    public String getGeoJsonString() {
+        return geoJsonString;
+    }
+
+    public void setGeoJsonString(String geoJsonString) {
+        this.geoJsonString = geoJsonString;
     }
 }
