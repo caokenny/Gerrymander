@@ -173,30 +173,6 @@ public class Algorithm {
     public AlgorithmData getData() {
         return data;
     }
-
-    public MoveUpdater changePrecinct() {
-        State state = data.getWorkingState();
-        Map<Integer,District> districts= state.getDefaultDistrict();
-        List<MoveUpdate> updates = new ArrayList<>();
-        District targetDistrict = districts.get(data.getTargetDistrict());
-        Precinct selectedPrecinct = state.getAllPrecincts().get(data.getSelectedPrecinct());
-        Map<String, Precinct> allPrecincts = targetDistrict.getAllDPrecincts();
-        double oldSchwartzbergScore = districts.get(targetDistrict).calculateSchwartzberg(targetDistrict.getArea(allPrecincts), targetDistrict.getPerimeter(allPrecincts));
-        double oldPolsbyPopperScore =districts.get(targetDistrict).calculatePolsbyPopper(targetDistrict.getArea(allPrecincts), targetDistrict.getPerimeter(allPrecincts));
-        float oldPopulationScore = districts.get(targetDistrict).calculatePopEqualScore(state.calculateIdealPop());
-
-        Move move = new Move(selectedPrecinct,selectedPrecinct.getParentDistrictID(), targetDistrict.getDistrictID());
-        state.executeRgMove(move);
-        double newSchwartzbergScore = districts.get(targetDistrict).calculateSchwartzberg(targetDistrict.getArea(allPrecincts), targetDistrict.getPerimeter(allPrecincts));
-        double newPolsbyPopperScore =districts.get(targetDistrict).calculatePolsbyPopper(targetDistrict.getArea(allPrecincts), targetDistrict.getPerimeter(allPrecincts));
-        float newPopulationScore = districts.get(targetDistrict).calculatePopEqualScore(state.calculateIdealPop());
-        //Need to somehow pass the scores back to front end
-        updates.add(new MoveUpdate(move.getSrcDistrictID(),move.getDstDistrictID(),move.getPrecinct().getGeoID10()));
-        MoveUpdater updater = new MoveUpdater();
-        updater.setUpdates(updates);
-        return updater;
-    }
-
     public void setData(AlgorithmData data) {
         this.data = data;
     }
