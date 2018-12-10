@@ -74,6 +74,8 @@ function zoomState(bounds, geoObj, stateName) {
         $('.userLog').css("display", "none");
         $('#adminSettings').css("display", "none");
         $('#usercontrol').css("display", "flex");
+        $('.sidenav a').css("font-size", "20px");
+        $('.sidenav div').css("font-size", "20px");
         var j;
         for (j = 0; j < stateEvents.length; j++) {
             // mymap.removeLayer(stateEvents[j]);
@@ -153,6 +155,8 @@ $('.homeBtn').on('click', function () {
     $('.userLog').css("display", "block");
     $('#adminSettings').css("display", "block");
     $('#usercontrol').css("display", "none");
+    $('.sidenav a').css("font-size", "25px");
+    $('.sidenav div').css("font-size", "25px");
 });
 
 $('#updateButton').on('click', function () {

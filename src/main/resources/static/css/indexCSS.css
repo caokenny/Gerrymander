@@ -41,6 +41,21 @@ html, body {
     z-index: 2;
 }
 
+.homeBtn {
+    background-color: #489ec9;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.homeBtn:hover {
+    background-color: RoyalBlue;
+}
+
+
 #nav {
     width: 100%;
     float: left;
@@ -231,7 +246,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 output {
-    position: absolute;
+    position: relative;
     display: none;
     width: 50px;
     height: 24px;
@@ -244,21 +259,21 @@ output {
     text-align: center;
 }
 
-#compactnessOutput {
-    top: 65px;
-}
+/*#compactnessOutput {*/
+    /*top: 65px;*/
+/*}*/
 
-#populationOutput {
-    top: 180px;
-}
+/*#populationOutput {*/
+    /*top: 180px;*/
+/*}*/
 
-#pfOutput {
-    top: 330px;
-}
+/*#pfOutput {*/
+    /*top: 330px;*/
+/*}*/
 
-#egOutput {
-    top: 440px;
-}
+/*#egOutput {*/
+    /*top: 440px;*/
+/*}*/
 
 input[type=range]:active + output {
     display: block;
