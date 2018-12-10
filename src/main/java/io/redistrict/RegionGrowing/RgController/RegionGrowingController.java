@@ -38,7 +38,7 @@ public class RegionGrowingController {
 
         State state = AppData.getState(stateName);
         Collection<Precinct> precinctSet = state.getAllPrecincts().values();
-        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(precinctSet,3 /*seedNum*/);
+        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(precinctSet,seedNum);
         Map<Integer,District> seedDistricts = District.makeSeedDistricts(seeds);
         state.setDistricts(seedDistricts);
         state.resetUnassignedPrecinctIds(); // make all unassignPrecinctIds = all precinct ids
