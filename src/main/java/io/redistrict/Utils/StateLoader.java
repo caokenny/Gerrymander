@@ -94,7 +94,6 @@ public class StateLoader {
 
             precinctMap.put(geoId10,precinct);
         }
-
         return precinctMap;
     }
 

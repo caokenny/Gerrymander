@@ -45,15 +45,15 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1762" />
-          <entry key="txt" value="557" />
+          <entry key="java" value="1767" />
+          <entry key="txt" value="573" />
           <entry key="xml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1762" />
-          <entry key="PLAIN_TEXT" value="557" />
+          <entry key="JAVA" value="1767" />
+          <entry key="PLAIN_TEXT" value="573" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
@@ -132,8 +132,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="31" column="47" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="47" />
+            <state relative-caret-position="163">
+              <caret line="91" column="26" selection-start-line="91" selection-start-column="26" selection-end-line="91" selection-end-column="26" />
               <folding>
                 <element signature="e#7437#7438#0" expanded="true" />
                 <element signature="e#7464#7465#0" expanded="true" />
@@ -147,8 +147,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/StateLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="90" column="92" selection-start-line="90" selection-start-column="92" selection-end-line="90" selection-end-column="92" />
+            <state relative-caret-position="1700">
+              <caret line="95" column="9" selection-start-line="95" selection-start-column="9" selection-end-line="95" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -423,7 +423,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544421377775" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544421667805" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/sf-geojson-2.0.0.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -512,11 +512,18 @@
       <option name="project" value="LOCAL" />
       <updated>1544395839789</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Merging">
+      <created>1544421450394</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1544421450394</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34167000" />
+    <option name="totallyTimeSpent" value="34409000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1613" height="873" extended-state="6" />
@@ -605,7 +612,8 @@
     <MESSAGE value="Working on test case 35.&#10;Currently need a way to send to front end new values of all the objective scores. Need a better place to put the method than algorithm class. Need to find library on how to calculate perimeter and area." />
     <MESSAGE value="Finished: getArea and getPerimeter on District and Precinct class. Will return a double value. Added a new dependency in pom.xml&#10;Working on test case 35.&#10;Currently need a way to send to front end new values of all the objective scores. Need a better place to put the method than algorithm class." />
     <MESSAGE value="Working on test case 35.&#10;Currently need a way to send to front end new values of all the objective scores. Need a better place to put the method than algorithm class. Need a way to undo the move if user does not approve it the new changes." />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on test case 35.&#10;Currently need a way to send to front end new values of all the objective scores. Need a better place to put the method than algorithm class. Need a way to undo the move if user does not approve it the new changes." />
+    <MESSAGE value="Merging" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merging" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
@@ -847,8 +855,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="31" column="47" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="47" />
+        <state relative-caret-position="163">
+          <caret line="91" column="26" selection-start-line="91" selection-start-column="26" selection-end-line="91" selection-end-column="26" />
           <folding>
             <element signature="e#7437#7438#0" expanded="true" />
             <element signature="e#7464#7465#0" expanded="true" />
@@ -860,8 +868,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/StateLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="90" column="92" selection-start-line="90" selection-start-column="92" selection-end-line="90" selection-end-column="92" />
+        <state relative-caret-position="1700">
+          <caret line="95" column="9" selection-start-line="95" selection-start-column="9" selection-end-line="95" selection-end-column="9" />
         </state>
       </provider>
     </entry>

@@ -271,9 +271,9 @@ public class District {
         GeometryCollection geometryCollection = (GeometryCollection) geoFac.buildGeometry(precinctGeometries);
         return geometryCollection.getLength();
     }
-//    public String getSeedPrecinctId() {
-////        return seedPrecinctId;
-////    }
+    public String getSeedPrecinctId() {
+        return seedPrecinctId;
+    }
 
     public void setSeedPrecinctId(String seedPrecinctId) {
         this.seedPrecinctId = seedPrecinctId;
