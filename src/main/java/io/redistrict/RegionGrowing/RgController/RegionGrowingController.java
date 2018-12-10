@@ -70,16 +70,5 @@ public class RegionGrowingController {
         MoveUpdater updater = currentAlgorithm.do10RgIteration();
         return updater;
     }
-    @GetMapping(value = "/changePrecinct")
-    @ResponseBody
-    public MoveUpdater changePrecinct(@RequestBody AlgorithmWeights weights) {
-        Algorithm currentAlgorithm = AppData.getCurrentAlgorithm();
-        if(currentAlgorithm == null){
-            return null;
-        }
-        // set weight variable to current algorithm
-        currentAlgorithm.getData().setWeights(weights);
-        MoveUpdater updater = currentAlgorithm.changePrecinct();
-        return updater;
-    }
+
 }
