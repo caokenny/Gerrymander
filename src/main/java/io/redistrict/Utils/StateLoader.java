@@ -82,7 +82,9 @@ public class StateLoader {
             String geoId10 = getStringValue(precinctJsObj.get(properties.getProperty("GEOID10")));
             String name = getStringValue(precinctJsObj.get(properties.getProperty("NAME10")));
             Long districtId = (Long) precinctJsObj.get(properties.get("DISTRICTID"));
-            String geoJsonString = (String) precinctJsObj.get(precinctJsObj.get("GEOJSON"));
+            //String geoJsonString = (String) precinctJsObj.get(properties.get("GEOJSON"));
+            JSONObject geoJson =(JSONObject) precinctJsObj.get(properties.get("GEOJSON"));
+            String geoJsonString= geoJson.toJSONString();
 
             Precinct precinct = new Precinct(geoId10,name,population.intValue(), geoJsonString);
             precinct.setParentDistrictID(districtId.intValue());

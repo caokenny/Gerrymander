@@ -6,7 +6,6 @@ import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.wololo.geojson.Feature;
-import org.wololo.geojson.GeoJSON;
 import org.wololo.geojson.GeoJSONFactory;
 import org.wololo.jts2geojson.GeoJSONReader;
 
@@ -22,7 +21,7 @@ public class District {
     private Map<String, List<ElectionData>> precinctVoteResults;
     private Map<Party, Integer> electionResult;
     private List<Precinct> borderRgPrecincts; // this is precincts that are within district that have unassigned neighbors
-    private int numOfNeighbors;
+    private int numOfUnassignedNeighbors;
     private String seedPrecinctId;
     private static Properties properties = new Properties();
 
@@ -35,7 +34,7 @@ public class District {
         allDPrecincts.put(startPrecinct.getGeoID10(),startPrecinct);
         borderRgPrecincts.add(startPrecinct);
         if(startPrecinct.getNeighbors() !=null)
-            this.numOfNeighbors = startPrecinct.getNeighbors().size();
+            this.numOfUnassignedNeighbors = startPrecinct.getNeighbors().size();
         this.seedPrecinctId = startPrecinct.getGeoID10();
     }
 
@@ -118,12 +117,12 @@ public class District {
         this.population = population;
     }
 
-    public int getNumOfNeighbors() {
-        return numOfNeighbors;
+    public int getNumOfUnassignedNeighbors() {
+        return numOfUnassignedNeighbors;
     }
 
-    public void setNumOfNeighbors(int numOfNeighbors) {
-        this.numOfNeighbors = numOfNeighbors;
+    public void setNumOfUnassignedNeighbors(int numOfUnassignedNeighbors) {
+        this.numOfUnassignedNeighbors = numOfUnassignedNeighbors;
     }
 
     public Map<String, Precinct> getAllDPrecincts() {
@@ -278,6 +277,20 @@ public class District {
     public void setSeedPrecinctId(String seedPrecinctId) {
         this.seedPrecinctId = seedPrecinctId;
 
+    }
+
+    public void updateNumOfUnassignNeighbors(Set<String> unassignIds){
+
+        int unassignNeighborCount = 0;
+
+        for(Precinct p : borderRgPrecincts){
+            for(Precinct neighbor : p.getNeighbors()){
+                if(unassignIds.contains(neighbor.getGeoID10())){
+                    unassignNeighborCount++;
+                }
+            }
+        }
+        this.numOfUnassignedNeighbors = unassignNeighborCount;
     }
 
 

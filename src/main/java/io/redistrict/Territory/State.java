@@ -25,7 +25,9 @@ public class State {
         this.allPrecincts= new LinkedHashMap<>(state.getAllPrecincts());
         this.population=state.getPopulation();
         districts = new LinkedHashMap<>();
-        this.allPrecincts= new HashMap<>(state.getAllPrecincts());
+        this.allPrecincts= new LinkedHashMap<>(state.getAllPrecincts());
+        // THIS MIGHT BE REMOVED LATER
+        this.defaultDistrict = new LinkedHashMap<>(state.getDefaultDistrict());
     }
     public State(String name, Map<String,Precinct> allPrecincts){
         this.stateName=name;
