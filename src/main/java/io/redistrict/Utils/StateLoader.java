@@ -27,9 +27,6 @@ public class StateLoader {
              StateData stateData = loadStateData(stateName);
              State currentState = new State(stateName, stateData.getAllPrecinct());
              currentState.setDefaultDistrict(stateData.getDefaultDistricts());
-             Map<String, Precinct> allPrecincts = loadPrecincts(stateName);
-             currentState = new State(stateName, allPrecincts);
-             //TODO make default districts
              stateMap.put(stateName, currentState);
          }
         return stateMap;
@@ -66,9 +63,6 @@ public class StateLoader {
             Map<Integer,District> defaultDistrict = loadDefaultDistricts(precinctMap);
             stateData.setDefaultDistricts(defaultDistrict);
             stateData.setAllPrecinct(precinctMap);
-            precinctMap = makePrecinctSet(precinctArray);
-            NeighborsLoader.loadNeighbors(precinctMap,stateName); //set all the nieghbors for each precinct in the map
-
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
@@ -88,8 +82,9 @@ public class StateLoader {
             String geoId10 = getStringValue(precinctJsObj.get(properties.getProperty("GEOID10")));
             String name = getStringValue(precinctJsObj.get(properties.getProperty("NAME10")));
             Long districtId = (Long) precinctJsObj.get(properties.get("DISTRICTID"));
-            String geoJSONString = getStringValue(precinctJsObj.get(properties.getProperty("GEOJSONSTRING")));
-            Precinct precinct = new Precinct(geoId10,name,population.intValue(),geoJSONString);
+            String geoJsonString = (String) precinctJsObj.get(precinctJsObj.get("GEOJSON"));
+
+            Precinct precinct = new Precinct(geoId10,name,population.intValue(), geoJsonString);
             precinct.setParentDistrictID(districtId.intValue());
 
             precinctMap.put(geoId10,precinct);

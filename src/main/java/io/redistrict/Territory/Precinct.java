@@ -12,7 +12,6 @@ import java.util.*;
 public class Precinct {
 
     private int population;
-    private int precinctId;
     private String name;
     private String geoID10;
     private List<ElectionData> electionData;
@@ -21,12 +20,11 @@ public class Precinct {
     private int parentDistrictID;
     private Set<Precinct> borderPrecincts;
     private boolean isBorder;
-    private String geoJsonString;
+    String geoJsonString;
 
 
     public Precinct(int population){
         this.population = population;
-        this.precinctId = precinctId;
     }
     public Precinct(String geoID10, String name, int population, String geoJsonString) {
         this.name = name;
@@ -37,9 +35,7 @@ public class Precinct {
     public Precinct(String geoID10){
         this.geoID10 = geoID10;
     }
-    public String getGeoJsonString(){
-        return geoJsonString;
-    }
+
     public List<Precinct> getNeighbors(){
         return neighbors;
     }
@@ -133,5 +129,13 @@ public class Precinct {
 
     public void setUnassignedNeighbors(List<Precinct> unassignedNeighbors) {
         this.unassignedNeighbors = unassignedNeighbors;
+    }
+
+    public String getGeoJsonString() {
+        return geoJsonString;
+    }
+
+    public void setGeoJsonString(String geoJsonString) {
+        this.geoJsonString = geoJsonString;
     }
 }
