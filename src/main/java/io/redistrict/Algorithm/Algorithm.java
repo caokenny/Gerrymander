@@ -176,4 +176,14 @@ public class Algorithm {
     public void setData(AlgorithmData data) {
         this.data = data;
     }
+    private MoveUpdater assignAll(District loneDistrict , State state){
+        List<MoveUpdate> updates = new ArrayList<>();
+        for(String precinctId : state.getUnassignedPrecinctIds()){
+            updates.add(new MoveUpdate(-1,loneDistrict.getDistrictId(),precinctId));
+        }
+        state.assignAllUnassignedPrecincts(loneDistrict.getDistrictId());
+        MoveUpdater updater = new MoveUpdater();
+        updater.setUpdates(updates);
+        return  updater;
+    }
 }
