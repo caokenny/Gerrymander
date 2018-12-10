@@ -10,8 +10,6 @@ import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
 import io.redistrict.Utils.JsonColorConverter;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +21,6 @@ import java.util.Set;
 @Controller
 @RequestMapping("/rg")
 public class RegionGrowingController {
-
-    @Autowired
-    private SimpMessagingTemplate messagingTemplate;
 
     @RequestMapping(value = "/pickrgseed", method = RequestMethod.GET)
     @ResponseBody

@@ -63,18 +63,17 @@ for ( i = 0; i < stateNames.length; i++) {
 var precinctLayer;
 var districtLayer;
 var stateLayer;
-// var color = {"1" :}
 var zoomLevel;
 
 function zoomState(bounds, geoObj, stateName) {
     if (!onStateAlready) {
         onStateAlready = true;
-        $('#welcomeDiv').css("display", "none");
-        $('#buttons').css("display", "flex");
-        $('#measuresContainer').css("display", "flex");
-        $('#summaryBox').css("display", "block");
-        $('#usercontrol').css("backgroundColor", "black");
-        $('#algorithmChoiceDiv').css("display", "flex");
+        $('#mySidenav').css("width", "400px");
+        $('#stateDropdown').css("display", "none");
+        $('#otherSideNavLinks').css("display", "none");
+        $('.userLog').css("display", "none");
+        $('#adminSettings').css("display", "none");
+        $('#usercontrol').css("display", "flex");
         var j;
         for (j = 0; j < stateEvents.length; j++) {
             // mymap.removeLayer(stateEvents[j]);
@@ -87,7 +86,7 @@ function zoomState(bounds, geoObj, stateName) {
         stateLayer = geoObj;
 
         // geoObj.addTo(mymap).setStyle(initialStyle);
-        $.getJSON("/js/" + stateName + "_district.json", function (data) {
+        $.getJSON("/js/json/" + stateName + "_district.json", function (data) {
             districtLayer = L.geoJSON(data, {
                 style: function (feature) {
                     return {fillColor: colors[feature.properties.DISTRICT], fillOpacity: 1, color: "black", opacity: 1};
@@ -95,7 +94,7 @@ function zoomState(bounds, geoObj, stateName) {
             }).addTo(mymap);
         });
         mymap.fitBounds(bounds);
-        $.getJSON("/js/" + stateName + "_final.json", function (data) {
+        $.getJSON("/js/json/" + stateName + "_final.json", function (data) {
             precinctLayer = L.geoJSON(data, {
                 style: function (feature) {
                     return {color: "black", opacity: 0.5, fillColor: colors[feature.properties.DISTRICT], fillOpacity: 1};
@@ -106,6 +105,7 @@ function zoomState(bounds, geoObj, stateName) {
         zoomLevel = mymap.getBoundsZoom(bounds);
         checkZoom();
     }
+
 }
 
 function checkZoom() {
@@ -123,22 +123,18 @@ function checkZoom() {
     })
 }
 
-// function addPrecincts() {
-//     console.log(geoJSONEvents[0].geo.getAttribution());
-// }
-//
-$('#selectStateSubmit').click(function () {
-    var selectMenu = document.getElementById("stateSelectMenu");
-    var selected = selectMenu.options[selectMenu.selectedIndex].value;
+
+$('.stateSelect').on('click', function () {
+    var id = $(this).attr('id');
     for (var i = 0; i < stateEvents.length; i++) {
-        if (stateEvents[i].options.name === selected) {
+        if (stateEvents[i].options.name === id) {
             stateEvents[i].fire('click');
             break;
         }
     }
 });
 
-function goHome() {
+$('.homeBtn').on('click', function () {
     if (onStateAlready) {
         var j;
         for (j = 0; j < stateEvents.length; j++) {
@@ -151,13 +147,13 @@ function goHome() {
     precinctLayer = null;
     districtLayer = null;
     mymap.setView([37.0902, -95.7129], 4);
-    $('#buttons').css("display", "none");
-    $('#measuresContainer').css("display", "none");
-    $('#summaryBox').css("display", "none");
-    $('#usercontrol').css("backgroundColor", "orange");
-    $('#welcomeDiv').css("display", "block");
-    $('#algorithmChoiceDiv').css("display", "none");
-}
+    $('#mySidenav').css("width", "250px");
+    $('#stateDropdown').css("display", "block");
+    $('#otherSideNavLinks').css("display", "block");
+    $('.userLog').css("display", "block");
+    $('#adminSettings').css("display", "block");
+    $('#usercontrol').css("display", "none");
+});
 
 $('#updateButton').on('click', function () {
     var dataObj = {"stateName": precinctLayer.options.name, "seedNum" : 3};

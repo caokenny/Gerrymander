@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" manifest="/resources/index.cache">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/adminCSS.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/sidenavCSS.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Admin Settings</title>
+</head>
+<body>
+
+    <div id="mySidenav" class="sidenav" style="width: 250px;">
+        <a href="/">Home</a>
+    </div>
+
+    <div id="registerDiv" th:style="${registerFail} ? 'display:block' : 'display:none'">
+        <form action="/user/register" id="registercontent" method="POST" modelAttribute="userForm">
+            <span class="closeRegisterBox" onclick="closeRegister()">&times;</span>
+            <input type="text" name="username" id="registerUsername" placeholder="Enter Username" required autofocus>
+            <div th:if="${userTaken == true}">
+                Username is already taken.
+            </div>
+            <input type="password" name="password" id="registerPassword" placeholder="Enter Password" required>
+            <input type="password" name="passwordConfirm" id="registerVerifyPassword" placeholder="Verify Password" required>
+            <input type="email" name="email" id="registerEmail" placeholder="Enter Email Address" required>
+            <input type="hidden" name="page" value="admin"/>
+            <button class="registerSubmit" type="submit">Add User</button>
+        </form>
+    </div>
+
+
+    <div id="userTableDiv">
+        <h1>Users</h1>
+        <table>
+            <tr>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Role(s)</th>
+                <th></th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${#lists.size(user.roles) == 1} ? ${user.roles[0].getName()} : ${user.roles[0].getName()} + ', ' + ${user.roles[1].getName()}"></td>
+                <td><button class="editBtn" th:id="${user.username}"><i class="fa fa-edit"></i></button><button class="deleteBtn" th:id="${user.username}"><i class="fa fa-close"></i></button> </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="addUserDiv">
+        <button id="addBtn"><i class="fa fa-plus"></i> Add User</button>
+    </div>
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+<script src="/js/adminjs.js"></script>
+</body>
+</html>
