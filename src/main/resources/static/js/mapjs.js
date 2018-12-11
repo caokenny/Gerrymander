@@ -8,19 +8,19 @@ var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8
     accessToken: 'pk.eyJ1IjoiY2Fva2VubnkiLCJhIjoiY2ptZHhzcmJoMHVlYjNwbW90cm1kZW11bSJ9.C6aOC-2bLmc9SIXXjI0tyQ'
 }).addTo(mymap);
 
-var colors = {"01" : "red", "02" : "green", "03" : "purple", "04" : "yellow", "05" : "orange", "06" : "pink", "07" : "gray", "08" : "brown"};
+var colors = {"01" : "red", "02" : "green", "03" : "purple", "04" : "#489ec9", "05" : "orange", "06" : "pink", "07" : "gray", "08" : "brown"};
 
 //Add geoJSON
 
-L.geoJSON(usageo, {
-    style: function (feature) {
-        if (feature.properties.name !== "Colorado" && feature.properties.name !== "Kansas" && feature.properties.name !== "Missouri") {
-            return {color: "black", fillColor: "blue", fillOpacity: 1}
-        }
-    }
-}).addTo(mymap);
+// L.geoJSON(usageo, {
+//     style: function (feature) {
+//         if (feature.properties.name !== "Colorado" && feature.properties.name !== "Kansas" && feature.properties.name !== "Missouri") {
+//             return {color: "black", fillColor: "blue", fillOpacity: 1}
+//         }
+//     }
+// }).addTo(mymap);
 
-var initialStyle = {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1};
+var initialStyle = {color: "white", opacity: 1, fillColor: "#5FBD5A", fillOpacity: 0.2};
 
 var onStateAlready = false;
 
@@ -35,7 +35,7 @@ var i;
 for ( i = 0; i < stateNames.length; i++) {
     stateEvents[i] = L.geoJSON(stateNames[i].jsvar, {
             style: function () {
-                return {color: "black", opacity: 1, fillColor: "orange", fillOpacity: 1}
+                return {color: "white", opacity: 1, fillColor: "#5FBD5A", fillOpacity: 0.2}
             },
             name: stateNames[i].name
         }).addTo(mymap);
@@ -81,7 +81,7 @@ function zoomState(bounds, geoObj, stateName) {
             // mymap.removeLayer(stateEvents[j]);
             if (stateEvents[j] !== geoObj) {
                 stateEvents[j].setStyle(function () {
-                    return {fillColor: "blue"};
+                    return {opacity: 0, fillOpacity: 0};
                 });
             }
         }
@@ -91,7 +91,7 @@ function zoomState(bounds, geoObj, stateName) {
         $.getJSON("/js/json/" + stateName + "_district.json", function (data) {
             districtLayer = L.geoJSON(data, {
                 style: function (feature) {
-                    return {fillColor: colors[feature.properties.DISTRICT], fillOpacity: 1, color: "black", opacity: 1};
+                    return {fillColor: colors[feature.properties.DISTRICT], fillOpacity: 0.2, color: "white", opacity: 1};
                 }
             }).addTo(mymap);
         });
@@ -99,7 +99,7 @@ function zoomState(bounds, geoObj, stateName) {
         $.getJSON("/js/json/" + stateName + "_final.json", function (data) {
             precinctLayer = L.geoJSON(data, {
                 style: function (feature) {
-                    return {color: "black", opacity: 0.5, fillColor: colors[feature.properties.DISTRICT], fillOpacity: 1};
+                    return {color: "#DCDCDC", opacity: 0.5, fillColor: colors[feature.properties.DISTRICT], fillOpacity: 1};
                 },
                 name: stateName
             });
