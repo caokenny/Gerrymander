@@ -56,7 +56,7 @@ public class StateLoader {
         String filePath = properties.getProperty(stateName);
         Map<String,Precinct> precinctMap =null;
         StateData stateData = new StateData();
-
+        System.out.println(stateName);
         try {
             FileReader fileReader = new FileReader(filePath);
             JSONArray precinctArray = (JSONArray) new JSONParser().parse(fileReader);

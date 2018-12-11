@@ -140,23 +140,13 @@ public class District {
     public boolean isSABorderPrecinct(Precinct precinct){
         List<Precinct> neighbors = precinct.getNeighbors();
         for(Precinct p : neighbors){
+            System.out.println("neighbor "+p);
             if(p.getParentDistrictID() != precinct.getParentDistrictID())
                 return true;
         }
         return false;
     }
 
-    /**
-     *
-     * THIS MIGHT NEED TO BE RIDDEN AGAIN FOR SA
-     */
-    public Precinct getRandomPrecinct(){
-        //Return a random precinct
-        int numPrecincts = borderRgPrecincts.size(); //*** WONT WORK FOR SA
-        Random rand = new Random();
-        int n = rand.nextInt(numPrecincts) + 0;
-        return borderRgPrecincts.get(n);
-    }
 
     public int getDistrictID(){
         return districtId;

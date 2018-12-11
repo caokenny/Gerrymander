@@ -50,5 +50,12 @@ public class AppData {
     public static void setCurrentAlgorithm(Algorithm currentAlgorithm) {
         AppData.currentAlgorithm = currentAlgorithm;
     }
+
+    public static State getStateCopy(String stateName){
+        State originalState = stateMap.get(stateName.toUpperCase());
+        Map<String,Precinct> originalPrecinctMap = originalState.getAllPrecincts();
+        //TODO
+        return null;
+    }
 }
 
