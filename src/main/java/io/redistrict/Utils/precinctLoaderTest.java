@@ -22,8 +22,8 @@ public class precinctLoaderTest {
         AppData.setStateMap(StateLoader.loadAllStates(StateEnum.values()));
 
         //setup
-        State mo = AppData.getState("MO");
-        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(mo.getAllPrecincts().values(),3);
+        State mo = AppData.getState("CO");
+        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(mo.getAllPrecincts().values(),20);
         Map<Integer,District> seedDistricts = District.makeSeedDistricts(seeds);
         mo.setDistricts(seedDistricts);
         mo.resetUnassignedPrecinctIds();
@@ -44,30 +44,31 @@ public class precinctLoaderTest {
         // set weight variable to current algorithm
         //currentAlgorithm.getData().setWeights(weights);
 
-        Map<String,State> stateMap = AppData.getStateMap();
-        for(String stateName : stateMap.keySet()){
-            State state = stateMap.get(stateName);
-            System.out.println("*************STATE: "+ stateName+"*********************");
-            for(int districtId : state.getDefaultDistrict().keySet()){
-                District district = state.getDefaultDistrict().get(districtId);
-                System.out.println("DistrictId: "+districtId);
-                System.out.println("perimeter: "+district.getPerimeter(district.getAllDPrecincts()));
-                System.out.println("area: "+district.getArea(district.getAllDPrecincts()));
-            }
-        }
+        //AREA AND PERIMETER TEST
+//        Map<String,State> stateMap = AppData.getStateMap();
+//        for(String stateName : stateMap.keySet()){
+//            State state = stateMap.get(stateName);
+//            System.out.println("*************STATE: "+ stateName+"*********************");
+//            for(int districtId : state.getDefaultDistrict().keySet()){
+//                District district = state.getDefaultDistrict().get(districtId);
+//                System.out.println("DistrictId: "+districtId);
+//                System.out.println("perimeter: "+district.getPerimeter(district.getAllDPrecincts()));
+//                System.out.println("area: "+district.getArea(district.getAllDPrecincts()));
+//            }
+//        }
 
-
+        //PRECINCT AREA AND PERIMETER TEST
 //        for(String geoid10 : mo.getAllPrecincts().keySet()) {
 //            Precinct precinct = mo.getAllPrecincts().get(geoid10);
 //            System.out.println("precinct geoid: "+ precinct.getGeoID10() +" area: "+precinct.getArea()+ " perimeter: "+ precinct.getPerimeter());
 //        }
 
 
-
+        //ALGORITHM TEST
         Set<String> unassignedPrecinctIds = currentAlgorithm.getData().getWorkingState().getUnassignedPrecinctIds();
-//        while (!unassignedPrecinctIds.isEmpty()) {
-//            MoveUpdater updater = currentAlgorithm.do10RgIteration();
-//        }
+        while (!unassignedPrecinctIds.isEmpty()) {
+            MoveUpdater updater = currentAlgorithm.do10RgIteration();
+        }
 
     }
 
