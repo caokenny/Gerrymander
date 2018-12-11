@@ -25,9 +25,9 @@ var initialStyle = {color: "white", opacity: 1, fillColor: "#5FBD5A", fillOpacit
 var onStateAlready = false;
 
 var stateNames = [
-    {name : "colorado", jsvar: colorado},
-    {name : "kansas", jsvar: kansas},
-    {name : "missouri", jsvar: missouri}
+    {name : "colorado", jsvar: colorado, abbr: "CO"},
+    {name : "kansas", jsvar: kansas, abbr: "KS"},
+    {name : "missouri", jsvar: missouri, abbr: "MO"}
 ];
 
 var stateEvents = [];
@@ -37,7 +37,7 @@ for ( i = 0; i < stateNames.length; i++) {
             style: function () {
                 return {color: "white", opacity: 1, fillColor: "#5FBD5A", fillOpacity: 0.2}
             },
-            name: stateNames[i].name
+            name: stateNames[i].name, abbr: stateNames[i].abbr
         }).addTo(mymap);
 }
 
@@ -64,8 +64,10 @@ var precinctLayer;
 var districtLayer;
 var stateLayer;
 var zoomLevel;
+var stateSelected;
 
 function zoomState(bounds, geoObj, stateName) {
+    stateSelected = geoObj.options.abbr;
     if (!onStateAlready) {
         onStateAlready = true;
         $('#mySidenav').css("width", "400px");
@@ -101,7 +103,8 @@ function zoomState(bounds, geoObj, stateName) {
                 style: function (feature) {
                     return {color: "#DCDCDC", opacity: 0.5, fillColor: colors[feature.properties.DISTRICT], fillOpacity: 1};
                 },
-                name: stateName
+                name: stateName,
+                abbr: geoObj.abbr
             });
         });
         zoomLevel = mymap.getBoundsZoom(bounds);
@@ -159,112 +162,124 @@ $('.homeBtn').on('click', function () {
     $('.sidenav div').css("font-size", "25px");
 });
 
+var seed;
 $('#updateButton').on('click', function () {
-    var dataObj = {"stateName": precinctLayer.options.name, "seedNum" : 3};
     $.ajax({
         url: "/rg/pickrgseed",
         async: true,
-        dataType: "json",
+        // dataType: "json",
         type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(dataObj),
+        // contentType: "application/json",
+        data: {"stateName" : stateSelected, "seedNum" : 3},
         success: function (response) {
-            updatePrecinctVisual(response);
+            precinctLayer.setStyle(function () {
+                return {fillColor: "white"};
+            });
+            var jsonStr = JSON.parse(response);
+            console.log(response);
+            for (var i = 0; i < jsonStr.seeds.length; i++) {
+                seed = jsonStr.seeds[i];
+                console.log(seed);
+                precinctLayer.setStyle(function (feature) {
+                    if (feature.properties.GEOID10 === seed.precinctGeoId) {
+                        return {fillColor: colors["0" + seed.districtID]};
+                    }
+                });
+            }
+
         }
     })
 });
 
-// $('#runButton').on('click', function () {
-//     // var a = $('#algorithmChoice').val();
-//     var compactness = $('#compactnessSlider').val();
-//     var population = $('#populationSlider').val();
-//     var partisanFariness = $('#partisanFairnessSlider').val();
-//     var efficiencyGap = $('#efficiencyGapSlider').val();
-//     var measuresObj = {"compactness" : compactness, "population" : population, "partisanFairness" : partisanFariness, "efficiencyGap" : efficiencyGap};
-//     do {
-//         $.ajax({
-//             url: "/rg/",
-//             type: "POST",
-//             async: true,
-//             contentType: "application/json",
-//             dataType: "json",
-//             data: JSON.stringify(measuresObj),
-//             success: function (data) {
-//                 updatePrecinctVisual(data);
-//             }
-//         })
-//     } while (data !== "");
-// });
+$('#runButton').on('click', function () {
+    var algorithmChoice = $('#algorithmChoice').val();
+    var compactness = $('#compactnessSlider').val();
+    var population = $('#populationSlider').val();
+    var partisanFariness = $('#partisanFairnessSlider').val();
+    var efficencyGap = $('#efficiencyGapSlider').val();
+    var measuresObj = {"compactness" : compactness, "populationEquality" : population, "partisanFairness" : partisanFariness, "efficencyGap" : efficencyGap, "algorithm" : algorithmChoice, "stateAbbrv" : stateSelected};
+    $.ajax({
+        url: "/rg/do10Rg",
+        type: "POST",
+        async: true,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(measuresObj),
+        success: function (data) {
+            if (data.updates.length !== 0) {
+                updatePrecinctVisual(data);
+            }
+        }
+    })
+});
 
 var precinctMove;
 function updatePrecinctVisual(response) {
-    if (response === "") { return; }
-    var jsonObj = JSON.parse(response);
-    for (var i = 0; i < jsonObj.Moves.length; i++) {
-        precinctMove = jsonObj.Moves[i];
+    for (var i = 0; i < response.updates.length; i++) {
+        precinctMove = response.updates[i];
         precinctLayer.setStyle(function (feature) {
-            if (feature.properties.GEOID10 === precinctMove.GEOID10) {
-                return {fillColor : colors[precinctMove.District], fillOpacity : 1};
+            if (feature.properties.GEOID10 === precinctMove.precinctId) {
+                return {fillColor : colors["0" + precinctMove.destDistId], fillOpacity : 1};
             }
         });
     }
+    $('#runButton').trigger('click');
 }
 
-var summaryBox = $('#summaryBox');
-$('#runButton').click(function () {
-    var s = $('#stateSelectMenu').val();
-    var req;
-    var a = $('#algorithmChoice').val();
-    var m1 = $('#compactnessSlider').val();
-    var m2 = $('#populationSlider').val();
-    var m3 = $('#partisanFairnessSlider').val();
-    var m4 = $('#efficiencyGapSlider').val();
-    console.log(a); // prints rg
-    console.log(m1); // prints value correctly
-    var algObj = {"state": s, "compactness": m1, "populationEquality": m2, "partisanFairness": m3, "efficencyGap": m4, "algorithm": a};
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url: "/startAlgorithm",
-        data: JSON.stringify(algObj),
-        dataType: 'json',
-        cache: false,
-        timeout: 600000,
-        success: function (data) {
-            var json = JSON.stringify(data, null, 4);
-            summaryBox.val(summaryBox.val() + "\n" + data["successful"]);
-            console.log("SUCCESS : ", data);
-            delete data["successful"];
-            console.log("after removing successful key ", data);
-            continueAlgorithm();
-        },
-        error: function (e) {
-            var json = "Ajax Response" + e.responseText;
-            summaryBox.val(summaryBox.val() + json);
-            console.log("ERROR : ", e);
-        }
-    });
-});
-var stopAlgorithm = false;
-function continueAlgorithm() {
-    var countObj = {counter: 0};
-    $.ajax({
-        type: "POST",
-        url: "/continueAlgorithm",
-        contentType: "application/json",
-        data: JSON.stringify(countObj),
-        dataType: 'json',
-        cache: false,
-        success: function (data) {
-            var json = JSON.stringify(data, null, 4);
-            summaryBox.val(summaryBox.val() + "\n" + data["successful"]);
-            console.log("SUCCESS : ", data["successful"]);
-            if (data["successful"] === 5)
-                stopAlgorithm = true;
-            if (!stopAlgorithm)
-                continueAlgorithm();
-            else
-                return;
-        }
-    });
-}
+// var summaryBox = $('#summaryBox');
+// $('#runButton').click(function () {
+//     var req;
+//     var a = $('#algorithmChoice').val();
+//     var m1 = $('#compactnessSlider').val();
+//     var m2 = $('#populationSlider').val();
+//     var m3 = $('#partisanFairnessSlider').val();
+//     var m4 = $('#efficiencyGapSlider').val();
+//     console.log(a); // prints rg
+//     console.log(m1); // prints value correctly
+//     var algObj = {"stateAbbrv": stateSelected, "compactness": m1, "populationEquality": m2, "partisanFairness": m3, "efficencyGap": m4, "algorithm": a};
+//     $.ajax({
+//         type: "POST",
+//         contentType: "application/json",
+//         url: "/startAlgorithm",
+//         data: JSON.stringify(algObj),
+//         dataType: 'json',
+//         cache: false,
+//         timeout: 600000,
+//         success: function (data) {
+//             var json = JSON.stringify(data, null, 4);
+//             summaryBox.val(summaryBox.val() + "\n" + data["successful"]);
+//             console.log("SUCCESS : ", data);
+//             delete data["successful"];
+//             console.log("after removing successful key ", data);
+//             continueAlgorithm();
+//         },
+//         error: function (e) {
+//             var json = "Ajax Response" + e.responseText;
+//             summaryBox.val(summaryBox.val() + json);
+//             console.log("ERROR : ", e);
+//         }
+//     });
+// });
+// var stopAlgorithm = false;
+// function continueAlgorithm() {
+//     var countObj = {counter: 0};
+//     $.ajax({
+//         type: "POST",
+//         url: "/continueAlgorithm",
+//         contentType: "application/json",
+//         data: JSON.stringify(countObj),
+//         dataType: 'json',
+//         cache: false,
+//         success: function (data) {
+//             var json = JSON.stringify(data, null, 4);
+//             summaryBox.val(summaryBox.val() + "\n" + data["successful"]);
+//             console.log("SUCCESS : ", data["successful"]);
+//             if (data["successful"] === 5)
+//                 stopAlgorithm = true;
+//             if (!stopAlgorithm)
+//                 continueAlgorithm();
+//             else
+//                 return;
+//         }
+//     });
+// }

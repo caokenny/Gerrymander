@@ -27,10 +27,10 @@ import java.util.Set;
 @RequestMapping("/rg")
 public class RegionGrowingController {
 
-    @RequestMapping(value = "/pickrgseed", method = RequestMethod.GET)
+//    @RequestMapping(value = "/pickrgseed", method = RequestMethod.POST)
+    @PostMapping("/pickrgseed")
     @ResponseBody
     public String assignSeedDistrict(String stateName , int seedNum){
-
         State state = AppData.getState(stateName);
         Collection<Precinct> precinctSet = state.getAllPrecincts().values();
         Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(precinctSet,seedNum);
@@ -53,7 +53,7 @@ public class RegionGrowingController {
 
     }
 
-    @GetMapping(value = "/do10Rg")
+    @PostMapping(value = "/do10Rg")
     @ResponseBody
     public MoveUpdater startRg(@RequestBody AlgorithmWeights weights) {
         Algorithm currentAlgorithm = AppData.getCurrentAlgorithm();
