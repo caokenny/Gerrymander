@@ -68,7 +68,7 @@ public class District {
         precinct.setParentDistrictID(-1);
         allDPrecincts.remove(precinct);
         population -= precinct.getPopulation();
-        precinctVoteResults.remove(precinct.getGeoID10(), precinct.getElectionData());
+//        precinctVoteResults.remove(precinct.getGeoID10(), precinct.getElectionData());
         if(precinct.isBorder()) {
             borderRgPrecincts.remove(precinct); //*** THIS WONT WORK FOR SA HERE
         }
@@ -215,15 +215,31 @@ public class District {
         float score = 1;
         if (population <= idealPop) return score;
         float difference = population - idealPop;
-        float lowerThreshold = Float.parseFloat(properties.getProperty("population_lowThreshold"));
-        float midThreshold = Float.parseFloat(properties.getProperty("population_midThreshold"));
-        float highThreshold = Float.parseFloat(properties.getProperty("population_highThreshold"));
-        float lowPenalty = Float.parseFloat(properties.getProperty("population_lowPenalty"));
-        float midPenalty = Float.parseFloat(properties.getProperty("population_midPenalty"));
-        float highPenalty = Float.parseFloat(properties.getProperty("population_highPenalty"));
-        if (difference <= lowerThreshold) return score - lowPenalty;
-        else if (difference > lowerThreshold && difference <= midThreshold) return score - midPenalty;
-        else return score - highPenalty;
+//        System.out.println(properties.getProperty("population_lowThreshold"));
+//        float lowerThreshold = Float.parseFloat(properties.getProperty("population_lowThreshold"));
+//        float midThreshold = Float.parseFloat(properties.getProperty("population_midThreshold"));
+//        float highThreshold = Float.parseFloat(properties.getProperty("population_highThreshold"));
+//        float lowPenalty = Float.parseFloat(properties.getProperty("population_lowPenalty"));
+//        float midPenalty = Float.parseFloat(properties.getProperty("population_midPenalty"));
+//        float highPenalty = Float.parseFloat(properties.getProperty("population_highPenalty"));
+//        if (difference <= lowerThreshold) return score - lowPenalty;
+//        else if (difference > lowerThreshold && difference <= midThreshold) return score - midPenalty;
+//        else return score - highPenalty;
+        float dev = Float.parseFloat(properties.getProperty("population_deviation"));
+        float penalty = Float.parseFloat(properties.getProperty("population_penalty"));
+        float penaltyAmt = penalty;
+        float devAmt = dev;
+        while (score - penaltyAmt > 0) {
+            if (difference > idealPop * devAmt) {
+                penaltyAmt += penalty;
+                devAmt += dev;
+            }
+            else {
+                score -= penaltyAmt;
+                break;
+            }
+        }
+        return score;
     }
 
     public static Map<Integer, District> makeSeedDistricts(Collection<Precinct> precincts){
@@ -293,6 +309,22 @@ public class District {
         this.numOfUnassignedNeighbors = unassignNeighborCount;
     }
 
+    public Precinct getLargestBorderPrec() {
+        Precinct largest = borderPrecincts.get(0);
+        for (Precinct p : borderPrecincts) {
+            if (p.getPopulation() > largest.getPopulation())
+                largest = p;
+        }
+        return largest;
+    }
 
+    public Move moveLargestBorderPrec(){
+        Precinct p = getLargestBorderPrec();
+        Precinct pNeighbor = p.getRandomNeighbor();
+        while(!pNeighbor.isBorder())
+            pNeighbor = p.getRandomNeighbor();
+        // Move the largest border precint to a neighboring district
+        return new Move(p, p.getParentDistrictID(), pNeighbor.getParentDistrictID());
+    }
 }
 

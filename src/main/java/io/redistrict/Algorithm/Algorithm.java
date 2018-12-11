@@ -191,4 +191,42 @@ public class Algorithm {
         updater.setUpdates(updates);
         return  updater;
     }
+    public Stack<Move> run10SA(){
+        int badMoves = 0;
+        int count = 0;
+        State s = data.getWorkingState();
+        int max_bad_move = Integer.parseInt(properties.getProperty("max_bad_moves"));
+        double accecptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
+        double constantMultiplier = Double.parseDouble(properties.getProperty("constant_multiplier"));
+
+        while(badMoves < max_bad_move && count < 10){
+            District d = s.getLowestPopScoreDistrict();
+            int distOldPop = d.getPopulation();
+            double oldScore = s.getDistrictScore(d);
+            Move move = d.moveLargestBorderPrec();
+            Precinct modifiedPrecinct = move.getPrecinct();
+            modifiedPrecinct.setParentDistrictID(move.getDstDistrictID());
+            District srcDistrict = s.getDefaultDistrict().get(move.getSrcDistrictID());
+            District dstDistrict =s.getDefaultDistrict().get(move.getDstDistrictID());
+            srcDistrict.removePrecinct(modifiedPrecinct);
+            dstDistrict.addPrecinct(modifiedPrecinct);
+            int distNewPop = d.getPopulation();
+            double newScore = s.getDistrictScore(d);
+            if(distOldPop > distNewPop){
+                s.addToMoveStack(move);
+            }
+            else{
+                badMoves++;
+                boolean acceptBadMove = s.acceptBadMove(oldScore, newScore, accecptanceConstant);
+                if(acceptBadMove){
+                    s.addToMoveStack(move);
+                }
+                else
+                    s.undoLastMove(move);
+                accecptanceConstant *= constantMultiplier;
+            }
+            count++;
+        }
+        return s.getMoves();
+    }
 }
