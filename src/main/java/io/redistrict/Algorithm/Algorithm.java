@@ -216,7 +216,7 @@ public class Algorithm {
                 s.addToMoveStack(move);
             }
             else{
-                badMoves++;
+                badMoves++; // THIS MIGHT NEED TO BE SWAPPED TO SOMEWHERE ELSE(UNDER S.UNDOLASTMove())
                 boolean acceptBadMove = s.acceptBadMove(oldScore, newScore, accecptanceConstant);
                 if(acceptBadMove){
                     s.addToMoveStack(move);

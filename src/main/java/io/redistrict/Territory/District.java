@@ -21,6 +21,7 @@ public class District {
     private Map<String, List<ElectionData>> precinctVoteResults;
     private Map<Party, Integer> electionResult;
     private List<Precinct> borderRgPrecincts; // this is precincts that are within district that have unassigned neighbors
+    private List<Precinct> borderSaPrecincts;
     private int numOfUnassignedNeighbors;
     private String seedPrecinctId;
     private static Properties properties = new Properties();
@@ -31,6 +32,7 @@ public class District {
         this.population= startPrecinct.getPopulation();
         this.allDPrecincts = new LinkedHashMap<>();
         this.borderRgPrecincts = new ArrayList<>();
+        this.borderSaPrecincts = new ArrayList<>();
         allDPrecincts.put(startPrecinct.getGeoID10(),startPrecinct);
         borderRgPrecincts.add(startPrecinct);
         if(startPrecinct.getNeighbors() !=null)
@@ -58,6 +60,7 @@ public class District {
 //        precinctVoteResults.put(precinct.getGeoID10(), precinct.getElectionData());
         if(isSABorderPrecinct(precinct)) {
             precinct.setIsBorder(true);
+            borderSaPrecincts.add(precinct);
         }
         else
             precinct.setIsBorder(false);
@@ -70,7 +73,7 @@ public class District {
         population -= precinct.getPopulation();
 //        precinctVoteResults.remove(precinct.getGeoID10(), precinct.getElectionData());
         if(precinct.isBorder()) {
-            borderRgPrecincts.remove(precinct); //*** THIS WONT WORK FOR SA HERE
+            borderSaPrecincts.remove(precinct);
         }
     }
 
@@ -310,8 +313,8 @@ public class District {
     }
 
     public Precinct getLargestBorderPrec() {
-        Precinct largest = borderPrecincts.get(0);
-        for (Precinct p : borderPrecincts) {
+        Precinct largest = borderSaPrecincts.get(0);
+        for (Precinct p : borderSaPrecincts) {
             if (p.getPopulation() > largest.getPopulation())
                 largest = p;
         }
