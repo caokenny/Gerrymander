@@ -37,4 +37,9 @@ public class MoveUpdate {
     public void setPrecinctId(String precinctId) {
         this.precinctId = precinctId;
     }
+
+    public String toString()
+    {
+        return "precinct: "+precinctId +" move from district: "+srcDistId + " to district: "+destDistId;
+    }
 }

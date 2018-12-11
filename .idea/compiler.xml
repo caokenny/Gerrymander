@@ -9,6 +9,7 @@
         <module name="course-api" />
         <module name="CSE308" />
         <module name="Gerrymander" />
+        <module name="Gerrymander3" />
       </profile>
     </annotationProcessing>
   </component>

@@ -42,4 +42,14 @@ public class AlgorithmData {
     public void setWorkingState(State workingState) {
         this.workingState = workingState;
     }
+
+    @Override
+    public String toString() {
+        return "AlgorithmData{" +
+                "startingSeeds=" + startingSeeds +
+                ", weights=" + weights +
+                ", type=" + type +
+                ", workingState=" + workingState +
+                '}';
+    }
 }

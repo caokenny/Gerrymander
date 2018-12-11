@@ -2,11 +2,12 @@ package io.redistrict.Territory;
 
 import io.redistrict.Election.ElectionData;
 import io.redistrict.Territory.District;
+import org.locationtech.jts.geom.Geometry;
+import org.wololo.geojson.Feature;
+import org.wololo.geojson.GeoJSONFactory;
+import org.wololo.jts2geojson.GeoJSONReader;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class Precinct {
 
@@ -15,18 +16,21 @@ public class Precinct {
     private String geoID10;
     private List<ElectionData> electionData;
     private List<Precinct> neighbors;
+    private List<Precinct> unassignedNeighbors;
     private int parentDistrictID;
     private Set<Precinct> borderPrecincts;
     private boolean isBorder;
+    String geoJsonString;
 
 
     public Precinct(int population){
         this.population = population;
     }
-    public Precinct(String geoID10, String name, int population) {
+    public Precinct(String geoID10, String name, int population, String geoJsonString) {
         this.name = name;
         this.population = population;
         this.geoID10 = geoID10;
+        this.geoJsonString = geoJsonString;
     }
     public Precinct(String geoID10){
         this.geoID10 = geoID10;
@@ -45,10 +49,16 @@ public class Precinct {
     public int getParentDistrictID() {
         return parentDistrictID;
     }
-    public Precinct getRandomNeighbor(){
+//    Gives ArrayIndexOutOfBoundsException: -1 because 0 is inclusive whne using rand.nextInt()
+//    public Precinct getRandomNeighbor(){
+//        int i = neighbors.size();
+//        Random rand = new Random();
+//        int n = rand.nextInt(i) - 1;
+//        return neighbors.get(n);
+//    }
+    public Precinct getRandomNeighbor() {
         int i = neighbors.size();
-        Random rand = new Random();
-        int n = rand.nextInt(i) - 1;
+        int n = (int)(Math.random() * i);
         return neighbors.get(n);
     }
     public String getGeoID10() {
@@ -105,5 +115,33 @@ public class Precinct {
 
     public void setBorder(boolean border) {
         isBorder = border;
+    }
+    public double getArea(){
+        Feature feature = (Feature) GeoJSONFactory.create(geoJsonString);
+        GeoJSONReader reader = new GeoJSONReader();
+        Geometry precinctGeometry = reader.read(feature.getGeometry());
+        return precinctGeometry.getArea();
+    }
+    public double getPerimeter(){
+        Feature feature = (Feature) GeoJSONFactory.create(geoJsonString);
+        GeoJSONReader reader = new GeoJSONReader();
+        Geometry precinctGeometry = reader.read(feature.getGeometry());
+        return precinctGeometry.getLength();
+    }
+
+    public List<Precinct> getUnassignedNeighbors() {
+        return unassignedNeighbors;
+    }
+
+    public void setUnassignedNeighbors(List<Precinct> unassignedNeighbors) {
+        this.unassignedNeighbors = unassignedNeighbors;
+    }
+
+    public String getGeoJsonString() {
+        return geoJsonString;
+    }
+
+    public void setGeoJsonString(String geoJsonString) {
+        this.geoJsonString = geoJsonString;
     }
 }

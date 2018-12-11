@@ -2,7 +2,72 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41b968fc-9443-4816-b1ec-297a289afac5" name="Default Changelist" comment="added getter and setter for AlgorithmData in Algorithm class&#10;Added continueAlgorithm method to AlgorithmController&#10;Update summaryBox after return from continueAlgorithm in mapjs.js&#10;Added Gson to pom.xml">
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/controller/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/CustomUserDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/repository/RoleDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/service/CustomUserDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/validator/UserValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/adminCSS.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/sidenavCSS.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/adminjs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/adduser.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/io/redistrict/auth/controller/AdminController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/io/redistrict/auth/model/CustomUserDetails.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/io/redistrict/auth/model/Role.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/io/redistrict/auth/repository/RoleDao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/io/redistrict/auth/service/CustomUserDetailsService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/io/redistrict/auth/validator/UserValidator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/static/css/adminCSS.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/static/css/sidenavCSS.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/static/js/adminjs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/templates/adduser.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/templates/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/CourseApiApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/CourseApiApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/repository/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/repository/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/config/SpringSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/config/SpringSecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/config/WebSocketConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/index/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/index/IndexController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/colorado_district.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/colorado_district.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/colorado_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/colorado_final.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/indexjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/indexjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/kansas_district.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/kansas_district.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/kansas_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/kansas_final.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/missouri_district.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/missouri_district.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/missouri_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/missouri_final.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/Algorithm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/Algorithm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/CourseApiApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/CourseApiApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgController/RegionGrowingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgController/RegionGrowingController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/RgSeedSelector.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/RgSeedSelector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/JsonColorConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/JsonColorConverter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/NeighborsLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/NeighborsLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/auth/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/auth/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/auth/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/auth/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/config/SpringSecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/config/SpringSecurityConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/config/WebSocketConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/index/IndexController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/index/IndexController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/css/indexCSS.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/css/indexCSS.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/colorado_district.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/json/colorado_district.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/colorado_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/json/colorado_final.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/indexjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/indexjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/kansas_district.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/json/kansas_district.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/kansas_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/json/kansas_final.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/mapjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/mapjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/missouri_district.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/json/missouri_district.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/missouri_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/json/missouri_final.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -11,49 +76,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="-135010132">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.open.time.15" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="css" value="3" />
-          <entry key="js" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="CSS" value="3" />
-          <entry key="JavaScript" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="css" value="51" />
-          <entry key="html" value="41" />
-          <entry key="js" value="141" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="CSS" value="51" />
-          <entry key="HTML" value="41" />
-          <entry key="JavaScript" value="141" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="260" selection-start-line="260" selection-end-line="260" />
+            <state relative-caret-position="4675">
+              <caret line="275" selection-start-line="275" selection-end-line="275" />
             </state>
           </provider>
         </entry>
@@ -61,19 +90,31 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/adminCSS.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
+            <state relative-caret-position="1037">
               <caret line="61" column="29" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/mapjs.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="201">
-              <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+              <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
               <folding>
                 <element signature="e#9#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="467">
+              <caret line="51" column="39" lean-forward="true" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -82,8 +123,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="108" selection-start-line="108" selection-end-line="108" />
+            <state relative-caret-position="1819">
+              <caret line="107" selection-start-line="107" selection-end-line="107" />
             </state>
           </provider>
         </entry>
@@ -91,7 +132,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/indexjs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
+            <state relative-caret-position="646">
               <caret line="38" selection-start-line="38" selection-end-line="38" />
             </state>
           </provider>
@@ -109,17 +150,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>algorithm</find>
-      <find>run</find>
-      <find>movestack</find>
-      <find>moveupdater</find>
-      <find>algorithmdata</find>
-      <find>json</find>
-      <find>z-index</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -134,7 +164,6 @@
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/ks_data.json" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/Role.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/repository/UserDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/service/CustomUserService.java" />
@@ -163,14 +192,9 @@
         <option value="$PROJECT_DIR$/src/main/resources/static/css/sidenavCSS.css" />
         <option value="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" />
         <option value="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" />
+        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
@@ -179,10 +203,10 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1280" />
-    <option name="height" value="707" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="960" />
+    <option name="width" value="960" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -309,27 +333,9 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
-  </component>
-  <component name="PropertiesComponent">
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
-    <property name="RequestMappingsPanelOrder0" value="0" />
-    <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544415444630" />
-    <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="restartRequiresConfirmation" value="false" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Kenny\Desktop\Gerrymander\src\main\resources\static\js\json" />
-    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -345,7 +351,7 @@
   </component>
   <component name="RunManager">
     <configuration name="CourseApiApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="course-api" />
+      <module name="Gerrymander" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="io.redistrict.*" />
@@ -388,17 +394,18 @@
       <workItem from="1544388208377" duration="17286000" />
       <workItem from="1544419623124" duration="11323000" />
       <workItem from="1544476202334" duration="2703000" />
+      <workItem from="1544500836463" duration="699000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72189000" />
+    <option name="totallyTimeSpent" value="543000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22617124" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14925373" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -406,9 +413,10 @@
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Duplicate detector" weight="0.32936078" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3296582" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.3260274" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49888888" weight="0.31960997" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -416,7 +424,7 @@
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053304" side_tool="true" weight="0.32827735" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5011111" side_tool="true" weight="0.32524806" />
       <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.49959514" weight="0.32745314" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
@@ -437,9 +445,6 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added getter and setter for AlgorithmData in Algorithm class&#10;Added continueAlgorithm method to AlgorithmController&#10;Update summaryBox after return from continueAlgorithm in mapjs.js&#10;Added Gson to pom.xml" />
     <option name="LAST_COMMIT_MESSAGE" value="added getter and setter for AlgorithmData in Algorithm class&#10;Added continueAlgorithm method to AlgorithmController&#10;Update summaryBox after return from continueAlgorithm in mapjs.js&#10;Added Gson to pom.xml" />
@@ -448,268 +453,12 @@
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/ObjectiveFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmWeights.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/json/colorado_district.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/Colorado.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/co_data.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/json/colorado_final.json">
-      <provider selected="true" editor-type-id="LargeFileEditor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mo_data.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitattributes">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/ks_neighbors.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/index.cache">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/ks_data.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/AppData/AppData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="564">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/us-states.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/auth/service/CustomUserService.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/auth/service/CustomSecurityService.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/validation.properties" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/CourseApiApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/auth/validator/UserValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="34" column="53" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/auth/repository/RoleDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="118" column="108" selection-start-line="118" selection-start-column="108" selection-end-line="118" selection-end-column="108" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/InitialDataLoader.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/Role.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="37" column="33" lean-forward="true" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/CustomUserDetails.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/config/SpringSecurityConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="28" column="42" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/auth/service/CustomUserDetailsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="27" column="43" lean-forward="true" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/auth/repository/UserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/index/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="17" column="50" selection-start-line="17" selection-start-column="50" selection-end-line="17" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/auth/controller/AdminController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="22" column="55" selection-start-line="22" selection-start-column="55" selection-end-line="22" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/adduser.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/algorithms.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="34" selection-start-column="34" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/auth/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="51" column="53" lean-forward="true" selection-start-line="51" selection-start-column="53" selection-end-line="51" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/admin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="117" />
+        <state relative-caret-position="467">
+          <caret line="51" column="39" lean-forward="true" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="39" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/adminjs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/sidenavCSS.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="260" selection-start-line="260" selection-end-line="260" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="108" selection-start-line="108" selection-end-line="108" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/adminCSS.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="61" column="29" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/indexjs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/mapjs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
-          <folding>
-            <element signature="e#9#15#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
