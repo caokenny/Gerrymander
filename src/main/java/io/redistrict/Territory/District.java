@@ -146,17 +146,6 @@ public class District {
         return false;
     }
 
-    /**
-     *
-     * THIS MIGHT NEED TO BE RIDDEN AGAIN FOR SA
-     */
-    public Precinct getRandomPrecinct(){
-        //Return a random precinct
-        int numPrecincts = borderRgPrecincts.size(); //*** WONT WORK FOR SA
-        Random rand = new Random();
-        int n = rand.nextInt(numPrecincts) + 0;
-        return borderRgPrecincts.get(n);
-    }
 
     public int getDistrictID(){
         return districtId;
