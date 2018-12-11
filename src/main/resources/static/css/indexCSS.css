@@ -17,19 +17,20 @@ html, body {
 #mapid {
     position: relative;
     height: 100%;
-    width: 70%;
+    width: 100%;
     float: left;
     z-index: 1;
 }
 
 #usercontrol {
-    display: flex;
+    position: absolute;
+    display: none;
     flex-direction: column;
-    background-color: orange;
-    margin-left: 70%;
+    /*margin-left: 70%;*/
     height: 100%;
     width: auto;
-    margin-top: 0;
+    top: -40px;
+    right: 50px;
 }
 
 #mapheader {
@@ -39,6 +40,21 @@ html, body {
     padding: 2% 5px 10px 5%;
     z-index: 2;
 }
+
+.homeBtn {
+    background-color: #489ec9;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.homeBtn:hover {
+    background-color: RoyalBlue;
+}
+
 
 #nav {
     width: 100%;
@@ -88,7 +104,7 @@ html, body {
 #measuresContainer {
     /*display: flex;*/
     position: relative;
-    display: none;
+    display: flex;
     flex-direction: column;
     margin: auto;
     height: 50%;
@@ -97,9 +113,9 @@ html, body {
 
 #summaryBox {
     /*display: block;*/
-    display: none;
+    display: block;
     height: 25%;
-    width: 50%;
+    width: 100%;
     margin: 0 auto 50px auto;
     border: 2px solid;
     text-align: justify;
@@ -108,7 +124,7 @@ html, body {
 #buttons {
     /*display: flex;*/
     position: relative;
-    display: none;
+    display: flex;
     flex-direction: row;
     justify-content: center;
     top: 5%;
@@ -120,14 +136,6 @@ html, body {
     font-size: 24px;
     height: 100%;
 }
-
-
-#welcomeDiv {
-    align-self: center;
-    /*margin-top: 50%;*/
-    text-align: center;
-}
-
 
 #loginDiv, #registerDiv {
     position: fixed;
@@ -193,7 +201,7 @@ input[type=text], input[type=password], input[type=email] {
 
 #algorithmChoiceDiv {
     position: relative;
-    display: none;
+    display: flex;
     margin: auto;
     top: 5%;
 }
@@ -238,7 +246,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 output {
-    position: absolute;
+    position: relative;
     display: none;
     width: 50px;
     height: 24px;
@@ -251,27 +259,44 @@ output {
     text-align: center;
 }
 
-#compactnessOutput {
-    top: 60px;
-}
+/*#compactnessOutput {*/
+    /*top: 65px;*/
+/*}*/
 
-#populationOutput {
-    top: 180px;
-}
+/*#populationOutput {*/
+    /*top: 180px;*/
+/*}*/
 
-#pfOutput {
-    top: 300px;
-}
+/*#pfOutput {*/
+    /*top: 330px;*/
+/*}*/
 
-#egOutput {
-    top: 410px;
-}
+/*#egOutput {*/
+    /*top: 440px;*/
+/*}*/
 
 input[type=range]:active + output {
     display: block;
     transform: translateX(-50%);
 }
 
+#stateDropdown {
+    float: left;
+    overflow: hidden;
+}
+
+#stateDropdownContent {
+    display: none;
+    /*position: absolute;*/
+}
+
+.userLog {
+    clear: both;
+}
+
+/*.userLog, #adminSettings, #otherSideNavLinks {*/
+    /*position: absolute;*/
+/*}*/
 
 
 
