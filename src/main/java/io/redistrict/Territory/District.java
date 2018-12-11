@@ -140,6 +140,7 @@ public class District {
     public boolean isSABorderPrecinct(Precinct precinct){
         List<Precinct> neighbors = precinct.getNeighbors();
         for(Precinct p : neighbors){
+            System.out.println("neighbor "+p);
             if(p.getParentDistrictID() != precinct.getParentDistrictID())
                 return true;
         }

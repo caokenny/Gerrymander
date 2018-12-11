@@ -32,7 +32,7 @@ public class ObjectiveFunctionCalculator {
         return weightedCompactness+weightedPopScore;
     }
 
-    public double getStateObjectFunction(State state,AlgorithmType type){
+    public double getStateObjectiveFunction(State state,AlgorithmType type){
 
         double compactnessWeight = weights.getCompactness();
         double popWeight = weights.getPopulationEquality();

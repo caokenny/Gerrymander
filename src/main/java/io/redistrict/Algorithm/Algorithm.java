@@ -121,7 +121,6 @@ public class Algorithm {
         List<Precinct> borderPrecincts = district.getBorderRgPrecincts();
         Set<Precinct> unassignedNeighbors = NeighborFinder.findUnassignedNeighbors
                 (state.getAllPrecincts(),state.getUnassignedPrecinctIds(),borderPrecincts);
-        //district.setNumOfUnassignedNeighbors(unassignedNeighbors.size()-1);
         return PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
     }
     public static void loadDefaultProperties(){
