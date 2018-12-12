@@ -240,61 +240,32 @@ $('#pauseButton').on('click', function () {
     $('#runButton').css("display", "block");
     paused = true;
 });
+var stopAlgorithm = false;
+function continueAlgorithm() {
+    var countObj = {counter: 0};
+    $.ajax({
+        type: "POST",
+        url: "/continueAlgorithm",
+        contentType: "application/json",
+        data: JSON.stringify(countObj),
+        dataType: 'json',
+        cache: false,
+        success: function (data) {
+            for (move in data) {
+                console.log(move); // logs state and updates
+                // updatePrecinctVisual(move);
+            }
+            var response = JSON.stringify(data, null, 4);
+            summaryBox.val(summaryBox.val() + "\n" + response);
+            console.log("SUCCESS : ", response);
+            // if (data["successful"] === 5)
+                stopAlgorithm = true;
+            if (!stopAlgorithm)
+                continueAlgorithm();
+            else
+                return;
+        }
+    });
+}
 
-// var summaryBox = $('#summaryBox');
-// $('#runButton').click(function () {
-//     var req;
-//     var a = $('#algorithmChoice').val();
-//     var m1 = $('#compactnessSlider').val();
-//     var m2 = $('#populationSlider').val();
-//     var m3 = $('#partisanFairnessSlider').val();
-//     var m4 = $('#efficiencyGapSlider').val();
-//     console.log(a); // prints rg
-//     console.log(m1); // prints value correctly
-//     var algObj = {"stateAbbrv": stateSelected, "compactness": m1, "populationEquality": m2, "partisanFairness": m3, "efficencyGap": m4, "algorithm": a};
-//     $.ajax({
-//         type: "POST",
-//         contentType: "application/json",
-//         url: "/startAlgorithm",
-//         data: JSON.stringify(algObj),
-//         dataType: 'json',
-//         cache: false,
-//         timeout: 600000,
-//         success: function (data) {
-//             var json = JSON.stringify(data, null, 4);
-//             summaryBox.val(summaryBox.val() + "\n" + data["successful"]);
-//             console.log("SUCCESS : ", data);
-//             delete data["successful"];
-//             console.log("after removing successful key ", data);
-//             continueAlgorithm();
-//         },
-//         error: function (e) {
-//             var json = "Ajax Response" + e.responseText;
-//             summaryBox.val(summaryBox.val() + json);
-//             console.log("ERROR : ", e);
-//         }
-//     });
-// });
-// var stopAlgorithm = false;
-// function continueAlgorithm() {
-//     var countObj = {counter: 0};
-//     $.ajax({
-//         type: "POST",
-//         url: "/continueAlgorithm",
-//         contentType: "application/json",
-//         data: JSON.stringify(countObj),
-//         dataType: 'json',
-//         cache: false,
-//         success: function (data) {
-//             var json = JSON.stringify(data, null, 4);
-//             summaryBox.val(summaryBox.val() + "\n" + data["successful"]);
-//             console.log("SUCCESS : ", data["successful"]);
-//             if (data["successful"] === 5)
-//                 stopAlgorithm = true;
-//             if (!stopAlgorithm)
-//                 continueAlgorithm();
-//             else
-//                 return;
-//         }
-//     });
-// }
+
