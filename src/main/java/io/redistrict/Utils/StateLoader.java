@@ -1,6 +1,7 @@
 package io.redistrict.Utils;
 
 
+import io.redistrict.Algorithm.AlgorithmType;
 import io.redistrict.Election.Party;
 import io.redistrict.Election.VoteData;
 import io.redistrict.Territory.District;
@@ -25,11 +26,13 @@ public class StateLoader {
          Map<String,State> stateMap = new LinkedHashMap<>();
 
          for(StateEnum stateEnum : arr) {
+             System.out.println("Loading "+ stateEnum+ "...");
              String stateName = stateEnum.toString();
              StateData stateData = loadStateData(stateName);
              State currentState = new State(stateName, stateData.getAllPrecinct());
              currentState.setDefaultDistrict(stateData.getDefaultDistricts());
              stateMap.put(stateName, currentState);
+             System.out.println("Done loading "+ stateEnum+ "...");
          }
         return stateMap;
     }
@@ -44,7 +47,7 @@ public class StateLoader {
                 defaultDistrict.put(parentId,newDistrict);
             }
             else{
-                defaultDistrict.get(parentId).addPrecinct(precinct);
+                defaultDistrict.get(parentId).addPrecinct(precinct, AlgorithmType.SA);
             }
         }
         return defaultDistrict;
@@ -56,7 +59,6 @@ public class StateLoader {
         String filePath = properties.getProperty(stateName);
         Map<String,Precinct> precinctMap =null;
         StateData stateData = new StateData();
-        System.out.println(stateName);
         try {
             FileReader fileReader = new FileReader(filePath);
             JSONArray precinctArray = (JSONArray) new JSONParser().parse(fileReader);
