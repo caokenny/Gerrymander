@@ -61,7 +61,9 @@ public class District {
     //***** THIS NEED TO BE MODIFY FOR SA
     public void removePrecinct(Precinct precinct){
         precinct.setParentDistrictID(-1);
-        allDPrecincts.remove(precinct);
+//        allDPrecincts.remove(precinct);
+//        the above code DID NOT REMOVE THE PRECINCT
+        allDPrecincts.remove(precinct.getGeoID10());
         population -= precinct.getPopulation();
         if(precinct.isBorder()) {
             borderSaPrecincts.remove(precinct);
@@ -293,7 +295,7 @@ public class District {
     public Move moveLargestBorderPrec(){
         Precinct p = getLargestBorderPrec();
         Precinct pNeighbor = p.getRandomNeighbor();
-        while(!pNeighbor.isBorder())
+        while(!pNeighbor.isBorder() || pNeighbor.getParentDistrictID() == p.getParentDistrictID())
             pNeighbor = p.getRandomNeighbor();
         // Move the largest border precint to a neighboring district
         return new Move(p, p.getParentDistrictID(), pNeighbor.getParentDistrictID());

@@ -111,6 +111,10 @@ public class State {
             return (float)population/defaultDistrict.size();
     }
 
+    public Map<District, Float> getPopScores() {
+        return popScores;
+    }
+
     public double getDistrictScore(District d){
         return popScores.get(d);
     }

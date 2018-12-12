@@ -169,19 +169,22 @@ public class Algorithm {
             srcDistrict.removePrecinct(modifiedPrecinct);
             dstDistrict.addPrecinct(modifiedPrecinct);
             int distNewPop = d.getPopulation();
+//            double newScore = s.getDistrictScore(d);
+            s.updatePopulationEqualityMeasure(move, data.getType());
             double newScore = s.getDistrictScore(d);
-            if(distOldPop > distNewPop){
+            if(newScore > oldScore){
                 s.addToMoveStack(move);
             }
             else{
-                badMoves++; // THIS MIGHT NEED TO BE SWAPPED TO SOMEWHERE ELSE(UNDER S.UNDOLASTMove())
                 boolean acceptBadMove = s.acceptBadMove(oldScore, newScore, accecptanceConstant);
                 if(acceptBadMove){
                     s.addToMoveStack(move);
                 }
-                else
+                else {
                     s.undoLastMove(move);
-                accecptanceConstant *= constantMultiplier;
+                    badMoves++; // THIS MIGHT NEED TO BE SWAPPED TO SOMEWHERE ELSE(UNDER S.UNDOLASTMove())
+                    accecptanceConstant *= constantMultiplier;
+                }
             }
             count++;
         }

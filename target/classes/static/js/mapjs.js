@@ -256,13 +256,19 @@ function continueAlgorithm() {
         dataType: 'json',
         cache: false,
         success: function (data) {
-            var json = JSON.stringify(data, null, 4);
-            summaryBox.val(summaryBox.val() + "\n" + data["successful"]);
-            console.log("SUCCESS : ", data["successful"]);
-            if (data["successful"] === 5)
+            for (move in data) {
+                console.log(move); // logs state and updates
+                // updatePrecinctVisual(move);
+            }
+            var response = JSON.stringify(data, null, 4);
+            summaryBox.val(summaryBox.val() + "\n" + response);
+            updatePrecinctVisual(response);
+            console.log("SUCCESS : ", response);
+            // if (data["successful"] === 5)
                 stopAlgorithm = true;
-            if (!stopAlgorithm)
+            if (!stopAlgorithm) {
                 continueAlgorithm();
+            }
             else
                 return;
         }
