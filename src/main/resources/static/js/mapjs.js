@@ -170,7 +170,7 @@ $('#updateButton').on('click', function () {
         // dataType: "json",
         type: "POST",
         // contentType: "application/json",
-        data: {"stateName" : stateSelected, "seedNum" : 3},
+        data: {"stateName" : stateSelected, "seedNum" : 5},
         success: function (response) {
             precinctLayer.setStyle(function () {
                 return {fillColor: "white"};

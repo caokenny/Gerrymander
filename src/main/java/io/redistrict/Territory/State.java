@@ -87,7 +87,7 @@ public class State {
         modifiedPrecinct.setParentDistrictID(move.getSrcDistrictID());
         District srcDistrict = defaultDistrict.get(move.getSrcDistrictID());
         District dstDistrict = defaultDistrict.get(move.getDstDistrictID());
-        dstDistrict.removePrecinct(modifiedPrecinct);
+        dstDistrict.removePrecinct(modifiedPrecinct,AlgorithmType.SA);
         srcDistrict.addPrecinct(modifiedPrecinct,AlgorithmType.SA);
     }
 
@@ -171,20 +171,26 @@ public class State {
         if(type == AlgorithmType.SA){
             src = defaultDistrict.get(srcDistrictID);
             dest = defaultDistrict.get(destDistrictID);
+            score1 = src.calculatePopEqualScore(idealPop);
+            popScores.put(src,score1);
+            score2 = dest.calculatePopEqualScore(idealPop);
+            popScores.put(dest,score2);
         }
         else {
             src = rgdistricts.get(srcDistrictID);
             dest = rgdistricts.get(destDistrictID);
+            score1 = (float)dest.calcuateRgPopScore(idealPop);
+            popScores.put(dest,score1);
         }
 
-        if(src != null) {
-            score1 = src.calculatePopEqualScore(idealPop);
-            popScores.put(src,score1);
-        }
-        if(dest != null){
-            score2 = dest.calculatePopEqualScore(idealPop);
-            popScores.put(dest,score2);
-        }
+//        if(src != null) {
+//            score1 = src.calculatePopEqualScore(idealPop);
+//            popScores.put(src,score1);
+//        }
+//        if(dest != null){
+//            score2 = dest.calculatePopEqualScore(idealPop);
+//            popScores.put(dest,score2);
+//        }
     }
 
     public void assignAllUnassignedPrecincts(int districtId){

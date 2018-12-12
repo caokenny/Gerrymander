@@ -51,7 +51,6 @@ public class District {
         precinct.setParentDistrictID(districtId);
         allDPrecincts.put(precinct.getGeoID10(), precinct);
         population += precinct.getPopulation();
-
         if(type == AlgorithmType.SA) {
             if (isSABorderPrecinct(precinct)) {
                 precinct.setIsBorder(true);
@@ -61,13 +60,17 @@ public class District {
         }
 
     }
-    //***** THIS NEED TO BE MODIFY FOR SA
-    public void removePrecinct(Precinct precinct){
+    public void removePrecinct(Precinct precinct,AlgorithmType type){
         precinct.setParentDistrictID(-1);
-        allDPrecincts.remove(precinct);
+        if(allDPrecincts.remove(precinct.getGeoID10())== null){
+            throw new NullPointerException("You are trying to remove precinct number "+ precinct.getGeoID10() +" that doesnt" +
+                    "exist in this districts (allDPreinct List)");
+        }
         population -= precinct.getPopulation();
-        if(precinct.isBorder()) {
-            borderSaPrecincts.remove(precinct);
+        if(type == AlgorithmType.SA) {
+            if (precinct.isBorder()) {
+                borderSaPrecincts.remove(precinct);
+            }
         }
     }
 
@@ -186,6 +189,18 @@ public class District {
         double polsbyPopperScore = (4 * Math.PI * area) / Math.pow(perimeter, 2);
         return polsbyPopperScore;
     }
+//
+    public double calcuateRgPopScore(double idealPop){
+        double devAmount = Double.parseDouble(properties.getProperty("population_deviation"));
+        double difference = Math.abs(population - idealPop);
+        double lowerBound = idealPop -(idealPop*devAmount);
+        double upperBound = idealPop +(idealPop*devAmount);
+        if(population<=upperBound && population>= lowerBound){return 1;} //within deviation of 5 %
+        else{
+            return (1-(difference/idealPop));
+        }
+    }
+
     public float calculatePopEqualScore(float idealPop) {
         float score = 1;
         if (population <= idealPop) return score;
@@ -230,6 +245,9 @@ public class District {
     }
     public double getArea(Map<String, Precinct> map){
         // parse Geometry from Feature
+
+        if(map.size() ==1){return map.values().iterator().next().getArea();}
+
         ArrayList<Feature> featureList = new ArrayList<>();
         for(Precinct precinct : map.values()){
             Feature feature = (Feature) GeoJSONFactory.create(precinct.getGeoJsonString());
@@ -246,6 +264,9 @@ public class District {
         return geometryCollection.getArea();
     }
     public double getPerimeter(Map<String, Precinct> map) {
+
+        if(map.size()==1){ return map.values().iterator().next().getPerimeter();}
+
         ArrayList<Feature> featureList = new ArrayList<>();
         for (Precinct precinct : map.values()) {
             Feature feature = (Feature) GeoJSONFactory.create(precinct.getGeoJsonString());
@@ -309,5 +330,6 @@ public class District {
     public void setBorderSaPrecincts(List<Precinct> borderSaPrecincts) {
         this.borderSaPrecincts = borderSaPrecincts;
     }
+
 }
 

@@ -57,6 +57,10 @@ public class RegionGrowingController {
             return null;
         }
         // set weight variable to current algorithm
+        weights.setCompactness(weights.getCompactness()/100);
+        weights.setPopulationEquality(weights.getPopulationEquality()/100);
+        weights.setPartisanFairness(weights.getPartisanFairness()/100);
+        weights.setEfficencyGap(weights.getEfficencyGap()/100);
         currentAlgorithm.getData().setWeights(weights);
         MoveUpdater updater = currentAlgorithm.do10RgIteration();
         return updater;
