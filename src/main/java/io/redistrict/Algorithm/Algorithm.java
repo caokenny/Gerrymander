@@ -21,7 +21,7 @@ public class Algorithm {
 
     public MoveUpdater do10RgIteration(){
         State state = data.getWorkingState();
-        Map<Integer,District> rgDistricts= state.getRgdistricts();
+        Map<Integer,District> rgDistricts= new LinkedHashMap<>(state.getRgdistricts());
         List<MoveUpdate> updates = new ArrayList<>();
         int iterationsDone = 0;
 
@@ -29,27 +29,31 @@ public class Algorithm {
             // IF ONLY 1 DISTRICT THEN WE ASSIGN ALL TO IT
             if(rgDistricts.size() == 1){
                 District district = rgDistricts.values().iterator().next();
-                System.out.println("LAST MOVE, rgdistrictId: "+district.getDistrictId() + " num of district to be assigned on last move: "+ state.getUnassignedPrecinctIds().size());
+                System.out.println("LAST MOVE, rgdistrictId: "+district.getDistrictId() + " num of precinct to be assigned on last move: "+ state.getUnassignedPrecinctIds().size());
                 MoveUpdater updater = assignAll(district,state);
                 return updater;
             }
             //ELSE
             District rgDistrict = getLowestPopDistrict(rgDistricts);
-            rgDistrict.updateNumOfUnassignNeighbors(state.getUnassignedPrecinctIds());
-            if(rgDistrict.getNumOfUnassignedNeighbors() == 0) {
+            rgDistrict.updateBorderPrecinctsForRg(state.getUnassignedPrecinctIds());
+            if(rgDistrict.getBorderRgPrecincts().size() == 0/*rgDistrict.getNumOfUnassignedNeighbors() == 0*/) {
                 rgDistricts.remove(rgDistrict.getDistrictId());
                 continue;
             }
             Precinct rgPrecinct = selectRgAdditionPrecinct(rgDistrict,state);
 
-            state.removeFromUnassignedIds(rgPrecinct.getGeoID10());
             Move move = new Move(rgPrecinct,-1,rgDistrict.getDistrictId());
             state.executeRgMove(move);
+
+            state.removeFromUnassignedIds(rgPrecinct.getGeoID10());
+            //  rgDistrict.updateBorderPrecinctsForRg(state.getUnassignedPrecinctIds());
+
             updates.add(new MoveUpdate(move.getSrcDistrictID(),move.getDstDistrictID(),move.getPrecinct().getGeoID10()));
 
-            System.out.println("district: "+rgDistrict.getDistrictId() +" num of unassignedneighbors: " + rgDistrict.getNumOfUnassignedNeighbors());
+            System.out.println("district: "+rgDistrict.getDistrictId() +" num of border precincts: " + rgDistrict.getBorderRgPrecincts().size());
             System.out.println("num of unassigned precincts left: "+ state.getUnassignedPrecinctIds().size());
             System.out.println("num of rgDistrictsLeft: "+rgDistricts.size());
+            System.out.println("______________________________________________________");
             iterationsDone++;
         }
 
@@ -118,7 +122,7 @@ public class Algorithm {
     }
 
     private Precinct selectRgAdditionPrecinct(District district, State state) {
-        List<Precinct> borderPrecincts = district.getBorderRgPrecincts();
+        List<Precinct> borderPrecincts = district.getBorderRgPrecincts(state.getUnassignedPrecinctIds());
         Set<Precinct> unassignedNeighbors = NeighborFinder.findUnassignedNeighbors
                 (state.getAllPrecincts(),state.getUnassignedPrecinctIds(),borderPrecincts);
         return PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
@@ -166,7 +170,7 @@ public class Algorithm {
             District srcDistrict = s.getDefaultDistrict().get(move.getSrcDistrictID());
             District dstDistrict =s.getDefaultDistrict().get(move.getDstDistrictID());
             srcDistrict.removePrecinct(modifiedPrecinct);
-            dstDistrict.addPrecinct(modifiedPrecinct);
+            dstDistrict.addPrecinct(modifiedPrecinct,AlgorithmType.SA);
             int distNewPop = d.getPopulation();
             double newScore = s.getDistrictScore(d);
             if(distOldPop > distNewPop){

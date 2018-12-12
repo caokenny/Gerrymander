@@ -88,7 +88,7 @@ public class State {
         District srcDistrict = defaultDistrict.get(move.getSrcDistrictID());
         District dstDistrict = defaultDistrict.get(move.getDstDistrictID());
         dstDistrict.removePrecinct(modifiedPrecinct);
-        srcDistrict.addPrecinct(modifiedPrecinct);
+        srcDistrict.addPrecinct(modifiedPrecinct,AlgorithmType.SA);
     }
 
     public District getRandomDistrictSA(){
@@ -119,7 +119,6 @@ public class State {
     }
     public void initPopScores() {
         float idealPop = (float)population / defaultDistrict.size();
-        System.out.println("ideal pop: " + idealPop);
         for (Integer i : defaultDistrict.keySet()) {
             District d = defaultDistrict.get(i);
             popScores.put(d, d.calculatePopEqualScore(idealPop));
@@ -154,10 +153,8 @@ public class State {
         Precinct precinct = move.getPrecinct();
         int destDistId = move.getDstDistrictID();
         District destDist = rgdistricts.get(destDistId);
-        removeFromUnassignedIds(precinct.getGeoID10());
-
-        destDist.addPrecinct(precinct);
-        destDist.updateBorderPrecinctsForRg(unassignedPrecinctIds);
+//        removeFromUnassignedIds(precinct.getGeoID10());
+        destDist.addPrecinct(precinct,AlgorithmType.RG);
         updatePopulationEqualityMeasure(move, AlgorithmType.RG);
     }
 
@@ -195,7 +192,7 @@ public class State {
 
         for(String id : unassignedPrecinctIds){
             Precinct unassignedPrecinct=  allPrecincts.get(id);
-            d.addPrecinct(unassignedPrecinct);
+            d.addPrecinct(unassignedPrecinct,AlgorithmType.RG);
 
             //dont need to update border because all precincts are assigned
             //TODO calculate obj score of state

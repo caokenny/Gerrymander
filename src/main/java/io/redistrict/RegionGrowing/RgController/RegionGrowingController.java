@@ -24,7 +24,6 @@ import java.util.Set;
 @RequestMapping("/rg")
 public class RegionGrowingController {
 
-//    @RequestMapping(value = "/pickrgseed", method = RequestMethod.POST)
     @PostMapping("/pickrgseed")
     @ResponseBody
     public String assignSeedDistrict(String stateName , int seedNum){
