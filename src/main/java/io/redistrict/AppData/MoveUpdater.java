@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MoveUpdater {
+    String state ;
     private List<MoveUpdate> updates = new LinkedList<>();
 
     public List<MoveUpdate> getUpdates() {
@@ -19,5 +20,13 @@ public class MoveUpdater {
 
     public String toString(){
         return updates.toString();
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

@@ -55,4 +55,16 @@ public class AlgorithmWeights {
     public void setStateAbbrv(String stateAbbrv) {
         this.stateAbbrv = stateAbbrv;
     }
+
+    @Override
+    public String toString() {
+        return "AlgorithmWeights{" +
+                "compactness=" + compactness +
+                ", populationEquality=" + populationEquality +
+                ", partisanFairness=" + partisanFairness +
+                ", efficencyGap=" + efficencyGap +
+                ", algorithm='" + algorithm + '\'' +
+                ", stateAbbrv='" + stateAbbrv + '\'' +
+                '}';
+    }
 }

@@ -1,6 +1,8 @@
 package io.redistrict.Territory;
 
 import io.redistrict.Election.ElectionData;
+import io.redistrict.Election.Party;
+import io.redistrict.Election.VoteData;
 import io.redistrict.Territory.District;
 import org.locationtech.jts.geom.Geometry;
 import org.wololo.geojson.Feature;
@@ -12,21 +14,19 @@ import java.util.*;
 public class Precinct {
 
     private int population;
-    private int precinctId;
     private String name;
     private String geoID10;
-    private List<ElectionData> electionData;
+    private VoteData voteData;
     private List<Precinct> neighbors;
     private List<Precinct> unassignedNeighbors;
     private int parentDistrictID;
     private Set<Precinct> borderPrecincts;
     private boolean isBorder;
-    private String geoJsonString;
+    String geoJsonString;
 
 
     public Precinct(int population){
         this.population = population;
-        this.precinctId = precinctId;
     }
     public Precinct(String geoID10, String name, int population, String geoJsonString) {
         this.name = name;
@@ -37,9 +37,7 @@ public class Precinct {
     public Precinct(String geoID10){
         this.geoID10 = geoID10;
     }
-    public String getGeoJsonString(){
-        return geoJsonString;
-    }
+
     public List<Precinct> getNeighbors(){
         return neighbors;
     }
@@ -53,10 +51,10 @@ public class Precinct {
     public int getParentDistrictID() {
         return parentDistrictID;
     }
-    public Precinct getRandomNeighbor(){
+
+    public Precinct getRandomNeighbor() {
         int i = neighbors.size();
-        Random rand = new Random();
-        int n = rand.nextInt(i) - 1;
+        int n = (int)(Math.random() * i);
         return neighbors.get(n);
     }
     public String getGeoID10() {
@@ -83,9 +81,6 @@ public class Precinct {
     public void setIsBorder(boolean isBorder){
         this.isBorder = isBorder;
     }
-    public List<ElectionData> getElectionData(){
-        return electionData;
-    }
 
     public void setPopulation(int population) {
         this.population = population;
@@ -97,10 +92,6 @@ public class Precinct {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setElectionData(List<ElectionData> electionData) {
-        this.electionData = electionData;
     }
 
     public Set<Precinct> getBorderPrecincts() {
@@ -133,5 +124,21 @@ public class Precinct {
 
     public void setUnassignedNeighbors(List<Precinct> unassignedNeighbors) {
         this.unassignedNeighbors = unassignedNeighbors;
+    }
+
+    public String getGeoJsonString() {
+        return geoJsonString;
+    }
+
+    public void setGeoJsonString(String geoJsonString) {
+        this.geoJsonString = geoJsonString;
+    }
+
+    public VoteData getVoteData() {
+        return voteData;
+    }
+
+    public void setVoteData(VoteData voteData) {
+        this.voteData = voteData;
     }
 }

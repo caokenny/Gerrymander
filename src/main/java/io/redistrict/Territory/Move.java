@@ -20,4 +20,13 @@ public class Move {
     public int getDstDistrictID(){
         return dstDistrictID;
     }
+
+    @Override
+    public String toString() {
+        return "Move{" +
+                "precinct=" + precinct +
+                ", srcDistrictID=" + srcDistrictID +
+                ", dstDistrictID=" + dstDistrictID +
+                '}';
+    }
 }
