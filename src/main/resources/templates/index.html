@@ -7,6 +7,8 @@
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
     <link rel="stylesheet" type="text/css" href="/css/indexCSS.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/sidenavCSS.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 </head>
@@ -14,9 +16,9 @@
 <div id="wrapper">
 
     <div id="loginDiv" th:style="${loginFail} ? 'display:block' : 'display:none'">
-        <form action="/user/login" id="logincontent" method="post" modelAttribute="user">
+        <form action="/user/login" id="logincontent" method="post" modelAttribute="userForm">
             <span class="closeLoginBox" onclick="closeLogin()">&times;</span>
-            <input type="text" name="username" id="loginUsername" placeholder="Enter Username" required>
+            <input type="text" name="username" id="loginUsername" placeholder="Enter Username" required autofocus>
             <input type="password" name="password" id="loginPassword" placeholder="Enter Password" required>
             <div th:if="${loginFail}">
                 Username/Password is incorrect.
@@ -26,99 +28,104 @@
     </div>
 
     <div id="registerDiv" th:style="${registerFail} ? 'display:block' : 'display:none'">
-        <form action="/user/register" id="registercontent" method="POST" modelAttribute="user">
+        <form action="/user/register" id="registercontent" method="POST" modelAttribute="userForm">
             <span class="closeLoginBox" onclick="closeRegister()">&times;</span>
-            <input type="text" name="username" id="registerUsername" placeholder="Enter Username" required>
+            <input type="text" name="username" id="registerUsername" placeholder="Enter Username" required autofocus>
             <div th:if="${userTaken == true}">
-                Username is already registered.
+                Username is already taken.
             </div>
             <input type="password" name="password" id="registerPassword" placeholder="Enter Password" required>
+            <div th:if="${shortPw == true}">
+                Please enter a password between 8 and 32 characters long.
+            </div>
             <input type="password" name="passwordConfirm" id="registerVerifyPassword" placeholder="Verify Password" required>
             <div th:if="${pwNoMatch == true}">
                 Passwords do not match.
             </div>
             <input type="email" name="email" id="registerEmail" placeholder="Enter Email Address" required>
-            <input name="admin" style="display: none" value="false">
+            <input type="hidden" name="page" value="user"/>
             <button class="registerSubmit" type="submit">Register</button>
         </form>
     </div>
 
     <div id="mapheader">
-        <ul id="nav">
-            <div th:if="${loggedIn == false}">
-                <li><a href="#" onclick="goHome()">Home</a></li>
-                <li><a href="#" onclick="popupLogin()" id="loginButton">Log In</a></li>
-                <li><a href="#" onclick="popupRegister()" id="registerButton">Register</a></li>
-            </div>
-            <div th:unless="${loggedIn == false}">
-                <li><a href="#" onclick="goHome()">Home</a></li>
-                <li><a href="/user/logout">Logout</a></li>
-            </div>
-            <!--<li><a href="#" onclick="goHome()">Home</a></li>-->
-            <!--<li><a href="#" onclick="popupLogin()" id="loginButton">Log In</a></li>-->
-            <!--<li><a href="#" onclick="popupRegister()" id="registerButton">Register</a></li>-->
-            <!--<li><a href="#" id="logoutButton" style="display: none">Logout</a> </li>-->
-        </ul>
+        <button class="homeBtn"><i class="fa fa-home"></i> Home</button>
     </div>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn">&times;</a>
+        <div id="stateDropdown">
+            <a href="#" id="redistrictBtn">Redistrict</a>
+            <div id="stateDropdownContent">
+                <a href="#" id="colorado" class="stateSelect">Colorado</a>
+                <a href="#" id="kansas" class="stateSelect">Kansas</a>
+                <a href="#" id="missouri" class="stateSelect">Missouri</a>
+            </div>
+        </div>
+        <div th:if="${loggedIn == false}" class="userLog">
+            <a href="#" id="loginButton">Log In</a>
+            <a href="#" id="registerButton">Register</a>
+        </div>
+        <div th:unless="${loggedIn == false}" class="userLog">
+            <a href="/user/logout">Logout</a>
+        </div>
+        <div th:if="${adminUser == true}" id="adminSettings">
+            <a href="/secure/admin">Admin</a>
+        </div>
+        <div id="otherSideNavLinks">
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+
+        <div id="usercontrol">
+            <div id="buttons">
+                <button class="algoButtons" type="button" id="updateButton"><i class="fa fa-refresh"></i> Update</button>
+                <button class="algoButtons" type="button" id="runButton"><i class="fa fa-play"></i> Play</button>
+                <button class="algoButtons" type="button" id="pauseButton"><i class="fa fa-pause"></i> Pause</button>
+                <button class="algoButtons" type="button" id="stopButton"><i class="fa fa-stop"></i> Stop</button>
+            </div>
+            <div id="algorithmChoiceDiv">
+                <select id="algorithmChoice">
+                    <option value=-1 selected>Choose Algorithm</option>
+                    <option value="sa">Simulated Annealing</option>
+                    <option value="rg">Region Growing</option>
+                </select>
+            </div>
+            <div id="measuresContainer">
+                <h2 class="measureSliderTitle">Compactness </h2>
+                <input type="range" min="1" max="100" value="50" class="measureSlider" id="compactnessSlider" data-thumbwidth="20">
+                <output id="compactnessOutput" name="rangeVal">50</output>
+                <h2 class="measureSliderTitle">Population</h2>
+                <input type="range" min="1" max="100" value="50" class="measureSlider" id="populationSlider" data-thumbwidth="20">
+                <output id="populationOutput" name="rangeVal">50</output>
+                <h2 class="measureSliderTitle">Partisan Fairness</h2>
+                <input type="range" min="1" max="100" value="50" class="measureSlider" id="partisanFairnessSlider" data-thumbwidth="20">
+                <output id="pfOutput" name="rangeVal">50</output>
+                <h2 class="measureSliderTitle">Efficiency Gap</h2>
+                <input type="range" min="1" max="100" value="50" class="measureSlider" id="efficiencyGapSlider" data-thumbwidth="20">
+                <output id="egOutput" name="rangeVal">50</output>
+            </div>
+            <textarea id="summaryBox" readonly>Summary</textarea>
+        </div>
+
+    </div>
+
+    <span id="openSideNav">&#9776;</span>
 
     <div id="infoPopup">
         <p class="precinctInfo" id="population"></p>
     </div>
 
     <div id="mapid"></div>
-
-
-    <div id="usercontrol">
-        <div id="welcomeDiv">
-            <h1 id="welcomeMessage">Welcome <br/> to <br/> Team Falcon's <br/> Project. <br/> Click on/select a state to continue.</h1>
-            <select id="stateSelectMenu">
-                <option value="colorado">Colorado</option>
-                <option value="kansas">Kansas</option>
-                <option value="missouri">Missouri</option>
-            </select>
-            <button id="selectStateSubmit">Go</button>
-
-            <!--<button class="colorChange">Change Color</button>-->
-            <!--<button class="connect">Connect</button>-->
-        </div>
-        <div id="buttons">
-            <button class="algoButtons" type="button" id="updateButton" style="margin-right: 20px;">Update</button>
-            <button class="algoButtons" type="button" id="runButton">Run</button>
-        </div>
-        <div id="algorithmChoiceDiv">
-            <select id="algorithmChoice">
-                <option value="sa">Simulated Annealing</option>
-                <option value="rg">Region Growing</option>
-            </select>
-        </div>
-        <div id="measuresContainer">
-            <h2 class="measureSliderTitle">Compactness </h2>
-            <input type="range" min="1" max="100" value="50" class="measureSlider" id="compactnessSlider" data-thumbwidth="20">
-            <output id="compactnessOutput" name="rangeVal">50</output>
-            <h2 class="measureSliderTitle">Population</h2>
-            <input type="range" min="1" max="100" value="50" class="measureSlider" id="populationSlider" data-thumbwidth="20">
-            <output id="populationOutput" name="rangeVal">50</output>
-            <h2 class="measureSliderTitle">Partisan Fairness</h2>
-            <input type="range" min="1" max="100" value="50" class="measureSlider" id="partisanFairnessSlider" data-thumbwidth="20">
-            <output id="pfOutput" name="rangeVal">50</output>
-            <h2 class="measureSliderTitle">Efficiency Gap</h2>
-            <input type="range" min="1" max="100" value="50" class="measureSlider" id="efficiencyGapSlider" data-thumbwidth="20">
-            <output id="egOutput" name="rangeVal">50</output>
-        </div>
-        <textarea id="summaryBox" readonly>Summary</textarea>
-
-
-
-    </div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
         integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
         crossorigin=""></script>
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
-<script src="/webjars/jquery/jquery.min.js"></script>
-<script src="/webjars/sockjs-client/sockjs.min.js"></script>
-<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
 <script src="/js/us-states.js"></script>
 <script src="/js/Colorado.js"></script>
 <script src="/js/Kansas.js"></script>

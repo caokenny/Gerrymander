@@ -1,5 +1,6 @@
 package io.redistrict.Territory;
 
+import io.redistrict.Algorithm.AlgorithmType;
 import io.redistrict.Election.Party;
 import io.redistrict.Election.VoteData;
 import org.locationtech.jts.geom.Geometry;
@@ -46,16 +47,18 @@ public class District {
         this.districtId = districtId;
     }
 
-    public void addPrecinct(Precinct precinct){
+    public void addPrecinct(Precinct precinct, AlgorithmType type){
         precinct.setParentDistrictID(districtId);
         allDPrecincts.put(precinct.getGeoID10(), precinct);
         population += precinct.getPopulation();
-        if(isSABorderPrecinct(precinct)) {
-            precinct.setIsBorder(true);
-            borderSaPrecincts.add(precinct);
+
+        if(type == AlgorithmType.SA) {
+            if (isSABorderPrecinct(precinct)) {
+                precinct.setIsBorder(true);
+                borderSaPrecincts.add(precinct);
+            } else
+                precinct.setIsBorder(false);
         }
-        else
-            precinct.setIsBorder(false);
 
     }
     //***** THIS NEED TO BE MODIFY FOR SA
@@ -115,6 +118,17 @@ public class District {
         return borderRgPrecincts;
     }
 
+    public List<Precinct> getBorderRgPrecincts(Set<String> unassignedPrecinctIds)
+    {
+        List<Precinct> bordersPrecincts = new ArrayList<>();
+        for(Precinct precinct : allDPrecincts.values()){
+            if(isRgBorder(precinct,unassignedPrecinctIds)){
+                bordersPrecincts.add(precinct);
+            }
+        }
+        return  bordersPrecincts;
+    }
+
     public void setBorderRgPrecincts(List<Precinct> borderRgPrecincts) {
         this.borderRgPrecincts = borderRgPrecincts;
     }
@@ -148,17 +162,6 @@ public class District {
         return false;
     }
 
-    /**
-     *
-     * THIS MIGHT NEED TO BE RIDDEN AGAIN FOR SA
-     */
-    public Precinct getRandomPrecinct(){
-        //Return a random precinct
-        int numPrecincts = borderRgPrecincts.size(); //*** WONT WORK FOR SA
-        Random rand = new Random();
-        int n = rand.nextInt(numPrecincts) + 0;
-        return borderRgPrecincts.get(n);
-    }
 
     public int getDistrictID(){
         return districtId;

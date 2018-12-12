@@ -15,10 +15,10 @@ import java.util.LinkedHashMap;
 
 @SpringBootApplication(scanBasePackages = "io.redistrict")
 public class CourseApiApp extends SpringBootServletInitializer {
-//    @Override
-//    protected SpringApplicationBuilder configure (SpringApplicationBuilder application) {
-//        return application.sources(CourseApiApp.class);
-//    }
+    @Override
+    protected SpringApplicationBuilder configure (SpringApplicationBuilder application) {
+        return application.sources(CourseApiApp.class);
+    }
 
 
     public static void main(String[] args) {
