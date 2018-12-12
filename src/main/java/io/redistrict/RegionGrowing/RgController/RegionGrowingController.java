@@ -6,7 +6,6 @@ import io.redistrict.Algorithm.AlgorithmType;
 import io.redistrict.Algorithm.AlgorithmWeights;
 import io.redistrict.AppData.AppData;
 import io.redistrict.AppData.MoveUpdater;
-import io.redistrict.RegionGrowing.RgUtilities.ColorRandomizer;
 import io.redistrict.RegionGrowing.RgUtilities.RgSeedSelector;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Precinct;
@@ -16,8 +15,6 @@ import io.redistrict.Utils.JsonConverter;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.*;
 
 import java.util.Collection;
 import java.util.Map;
@@ -35,7 +32,7 @@ public class RegionGrowingController {
         Collection<Precinct> precinctSet = state.getAllPrecincts().values();
         Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(precinctSet,seedNum);
         Map<Integer,District> seedDistricts = District.makeSeedDistricts(seeds);
-        state.setDistricts(seedDistricts);
+        state.setRgdistricts(seedDistricts);
         state.resetUnassignedPrecinctIds(); // make all unassignPrecinctIds = all precinct ids
 
         //SET TO APP DATA SO WE CAN KEEP TRACK OF CURRENT ALGO

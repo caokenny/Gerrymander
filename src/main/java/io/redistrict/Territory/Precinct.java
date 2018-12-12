@@ -1,6 +1,8 @@
 package io.redistrict.Territory;
 
 import io.redistrict.Election.ElectionData;
+import io.redistrict.Election.Party;
+import io.redistrict.Election.VoteData;
 import io.redistrict.Territory.District;
 import org.locationtech.jts.geom.Geometry;
 import org.wololo.geojson.Feature;
@@ -14,7 +16,7 @@ public class Precinct {
     private int population;
     private String name;
     private String geoID10;
-    private List<ElectionData> electionData;
+    private VoteData voteData;
     private List<Precinct> neighbors;
     private List<Precinct> unassignedNeighbors;
     private int parentDistrictID;
@@ -49,13 +51,7 @@ public class Precinct {
     public int getParentDistrictID() {
         return parentDistrictID;
     }
-//    Gives ArrayIndexOutOfBoundsException: -1 because 0 is inclusive whne using rand.nextInt()
-//    public Precinct getRandomNeighbor(){
-//        int i = neighbors.size();
-//        Random rand = new Random();
-//        int n = rand.nextInt(i) - 1;
-//        return neighbors.get(n);
-//    }
+
     public Precinct getRandomNeighbor() {
         int i = neighbors.size();
         int n = (int)(Math.random() * i);
@@ -85,9 +81,6 @@ public class Precinct {
     public void setIsBorder(boolean isBorder){
         this.isBorder = isBorder;
     }
-    public List<ElectionData> getElectionData(){
-        return electionData;
-    }
 
     public void setPopulation(int population) {
         this.population = population;
@@ -99,10 +92,6 @@ public class Precinct {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setElectionData(List<ElectionData> electionData) {
-        this.electionData = electionData;
     }
 
     public Set<Precinct> getBorderPrecincts() {
@@ -143,5 +132,13 @@ public class Precinct {
 
     public void setGeoJsonString(String geoJsonString) {
         this.geoJsonString = geoJsonString;
+    }
+
+    public VoteData getVoteData() {
+        return voteData;
+    }
+
+    public void setVoteData(VoteData voteData) {
+        this.voteData = voteData;
     }
 }

@@ -1,6 +1,8 @@
 package io.redistrict.Utils;
 
 
+import io.redistrict.Election.Party;
+import io.redistrict.Election.VoteData;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
@@ -54,7 +56,7 @@ public class StateLoader {
         String filePath = properties.getProperty(stateName);
         Map<String,Precinct> precinctMap =null;
         StateData stateData = new StateData();
-
+        System.out.println(stateName);
         try {
             FileReader fileReader = new FileReader(filePath);
             JSONArray precinctArray = (JSONArray) new JSONParser().parse(fileReader);
@@ -82,13 +84,18 @@ public class StateLoader {
             String geoId10 = getStringValue(precinctJsObj.get(properties.getProperty("GEOID10")));
             String name = getStringValue(precinctJsObj.get(properties.getProperty("NAME10")));
             Long districtId = (Long) precinctJsObj.get(properties.get("DISTRICTID"));
-            //String geoJsonString = (String) precinctJsObj.get(properties.get("GEOJSON"));
             JSONObject geoJson =(JSONObject) precinctJsObj.get(properties.get("GEOJSON"));
             String geoJsonString= geoJson.toJSONString();
+            int demVotes =  getIntValue(precinctJsObj.get(properties.get("DEMVOTES")));
+            int repVotes =  getIntValue(precinctJsObj.get(properties.get("REPVOTES")));
+
+            VoteData voteData = new VoteData();
+            voteData.setDemVotes(demVotes);
+            voteData.setRepVotes(repVotes);
 
             Precinct precinct = new Precinct(geoId10,name,population.intValue(), geoJsonString);
             precinct.setParentDistrictID(districtId.intValue());
-
+            precinct.setVoteData(voteData);
             precinctMap.put(geoId10,precinct);
         }
         return precinctMap;
@@ -113,6 +120,16 @@ public class StateLoader {
     }
     private static String getStringValue(Object obj){
         return obj instanceof Long? Long.toString((Long)obj) : (String)obj;
+    }
+
+    private static int getIntValue(Object obj){
+        if(obj instanceof Long){
+            return ((Long) obj).intValue();
+        }
+        else{
+            double value = (double)obj;
+            return (int)Math.round(value);
+        }
     }
 
 }

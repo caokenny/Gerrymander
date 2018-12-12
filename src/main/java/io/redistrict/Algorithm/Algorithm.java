@@ -21,7 +21,7 @@ public class Algorithm {
 
     public MoveUpdater do10RgIteration(){
         State state = data.getWorkingState();
-        Map<Integer,District> rgDistricts= state.getDistricts();
+        Map<Integer,District> rgDistricts= state.getRgdistricts();
         List<MoveUpdate> updates = new ArrayList<>();
         int iterationsDone = 0;
 
@@ -62,7 +62,7 @@ public class Algorithm {
 
     public State startRg(Set<Precinct> seeds, String stateName){
         State state = makeRgState(seeds,stateName);
-        Map<Integer,District> possibleDistricts = new LinkedHashMap<>(state.getDistricts());
+        Map<Integer,District> possibleDistricts = new LinkedHashMap<>(state.getRgdistricts());
         while (!state.getUnassignedPrecinctIds().isEmpty()) {
             District rgDistrict = getLowestPopDistrict(possibleDistricts);
             Precinct rgPrecinct = selectRgAdditionPrecinct(rgDistrict, state);
@@ -75,55 +75,13 @@ public class Algorithm {
         }
         return state;
     }
-    public State getSimulatedState(String variant){
-        List<MoveUpdate> updates = new ArrayList<>();
-        int iterationsDone = 0;
-        State state = data.getWorkingState();
-        int badMoves = 0;
-        int max_bad_move = Integer.parseInt(properties.getProperty("max_bad_moves"));
-        double acceptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
-        double constantMultiplier = Double.parseDouble(properties.getProperty("constant_multiplier"));
-
-        while(badMoves < max_bad_move && iterationsDone < 10){
-            District district;
-            if(variant.equals("random"))
-                district = state.getRandomDistrict();
-            else{
-                district = state.getLowestScoreDistrict();
-            }
-            double oldScore = state.getDistrictScore(district);
-            Move move = district.modifyDistrict();
-            Precinct modifiedPrecinct = move.getPrecinct();
-            modifiedPrecinct.setParentDistrictID(move.getDstDistrictID());
-            District srcDistrict = state.getDistricts().get(move.getSrcDistrictID());
-            District dstDistrict =state.getDistricts().get(move.getDstDistrictID());
-            srcDistrict.removePrecinct(modifiedPrecinct);
-            dstDistrict.addPrecinct(modifiedPrecinct);
-            double newScore = state.getDistrictScore(district);
-            if(newScore > oldScore){
-                state.addToMoveStack(move);
-            }
-            else{
-                boolean acceptBadMove = state.acceptBadMove(oldScore, newScore, acceptanceConstant);
-                if(acceptBadMove){
-                    state.addToMoveStack(move);
-                }
-                else {
-                    state.undoLastMove(move);
-                    badMoves++;
-                }
-                acceptanceConstant *= constantMultiplier;
-            }
-        }
-        return state;
-    }
 
     private State makeRgState(Set<Precinct> seeds , String stateName){
         State state = AppData.getState(stateName.toUpperCase());
         Map<Integer,District> seedDistricts = makeSeedDistricts(seeds);
         Set<String> allPrecinctIds = state.getAllPrecincts().keySet();
         Set<String> initUnassignedPrecincts = getInitUnassignedPrecinctIds(seeds,allPrecinctIds);
-        state.setDistricts(seedDistricts);
+        state.setRgdistricts(seedDistricts);
         state.setUnassignedPrecinctIds(initUnassignedPrecincts);
         return state;
 
@@ -163,7 +121,6 @@ public class Algorithm {
         List<Precinct> borderPrecincts = district.getBorderRgPrecincts();
         Set<Precinct> unassignedNeighbors = NeighborFinder.findUnassignedNeighbors
                 (state.getAllPrecincts(),state.getUnassignedPrecinctIds(),borderPrecincts);
-        //district.setNumOfUnassignedNeighbors(unassignedNeighbors.size()-1);
         return PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
     }
     public static void loadDefaultProperties(){

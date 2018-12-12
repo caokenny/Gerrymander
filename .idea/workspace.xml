@@ -1,14 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="41b968fc-9443-4816-b1ec-297a289afac5" name="Default Changelist" comment="added getter and setter for AlgorithmData in Algorithm class&#10;Added continueAlgorithm method to AlgorithmController&#10;Update summaryBox after return from continueAlgorithm in mapjs.js&#10;Added Gson to pom.xml">
+    <list default="true" id="51c12621-8f6e-43c2-9ff1-97c78bbc4cca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/controller/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/CustomUserDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/repository/RoleDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/service/CustomUserDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/validator/UserValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/adminCSS.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/sidenavCSS.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/adminjs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/CourseApiApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/CourseApiApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/repository/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/auth/repository/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/config/SpringSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/config/SpringSecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/config/WebSocketConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/index/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/index/IndexController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/colorado_district.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/colorado_district.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/colorado_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/colorado_final.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/indexjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/indexjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/kansas_district.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/kansas_district.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/kansas_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/kansas_final.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/adduser.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/missouri_district.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/missouri_district.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/missouri_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/missouri_final.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MO_Neighbors.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/algorithms.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co_data.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/co_neighbors.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/co_neighbors.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/index.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/Algorithm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/Algorithm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/AlgorithmController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/AlgorithmData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/AlgorithmType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/AlgorithmWeights.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/MeasuresEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/ObjectiveFunction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/AppData/AppData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/AppData/AppData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/AppData/MoveUpdate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/AppData/MoveUpdater.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/CourseApiApp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Election/ElectionData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Election/ElectionType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Election/Party.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Election/Party.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgController/RegionGrowingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgController/RegionGrowingController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/ColorRandomizer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/RgSeedSelector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/District.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/District.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/Move.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/Precinct.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/Precinct.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/State.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/State.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/StateEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Test/TestClassJinOliver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/JsonColorConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/JsonConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/NeighborFinder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/NeighborsLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/NeighborsLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/PrecinctSelector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/StateData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/StateLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/StateLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/precinctLoaderTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/precinctLoaderTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/auth/controller/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/auth/model/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/auth/repository/UserDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/config/SpringSecurityConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/config/WebSocketConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/index/IndexController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ks_data.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ks_neighbors.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ks_neighbors.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mo_data.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mo_neighbors.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mo_neighbors.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/neighbors.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/state_loader.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/state_loader.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/css/indexCSS.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/Colorado.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/Kansas.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/Missouri.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/colorado_district.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/colorado_final.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/continents.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/indexjs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/kansas_district.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/kansas_final.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/mapjs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/missouri_district.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/missouri_final.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/us-states.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,93 +108,34 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="293" column="18" selection-start-line="293" selection-start-column="18" selection-end-line="293" selection-end-column="18" />
+            <state relative-caret-position="357">
+              <caret line="32" column="51" lean-forward="true" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/mapjs.js">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/CourseApiApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="213" column="3" lean-forward="true" selection-start-line="213" selection-start-column="3" selection-end-line="213" selection-end-column="3" />
-              <folding>
-                <element signature="e#9#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="81" column="105" selection-start-line="81" selection-start-column="105" selection-end-line="81" selection-end-column="105" />
+            <state relative-caret-position="204">
+              <caret line="23" column="44" lean-forward="true" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-        <option value="JavaScript File" />
-        <option value="CSS File" />
-        <option value="HTML File" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/ks_data.json" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/Role.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/repository/UserDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/service/CustomUserService.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/validation.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/service/CustomSecurityService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/CourseApiApp.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/index.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/validator/UserValidator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/repository/RoleDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/InitialDataLoader.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/CustomUserDetails.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/model/User.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/service/CustomUserDetailsService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/config/SpringSecurityConfiguration.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/index/IndexController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/controller/AdminController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/adduser.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/js/indexjs.js" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/admin.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/css/adminCSS.css" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/js/adminjs.js" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/auth/controller/UserController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/css/sidenavCSS.css" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" />
       </list>
     </option>
   </component>
@@ -115,17 +146,13 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="960" />
-    <option name="width" value="960" />
-    <option name="height" value="1040" />
-  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -171,71 +198,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="redistrict" type="462c0819:PsiDirectoryNode" />
-              <item name="Algorithm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="redistrict" type="462c0819:PsiDirectoryNode" />
-              <item name="AppData" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="redistrict" type="462c0819:PsiDirectoryNode" />
-              <item name="Election" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="redistrict" type="462c0819:PsiDirectoryNode" />
-              <item name="RegionGrowing" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="redistrict" type="462c0819:PsiDirectoryNode" />
-              <item name="RegionGrowing" type="462c0819:PsiDirectoryNode" />
-              <item name="RgController" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="redistrict" type="462c0819:PsiDirectoryNode" />
-              <item name="RegionGrowing" type="462c0819:PsiDirectoryNode" />
-              <item name="RgUtilities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="redistrict" type="462c0819:PsiDirectoryNode" />
-              <item name="Territory" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="redistrict" type="462c0819:PsiDirectoryNode" />
               <item name="Test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -247,56 +209,13 @@
               <item name="redistrict" type="462c0819:PsiDirectoryNode" />
               <item name="Utils" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
@@ -304,9 +223,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544571387450" />
-    <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="restartRequiresConfirmation" value="false" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544573668419" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -334,7 +251,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CourseApiApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="CourseApiApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="Gerrymander" />
       <extension name="coverage">
         <pattern>
@@ -343,17 +260,13 @@
         </pattern>
       </extension>
       <option name="SPRING_BOOT_MAIN_CLASS" value="io.redistrict.CourseApiApp" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.CourseApiApp" />
         <item itemvalue="Application.precinctLoaderTest" />
-        <item itemvalue="Spring Boot.CourseApiApp" />
       </list>
     </recent_temporary>
   </component>
@@ -362,186 +275,72 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="41b968fc-9443-4816-b1ec-297a289afac5" name="Default Changelist" comment="" />
-      <created>1544105209455</created>
+      <changelist id="51c12621-8f6e-43c2-9ff1-97c78bbc4cca" name="Default Changelist" comment="" />
+      <created>1544573355150</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1544105209455</updated>
-      <workItem from="1544105214023" duration="71000" />
-      <workItem from="1544105314183" duration="2643000" />
-      <workItem from="1544114800354" duration="3024000" />
-      <workItem from="1544120166689" duration="3637000" />
-      <workItem from="1544135167831" duration="91000" />
-      <workItem from="1544136526406" duration="625000" />
-      <workItem from="1544138909568" duration="261000" />
-      <workItem from="1544211332695" duration="4934000" />
-      <workItem from="1544300374273" duration="25022000" />
-      <workItem from="1544388208377" duration="17286000" />
-      <workItem from="1544419623124" duration="11323000" />
-      <workItem from="1544476202334" duration="2703000" />
-      <workItem from="1544500836463" duration="5703000" />
-      <workItem from="1544551298384" duration="8034000" />
+      <updated>1544573355150</updated>
+      <workItem from="1544573356326" duration="515000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13581000" />
+    <option name="totallyTimeSpent" value="515000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="960" y="0" width="960" height="1040" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19222222" />
+      <window_info id="Designer" />
+      <window_info id="Image Layers" />
+      <window_info id="UI Designer" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Capture Tool" />
+      <window_info id="Web" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="Capture Tool" order="4" />
-      <window_info id="UI Designer" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Spring" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Java Enterprise" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3296582" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49888888" visible="true" weight="0.31863284" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Spring" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5011111" side_tool="true" weight="0.32524806" />
-      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.49959514" weight="0.32745314" />
-      <window_info anchor="bottom" id="Java Enterprise" order="12" />
-      <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="14" />
-      <window_info anchor="bottom" id="Duplicate detector" order="15" weight="0.32936078" />
+      <window_info anchor="right" id="Maven" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Bean Validation" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" />
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Database" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info anchor="right" id="Bean Validation" order="9" />
-      <window_info anchor="right" id="Maven Projects" order="10" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="added getter and setter for AlgorithmData in Algorithm class&#10;Added continueAlgorithm method to AlgorithmController&#10;Update summaryBox after return from continueAlgorithm in mapjs.js&#10;Added Gson to pom.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="added getter and setter for AlgorithmData in Algorithm class&#10;Added continueAlgorithm method to AlgorithmController&#10;Update summaryBox after return from continueAlgorithm in mapjs.js&#10;Added Gson to pom.xml" />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/indexjs.js">
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/CourseApiApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="29" column="64" selection-start-line="29" selection-start-column="64" selection-end-line="29" selection-end-column="64" />
-          <folding>
-            <element signature="e#1061#1077#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/RegionGrowing/RgController/RegionGrowingController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmWeights.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="22" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/AppData/MoveUpdater.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-          <folding>
-            <element signature="e#891#892#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/District.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="305" column="49" lean-forward="true" selection-start-line="305" selection-start-column="49" selection-end-line="305" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        <state relative-caret-position="204">
+          <caret line="23" column="44" lean-forward="true" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="72" column="63" lean-forward="true" selection-start-line="72" selection-start-column="63" selection-end-line="72" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/adduser.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/adminCSS.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="43" selection-start-line="43" selection-end-line="50" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/mapjs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="213" column="3" lean-forward="true" selection-start-line="213" selection-start-column="3" selection-end-line="213" selection-end-column="3" />
-          <folding>
-            <element signature="e#9#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="81" column="105" selection-start-line="81" selection-start-column="105" selection-end-line="81" selection-end-column="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="293" column="18" selection-start-line="293" selection-start-column="18" selection-end-line="293" selection-end-column="18" />
+        <state relative-caret-position="357">
+          <caret line="32" column="51" lean-forward="true" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
         </state>
       </provider>
     </entry>

@@ -1,15 +1,17 @@
 package io.redistrict.Territory;
 
 import io.redistrict.Algorithm.Algorithm;
+import io.redistrict.Algorithm.AlgorithmType;
 import io.redistrict.Election.ElectionData;
 import io.redistrict.Election.Party;
+import io.redistrict.Election.VoteData;
 
 import java.util.*;
 
 public class State {
     private int population;
     private String stateName;
-    private Map<Integer, District> districts;
+    private Map<Integer, District> rgdistricts;
     private Map<Integer, ElectionData> districtVoteResults;
     private Map<Party, Integer> stateElectionResult;
     private Stack<Move> moves = new Stack<Move>();
@@ -20,11 +22,11 @@ public class State {
 
 
     public State(State state){
-        //if u want districts set it urself
+        //if u want rgdistricts set it urself
         this.stateName = state.getStateName();
         this.allPrecincts= new LinkedHashMap<>(state.getAllPrecincts());
         this.population=state.getPopulation();
-        districts = new LinkedHashMap<>();
+        rgdistricts = new LinkedHashMap<>();
         this.allPrecincts= new LinkedHashMap<>(state.getAllPrecincts());
         // THIS MIGHT BE REMOVED LATER
         this.defaultDistrict = new LinkedHashMap<>(state.getDefaultDistrict());
@@ -33,7 +35,7 @@ public class State {
         this.stateName=name;
         this.allPrecincts = allPrecincts;
         this.population = calculateStatePopulation();
-        districts = new LinkedHashMap<>();
+        rgdistricts = new LinkedHashMap<>();
     }
 
     public int calculateStatePopulation(){
@@ -45,9 +47,6 @@ public class State {
         return total;
     }
 
-    public int getNumDistrict(){
-        return districts.size();
-    }
 
     public String getStateName(){
         return stateName;
@@ -91,12 +90,7 @@ public class State {
         dstDistrict.removePrecinct(modifiedPrecinct);
         srcDistrict.addPrecinct(modifiedPrecinct);
     }
-    public District getRandomDistrict(){
-        int numDistricts = districts.size();
-        Random rand = new Random();
-        int n = rand.nextInt(numDistricts) + 0;
-        return districts.get(n);
-    }
+
     public District getRandomDistrictSA(){
         int numDistricts = defaultDistrict.size();
 //        Random rand = new Random();
@@ -108,16 +102,15 @@ public class State {
     public void addToMoveStack(Move move){
         moves.add(move);
     }
-    public void addToDistrictList(District district){
-        districts.put(district.getDistrictId(), district);
+
+    //works for sa and rg
+    public float calculateIdealPop(AlgorithmType type){
+        if(type == AlgorithmType.RG)
+            return (float)population / rgdistricts.size();
+        else
+            return (float)population/defaultDistrict.size();
     }
-    public float calculateIdealPop(){
-        return (float)population / districts.size();
-    }
-    public void updatePopScores(District source, District dest, float score1, float score2){
-        popScores.put(source, score1);
-        popScores.put(dest, score2);
-    }
+
     public double getDistrictScore(District d){
         return popScores.get(d);
     }
@@ -135,11 +128,11 @@ public class State {
     public void resetUnassignedPrecinctIds(){
         unassignedPrecinctIds = new LinkedHashSet<>(allPrecincts.keySet());
     }
-    public Map<Integer, District> getDistricts() {
-        return districts;
+    public Map<Integer, District> getRgdistricts() {
+        return rgdistricts;
     }
-    public void setDistricts(Map<Integer, District> districts) {
-        this.districts = districts;
+    public void setRgdistricts(Map<Integer, District> rgdistricts) {
+        this.rgdistricts = rgdistricts;
     }
     public Set<String> getUnassignedPrecinctIds() {
         return unassignedPrecinctIds;
@@ -160,22 +153,33 @@ public class State {
     public void executeRgMove(Move move){
         Precinct precinct = move.getPrecinct();
         int destDistId = move.getDstDistrictID();
-        District destDist = districts.get(destDistId);
+        District destDist = rgdistricts.get(destDistId);
         removeFromUnassignedIds(precinct.getGeoID10());
 
         destDist.addPrecinct(precinct);
         destDist.updateBorderPrecinctsForRg(unassignedPrecinctIds);
-        updatePopulationEqualityMeasure(move);
+        updatePopulationEqualityMeasure(move, AlgorithmType.RG);
     }
 
-    public void updatePopulationEqualityMeasure(Move m) {
+    // works for both SA and RG
+    public void updatePopulationEqualityMeasure(Move m, AlgorithmType type) {
         float score1;
         float score2;
-        float idealPop = calculateIdealPop();
+        float idealPop = calculateIdealPop(type);
         int srcDistrictID = m.getSrcDistrictID();
         int destDistrictID = m.getDstDistrictID();
-        District src = districts.get(srcDistrictID);
-        District dest = districts.get(destDistrictID);
+        District src;
+        District dest;
+
+        if(type == AlgorithmType.SA){
+            src = defaultDistrict.get(srcDistrictID);
+            dest = defaultDistrict.get(destDistrictID);
+        }
+        else {
+            src = rgdistricts.get(srcDistrictID);
+            dest = rgdistricts.get(destDistrictID);
+        }
+
         if(src != null) {
             score1 = src.calculatePopEqualScore(idealPop);
             popScores.put(src,score1);
@@ -184,12 +188,10 @@ public class State {
             score2 = dest.calculatePopEqualScore(idealPop);
             popScores.put(dest,score2);
         }
-
-        //updatePopScores(src, dest, score1, score2);
     }
 
     public void assignAllUnassignedPrecincts(int districtId){
-        District d = districts.get(districtId);
+        District d = rgdistricts.get(districtId);
 
         for(String id : unassignedPrecinctIds){
             Precinct unassignedPrecinct=  allPrecincts.get(id);
@@ -201,9 +203,6 @@ public class State {
         unassignedPrecinctIds.clear();
     }
 
-    public District getLowestScoreDistrict() {
-        return districts.get(0);
-    }
     public void setPopulation(int population) {
         this.population = population;
     }
@@ -231,5 +230,28 @@ public class State {
                 dist = d;
         }
         return dist;
+    }
+    public VoteData getStateVoteResult(boolean isDefault)
+    {
+        VoteData voteData = new VoteData();
+        int demVotes= 0;
+        int repVotes = 0;
+        if(isDefault) {
+            for(District district : defaultDistrict.values()){
+                VoteData votes = district.getVoteResult();
+                demVotes+= votes.getDemVotes();
+                repVotes+= votes.getRepVotes();
+            }
+        }
+        else{
+            for(District district : rgdistricts.values()){
+                VoteData votes = district.getVoteResult();
+                demVotes+= votes.getDemVotes();
+                repVotes+= votes.getRepVotes();
+            }
+        }
+        voteData.setRepVotes(repVotes);
+        voteData.setDemVotes(demVotes);
+        return voteData;
     }
 }
