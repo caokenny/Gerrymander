@@ -196,7 +196,7 @@ input[type=text], input[type=password], input[type=email] {
     position: relative;
     display: flex;
     margin: auto;
-    top: 5%;
+    top: 90px;
 }
 
 #algorithmChoice {
@@ -286,16 +286,22 @@ input[type=range]:active + output {
 }
 
 #updateButton {
-    left: 50px;
+    display: inline-block;
+    right: 200px;
 }
 
 #stopButton {
-    right: 40px;
+    left: 200px;
     display: none;
 }
 
 #pauseButton {
     display: none;
+    margin-right: 100px;
+}
+
+#runButton {
+    margin-right: 100px;
 }
 
 

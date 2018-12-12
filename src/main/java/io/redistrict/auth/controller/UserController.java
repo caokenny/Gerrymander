@@ -58,12 +58,10 @@ public class UserController {
                 }
             }
             if (page.equals("admin")) {
-                return "redirect:/secure/admin";
+                return "admin";
             }
             return "index";
         }
-
-//        CustomUserDetails customUserDetails = new CustomUserDetails(userForm);
 
 //        Role adminRole = createIfNotFound("ROLE_ADMIN");
         Role userRole = createIfNotFound("ROLE_USER");

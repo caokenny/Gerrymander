@@ -191,7 +191,13 @@ $('#updateButton').on('click', function () {
     })
 });
 
+var paused = false;
+
 $('#runButton').on('click', function () {
+    $('#pauseButton').css("display", "block");
+    $('#stopButton').css("display", "block");
+    $(this).css("display", "none");
+    paused = false;
     var algorithmChoice = $('#algorithmChoice').val();
     var compactness = $('#compactnessSlider').val();
     var population = $('#populationSlider').val();
@@ -223,8 +229,17 @@ function updatePrecinctVisual(response) {
             }
         });
     }
-    $('#runButton').trigger('click');
+    if (!paused) {
+        $('#runButton').trigger('click');
+    }
 }
+
+
+$('#pauseButton').on('click', function () {
+    $('#pauseButton').css("display", "none");
+    $('#runButton').css("display", "block");
+    paused = true;
+});
 
 // var summaryBox = $('#summaryBox');
 // $('#runButton').click(function () {
