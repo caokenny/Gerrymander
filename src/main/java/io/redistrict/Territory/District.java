@@ -23,7 +23,7 @@ public class District {
     private int numOfUnassignedNeighbors;
     private String seedPrecinctId;
     private static Properties properties = new Properties();
-
+    private VoteData voteData;
 
     public District(int districtId,Precinct startPrecinct){
         this.districtId = districtId;
@@ -83,8 +83,29 @@ public class District {
         }
         voteData.setDemVotes(demVotes);
         voteData.setRepVotes(repVotes);
+        this.voteData = voteData;
         return voteData;
     }
+    //*****************
+    //** Can use the below. Instead of getVoteResult iterating through all precincts everytime we call it, it will only return the voteData we set. (Faster runtime)
+    //*****************
+//    public VoteData getVoteResult(){
+//        return voteData;
+//    }
+//    public VoteData setVoteResult(){
+//        int demVotes = 0;
+//        int repVotes = 0;
+//        VoteData voteData = new VoteData();
+//        for(Precinct precinct : allDPrecincts.values()) {
+//            VoteData votes = precinct.getVoteData();
+//            demVotes+= votes.getDemVotes();
+//            repVotes+= votes.getRepVotes();
+//        }
+//        voteData.setDemVotes(demVotes);
+//        voteData.setRepVotes(repVotes);
+//        this.voteData = voteData;
+//        return voteData;
+//    }
 
     public void updateBorderPrecinctsForRg(Set<String> unassignedPrecinctIds) {
         borderRgPrecincts.clear();
