@@ -19,7 +19,9 @@ public class State {
     private Set<String> unassignedPrecinctIds;
     private Map<District, Float> popScores = new LinkedHashMap<>();
     private Map<Integer,District> defaultDistrict;
-
+    private int totalVotes;
+    private int totalDemVotes;
+    private int totalRepVotes;
 
     public State(State state){
         //if u want rgdistricts set it urself
@@ -30,6 +32,15 @@ public class State {
         this.allPrecincts= new LinkedHashMap<>(state.getAllPrecincts());
         // THIS MIGHT BE REMOVED LATER
         this.defaultDistrict = new LinkedHashMap<>(state.getDefaultDistrict());
+        setTotalVotes();
+    }
+    public void setTotalVotes(){
+        for(District d : defaultDistrict.values()){
+            VoteData data = d.getVoteResult();
+            totalDemVotes += data.getDemVotes();
+            totalRepVotes += data.getRepVotes();
+            totalVotes = totalVotes + totalRepVotes + totalDemVotes;
+        }
     }
     public State(String name, Map<String,Precinct> allPrecincts){
         this.stateName=name;
@@ -47,7 +58,48 @@ public class State {
         return total;
     }
 
-
+    public double calculatePartisanBias(Map<Integer, District> districts){
+        int numDemSeats = 0;
+        int numDistrict = districts.size();
+        double demPercentage = totalDemVotes / totalVotes;
+//        int idealDemSeats = (int)Math.round(demPercentage * numDistrict);
+//        int idealRepSeats = (int)Math.round(repPercentage * numDistrict);
+        for(District d : districts.values()){
+            VoteData data = d.getVoteResult();
+            if(data.getDemVotes() > data.getRepVotes()){
+                numDemSeats++;
+            }
+        }
+        double percentDemSeatsWon = numDemSeats / numDistrict;
+        //This is in terms of Democratic party.
+        //So if answer returned is 0.02, then there is a 2% partisan bias TOWARDS the Democratic party.
+        //If answer is -0.02, then there is a 2% partisan bias AGAINST the Democratic party
+        return percentDemSeatsWon - demPercentage;
+    }
+    public double calculateEfficiencyGap(Map<Integer,District> districts){
+        int totalDemWastedVotes = 0;
+        int totalRepWastedVotes = 0;
+        for(District d : districts.values()){
+            //Find out what is votes needed to win.
+            VoteData data = d.getVoteResult();
+            int totalVotes =  data.getDemVotes() + data.getRepVotes();
+            int votesNeedToWin = totalVotes / 2 + 1;
+            if(data.getDemVotes() > data.getRepVotes()){
+                //Dem party wins. all of reps is wasted
+                totalRepWastedVotes += data.getRepVotes();
+                totalDemWastedVotes = totalDemWastedVotes + (data.getDemVotes() - votesNeedToWin);
+            }
+            else{
+                totalDemWastedVotes += data.getDemVotes();
+                totalRepWastedVotes = totalRepWastedVotes + (data.getRepVotes() - votesNeedToWin);
+            }
+        }
+        int demNetWastedVotes = totalDemWastedVotes - totalRepWastedVotes;
+        double efficiencyGap = demNetWastedVotes / totalVotes;
+        //If efficiency gap is 0.2, then that means it is 20% in FAVOR of Republicans. +20% Republicans
+        //If efficiency gap is -0.2, then that means it is 20% in FAVOR of Democrats. +20% Democrats.
+        return efficiencyGap;
+    }
     public String getStateName(){
         return stateName;
     }

@@ -159,6 +159,7 @@ public class District {
             e.printStackTrace();
         }
     }
+
     public double calculateSchwartzberg(double area, double perimeter) {
         // equalAreaRadius = r = sqrt(A/PI)
         double r = Math.sqrt(area/Math.PI);
@@ -173,6 +174,7 @@ public class District {
         double polsbyPopperScore = (4 * Math.PI * area) / Math.pow(perimeter, 2);
         return polsbyPopperScore;
     }
+
     public float calculatePopEqualScore(float idealPop) {
         float score = 1;
         if (population <= idealPop) return score;
@@ -203,7 +205,6 @@ public class District {
         }
         return score;
     }
-
     public static Map<Integer, District> makeSeedDistricts(Collection<Precinct> precincts){
         int districtID=1;
         Map<Integer,District> seedDistricts = new LinkedHashMap<>();
