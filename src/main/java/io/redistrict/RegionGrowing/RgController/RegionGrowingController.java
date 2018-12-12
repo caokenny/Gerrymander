@@ -13,8 +13,6 @@ import io.redistrict.Territory.State;
 
 import io.redistrict.Utils.JsonConverter;
 import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,13 +24,10 @@ import java.util.Set;
 @RequestMapping("/rg")
 public class RegionGrowingController {
 
-    @Autowired
-    private SimpMessagingTemplate messagingTemplate;
-
-    @RequestMapping(value = "/pickrgseed", method = RequestMethod.GET)
+//    @RequestMapping(value = "/pickrgseed", method = RequestMethod.POST)
+    @PostMapping("/pickrgseed")
     @ResponseBody
     public String assignSeedDistrict(String stateName , int seedNum){
-
         State state = AppData.getState(stateName);
         Collection<Precinct> precinctSet = state.getAllPrecincts().values();
         Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(precinctSet,seedNum);
@@ -55,7 +50,7 @@ public class RegionGrowingController {
 
     }
 
-    @GetMapping(value = "/do10Rg")
+    @PostMapping(value = "/do10Rg")
     @ResponseBody
     public MoveUpdater startRg(@RequestBody AlgorithmWeights weights) {
         Algorithm currentAlgorithm = AppData.getCurrentAlgorithm();

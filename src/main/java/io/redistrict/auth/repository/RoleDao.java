@@ -1,18 +1,15 @@
 package io.redistrict.auth.repository;
 
-import io.redistrict.auth.model.User;
+import io.redistrict.auth.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Transactional
 @Repository
-public interface UserDao extends JpaRepository<User, Integer> {
+public interface RoleDao extends JpaRepository<Role, Integer> {
 
-    List<User> findAll();
-
-    User findByUsername(String username);
+    Role findByName(String name);
 
 }
