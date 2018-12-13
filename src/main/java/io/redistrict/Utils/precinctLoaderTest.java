@@ -29,7 +29,7 @@ public class precinctLoaderTest {
         State mo = AppData.getState("MO");
         State co = AppData.getState("CO");
         State ks = AppData.getState("KS");
-        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(mo.getAllPrecincts().values(),3);
+        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(mo.getAllPrecincts().values(),1);
         Map<Integer,District> seedDistricts = District.makeSeedDistricts(seeds);
         mo.setRgdistricts(seedDistricts);
         mo.resetUnassignedPrecinctIds();
@@ -86,6 +86,12 @@ public class precinctLoaderTest {
         while (!unassignedPrecinctIds.isEmpty()) {
             MoveUpdater updater = currentAlgorithm.do10RgIteration();
         }
+
+
+
+//        District district = new District(1,mo.getAllPrecincts().values().iterator().next());
+//        System.out.println("Real area:"+district.getArea(mo.getAllPrecincts()));
+//        System.out.println("Real perimeter:"+district.getPerimeter(mo.getAllPrecincts()));
 
 //        Iterator<Precinct> iterator = mo.getAllPrecincts().values().iterator();
 //        Precinct testPrecinct = iterator.next();

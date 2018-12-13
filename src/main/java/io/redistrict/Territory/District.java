@@ -47,6 +47,13 @@ public class District {
         this.districtId = districtId;
     }
 
+    public void addPreinctList(List<Precinct> precincts, AlgorithmType type){
+        for(Precinct preinct : precincts)
+        {
+            addPrecinct(preinct,type);
+        }
+    }
+
     public void addPrecinct(Precinct precinct, AlgorithmType type){
         precinct.setParentDistrictID(districtId);
         allDPrecincts.put(precinct.getGeoID10(), precinct);
@@ -58,8 +65,15 @@ public class District {
             } else
                 precinct.setIsBorder(false);
         }
+    }
+
+    public void removePrecinctList(List<Precinct> precincts, AlgorithmType type){
+        for (Precinct p : precincts){
+            removePrecinct(p,type);
+        }
 
     }
+
     public void removePrecinct(Precinct precinct,AlgorithmType type){
         precinct.setParentDistrictID(-1);
         if(allDPrecincts.remove(precinct.getGeoID10())== null){
@@ -261,7 +275,7 @@ public class District {
         }
         GeometryFactory geoFac = new GeometryFactory();
         GeometryCollection geometryCollection = (GeometryCollection) geoFac.buildGeometry(precinctGeometries);
-        return geometryCollection.getArea();
+        return geometryCollection.union().getArea();
     }
     public double getPerimeter(Map<String, Precinct> map) {
 
@@ -280,7 +294,7 @@ public class District {
         }
         GeometryFactory geoFac = new GeometryFactory();
         GeometryCollection geometryCollection = (GeometryCollection) geoFac.buildGeometry(precinctGeometries);
-        return geometryCollection.getLength();
+        return geometryCollection.union().getLength();
     }
     public String getSeedPrecinctId() {
         return seedPrecinctId;

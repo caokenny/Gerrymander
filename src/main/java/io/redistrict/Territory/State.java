@@ -200,8 +200,6 @@ public class State {
             Precinct unassignedPrecinct=  allPrecincts.get(id);
             d.addPrecinct(unassignedPrecinct,AlgorithmType.RG);
 
-            //dont need to update border because all precincts are assigned
-            //TODO calculate obj score of state
         }
         unassignedPrecinctIds.clear();
     }

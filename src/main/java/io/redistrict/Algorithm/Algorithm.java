@@ -7,7 +7,6 @@ import io.redistrict.Territory.District;
 import io.redistrict.Territory.Move;
 import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
-import io.redistrict.Utils.DistrictPopComparator;
 import io.redistrict.Utils.NeighborFinder;
 import io.redistrict.Utils.PrecinctSelector;
 
@@ -26,7 +25,8 @@ public class Algorithm {
         List<MoveUpdate> updates = new ArrayList<>();
         int iterationsDone = 0;
         int maxIteration = (state.getAllPrecincts().size()/100);
-
+        ObjectiveFunctionCalculator calculator = new ObjectiveFunctionCalculator();
+        calculator.setWeights(data.getWeights());
 
         while (!state.getUnassignedPrecinctIds().isEmpty() && iterationsDone <10){
             // IF ONLY 1 DISTRICT THEN WE ASSIGN ALL TO IT
@@ -34,6 +34,7 @@ public class Algorithm {
                 District district = rgDistricts.values().iterator().next();
                 System.out.println("LAST MOVE, rgdistrictId: "+district.getDistrictId() + " num of precinct to be assigned on last move: "+ state.getUnassignedPrecinctIds().size());
                 MoveUpdater updater = assignAll(district,state);
+                System.out.println("state current score score is: "+ calculator.getStateObjectiveFunction(state,AlgorithmType.RG));
                 return updater;
             }
             //ELSE
@@ -44,12 +45,17 @@ public class Algorithm {
                 continue;
             }
             Precinct rgPrecinct = selectRgAdditionPrecinct(rgDistrict,state);
+            //List<Precinct> rgPrecinct = selectRgAdditionPrecincts(rgDistrict,state);
 
             if(rgPrecinct == null){
                 rgDistrict.updateBorderPrecinctsForRg(state.getUnassignedPrecinctIds()); // only update borderprecincts when old neighbors are gone
                 iterationsDone++;
                 continue;
             }
+
+//            List<MoveUpdate> newUpdates=executeListOfMoves(rgPrecinct,state,rgDistrict);
+//            updates.addAll(newUpdates);
+//            iterationsDone+= newUpdates.size();
 
             Move move = new Move(rgPrecinct,-1,rgDistrict.getDistrictId());
             state.executeRgMove(move);
@@ -65,27 +71,25 @@ public class Algorithm {
             System.out.println("num of unassigned left: "+state.getUnassignedPrecinctIds().size());
             iterationsDone++;
         }
+        if(state.getUnassignedPrecinctIds().isEmpty())
+        {
+            System.out.println("state current score score is: "+ calculator.getStateObjectiveFunction(state,AlgorithmType.RG));
+        }
         MoveUpdater updater = new MoveUpdater();
         updater.setUpdates(updates);
         return updater;
     }
 
 
-
-    public State startRg(Set<Precinct> seeds, String stateName){
-        State state = makeRgState(seeds,stateName);
-        Map<Integer,District> possibleDistricts = new LinkedHashMap<>(state.getRgdistricts());
-        while (!state.getUnassignedPrecinctIds().isEmpty()) {
-            District rgDistrict = getLowestPopDistrict(possibleDistricts);
-            Precinct rgPrecinct = selectRgAdditionPrecinct(rgDistrict, state);
-            state.removeFromUnassignedIds(rgPrecinct.getGeoID10());
-            Move move = new Move(rgPrecinct,-1,rgDistrict.getDistrictId());
+    public List<MoveUpdate> executeListOfMoves(List<Precinct> additionPrecincts, State state,District rgdistrict){
+        List<MoveUpdate> moveUpdates = new ArrayList<>();
+        for(Precinct precinct : additionPrecincts){
+            Move move = new Move(precinct,-1,rgdistrict.getDistrictId());
             state.executeRgMove(move);
-            if(rgDistrict.getNumOfUnassignedNeighbors()== 0){
-                possibleDistricts.remove(rgDistrict.getDistrictId());
-            }
+            state.removeFromUnassignedIds(precinct.getGeoID10());
+            moveUpdates.add(new MoveUpdate(move.getSrcDistrictID(),move.getDstDistrictID(),move.getPrecinct().getGeoID10()));
         }
-        return state;
+        return  moveUpdates;
     }
 
     private State makeRgState(Set<Precinct> seeds , String stateName){
@@ -130,33 +134,86 @@ public class Algorithm {
     }
 
     private Precinct selectRgAdditionPrecinct(District district, State state) {
-        List<Precinct> borderPrecincts = district.getBorderRgPrecincts();
+
+        double compactnessWeight = data.getWeights().getCompactness();
+        List<Precinct> borderPrecincts ;
+
+        // SHOW UPDATED BORDERS OR NOT BASED ON COMPACTNESS WEIGHT;
+        if(Math.random()>compactnessWeight){
+            borderPrecincts = district.getBorderRgPrecincts(state.getUnassignedPrecinctIds());
+        }
+        else{
+            borderPrecincts = district.getBorderRgPrecincts();
+        }
+
         Set<Precinct> unassignedNeighbors = NeighborFinder.findUnassignedNeighbors
                 (state.getAllPrecincts(),state.getUnassignedPrecinctIds(),borderPrecincts);
+
         if(unassignedNeighbors.size()== 0){return null;}
-        ObjectiveFunctionCalculator objectiveFunctionCalculator = new ObjectiveFunctionCalculator();
-        objectiveFunctionCalculator.setWeights(data.getWeights());
-        double currentObjValue = objectiveFunctionCalculator.getDistrictObjectiveFunction(state, district, AlgorithmType.RG);
-
-        if(unassignedNeighbors.size()==1)
-            return unassignedNeighbors.iterator().next(); // only 1
-
-        boolean improved = false;
-        int maxNumOfPossible =(int)(unassignedNeighbors.size()*.1);
-        int possibleTried = 0;
-        while (!improved) {
-            Precinct possibleAddition = PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
-            double newObjValue = objectiveFunctionCalculator.getTempPrecinctAdditionScore(state, district,possibleAddition,AlgorithmType.RG);
-            if(newObjValue>=currentObjValue){
-                return possibleAddition;
-            }
-            possibleTried++;
-            if(possibleTried == maxNumOfPossible)
-                improved = true;
-        }
+        if(unassignedNeighbors.size()==1) {return unassignedNeighbors.iterator().next();}
 
         return PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
     }
+
+
+
+    private List<Precinct> selectRgAdditionPrecincts(District district,State state){
+        List<Precinct> resultList = new ArrayList<>();
+        List<Precinct> borderPrecincts = district.getBorderRgPrecincts();//state.getUnassignedPrecinctIds());
+        List<Precinct> unassignedNeighbors = new ArrayList<>(NeighborFinder.findUnassignedNeighbors
+                (state.getAllPrecincts(),state.getUnassignedPrecinctIds(),borderPrecincts));
+        if(unassignedNeighbors.size()== 0){return null;}
+
+        if(unassignedNeighbors.size()==1)
+            return unassignedNeighbors;
+
+        if(unassignedNeighbors.size() <=10){
+            Collections.shuffle(unassignedNeighbors);
+            resultList.add(unassignedNeighbors.get(0));
+            return resultList;
+        }
+        else {
+            ObjectiveFunctionCalculator objectiveFunctionCalculator = new ObjectiveFunctionCalculator();
+            objectiveFunctionCalculator.setWeights(data.getWeights());
+            double currentObjValue = objectiveFunctionCalculator.getStateObjectiveFunction(state, AlgorithmType.RG);
+            List<Precinct> randomNeighbors = getRandomNeighbors(unassignedNeighbors,7);
+            double newScore = objectiveFunctionCalculator.getTempPrecinctsAdditionScore(state,district,randomNeighbors,AlgorithmType.RG);
+            if(newScore>currentObjValue){
+                return randomNeighbors;
+            }
+        }
+        return getRandomNeighbors(unassignedNeighbors,3);
+    }
+
+
+//    private Precinct selectRgAdditionPrecinct(District district, State state) {
+//        List<Precinct> borderPrecincts = district.getBorderRgPrecincts();
+//        Set<Precinct> unassignedNeighbors = NeighborFinder.findUnassignedNeighbors
+//                (state.getAllPrecincts(),state.getUnassignedPrecinctIds(),borderPrecincts);
+//        if(unassignedNeighbors.size()== 0){return null;}
+//        ObjectiveFunctionCalculator objectiveFunctionCalculator = new ObjectiveFunctionCalculator();
+//        objectiveFunctionCalculator.setWeights(data.getWeights());
+//        double currentObjValue = objectiveFunctionCalculator.getDistrictObjectiveFunction(state, district, AlgorithmType.RG);
+//
+//        if(unassignedNeighbors.size()==1)
+//            return unassignedNeighbors.iterator().next(); // only 1
+//
+//        boolean improved = false;
+//        int maxNumOfPossible =(int)(unassignedNeighbors.size()*.1);
+//        int possibleTried = 0;
+//        while (!improved) {
+//            Precinct possibleAddition = PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
+//            double newObjValue = objectiveFunctionCalculator.getTempPrecinctAdditionScore(state, district,possibleAddition,AlgorithmType.RG);
+//            if(newObjValue>=currentObjValue){
+//                return possibleAddition;
+//            }
+//            possibleTried++;
+//            if(possibleTried == maxNumOfPossible)
+//                improved = true;
+//        }
+//
+//        return PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
+//    }
     public static void loadDefaultProperties(){
         InputStream aStream = Algorithm.class.getClassLoader().getResourceAsStream("algorithms.properties");
         try{
@@ -219,5 +276,17 @@ public class Algorithm {
             count++;
         }
         return s.getMoves();
+    }
+    private List<Precinct> getRandomNeighbors (List<Precinct> unassignedNeighbors , int num){
+
+        if(num > unassignedNeighbors.size())
+            throw new IndexOutOfBoundsException("num size greater than neighbor size");
+
+        Collections.shuffle(unassignedNeighbors);
+        List<Precinct> randomPrecincts = new ArrayList<>();
+        for (int x = 0 ; x<num; x++){
+            randomPrecincts.add(unassignedNeighbors.get(x));
+        }
+        return randomPrecincts;
     }
 }
