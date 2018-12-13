@@ -227,7 +227,7 @@ public class District {
     }
 //
     public double calcuateRgPopScore(double idealPop){
-        double devAmount = Double.parseDouble(properties.getProperty("population_deviation"));
+        double devAmount = .05;
         double difference = Math.abs(population - idealPop);
         double lowerBound = idealPop -(idealPop*devAmount);
         double upperBound = idealPop +(idealPop*devAmount);

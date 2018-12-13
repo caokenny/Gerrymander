@@ -29,14 +29,14 @@ public class precinctLoaderTest {
         State mo = AppData.getState("MO");
         State co = AppData.getState("CO");
         State ks = AppData.getState("KS");
-        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(mo.getAllPrecincts().values(),13);
+        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(ks.getAllPrecincts().values(),10);
         Map<Integer,District> seedDistricts = District.makeSeedDistricts(seeds);
-        mo.setRgdistricts(seedDistricts);
-        mo.resetUnassignedPrecinctIds();
+        ks.setRgdistricts(seedDistricts);
+        ks.resetUnassignedPrecinctIds();
 
         Algorithm algorithm = new Algorithm();
         AlgorithmData data = new AlgorithmData();
-        data.setWorkingState(mo);
+        data.setWorkingState(ks);
         data.setStartingSeeds(seeds);
         data.setType(AlgorithmType.RG);
         algorithm.setData(data);
@@ -48,10 +48,10 @@ public class precinctLoaderTest {
             System.out.println("ALGORITHM IS NULL");
         }
         AlgorithmWeights weights = new AlgorithmWeights();
-        weights.setCompactness(.5);
-        weights.setPopulationEquality(1);
+        weights.setCompactness(0);
+        weights.setPopulationEquality(0);
         weights.setPartisanFairness(0);
-        weights.setEfficencyGap(.5);
+        weights.setEfficencyGap(1);
         currentAlgorithm.getData().setWeights(weights);
 
 //

@@ -76,18 +76,16 @@ public class State {
         long numDemSeats = 0;
         int numDistrict = districts.size();
         double demPercentage = ((double)(totalDemVotes)) / totalVotes;
-//        int idealDemSeats = (int)Math.round(demPercentage * numDistrict);
-//        int idealRepSeats = (int)Math.round(repPercentage * numDistrict);
         for(District d : districts.values()){
             VoteData data = d.getVoteResult();
             if(data.getDemVotes() > data.getRepVotes()){
                 numDemSeats++;
             }
         }
-        double percentDemSeatsWon = ((double)numDemSeats) / numDistrict;
         //This is in terms of Democratic party.
         //So if answer returned is 0.02, then there is a 2% partisan bias TOWARDS the Democratic party.
         //If answer is -0.02, then there is a 2% partisan bias AGAINST the Democratic party
+        double percentDemSeatsWon = ((double)numDemSeats) / numDistrict;
         return 1-Math.abs(percentDemSeatsWon - demPercentage);
     }
     public double calculateEfficiencyGap(Map<Integer,District> districts){
@@ -246,15 +244,6 @@ public class State {
             score1 = (float)dest.calcuateRgPopScore(idealPop);
             popScores.put(dest,score1);
         }
-
-//        if(src != null) {
-//            score1 = src.calculatePopEqualScore(idealPop);
-//            popScores.put(src,score1);
-//        }
-//        if(dest != null){
-//            score2 = dest.calculatePopEqualScore(idealPop);
-//            popScores.put(dest,score2);
-//        }
     }
 
     public void assignAllUnassignedPrecincts(int districtId){
@@ -319,6 +308,30 @@ public class State {
         voteData.setDemVotes(demVotes);
         return voteData;
     }
+
+    public double getAverageStatePopScore(AlgorithmType type){
+
+        Map<Integer,District> districtMap;
+        float idealPop = calculateIdealPop(type);
+        double avgPopScore ;
+        double total= 0;
+
+        if(type == AlgorithmType.SA){ districtMap = getDefaultDistrict(); }
+        else{ districtMap = rgdistricts;}
+
+        for(District district : districtMap.values()){
+
+            if(type==AlgorithmType.SA){
+                total += district.calculatePopEqualScore(idealPop);
+            }
+            else{
+                total += district.calcuateRgPopScore(idealPop);
+            }
+        }
+        avgPopScore = total/districtMap.size();
+        return  avgPopScore;
+    }
+
 
     public int getTotalVotes() {
         return totalVotes;
