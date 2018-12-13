@@ -232,6 +232,12 @@ public class State {
         }
         return dist;
     }
+    public float getTotalPopScore() {
+        float totalPopScore = 0;
+        for (Float f : popScores.values())
+            totalPopScore += f;
+        return totalPopScore;
+    }
     public VoteData getStateVoteResult(boolean isDefault)
     {
         VoteData voteData = new VoteData();

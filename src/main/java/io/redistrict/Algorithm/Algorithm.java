@@ -164,6 +164,7 @@ public class Algorithm {
             District d = s.getLowestPopScoreDistrict();
             int distOldPop = d.getPopulation();
             double oldScore = s.getDistrictScore(d);
+            double oldtotalPopScore = s.getTotalPopScore();
             Move move = d.moveLargestBorderPrec();
             Precinct modifiedPrecinct = move.getPrecinct();
             modifiedPrecinct.setParentDistrictID(move.getDstDistrictID());
@@ -175,7 +176,12 @@ public class Algorithm {
 //            double newScore = s.getDistrictScore(d);
             s.updatePopulationEqualityMeasure(move, data.getType());
             double newScore = s.getDistrictScore(d);
-            if(newScore > oldScore){
+//            if(newScore > oldScore){
+//                s.addToMoveStack(move);
+//            }
+//            with the above if statement a precinct can be traded back and forth between two districts and
+//            the newScore > oldScore always
+            if(s.getTotalPopScore() > oldtotalPopScore) {
                 s.addToMoveStack(move);
             }
             else{

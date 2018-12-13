@@ -18,62 +18,57 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-@Controller
+@RestController
 public class AlgorithmController {
     private Algorithm alg;
     private AlgorithmData data;
-    private AlgorithmWeights wts;
 
     @PostMapping(value = "/startAlgorithm")
-    @ResponseBody
-    public String startAlgorithm( @RequestBody String algObj) {
+    public String startAlgorithm( String stateName) {
+        System.out.println(stateName);
         alg = new Algorithm();
         data = new AlgorithmData();
-        wts = new AlgorithmWeights();
         alg.setData(data);
-        NeighborsLoader.loadDefaultProperties();
-        StateLoader.loadDefaultProperties();
-        Algorithm.loadDefaultProperties();
-        AppData.setStateMap(StateLoader.loadAllStates(StateEnum.values()));
-        data.setWeights(wts);
         Gson gson = new Gson();
-        System.out.println("The algObj is " + algObj);
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, String> map = new HashMap<String, String>();
-        try {
-            map = mapper.readValue(algObj, new TypeReference<Map<String, String>>() {});
-            System.out.println(map);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String stateName;
-        if (map.get("state").equals("colorado"))
-            stateName = "CO";
-        else if (map.get("state").equals("kansas"))
-            stateName = "MO";
-        else stateName = "KA";
+        System.out.println("The algObj is " + stateName);
+//        ObjectMapper mapper = new ObjectMapper();
+//        Map<String, String> map = new HashMap<String, String>();
+//        try {
+//            map = mapper.readValue(algObj, new TypeReference<Map<String, String>>() {});
+//            System.out.println(map);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        String stateName;
+//        if (map.get("state").equals("colorado"))
+//            stateName = "CO";
+//        else if (map.get("state").equals("kansas"))
+//            stateName = "MO";
+//        else stateName = "KA";
         State state = AppData.getState(stateName);
         data.setWorkingState(state);
-        if (map.get("algorithm").equals("sa"))
-            data.setType(AlgorithmType.SA);
-        else
-            data.setType(AlgorithmType.RG);
-        data.getWeights().setCompactness(Integer.parseInt(map.get("compactness")));
-        data.getWeights().setPopulationEquality(Integer.parseInt(map.get("populationEquality")));
+//        if (map.get("algorithm").equals("sa"))
+//            data.setType(AlgorithmType.SA);
+//        else
+//            data.setType(AlgorithmType.RG);
+//        data.getWeights().setCompactness(Integer.parseInt(map.get("compactness")));
+//        data.getWeights().setPopulationEquality(Integer.parseInt(map.get("populationEquality")));
         System.out.println(data.toString());
         System.out.println("we are in startAlgorithm");
         District.loadDefaultProperties();
         state.initPopScores();
         System.out.println(state.getDefaultDistrict().size());
-        JSONObject item = new JSONObject(map);
-        item.put("successful", "We are starting the algorithm now...");
+//        JSONObject item = new JSONObject(map);
+//        item.put("successful", "We are starting the algorithm now...");
         AppData.setCurrentAlgorithm(alg);
-        return item.toString();
+        data.setType(AlgorithmType.SA);
+        return "We are starting algorithm now...";
     }
     @PostMapping(value = "/continueAlgorithm")
     @ResponseBody
@@ -95,7 +90,20 @@ public class AlgorithmController {
         for (MoveUpdate m : updater.getUpdates()) {
             System.out.println(m);
         }
+//        ADD moves.clear() and updater.getupdates().clear() if run10SA() returns the moveStack associated with
+//        state bc it is never cleared. This clears it because it is pointing to the same state moveStack
+        moves.clear();
         return updater;
     }
 
+    @PostMapping(value = "/setWeights")
+    public String setWeights( @RequestBody AlgorithmWeights wts) {
+        data.setWeights(wts);
+        System.out.println(data);
+        JSONObject item = new JSONObject();
+        item.put("success", "Weights successfully set");
+//        return "Weights successfully set";
+//        can't return String because we specify in Ajax call that a json is expected to be returned
+        return item.toString();
+    }
 }

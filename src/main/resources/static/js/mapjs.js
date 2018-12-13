@@ -163,29 +163,43 @@ $('.homeBtn').on('click', function () {
 });
 
 var seed;
+// $('#updateButton').on('click', function () {
+//     $.ajax({
+//         url: "/rg/pickrgseed",
+//         async: true,
+//         // dataType: "json",
+//         type: "POST",
+//         // contentType: "application/json",
+//         data: {"stateName" : stateSelected, "seedNum" : 3},
+//         success: function (response) {
+//             precinctLayer.setStyle(function () {
+//                 return {fillColor: "white"};
+//             });
+//             var jsonStr = JSON.parse(response);
+//             console.log(response);
+//             for (var i = 0; i < jsonStr.seeds.length; i++) {
+//                 seed = jsonStr.seeds[i];
+//                 console.log(seed);
+//                 precinctLayer.setStyle(function (feature) {
+//                     if (feature.properties.GEOID10 === seed.precinctGeoId) {
+//                         return {fillColor: colors["0" + seed.districtID]};
+//                     }
+//                 });
+//             }
+//
+//         }
+//     })
+// });
+
 $('#updateButton').on('click', function () {
     $.ajax({
-        url: "/rg/pickrgseed",
-        async: true,
+        url: "/startAlgorithm",
         // dataType: "json",
         type: "POST",
         // contentType: "application/json",
-        data: {"stateName" : stateSelected, "seedNum" : 3},
+        data: {"stateName" : stateSelected},
         success: function (response) {
-            precinctLayer.setStyle(function () {
-                return {fillColor: "white"};
-            });
-            var jsonStr = JSON.parse(response);
             console.log(response);
-            for (var i = 0; i < jsonStr.seeds.length; i++) {
-                seed = jsonStr.seeds[i];
-                console.log(seed);
-                precinctLayer.setStyle(function (feature) {
-                    if (feature.properties.GEOID10 === seed.precinctGeoId) {
-                        return {fillColor: colors["0" + seed.districtID]};
-                    }
-                });
-            }
 
         }
     })
@@ -193,6 +207,33 @@ $('#updateButton').on('click', function () {
 
 var paused = false;
 
+// $('#runButton').on('click', function () {
+//     $('#pauseButton').css("display", "block");
+//     $('#stopButton').css("display", "block");
+//     $(this).css("display", "none");
+//     paused = false;
+//     var algorithmChoice = $('#algorithmChoice').val();
+//     var compactness = $('#compactnessSlider').val();
+//     var population = $('#populationSlider').val();
+//     var partisanFariness = $('#partisanFairnessSlider').val();
+//     var efficencyGap = $('#efficiencyGapSlider').val();
+//     var measuresObj = {"compactness" : compactness, "populationEquality" : population, "partisanFairness" : partisanFariness, "efficencyGap" : efficencyGap, "algorithm" : algorithmChoice, "stateAbbrv" : stateSelected};
+//     $.ajax({
+//         url: "/rg/do10Rg",
+//         type: "POST",
+//         async: true,
+//         dataType: "json",
+//         contentType: "application/json",
+//         data: JSON.stringify(measuresObj),
+//         success: function (data) {
+//             if (data.updates.length !== 0) {
+//                 updatePrecinctVisual(data);
+//             }
+//         }
+//     })
+// });
+
+var summaryBox = $('#summaryBox');
 $('#runButton').on('click', function () {
     $('#pauseButton').css("display", "block");
     $('#stopButton').css("display", "block");
@@ -205,16 +246,20 @@ $('#runButton').on('click', function () {
     var efficencyGap = $('#efficiencyGapSlider').val();
     var measuresObj = {"compactness" : compactness, "populationEquality" : population, "partisanFairness" : partisanFariness, "efficencyGap" : efficencyGap, "algorithm" : algorithmChoice, "stateAbbrv" : stateSelected};
     $.ajax({
-        url: "/rg/do10Rg",
+        url: "setWeights",
         type: "POST",
         async: true,
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(measuresObj),
         success: function (data) {
-            if (data.updates.length !== 0) {
-                updatePrecinctVisual(data);
-            }
+            console.log(data);
+            continueAlgorithm()
+        },
+        error: function (e) {
+            var json = "Ajax Response" + e.responseText;
+            summaryBox.val(summaryBox.val() + json);
+            console.log("ERROR : ", e);
         }
     })
 });
@@ -229,9 +274,9 @@ function updatePrecinctVisual(response) {
             }
         });
     }
-    if (!paused) {
-        $('#runButton').trigger('click');
-    }
+    // if (!paused) {
+    //     $('#runButton').trigger('click');
+    // }
 }
 
 
@@ -241,6 +286,7 @@ $('#pauseButton').on('click', function () {
     paused = true;
 });
 var stopAlgorithm = false;
+var mycount = 0;
 function continueAlgorithm() {
     var countObj = {counter: 0};
     $.ajax({
@@ -251,14 +297,18 @@ function continueAlgorithm() {
         dataType: 'json',
         cache: false,
         success: function (data) {
+            mycount++;
+            console.log(mycount);
             for (move in data) {
                 console.log(move); // logs state and updates
                 // updatePrecinctVisual(move);
             }
+            console.log(data);
+            updatePrecinctVisual(data);
             var response = JSON.stringify(data, null, 4);
             summaryBox.val(summaryBox.val() + "\n" + response);
             console.log("SUCCESS : ", response);
-            // if (data["successful"] === 5)
+            if (data.updates.length === 0)
                 stopAlgorithm = true;
             if (!stopAlgorithm)
                 continueAlgorithm();
