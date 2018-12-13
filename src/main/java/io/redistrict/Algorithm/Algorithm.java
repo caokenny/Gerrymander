@@ -9,7 +9,6 @@ import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
 import io.redistrict.Utils.NeighborFinder;
 import io.redistrict.Utils.PrecinctSelector;
-import sun.dc.pr.PRError;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -153,16 +152,15 @@ public class Algorithm {
         if(unassignedNeighbors.size()==0){return null;}
         if(unassignedNeighbors.size()==1) {return unassignedNeighbors.iterator().next();}
 
-        boolean improved = false;
         int maxNumOfPossible =(int)(unassignedNeighbors.size()*.5);
         int tried = 0;
 
         Precinct resultCanidate = PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
-        double bestScore = getTempDistrictScore(state,district, resultCanidate);
+        double bestScore = getTempObjectiveScore(state,district, resultCanidate);
 
         while(tried<=maxNumOfPossible){
             Precinct potentialPrecinct =  PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
-            double newScore = getTempDistrictScore(state,district,potentialPrecinct);
+            double newScore = getTempObjectiveScore(state,district,potentialPrecinct);
             if(newScore >bestScore){ // GET BEST PRECINCT THAT IMPROVES SCORE
                 bestScore= newScore;
                 resultCanidate= potentialPrecinct;
@@ -178,12 +176,20 @@ public class Algorithm {
         return popScore*popScoreWeight;
     }
 
-    private double getTempDistrictScore(State state,District district , Precinct precinct){
+    private double getTempObjectiveScore(State state, District district , Precinct precinct){
         double popScoreWeight = data.getWeights().getPopulationEquality();
-        district.addPrecinct(precinct,AlgorithmType.RG);
+        double partianFairnessWeight = data.getWeights().getPartisanFairness();
+        double efficiencyGapWeight = data.getWeights().getEfficencyGap();
+
+        district.addPrecinct(precinct,AlgorithmType.RG); // add the precinct to district to test new score
         double popScore = district.calcuateRgPopScore(state.calculateIdealPop(AlgorithmType.RG));
+        double efficiencyGapScore = state.calculateEfficiencyGap(state.getRgdistricts());
+        double partisanFairness = state.calculatePartisanBias(state.getRgdistricts());
         district.removePrecinct(precinct,AlgorithmType.RG);
-        return popScore*popScoreWeight;
+
+        // dont need to consider whole state population score because their population did not change only this district pop changed
+
+        return (popScore*popScoreWeight) + (efficiencyGapScore*efficiencyGapWeight) + (partianFairnessWeight*partisanFairness);
     }
 
 
