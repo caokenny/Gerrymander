@@ -9,6 +9,7 @@ import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
 import io.redistrict.Utils.NeighborFinder;
 import io.redistrict.Utils.PrecinctSelector;
+import sun.dc.pr.PRError;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -149,12 +150,41 @@ public class Algorithm {
         Set<Precinct> unassignedNeighbors = NeighborFinder.findUnassignedNeighbors
                 (state.getAllPrecincts(),state.getUnassignedPrecinctIds(),borderPrecincts);
 
-        if(unassignedNeighbors.size()== 0){return null;}
+        if(unassignedNeighbors.size()==0){return null;}
         if(unassignedNeighbors.size()==1) {return unassignedNeighbors.iterator().next();}
 
-        return PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
+        boolean improved = false;
+        int maxNumOfPossible =(int)(unassignedNeighbors.size()*.5);
+        int tried = 0;
+
+        Precinct resultCanidate = PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
+        double bestScore = getTempDistrictScore(state,district, resultCanidate);
+
+        while(tried<=maxNumOfPossible){
+            Precinct potentialPrecinct =  PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
+            double newScore = getTempDistrictScore(state,district,potentialPrecinct);
+            if(newScore >bestScore){ // GET BEST PRECINCT THAT IMPROVES SCORE
+                bestScore= newScore;
+                resultCanidate= potentialPrecinct;
+            }
+            tried++;
+        }
+        return resultCanidate;
     }
 
+    private double getCurrentDistrictScore(State state, District district){
+        double popScoreWeight = data.getWeights().getPopulationEquality();
+        double popScore = district.calcuateRgPopScore(state.calculateIdealPop(AlgorithmType.RG));
+        return popScore*popScoreWeight;
+    }
+
+    private double getTempDistrictScore(State state,District district , Precinct precinct){
+        double popScoreWeight = data.getWeights().getPopulationEquality();
+        district.addPrecinct(precinct,AlgorithmType.RG);
+        double popScore = district.calcuateRgPopScore(state.calculateIdealPop(AlgorithmType.RG));
+        district.removePrecinct(precinct,AlgorithmType.RG);
+        return popScore*popScoreWeight;
+    }
 
 
     private List<Precinct> selectRgAdditionPrecincts(District district,State state){
