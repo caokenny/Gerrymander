@@ -1,6 +1,7 @@
 package io.redistrict.Algorithm;
 
 import io.redistrict.Territory.District;
+import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
 
 import java.util.ArrayList;
@@ -8,7 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ObjectiveFunctionCalculator {
-    AlgorithmWeights weights;
+    // EVERYTHING SHOULD WORK FOR SA AND RG****************
+    private AlgorithmWeights weights;
 
     public AlgorithmWeights getWeights() {
         return weights;
@@ -18,13 +20,34 @@ public class ObjectiveFunctionCalculator {
         this.weights = weights;
     }
 
+    public double getTempPrecinctAdditionScore(State state, District district, Precinct additionPrecinct,AlgorithmType type){
+        district.addPrecinct(additionPrecinct,type); // add new precinct
+        double newObjFunctionScore = getDistrictObjectiveFunction(state,district,type);
+        district.removePrecinct(additionPrecinct,type); // remove that new precinct
+        return newObjFunctionScore;
+    }
+
+    public double getTempPrecinctsAdditionScore(State state, District district, List<Precinct> additionPrecincts, AlgorithmType type){
+        district.addPreinctList(additionPrecincts,type);
+        double newObjFunctionScore = getStateObjectiveFunction(state,type);
+        district.removePrecinctList(additionPrecincts,type);
+        return newObjFunctionScore;
+    }
+
     public double getDistrictObjectiveFunction(State state, District distict , AlgorithmType type){
         double perimeter = distict.getPerimeter(distict.getAllDPrecincts());
         double area = distict.getArea(distict.getAllDPrecincts());
         float ideaPop = state.calculateIdealPop(type);
+        double popScore;
+        double normalizedCompactnessScore = .45;
 
-        double popScore =(double) distict.calculatePopEqualScore(ideaPop);
-        double compactness = distict.calculatePolsbyPopper(area,perimeter);
+        double compactness = distict.calculatePolsbyPopper(area, perimeter)/normalizedCompactnessScore;;
+        if(type==AlgorithmType.SA) {
+            popScore = distict.calculatePopEqualScore(ideaPop);
+        }
+        else{
+            popScore =distict.calcuateRgPopScore(ideaPop);
+        }
 
         double weightedPopScore = weights.getPopulationEquality()*popScore;
         double weightedCompactness = weights.getCompactness()*compactness;
@@ -39,17 +62,35 @@ public class ObjectiveFunctionCalculator {
         Map<Integer,District> districtMap;
         List<Double> popscoreList = new ArrayList();
         List<Double> compactnessScoreList = new ArrayList<>();
+        double normalizedCompactnessScore = .45;
 
         if(type==AlgorithmType.RG){districtMap = state.getRgdistricts();}
         else{districtMap=state.getDefaultDistrict();}
 
         for(District d : districtMap.values()){
-            double area = d.getArea(d.getAllDPrecincts());
-            double perimeter = d.getPerimeter(d.getAllDPrecincts());
+            double compactnessScore;
             float ideaPop = state.calculateIdealPop(type);
-            double popScore =(double) d.calculatePopEqualScore(ideaPop);
-            double compactnessScore = d.calculatePolsbyPopper(area,perimeter);
+            double popScore;
 
+            //calculating compactness score
+            if(d.getAllDPrecincts().size() <= state.getAllPrecincts().size()*.05) // if there is not enough precincts the compactscore will be 1;
+                compactnessScore =1;
+            else {
+                double area = d.getArea(d.getAllDPrecincts());
+                double perimeter = d.getPerimeter(d.getAllDPrecincts());
+                compactnessScore = d.calculatePolsbyPopper(area, perimeter)/normalizedCompactnessScore;
+            }
+
+            // calculating popScore
+            if(type== AlgorithmType.SA){
+                popScore = d.calculatePopEqualScore(ideaPop);
+            }
+            else{
+                popScore = d.calcuateRgPopScore(ideaPop);
+            }
+
+            System.out.println("district: "+ d.getDistrictId()+" pop score: "+popScore);
+            System.out.println("district: "+ d.getDistrictId()+" compactnessScore: "+ compactnessScore);
             popscoreList.add(popScore);
             compactnessScoreList.add(compactnessScore);
         }
