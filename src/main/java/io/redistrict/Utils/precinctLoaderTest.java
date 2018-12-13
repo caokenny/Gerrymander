@@ -29,7 +29,7 @@ public class precinctLoaderTest {
         State mo = AppData.getState("MO");
         State co = AppData.getState("CO");
         State ks = AppData.getState("KS");
-        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(mo.getAllPrecincts().values(),1);
+        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(mo.getAllPrecincts().values(),13);
         Map<Integer,District> seedDistricts = District.makeSeedDistricts(seeds);
         mo.setRgdistricts(seedDistricts);
         mo.resetUnassignedPrecinctIds();
@@ -50,6 +50,8 @@ public class precinctLoaderTest {
         AlgorithmWeights weights = new AlgorithmWeights();
         weights.setCompactness(.5);
         weights.setPopulationEquality(1);
+        weights.setPartisanFairness(0);
+        weights.setEfficencyGap(.5);
         currentAlgorithm.getData().setWeights(weights);
 
 //

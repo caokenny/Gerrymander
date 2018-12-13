@@ -1,5 +1,6 @@
 package io.redistrict.Algorithm;
 
+import io.redistrict.Election.VoteData;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
@@ -20,45 +21,14 @@ public class ObjectiveFunctionCalculator {
         this.weights = weights;
     }
 
-    public double getTempPrecinctAdditionScore(State state, District district, Precinct additionPrecinct,AlgorithmType type){
-        district.addPrecinct(additionPrecinct,type); // add new precinct
-        double newObjFunctionScore = getDistrictObjectiveFunction(state,district,type);
-        district.removePrecinct(additionPrecinct,type); // remove that new precinct
-        return newObjFunctionScore;
-    }
-
-    public double getTempPrecinctsAdditionScore(State state, District district, List<Precinct> additionPrecincts, AlgorithmType type){
-        district.addPreinctList(additionPrecincts,type);
-        double newObjFunctionScore = getStateObjectiveFunction(state,type);
-        district.removePrecinctList(additionPrecincts,type);
-        return newObjFunctionScore;
-    }
-
-    public double getDistrictObjectiveFunction(State state, District distict , AlgorithmType type){
-        double perimeter = distict.getPerimeter(distict.getAllDPrecincts());
-        double area = distict.getArea(distict.getAllDPrecincts());
-        float ideaPop = state.calculateIdealPop(type);
-        double popScore;
-        double normalizedCompactnessScore = .45;
-
-        double compactness = distict.calculatePolsbyPopper(area, perimeter)/normalizedCompactnessScore;;
-        if(type==AlgorithmType.SA) {
-            popScore = distict.calculatePopEqualScore(ideaPop);
-        }
-        else{
-            popScore =distict.calcuateRgPopScore(ideaPop);
-        }
-
-        double weightedPopScore = weights.getPopulationEquality()*popScore;
-        double weightedCompactness = weights.getCompactness()*compactness;
-
-        return weightedCompactness+weightedPopScore;
-    }
 
     public double getStateObjectiveFunction(State state,AlgorithmType type){
 
         double compactnessWeight = weights.getCompactness();
         double popWeight = weights.getPopulationEquality();
+        double partisanWeight = weights.getPartisanFairness();
+        double effWeight =weights.getEfficencyGap();
+
         Map<Integer,District> districtMap;
         List<Double> popscoreList = new ArrayList();
         List<Double> compactnessScoreList = new ArrayList<>();
@@ -66,20 +36,17 @@ public class ObjectiveFunctionCalculator {
 
         if(type==AlgorithmType.RG){districtMap = state.getRgdistricts();}
         else{districtMap=state.getDefaultDistrict();}
-
+        System.out.println("IDEAL POP OF STATE IS: "+ state.calculateIdealPop(type));
         for(District d : districtMap.values()){
             double compactnessScore;
             float ideaPop = state.calculateIdealPop(type);
             double popScore;
 
             //calculating compactness score
-            if(d.getAllDPrecincts().size() <= state.getAllPrecincts().size()*.05) // if there is not enough precincts the compactscore will be 1;
-                compactnessScore =1;
-            else {
-                double area = d.getArea(d.getAllDPrecincts());
-                double perimeter = d.getPerimeter(d.getAllDPrecincts());
-                compactnessScore = d.calculatePolsbyPopper(area, perimeter)/normalizedCompactnessScore;
-            }
+            double area = d.getArea(d.getAllDPrecincts());
+            double perimeter = d.getPerimeter(d.getAllDPrecincts());
+            compactnessScore = d.calculatePolsbyPopper(area, perimeter)/normalizedCompactnessScore;
+
 
             // calculating popScore
             if(type== AlgorithmType.SA){
@@ -88,16 +55,35 @@ public class ObjectiveFunctionCalculator {
             else{
                 popScore = d.calcuateRgPopScore(ideaPop);
             }
-
-            System.out.println("district: "+ d.getDistrictId()+" pop score: "+popScore);
+            System.out.println("district: "+ d.getDistrictId()+" has population of: "+ d.getPopulation() +" with pop score: "+popScore);
             System.out.println("district: "+ d.getDistrictId()+" compactnessScore: "+ compactnessScore);
             popscoreList.add(popScore);
             compactnessScoreList.add(compactnessScore);
         }
         double popScoreAvg = getAverageScore(popscoreList);
         double compactnessScoreAvg = getAverageScore(compactnessScoreList);
-
-        return (compactnessWeight*compactnessScoreAvg)+(popScoreAvg*popWeight);
+        double efficencyScore= state.calculateEfficiencyGap(districtMap);
+        double partisanScore = state.calculatePartisanBias(districtMap);
+        System.out.println("___________________________________");
+        System.out.println("District vote data");
+        System.out.println("Total percentage of dem votes:" + (double)state.getTotalDemVotes()/state.getTotalVotes());
+        int demSeats=0;
+        for(District district : districtMap.values())
+        {
+            VoteData data = district.getVoteResult();
+            System.out.println("District: "+district.getDistrictId() + " rep votes: "+data.getRepVotes() + " dem votes: "+ data.getDemVotes());
+            if(data.getDemVotes() > data.getRepVotes()){
+             demSeats++;
+            }
+        }
+        System.out.println("Total dem seats won: " +demSeats);
+        System.out.println("Total rep sears won:" + (districtMap.size()-demSeats));
+        System.out.println("_____________________________________");
+        System.out.println("state level score, popScoreAvg: "+ popScoreAvg+ " compactnessScoreAvg: "+ compactnessScoreAvg+
+                " efficencyScore: "+ efficencyScore + " partisanScore: "+partisanScore);
+        double weightTotal = partisanWeight+compactnessWeight+effWeight+popWeight;
+        double objValue = (compactnessWeight*compactnessScoreAvg)+(popScoreAvg*popWeight)+ (partisanScore* partisanWeight) + (efficencyScore*effWeight);
+        return objValue/weightTotal; // normalized score
     }
     private double getAverageScore(List<Double> scores)
     {
