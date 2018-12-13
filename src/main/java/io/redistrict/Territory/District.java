@@ -24,7 +24,7 @@ public class District {
     private int numOfUnassignedNeighbors;
     private String seedPrecinctId;
     private static Properties properties = new Properties();
-
+    private VoteData voteData;
 
     public District(int districtId,Precinct startPrecinct){
         this.districtId = districtId;
@@ -103,8 +103,29 @@ public class District {
         }
         voteData.setDemVotes(demVotes);
         voteData.setRepVotes(repVotes);
+        this.voteData = voteData;
         return voteData;
     }
+    //*****************
+    //** Can use the below. Instead of getVoteResult iterating through all precincts everytime we call it, it will only return the voteData we set. (Faster runtime)
+    //*****************
+//    public VoteData getVoteResult(){
+//        return voteData;
+//    }
+//    public VoteData setVoteResult(){
+//        int demVotes = 0;
+//        int repVotes = 0;
+//        VoteData voteData = new VoteData();
+//        for(Precinct precinct : allDPrecincts.values()) {
+//            VoteData votes = precinct.getVoteData();
+//            demVotes+= votes.getDemVotes();
+//            repVotes+= votes.getRepVotes();
+//        }
+//        voteData.setDemVotes(demVotes);
+//        voteData.setRepVotes(repVotes);
+//        this.voteData = voteData;
+//        return voteData;
+//    }
 
     public void updateBorderPrecinctsForRg(Set<String> unassignedPrecinctIds) {
         borderRgPrecincts.clear();
@@ -189,6 +210,7 @@ public class District {
             e.printStackTrace();
         }
     }
+
     public double calculateSchwartzberg(double area, double perimeter) {
         // equalAreaRadius = r = sqrt(A/PI)
         double r = Math.sqrt(area/Math.PI);
@@ -214,6 +236,7 @@ public class District {
             return (1-(difference/idealPop));
         }
     }
+
 
     public float calculatePopEqualScore(float idealPop) {
         float score = 1;
@@ -245,7 +268,6 @@ public class District {
         }
         return score;
     }
-
     public static Map<Integer, District> makeSeedDistricts(Collection<Precinct> precincts){
         int districtID=1;
         Map<Integer,District> seedDistricts = new LinkedHashMap<>();
