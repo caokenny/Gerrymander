@@ -35,8 +35,8 @@ public class State {
         setTotalVotes();
     }
     public void setTotalVotes(){
-        for(District d : defaultDistrict.values()){
-            VoteData data = d.getVoteResult();
+        for(Precinct p : allPrecincts.values()){
+            VoteData data = p.getVoteData();
             totalDemVotes += data.getDemVotes();
             totalRepVotes += data.getRepVotes();
             totalVotes = totalVotes + totalRepVotes + totalDemVotes;
@@ -74,7 +74,7 @@ public class State {
         //This is in terms of Democratic party.
         //So if answer returned is 0.02, then there is a 2% partisan bias TOWARDS the Democratic party.
         //If answer is -0.02, then there is a 2% partisan bias AGAINST the Democratic party
-        return percentDemSeatsWon - demPercentage;
+        return 1-Math.abs(percentDemSeatsWon - demPercentage);
     }
     public double calculateEfficiencyGap(Map<Integer,District> districts){
         int totalDemWastedVotes = 0;
@@ -83,7 +83,7 @@ public class State {
             //Find out what is votes needed to win.
             VoteData data = d.getVoteResult();
             int totalVotes =  data.getDemVotes() + data.getRepVotes();
-            int votesNeedToWin = totalVotes / 2 + 1;
+            int votesNeedToWin = (totalVotes / 2) + 1;
             if(data.getDemVotes() > data.getRepVotes()){
                 //Dem party wins. all of reps is wasted
                 totalRepWastedVotes += data.getRepVotes();
@@ -95,7 +95,7 @@ public class State {
             }
         }
         int demNetWastedVotes = totalDemWastedVotes - totalRepWastedVotes;
-        double efficiencyGap = demNetWastedVotes / totalVotes;
+        double efficiencyGap = 1-Math.abs(demNetWastedVotes / totalVotes);
         //If efficiency gap is 0.2, then that means it is 20% in FAVOR of Republicans. +20% Republicans
         //If efficiency gap is -0.2, then that means it is 20% in FAVOR of Democrats. +20% Democrats.
         return efficiencyGap;
