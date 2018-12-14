@@ -208,7 +208,7 @@ $('#updateButton').on('click', function () {
 });
 
 var paused = false;
-
+var summaryBox = $('#summaryBox');
 $('#runButton').on('click', function () {
     $('#pauseButton').css("display", "block");
     $('#stopButton').css("display", "block");
@@ -220,19 +220,39 @@ $('#runButton').on('click', function () {
     var partisanFariness = $('#partisanFairnessSlider').val();
     var efficencyGap = $('#efficiencyGapSlider').val();
     var measuresObj = {"compactness" : compactness, "populationEquality" : population, "partisanFairness" : partisanFariness, "efficencyGap" : efficencyGap, "algorithm" : algorithmChoice, "stateAbbrv" : stateSelected};
-    $.ajax({
-        url: "/rg/do10Rg",
-        type: "POST",
-        async: true,
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(measuresObj),
-        success: function (data) {
-            if (data.updates.length !== 0) {
-                updatePrecinctVisual(data);
+    if (algorithmChoice === "sa") {
+        $.ajax({
+            url: "setWeights",
+            type: "POST",
+            async: true,
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(measuresObj),
+            success: function (data) {
+                console.log(data);
+                continueAlgorithm()
+            },
+            error: function (e) {
+                var json = "Ajax Response" + e.responseText;
+                summaryBox.val(summaryBox.val() + json);
+                console.log("ERROR : ", e);
             }
-        }
-    })
+        })
+    } else {
+        $.ajax({
+            url: "/rg/do10Rg",
+            type: "POST",
+            async: true,
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(measuresObj),
+            success: function (data) {
+                if (data.updates.length !== 0) {
+                    updatePrecinctVisual(data);
+                }
+            }
+        })
+    }
 });
 
 var precinctMove;
@@ -245,9 +265,9 @@ function updatePrecinctVisual(response) {
             }
         });
     }
-    if (!paused) {
-        $('#runButton').trigger('click');
-    }
+    // if (!paused) {
+    //     $('#runButton').trigger('click');
+    // }
 }
 
 
@@ -256,6 +276,39 @@ $('#pauseButton').on('click', function () {
     $('#runButton').css("display", "block");
     paused = true;
 });
+var stopAlgorithm = false;
+var mycount = 0;
+function continueAlgorithm() {
+    var countObj = {counter: 0};
+    $.ajax({
+        type: "POST",
+        url: "/continueAlgorithm",
+        contentType: "application/json",
+        data: JSON.stringify(countObj),
+        dataType: 'json',
+        cache: false,
+        success: function (data) {
+            mycount++;
+            console.log(mycount);
+            for (move in data) {
+                console.log(move); // logs state and updates
+                // updatePrecinctVisual(move);
+            }
+            console.log(data);
+            updatePrecinctVisual(data);
+            var response = JSON.stringify(data, null, 4);
+            summaryBox.val(summaryBox.val() + "\n" + response);
+            console.log("SUCCESS : ", response);
+            if (data.updates.length === 0)
+                stopAlgorithm = true;
+            if (!stopAlgorithm)
+                continueAlgorithm();
+            else
+                return;
+        }
+    });
+}
+
 
 // var summaryBox = $('#summaryBox');
 // $('#runButton').click(function () {

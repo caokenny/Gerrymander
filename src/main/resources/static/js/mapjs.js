@@ -208,7 +208,7 @@ $('#updateButton').on('click', function () {
 });
 
 var paused = false;
-
+var summaryBox = $('#summaryBox');
 $('#runButton').on('click', function () {
     $('#pauseButton').css("display", "block");
     $('#stopButton').css("display", "block");
