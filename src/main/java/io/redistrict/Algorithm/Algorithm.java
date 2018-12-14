@@ -18,6 +18,7 @@ public class Algorithm {
 
     private static Properties properties = new Properties();
     private AlgorithmData data = new AlgorithmData();
+    private static int badMoves = 0;
 
     public MoveUpdater do10RgIteration(){
         State state = data.getWorkingState();
@@ -217,7 +218,6 @@ public class Algorithm {
         return  updater;
     }
     public Stack<Move> run10SA(){
-        int badMoves = 0;
         int count = 0;
         State s = data.getWorkingState();
         int max_bad_move = Integer.parseInt(properties.getProperty("max_bad_moves"));
