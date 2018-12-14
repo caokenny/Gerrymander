@@ -80,6 +80,9 @@ public class District {
             throw new NullPointerException("You are trying to remove precinct number "+ precinct.getGeoID10() +" that doesnt" +
                     "exist in this districts (allDPreinct List)");
         }
+//        allDPrecincts.remove(precinct);
+//        the above code DID NOT REMOVE THE PRECINCT
+        allDPrecincts.remove(precinct.getGeoID10());
         population -= precinct.getPopulation();
         if(type == AlgorithmType.SA) {
             if (precinct.isBorder()) {
@@ -106,26 +109,6 @@ public class District {
         this.voteData = voteData;
         return voteData;
     }
-    //*****************
-    //** Can use the below. Instead of getVoteResult iterating through all precincts everytime we call it, it will only return the voteData we set. (Faster runtime)
-    //*****************
-//    public VoteData getVoteResult(){
-//        return voteData;
-//    }
-//    public VoteData setVoteResult(){
-//        int demVotes = 0;
-//        int repVotes = 0;
-//        VoteData voteData = new VoteData();
-//        for(Precinct precinct : allDPrecincts.values()) {
-//            VoteData votes = precinct.getVoteData();
-//            demVotes+= votes.getDemVotes();
-//            repVotes+= votes.getRepVotes();
-//        }
-//        voteData.setDemVotes(demVotes);
-//        voteData.setRepVotes(repVotes);
-//        this.voteData = voteData;
-//        return voteData;
-//    }
 
     public void updateBorderPrecinctsForRg(Set<String> unassignedPrecinctIds) {
         borderRgPrecincts.clear();
@@ -353,7 +336,7 @@ public class District {
     public Move moveLargestBorderPrec(){
         Precinct p = getLargestBorderPrec();
         Precinct pNeighbor = p.getRandomNeighbor();
-        while(!pNeighbor.isBorder())
+        while(!pNeighbor.isBorder() || pNeighbor.getParentDistrictID() == p.getParentDistrictID())
             pNeighbor = p.getRandomNeighbor();
         // Move the largest border precint to a neighboring district
         return new Move(p, p.getParentDistrictID(), pNeighbor.getParentDistrictID());

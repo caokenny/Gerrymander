@@ -173,6 +173,10 @@ public class State {
             return (float)population/defaultDistrict.size();
     }
 
+    public Map<District, Float> getPopScores() {
+        return popScores;
+    }
+
     public double getDistrictScore(District d){
         return popScores.get(d);
     }
@@ -284,6 +288,12 @@ public class State {
                 dist = d;
         }
         return dist;
+    }
+    public float getTotalPopScore() {
+        float totalPopScore = 0;
+        for (Float f : popScores.values())
+            totalPopScore += f;
+        return totalPopScore;
     }
     public VoteData getStateVoteResult(boolean isDefault)
     {
