@@ -63,7 +63,6 @@ public class District {
 //        }
 //        return newDistrictShape.getLength();
 //    }
-    
     public District(int districtId,Precinct startPrecinct){
         this.districtId = districtId;
         this.population= startPrecinct.getPopulation();
