@@ -25,7 +25,45 @@ public class District {
     private String seedPrecinctId;
     private static Properties properties = new Properties();
     private VoteData voteData;
+    private Geometry districtGeoemtry;
 
+//    UNCOMMENT BELOW
+//    public void setNewDistrictGeometry(Precinct precinct){
+//        Feature feature = (Feature) GeoJSONFactory.create(precinct.getGeoJsonString());
+//        GeoJSONReader reader = new GeoJSONReader();
+//        Geometry precinctGeometry = reader.read(feature.getGeometry());
+//        districtGeoemtry = districtGeoemtry.union(precinctGeometry);
+//    }
+//    public double newGetArea(Precinct precinct, boolean remove){
+//        // parse Geometry from Feature
+//
+//        Feature feature = (Feature) GeoJSONFactory.create(precinct.getGeoJsonString());
+//
+//        GeoJSONReader reader = new GeoJSONReader();
+//        Geometry newDistrictShape;
+//        Geometry precinctGeometry = reader.read(feature.getGeometry());
+//        if(remove == true) {
+//            newDistrictShape = districtGeoemtry.union(precinctGeometry);
+//        }
+//        else{
+//            newDistrictShape = districtGeoemtry.symDifference(precinctGeometry);
+//        }
+//        return newDistrictShape.getArea();
+//    }
+//    public double newGetPerimeter(Precinct precinct, boolean remove){
+//        Feature feature = (Feature) GeoJSONFactory.create(precinct.getGeoJsonString());
+//        GeoJSONReader reader = new GeoJSONReader();
+//        Geometry newDistrictShape;
+//        Geometry precinctGeometry = reader.read(feature.getGeometry());
+//        if(remove == true) {
+//            newDistrictShape = districtGeoemtry.union(precinctGeometry);
+//        }
+//        else{
+//            newDistrictShape = districtGeoemtry.symDifference(precinctGeometry);
+//        }
+//        return newDistrictShape.getLength();
+//    }
+    
     public District(int districtId,Precinct startPrecinct){
         this.districtId = districtId;
         this.population= startPrecinct.getPopulation();
@@ -37,6 +75,23 @@ public class District {
         if(startPrecinct.getNeighbors() !=null)
             this.numOfUnassignedNeighbors = startPrecinct.getNeighbors().size();
         this.seedPrecinctId = startPrecinct.getGeoID10();
+
+
+//        UNCOMMENT BELOW
+//        ArrayList<Feature> featureList = new ArrayList<>();
+//        for(Precinct precinct : allDPrecincts.values()){
+//            Feature feature = (Feature) GeoJSONFactory.create(precinct.getGeoJsonString());
+//            featureList.add(feature);
+//        }
+//        GeoJSONReader reader = new GeoJSONReader();
+//        ArrayList<Geometry> precinctGeometries = new ArrayList<Geometry>();
+//        for(Feature feature : featureList){
+//            Geometry precinctGeometry = reader.read(feature.getGeometry());
+//            precinctGeometries.add(precinctGeometry);
+//        }
+//        GeometryFactory geoFac = new GeometryFactory();
+//        GeometryCollection geometryCollection = (GeometryCollection) geoFac.buildGeometry(precinctGeometries);
+//        districtGeoemtry = geometryCollection.union();
     }
 
     public int getDistrictId() {
