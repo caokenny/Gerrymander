@@ -122,11 +122,10 @@ public class State {
     }
 
     public boolean acceptBadMove(double oldScore, double newScore,double acceptConstant){
-        double exponent = (newScore - oldScore) / acceptConstant;
-        double acceptProb = Math.pow(Math.E, exponent);
+        double exponent = Math.abs(newScore - oldScore) / acceptConstant;
+        double acceptProb = Math.pow(Math.E, exponent); // smaller = better
         Random rand = new Random();
         int randomNum = rand.nextInt(100) / 100;
-        acceptConstant *= 0.8;
         if(randomNum > acceptProb)
             return true;
         return false;
