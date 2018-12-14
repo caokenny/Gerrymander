@@ -98,7 +98,17 @@ public class AlgorithmController {
 
     @PostMapping(value = "/setWeights")
     public String setWeights( @RequestBody AlgorithmWeights wts) {
+        alg = new Algorithm();
+        data = new AlgorithmData();
+        alg.setData(data);
         data.setWeights(wts);
+        State state = AppData.getState(wts.getStateAbbrv().toUpperCase());
+        state.initPopScores();
+
+        data.setWorkingState(state);
+        AppData.setCurrentAlgorithm(alg);
+        data.setType(AlgorithmType.SA);
+
         System.out.println(data);
         JSONObject item = new JSONObject();
         item.put("success", "Weights successfully set");
