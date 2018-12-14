@@ -57,6 +57,7 @@ public class precinctLoaderTest {
         weights.setPopulationEquality(0);
         weights.setPartisanFairness(0);
         weights.setEfficencyGap(1);
+        weights.setVariance(false);
         currentAlgorithm.getData().setWeights(weights);
 
 //

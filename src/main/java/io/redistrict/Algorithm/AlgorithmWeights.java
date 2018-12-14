@@ -7,6 +7,7 @@ public class AlgorithmWeights {
     private double efficencyGap;
     private String algorithm;
     private String stateAbbrv; // THIS HAS TO BE ALL CAPS
+    private boolean variance;
 
     public double getCompactness() {
         return compactness;
@@ -54,6 +55,14 @@ public class AlgorithmWeights {
 
     public void setStateAbbrv(String stateAbbrv) {
         this.stateAbbrv = stateAbbrv;
+    }
+
+    public boolean isVariance() {
+        return variance;
+    }
+
+    public void setVariance(boolean variance) {
+        this.variance = variance;
     }
 
     @Override

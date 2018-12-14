@@ -30,7 +30,7 @@ public class Algorithm {
         ObjectiveFunctionCalculator calculator = new ObjectiveFunctionCalculator();
         calculator.setWeights(data.getWeights());
 
-        while (!state.getUnassignedPrecinctIds().isEmpty() && iterationsDone <100){
+        while (!state.getUnassignedPrecinctIds().isEmpty() && iterationsDone <maxIteration){
             // IF ONLY 1 DISTRICT THEN WE ASSIGN ALL TO IT
             if(rgDistricts.size() == 1){
                 District district = rgDistricts.values().iterator().next();
@@ -39,7 +39,9 @@ public class Algorithm {
                 return updater;
             }
             //ELSE
-            District rgDistrict = getLowestPopDistrict(rgDistricts);
+            District rgDistrict;
+            if(data.getWeights().isVariance()){ rgDistrict= getLowestPopDistrict(rgDistricts);}
+            else{ rgDistrict= getRandomDistrict(rgDistricts);}
 
             if(rgDistrict.getBorderRgPrecincts().size() == 0) {
                 rgDistricts.remove(rgDistrict.getDistrictId());
@@ -205,6 +207,7 @@ public class Algorithm {
         int max_bad_move = Integer.parseInt(properties.getProperty("max_bad_moves"));
         double constantMultiplier = Double.parseDouble(properties.getProperty("constant_multiplier"));
 
+
         while(badMoves < max_bad_move && count < 10){
             District d = s.getLowestPopScoreDistrict();
             int distOldPop = d.getPopulation();
@@ -244,4 +247,11 @@ public class Algorithm {
         }
         return s.getMoves();
     }
+
+    public District getRandomDistrict(Map<Integer,District> rgDistricts){
+        List<District> districts = new ArrayList<>(rgDistricts.values());
+        int random = (int)(Math.random()*rgDistricts.size());
+        return districts.get(random);
+    }
+
 }
