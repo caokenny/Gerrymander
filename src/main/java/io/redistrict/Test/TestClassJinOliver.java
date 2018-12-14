@@ -31,7 +31,7 @@ public class TestClassJinOliver {
         AlgorithmWeights weights = new AlgorithmWeights();
         data.setWeights(weights);
 
-        State state = AppData.getState("CO"); //ENTER YOUR STATE NAME HERE
+        State state = AppData.getState("KS"); //ENTER YOUR STATE NAME HERE
         data.setWorkingState(state);
 
         //RUN ALG AFTER THIS (ex- algorithm.run10sa()) and check if it ran correctly
@@ -43,5 +43,11 @@ public class TestClassJinOliver {
         Stack<Move> moves = algorithm.run10SA();
         for(Move m : moves)
             System.out.println(m);
+        while(!moves.isEmpty()) {
+            moves.clear();
+            moves = algorithm.run10SA();
+            for (Move m : moves)
+                System.out.println(m);
+        }
     }
 }

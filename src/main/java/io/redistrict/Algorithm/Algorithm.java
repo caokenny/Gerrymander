@@ -24,6 +24,9 @@ public class Algorithm {
         Map<Integer,District> rgDistricts= new LinkedHashMap<>(state.getRgdistricts());
         List<MoveUpdate> updates = new ArrayList<>();
         int iterationsDone = 0;
+        int maxIteration = (state.getAllPrecincts().size()/100);
+        ObjectiveFunctionCalculator calculator = new ObjectiveFunctionCalculator();
+        calculator.setWeights(data.getWeights());
 
         while (!state.getUnassignedPrecinctIds().isEmpty() && iterationsDone <10){
             // IF ONLY 1 DISTRICT THEN WE ASSIGN ALL TO IT
@@ -31,65 +34,47 @@ public class Algorithm {
                 District district = rgDistricts.values().iterator().next();
                 System.out.println("LAST MOVE, rgdistrictId: "+district.getDistrictId() + " num of precinct to be assigned on last move: "+ state.getUnassignedPrecinctIds().size());
                 MoveUpdater updater = assignAll(district,state);
+                System.out.println("state current score score is: "+ calculator.getStateObjectiveFunction(state,AlgorithmType.RG));
                 return updater;
             }
             //ELSE
             District rgDistrict = getLowestPopDistrict(rgDistricts);
-            rgDistrict.updateBorderPrecinctsForRg(state.getUnassignedPrecinctIds());
-            if(rgDistrict.getBorderRgPrecincts().size() == 0/*rgDistrict.getNumOfUnassignedNeighbors() == 0*/) {
+
+            if(rgDistrict.getBorderRgPrecincts().size() == 0) {
                 rgDistricts.remove(rgDistrict.getDistrictId());
                 continue;
             }
             Precinct rgPrecinct = selectRgAdditionPrecinct(rgDistrict,state);
 
+            if(rgPrecinct == null){
+                rgDistrict.updateBorderPrecinctsForRg(state.getUnassignedPrecinctIds()); // only update borderprecincts when old neighbors are gone
+                iterationsDone++;
+                continue;
+            }
+
             Move move = new Move(rgPrecinct,-1,rgDistrict.getDistrictId());
             state.executeRgMove(move);
 
             state.removeFromUnassignedIds(rgPrecinct.getGeoID10());
-            //  rgDistrict.updateBorderPrecinctsForRg(state.getUnassignedPrecinctIds());
 
             updates.add(new MoveUpdate(move.getSrcDistrictID(),move.getDstDistrictID(),move.getPrecinct().getGeoID10()));
 
-            System.out.println("district: "+rgDistrict.getDistrictId() +" num of border precincts: " + rgDistrict.getBorderRgPrecincts().size());
-            System.out.println("num of unassigned precincts left: "+ state.getUnassignedPrecinctIds().size());
-            System.out.println("num of rgDistrictsLeft: "+rgDistricts.size());
-            System.out.println("______________________________________________________");
+//            System.out.println("district: "+rgDistrict.getDistrictId() +" num of border precincts: " + rgDistrict.getBorderRgPrecincts().size());
+//            System.out.println("num of unassigned precincts left: "+ state.getUnassignedPrecinctIds().size());
+//            System.out.println("num of rgDistrictsLeft: "+rgDistricts.size());
+//            System.out.println("______________________________________________________");
+            System.out.println("num of unassigned left: "+state.getUnassignedPrecinctIds().size());
             iterationsDone++;
         }
-
+        if(state.getUnassignedPrecinctIds().isEmpty())
+        {
+            System.out.println("state current score score is: "+ calculator.getStateObjectiveFunction(state,AlgorithmType.RG));
+        }
         MoveUpdater updater = new MoveUpdater();
         updater.setUpdates(updates);
         return updater;
     }
 
-
-
-    public State startRg(Set<Precinct> seeds, String stateName){
-        State state = makeRgState(seeds,stateName);
-        Map<Integer,District> possibleDistricts = new LinkedHashMap<>(state.getRgdistricts());
-        while (!state.getUnassignedPrecinctIds().isEmpty()) {
-            District rgDistrict = getLowestPopDistrict(possibleDistricts);
-            Precinct rgPrecinct = selectRgAdditionPrecinct(rgDistrict, state);
-            state.removeFromUnassignedIds(rgPrecinct.getGeoID10());
-            Move move = new Move(rgPrecinct,-1,rgDistrict.getDistrictId());
-            state.executeRgMove(move);
-            if(rgDistrict.getNumOfUnassignedNeighbors()== 0){
-                possibleDistricts.remove(rgDistrict.getDistrictId());
-            }
-        }
-        return state;
-    }
-
-    private State makeRgState(Set<Precinct> seeds , String stateName){
-        State state = AppData.getState(stateName.toUpperCase());
-        Map<Integer,District> seedDistricts = makeSeedDistricts(seeds);
-        Set<String> allPrecinctIds = state.getAllPrecincts().keySet();
-        Set<String> initUnassignedPrecincts = getInitUnassignedPrecinctIds(seeds,allPrecinctIds);
-        state.setRgdistricts(seedDistricts);
-        state.setUnassignedPrecinctIds(initUnassignedPrecincts);
-        return state;
-
-    }
 
     private Map<Integer, District> makeSeedDistricts(Set<Precinct> seeds){
         int startDistrictId=1;
@@ -122,11 +107,90 @@ public class Algorithm {
     }
 
     private Precinct selectRgAdditionPrecinct(District district, State state) {
-        List<Precinct> borderPrecincts = district.getBorderRgPrecincts(state.getUnassignedPrecinctIds());
+
+        double compactnessWeight = data.getWeights().getCompactness();
+        List<Precinct> borderPrecincts ;
+
+        // SHOW UPDATED BORDERS OR NOT BASED ON COMPACTNESS WEIGHT;
+        if(Math.random()>compactnessWeight){
+            borderPrecincts = district.getBorderRgPrecincts(state.getUnassignedPrecinctIds());
+        }
+        else{
+            borderPrecincts = district.getBorderRgPrecincts();
+        }
+
         Set<Precinct> unassignedNeighbors = NeighborFinder.findUnassignedNeighbors
                 (state.getAllPrecincts(),state.getUnassignedPrecinctIds(),borderPrecincts);
-        return PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
+
+        if(unassignedNeighbors.size()==0){return null;}
+        if(unassignedNeighbors.size()==1) {return unassignedNeighbors.iterator().next();}
+
+        int maxNumOfPossible =(int)(unassignedNeighbors.size()*.9);
+        int tried = 0;
+
+        Precinct resultCanidate = PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
+        double bestScore = getTempObjectiveScore(state,district, resultCanidate,AlgorithmType.RG);
+
+        while(tried<=maxNumOfPossible){
+            Precinct potentialPrecinct =  PrecinctSelector.selectRandomPrecinct(unassignedNeighbors);
+            double newScore = getTempObjectiveScore(state,district,potentialPrecinct,AlgorithmType.RG);
+            if(newScore >bestScore){ // GET BEST PRECINCT THAT IMPROVES SCORE
+                bestScore= newScore;
+                resultCanidate= potentialPrecinct;
+            }
+            tried++;
+        }
+        return resultCanidate;
     }
+
+    private double getCurrentStateScore(State state,AlgorithmType type){
+        double popScoreWeight = data.getWeights().getPopulationEquality();
+        double partianFairnessWeight = data.getWeights().getPartisanFairness();
+        double efficiencyGapWeight = data.getWeights().getEfficencyGap();
+        double popScore = state.getAverageStatePopScore(type);
+        double efficiencyGapScore;
+        double partisanFairness;
+        Map<Integer, District> districtMap;
+
+        if(type ==AlgorithmType.SA){ districtMap = state.getDefaultDistrict();}
+        else{ districtMap = state.getRgdistricts();}
+
+        partisanFairness = state.calculatePartisanBias(districtMap);
+        efficiencyGapScore = state.calculateEfficiencyGap(districtMap);
+
+        return (popScore*popScoreWeight) + (efficiencyGapScore*efficiencyGapWeight) + (partianFairnessWeight*partisanFairness);
+    }
+
+    private double getTempObjectiveScore(State state, District district , Precinct precinct,AlgorithmType type){
+        double popScoreWeight = data.getWeights().getPopulationEquality();
+        double partianFairnessWeight = data.getWeights().getPartisanFairness();
+        double efficiencyGapWeight = data.getWeights().getEfficencyGap();
+        double idealPop = state.calculateIdealPop(type);
+        double popScore;
+        double efficiencyGapScore;
+        double partisanFairness;
+        Map<Integer, District> districtMap;
+
+        district.addPrecinct(precinct,type); // add the precinct to district to test new score
+
+        if(type == AlgorithmType.SA){
+            districtMap = state.getDefaultDistrict();
+            popScore= state.getAverageStatePopScore(AlgorithmType.SA);
+        }
+        else{
+            districtMap = state.getRgdistricts();
+            popScore = district.calcuateRgPopScore(idealPop);
+        }
+
+        partisanFairness = state.calculatePartisanBias(districtMap);
+        efficiencyGapScore = state.calculateEfficiencyGap(districtMap);
+        district.removePrecinct(precinct,type);
+
+        return (popScore*popScoreWeight) + (efficiencyGapScore*efficiencyGapWeight) + (partianFairnessWeight*partisanFairness);
+    }
+
+
+
     public static void loadDefaultProperties(){
         InputStream aStream = Algorithm.class.getClassLoader().getResourceAsStream("algorithms.properties");
         try{
@@ -164,27 +228,36 @@ public class Algorithm {
             District d = s.getLowestPopScoreDistrict();
             int distOldPop = d.getPopulation();
             double oldScore = s.getDistrictScore(d);
+            double oldtotalPopScore = s.getTotalPopScore();
             Move move = d.moveLargestBorderPrec();
             Precinct modifiedPrecinct = move.getPrecinct();
             modifiedPrecinct.setParentDistrictID(move.getDstDistrictID());
             District srcDistrict = s.getDefaultDistrict().get(move.getSrcDistrictID());
             District dstDistrict =s.getDefaultDistrict().get(move.getDstDistrictID());
-            srcDistrict.removePrecinct(modifiedPrecinct);
+            srcDistrict.removePrecinct(modifiedPrecinct,AlgorithmType.SA);
             dstDistrict.addPrecinct(modifiedPrecinct,AlgorithmType.SA);
             int distNewPop = d.getPopulation();
+//            double newScore = s.getDistrictScore(d);
+            s.updatePopulationEqualityMeasure(move, data.getType());
             double newScore = s.getDistrictScore(d);
-            if(distOldPop > distNewPop){
+//            if(newScore > oldScore){
+//                s.addToMoveStack(move);
+//            }
+//            with the above if statement a precinct can be traded back and forth between two districts and
+//            the newScore > oldScore always
+            if(s.getTotalPopScore() > oldtotalPopScore) {
                 s.addToMoveStack(move);
             }
             else{
-                badMoves++; // THIS MIGHT NEED TO BE SWAPPED TO SOMEWHERE ELSE(UNDER S.UNDOLASTMove())
                 boolean acceptBadMove = s.acceptBadMove(oldScore, newScore, accecptanceConstant);
                 if(acceptBadMove){
                     s.addToMoveStack(move);
                 }
-                else
+                else {
                     s.undoLastMove(move);
-                accecptanceConstant *= constantMultiplier;
+                    badMoves++; // THIS MIGHT NEED TO BE SWAPPED TO SOMEWHERE ELSE(UNDER S.UNDOLASTMove())
+                    accecptanceConstant *= constantMultiplier;
+                }
             }
             count++;
         }
