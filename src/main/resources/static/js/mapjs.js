@@ -67,6 +67,7 @@ var zoomLevel;
 var stateSelected;
 
 function zoomState(bounds, geoObj, stateName) {
+    // $('#compactnessSlider').val("100");
     stateSelected = geoObj.options.abbr;
     if (!onStateAlready) {
         onStateAlready = true;
@@ -180,31 +181,46 @@ $('.homeBtn').on('click', function () {
 
 var seed;
 $('#updateButton').on('click', function () {
-    $.ajax({
-        url: "/rg/pickrgseed",
-        async: true,
-        // dataType: "json",
-        type: "POST",
-        // contentType: "application/json",
-        data: {"stateName" : stateSelected, "seedNum" : 5},
-        success: function (response) {
-            precinctLayer.setStyle(function () {
-                return {fillColor: "white"};
-            });
-            var jsonStr = JSON.parse(response);
-            console.log(response);
-            for (var i = 0; i < jsonStr.seeds.length; i++) {
-                seed = jsonStr.seeds[i];
-                console.log(seed);
-                precinctLayer.setStyle(function (feature) {
-                    if (feature.properties.GEOID10 === seed.precinctGeoId) {
-                        return {fillColor: colors["0" + seed.districtID]};
-                    }
+    if ($('#algorithmChoice').val() === "-1") {
+        alert("Please select an algorithm");
+    } else {
+        $('#runButton').prop("disabled", false);
+        $.ajax({
+            url: "/rg/pickrgseed",
+            async: true,
+            // dataType: "json",
+            type: "POST",
+            // contentType: "application/json",
+            data: {"stateName": stateSelected, "seedNum": 5},
+            success: function (response) {
+                precinctLayer.setStyle(function () {
+                    return {fillColor: "white"};
                 });
-            }
+                var jsonStr = JSON.parse(response);
+                console.log(response);
+                for (var i = 0; i < jsonStr.seeds.length; i++) {
+                    seed = jsonStr.seeds[i];
+                    console.log(seed);
+                    precinctLayer.setStyle(function (feature) {
+                        if (feature.properties.GEOID10 === seed.precinctGeoId) {
+                            return {fillColor: colors["0" + seed.districtID]};
+                        }
+                    });
+                }
 
-        }
-    })
+            }
+        })
+    }
+});
+
+$('#algorithmChoice').change(function () {
+    var algorithm = $('#algorithmChoice').val();
+    if (algorithm === "rg") {
+        $('#runButton').prop("disabled", true);
+        $('#updateButton').prop("disabled", false);
+    } else {
+        $('#updateButton').prop("disabled", true);
+    }
 });
 
 var paused = false;
@@ -265,9 +281,9 @@ function updatePrecinctVisual(response) {
             }
         });
     }
-    // if (!paused) {
-    //     $('#runButton').trigger('click');
-    // }
+    if (!paused) {
+        $('#runButton').trigger('click');
+    }
 }
 
 

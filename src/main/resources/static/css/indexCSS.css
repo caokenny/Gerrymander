@@ -89,7 +89,7 @@ html, body {
 
 .measureSliderTitle {
     color: white;
-    margin: auto;
+    /*margin: auto;*/
     text-align: center;
     padding-top: 10px;
 }
@@ -250,6 +250,7 @@ output {
     font-size: .8em;
     line-height: 24px;
     text-align: center;
+    bottom: 50px;
 }
 
 input[type=range]:active + output {
@@ -302,5 +303,9 @@ input[type=range]:active + output {
 
 #runButton {
     margin-right: 100px;
+}
+
+:disabled {
+    background-color: gray;
 }
 
