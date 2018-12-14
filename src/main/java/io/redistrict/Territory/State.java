@@ -12,14 +12,15 @@ public class State {
     private int population;
     private String stateName;
     private Map<Integer, District> rgdistricts;
-    private Map<Integer, ElectionData> districtVoteResults;
-    private Map<Party, Integer> stateElectionResult;
+
     private Stack<Move> moves = new Stack<Move>();
     private Map<String, Precinct> allPrecincts;
     private Set<String> unassignedPrecinctIds;
     private Map<District, Float> popScores = new LinkedHashMap<>();
     private Map<Integer,District> defaultDistrict;
-
+    private int totalVotes; // these values have to be long becuase of overflow!
+    private int totalDemVotes;
+    private int totalRepVotes;
 
     public State(State state){
         //if u want rgdistricts set it urself
@@ -30,6 +31,30 @@ public class State {
         this.allPrecincts= new LinkedHashMap<>(state.getAllPrecincts());
         // THIS MIGHT BE REMOVED LATER
         this.defaultDistrict = new LinkedHashMap<>(state.getDefaultDistrict());
+        this.totalVotes=0;
+        this.totalDemVotes=0;
+        this.totalRepVotes=0;
+        setTotalVotes();
+    }
+    public void setTotalVotes(){
+        int pop = 0;
+        int over=0;
+        for(Precinct p : allPrecincts.values()){
+            VoteData data = p.getVoteData();
+            pop += p.getPopulation();
+            if(data.getDemVotes()<0 || data.getRepVotes()<0)
+            {
+                throw new NullPointerException("-NEGATIVE VOTES");
+            }
+            if(p.getPopulation() < data.getRepVotes()+data.getDemVotes())
+            {
+                over++;
+            }
+            totalDemVotes += data.getDemVotes();
+            totalRepVotes += data.getRepVotes();
+            int total = data.getDemVotes() + data.getRepVotes();
+            totalVotes+= total;
+        }
     }
     public State(String name, Map<String,Precinct> allPrecincts){
         this.stateName=name;
@@ -47,7 +72,49 @@ public class State {
         return total;
     }
 
+    public double calculatePartisanBias(Map<Integer, District> districts){
+        long numDemSeats = 0;
+        int numDistrict = districts.size();
+        double demPercentage = ((double)(totalDemVotes)) / totalVotes;
+        for(District d : districts.values()){
+            VoteData data = d.getVoteResult();
+            if(data.getDemVotes() > data.getRepVotes()){
+                numDemSeats++;
+            }
+        }
+        //This is in terms of Democratic party.
+        //So if answer returned is 0.02, then there is a 2% partisan bias TOWARDS the Democratic party.
+        //If answer is -0.02, then there is a 2% partisan bias AGAINST the Democratic party
+        double percentDemSeatsWon = ((double)numDemSeats) / numDistrict;
+        return 1-Math.abs(percentDemSeatsWon - demPercentage);
+    }
+    public double calculateEfficiencyGap(Map<Integer,District> districts){
+        int totalDemWastedVotes = 0;
+        int totalRepWastedVotes = 0;
+        int total = 0;
+        for(District d : districts.values()){
+            //Find out what is votes needed to win.
+            VoteData data = d.getVoteResult();
+            total +=  (data.getDemVotes() + data.getRepVotes());
 
+            int districtTotalVotes = data.getDemVotes()+data.getRepVotes();
+            int votesNeedToWin = (districtTotalVotes / 2) + 1;
+            if(data.getDemVotes() > data.getRepVotes()){
+                //Dem party wins. all of reps is wasted
+                totalRepWastedVotes += data.getRepVotes();
+                totalDemWastedVotes = totalDemWastedVotes + (data.getDemVotes() - votesNeedToWin);
+            }
+            else{
+                totalDemWastedVotes += data.getDemVotes();
+                totalRepWastedVotes = totalRepWastedVotes + (data.getRepVotes() - votesNeedToWin);
+            }
+        }
+        double demNetWastedVotes = totalDemWastedVotes - totalRepWastedVotes;
+        double efficiencyGap = 1-Math.abs(demNetWastedVotes / total);
+        //If efficiency gap is 0.2, then that means it is 20% in FAVOR of Republicans. +20% Republicans
+        //If efficiency gap is -0.2, then that means it is 20% in FAVOR of Democrats. +20% Democrats.
+        return efficiencyGap;
+    }
     public String getStateName(){
         return stateName;
     }
@@ -65,12 +132,7 @@ public class State {
     public Map<String, Precinct> getAllPrecincts() {
         return allPrecincts;
     }
-    public Map<Party, Integer> getStateVoteResults(){
-        return stateElectionResult;
-    }
-    public Map<Integer, ElectionData> getDistrictVoteResult(){
-        return districtVoteResults;
-    }
+
     public int getPopulation(){
         return population;
     }
@@ -87,7 +149,7 @@ public class State {
         modifiedPrecinct.setParentDistrictID(move.getSrcDistrictID());
         District srcDistrict = defaultDistrict.get(move.getSrcDistrictID());
         District dstDistrict = defaultDistrict.get(move.getDstDistrictID());
-        dstDistrict.removePrecinct(modifiedPrecinct);
+        dstDistrict.removePrecinct(modifiedPrecinct,AlgorithmType.SA);
         srcDistrict.addPrecinct(modifiedPrecinct,AlgorithmType.SA);
     }
 
@@ -171,19 +233,16 @@ public class State {
         if(type == AlgorithmType.SA){
             src = defaultDistrict.get(srcDistrictID);
             dest = defaultDistrict.get(destDistrictID);
+            score1 = src.calculatePopEqualScore(idealPop);
+            popScores.put(src,score1);
+            score2 = dest.calculatePopEqualScore(idealPop);
+            popScores.put(dest,score2);
         }
         else {
             src = rgdistricts.get(srcDistrictID);
             dest = rgdistricts.get(destDistrictID);
-        }
-
-        if(src != null) {
-            score1 = src.calculatePopEqualScore(idealPop);
-            popScores.put(src,score1);
-        }
-        if(dest != null){
-            score2 = dest.calculatePopEqualScore(idealPop);
-            popScores.put(dest,score2);
+            score1 = (float)dest.calcuateRgPopScore(idealPop);
+            popScores.put(dest,score1);
         }
     }
 
@@ -194,8 +253,6 @@ public class State {
             Precinct unassignedPrecinct=  allPrecincts.get(id);
             d.addPrecinct(unassignedPrecinct,AlgorithmType.RG);
 
-            //dont need to update border because all precincts are assigned
-            //TODO calculate obj score of state
         }
         unassignedPrecinctIds.clear();
     }
@@ -250,5 +307,41 @@ public class State {
         voteData.setRepVotes(repVotes);
         voteData.setDemVotes(demVotes);
         return voteData;
+    }
+
+    public double getAverageStatePopScore(AlgorithmType type){
+
+        Map<Integer,District> districtMap;
+        float idealPop = calculateIdealPop(type);
+        double avgPopScore ;
+        double total= 0;
+
+        if(type == AlgorithmType.SA){ districtMap = getDefaultDistrict(); }
+        else{ districtMap = rgdistricts;}
+
+        for(District district : districtMap.values()){
+
+            if(type==AlgorithmType.SA){
+                total += district.calculatePopEqualScore(idealPop);
+            }
+            else{
+                total += district.calcuateRgPopScore(idealPop);
+            }
+        }
+        avgPopScore = total/districtMap.size();
+        return  avgPopScore;
+    }
+
+
+    public int getTotalVotes() {
+        return totalVotes;
+    }
+
+    public int getTotalDemVotes() {
+        return totalDemVotes;
+    }
+
+    public int getTotalRepVotes() {
+        return totalRepVotes;
     }
 }
