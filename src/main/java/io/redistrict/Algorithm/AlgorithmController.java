@@ -73,6 +73,8 @@ public class AlgorithmController {
     @PostMapping(value = "/continueAlgorithm")
     @ResponseBody
     public MoveUpdater continueAlgorithm(@RequestBody String countObj) {
+        ObjectiveFunctionCalculator calculator = new ObjectiveFunctionCalculator();
+        calculator.setWeights(data.getWeights());
         Stack<Move> moves = alg.run10SA();
         MoveUpdater updater = new MoveUpdater();
 //        System.out.println(countObj);
@@ -93,6 +95,9 @@ public class AlgorithmController {
 //        ADD moves.clear() and updater.getupdates().clear() if run10SA() returns the moveStack associated with
 //        state bc it is never cleared. This clears it because it is pointing to the same state moveStack
         moves.clear();
+
+        double currentScore = calculator.getStateObjectiveFunction(alg.getData().getWorkingState(),AlgorithmType.SA);
+        updater.setCurrentScore(currentScore);
         return updater;
     }
 
@@ -101,7 +106,12 @@ public class AlgorithmController {
         alg = new Algorithm();
         data = new AlgorithmData();
         alg.setData(data);
+        wts.setEfficencyGap(wts.getEfficencyGap()/100);
+        wts.setPartisanFairness(wts.getPartisanFairness()/100);
+        wts.setPopulationEquality(wts.getPopulationEquality()/100);
+        wts.setCompactness(wts.getCompactness()/100);
         data.setWeights(wts);
+
         State state = AppData.getState(wts.getStateAbbrv().toUpperCase());
         state.initPopScores();
 

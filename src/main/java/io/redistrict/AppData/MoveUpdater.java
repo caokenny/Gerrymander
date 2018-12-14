@@ -8,6 +8,8 @@ import java.util.List;
 
 public class MoveUpdater {
     String state ;
+    double currentScore;
+
     private List<MoveUpdate> updates = new LinkedList<>();
 
     public List<MoveUpdate> getUpdates() {
@@ -28,5 +30,13 @@ public class MoveUpdater {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public void setCurrentScore(double currentScore) {
+        this.currentScore = currentScore;
+    }
+
+    public double getCurrentScore() {
+        return currentScore;
     }
 }

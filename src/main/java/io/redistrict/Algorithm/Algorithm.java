@@ -35,7 +35,6 @@ public class Algorithm {
                 District district = rgDistricts.values().iterator().next();
                 System.out.println("LAST MOVE, rgdistrictId: "+district.getDistrictId() + " num of precinct to be assigned on last move: "+ state.getUnassignedPrecinctIds().size());
                 MoveUpdater updater = assignAll(district,state);
-                System.out.println("state current score score is: "+ calculator.getStateObjectiveFunction(state,AlgorithmType.RG));
                 return updater;
             }
             //ELSE
@@ -58,12 +57,9 @@ public class Algorithm {
 
             state.removeFromUnassignedIds(rgPrecinct.getGeoID10());
 
-            updates.add(new MoveUpdate(move.getSrcDistrictID(),move.getDstDistrictID(),move.getPrecinct().getGeoID10()));
+            MoveUpdate moveUpdate = new MoveUpdate(move.getSrcDistrictID(),move.getDstDistrictID(),move.getPrecinct().getGeoID10());
+            updates.add(moveUpdate);
 
-//            System.out.println("district: "+rgDistrict.getDistrictId() +" num of border precincts: " + rgDistrict.getBorderRgPrecincts().size());
-//            System.out.println("num of unassigned precincts left: "+ state.getUnassignedPrecinctIds().size());
-//            System.out.println("num of rgDistrictsLeft: "+rgDistricts.size());
-//            System.out.println("______________________________________________________");
             System.out.println("num of unassigned left: "+state.getUnassignedPrecinctIds().size());
             iterationsDone++;
         }
@@ -73,6 +69,7 @@ public class Algorithm {
         }
         MoveUpdater updater = new MoveUpdater();
         updater.setUpdates(updates);
+        updater.setCurrentScore(calculator.getStateObjectiveFunction(state,AlgorithmType.RG));
         return updater;
     }
 
