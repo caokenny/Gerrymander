@@ -19,6 +19,7 @@ public class Algorithm {
     private static Properties properties = new Properties();
     private AlgorithmData data = new AlgorithmData();
     private int badMoves = 0;
+    double accecptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
 
     public MoveUpdater do10RgIteration(){
         State state = data.getWorkingState();
@@ -202,7 +203,6 @@ public class Algorithm {
         int count = 0;
         State s = data.getWorkingState();
         int max_bad_move = Integer.parseInt(properties.getProperty("max_bad_moves"));
-        double accecptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
         double constantMultiplier = Double.parseDouble(properties.getProperty("constant_multiplier"));
 
         while(badMoves < max_bad_move && count < 10){
