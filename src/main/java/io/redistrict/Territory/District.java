@@ -1,7 +1,14 @@
 package io.redistrict.Territory;
 
-import io.redistrict.Election.ElectionData;
+import io.redistrict.Algorithm.AlgorithmType;
 import io.redistrict.Election.Party;
+import io.redistrict.Election.VoteData;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryCollection;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.wololo.geojson.Feature;
+import org.wololo.geojson.GeoJSONFactory;
+import org.wololo.jts2geojson.GeoJSONReader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,12 +19,10 @@ public class District {
     private int districtId;
     private int population;
     private Map<String, Precinct> allDPrecincts;
-    private Map<String, List<ElectionData>> precinctVoteResults;
-    private Map<Party, Integer> electionResult;
-    private List<Precinct> borderPrecincts;
-    private int numOfNeighbors;
+    private List<Precinct> borderRgPrecincts; // this is precincts that are within district that have unassigned neighbors
+    private List<Precinct> borderSaPrecincts;
+    private int numOfUnassignedNeighbors;
     private String seedPrecinctId;
-
     private static Properties properties = new Properties();
 
 
@@ -25,11 +30,12 @@ public class District {
         this.districtId = districtId;
         this.population= startPrecinct.getPopulation();
         this.allDPrecincts = new LinkedHashMap<>();
-        this.borderPrecincts = new ArrayList<>();
+        this.borderRgPrecincts = new ArrayList<>();
+        this.borderSaPrecincts = new ArrayList<>();
         allDPrecincts.put(startPrecinct.getGeoID10(),startPrecinct);
-        borderPrecincts.add(startPrecinct);
+        borderRgPrecincts.add(startPrecinct);
         if(startPrecinct.getNeighbors() !=null)
-            this.numOfNeighbors = startPrecinct.getNeighbors().size();
+            this.numOfUnassignedNeighbors = startPrecinct.getNeighbors().size();
         this.seedPrecinctId = startPrecinct.getGeoID10();
     }
 
@@ -41,32 +47,27 @@ public class District {
         this.districtId = districtId;
     }
 
-    public Map<String, List<ElectionData>> getPrecinctVoteResults(){
-        return precinctVoteResults;
-    }
-
-
-    public void addPrecinct(Precinct precinct){
+    public void addPrecinct(Precinct precinct, AlgorithmType type){
         precinct.setParentDistrictID(districtId);
         allDPrecincts.put(precinct.getGeoID10(), precinct);
         population += precinct.getPopulation();
-//        precinctVoteResults.put(precinct.getGeoID10(), precinct.getElectionData());
-        if(isBorderPrecinct(precinct)) {
-            precinct.setIsBorder(true);
-            borderPrecincts.add(precinct);
+
+        if(type == AlgorithmType.SA) {
+            if (isSABorderPrecinct(precinct)) {
+                precinct.setIsBorder(true);
+                borderSaPrecincts.add(precinct);
+            } else
+                precinct.setIsBorder(false);
         }
-        else
-            precinct.setIsBorder(false);
 
     }
-
+    //***** THIS NEED TO BE MODIFY FOR SA
     public void removePrecinct(Precinct precinct){
         precinct.setParentDistrictID(-1);
         allDPrecincts.remove(precinct);
         population -= precinct.getPopulation();
-        precinctVoteResults.remove(precinct.getGeoID10(), precinct.getElectionData());
         if(precinct.isBorder()) {
-            borderPrecincts.remove(precinct);
+            borderSaPrecincts.remove(precinct);
         }
     }
 
@@ -74,22 +75,32 @@ public class District {
         return population;
     }
 
-    public Map<Party, Integer> getElectionResult(){
-        return electionResult;
+    public VoteData getVoteResult(){
+        int demVotes = 0;
+        int repVotes = 0;
+        VoteData voteData = new VoteData();
+        for(Precinct precinct : allDPrecincts.values()) {
+            VoteData votes = precinct.getVoteData();
+            demVotes+= votes.getDemVotes();
+            repVotes+= votes.getRepVotes();
+        }
+        voteData.setDemVotes(demVotes);
+        voteData.setRepVotes(repVotes);
+        return voteData;
     }
 
-    public void updateBorderPrecincts(Set<String> unassignedPrecinctIds) {
-        borderPrecincts.clear();
+    public void updateBorderPrecinctsForRg(Set<String> unassignedPrecinctIds) {
+        borderRgPrecincts.clear();
         for(String precinctId: allDPrecincts.keySet()){
             Precinct currentPrecinct = allDPrecincts.get(precinctId);
-            if(isBorder(currentPrecinct,unassignedPrecinctIds))
+            if(isRgBorder(currentPrecinct,unassignedPrecinctIds))
             {
-                borderPrecincts.add(currentPrecinct);
+                borderRgPrecincts.add(currentPrecinct);
             }
         }
     }
 
-    private boolean isBorder(Precinct precinct, Set<String> unassignedPrecinctIds){
+    private boolean isRgBorder(Precinct precinct, Set<String> unassignedPrecinctIds){
         List<Precinct> neighbors = precinct.getNeighbors();
         for(Precinct neighbor : neighbors)
         {
@@ -101,24 +112,35 @@ public class District {
         return false;
     }
 
-    public List<Precinct> getBorderPrecincts() {
-        return borderPrecincts;
+    public List<Precinct> getBorderRgPrecincts() {
+        return borderRgPrecincts;
     }
 
-    public void setBorderPrecincts(List<Precinct> borderPrecincts) {
-        this.borderPrecincts = borderPrecincts;
+    public List<Precinct> getBorderRgPrecincts(Set<String> unassignedPrecinctIds)
+    {
+        List<Precinct> bordersPrecincts = new ArrayList<>();
+        for(Precinct precinct : allDPrecincts.values()){
+            if(isRgBorder(precinct,unassignedPrecinctIds)){
+                bordersPrecincts.add(precinct);
+            }
+        }
+        return  bordersPrecincts;
+    }
+
+    public void setBorderRgPrecincts(List<Precinct> borderRgPrecincts) {
+        this.borderRgPrecincts = borderRgPrecincts;
     }
 
     public void setPopulation(int population) {
         this.population = population;
     }
 
-    public int getNumOfNeighbors() {
-        return numOfNeighbors;
+    public int getNumOfUnassignedNeighbors() {
+        return numOfUnassignedNeighbors;
     }
 
-    public void setNumOfNeighbors(int numOfNeighbors) {
-        this.numOfNeighbors = numOfNeighbors;
+    public void setNumOfUnassignedNeighbors(int numOfUnassignedNeighbors) {
+        this.numOfUnassignedNeighbors = numOfUnassignedNeighbors;
     }
 
     public Map<String, Precinct> getAllDPrecincts() {
@@ -128,33 +150,8 @@ public class District {
     public void setAllDPrecincts(Map<String, Precinct> allDPrecincts) {
         this.allDPrecincts = allDPrecincts;
     }
-    public Party getWinningParty(){
-        HashMap<Party, Integer> partyResults = new HashMap<Party, Integer>();
-        Set set = electionResult.entrySet();
-        Iterator iterator = set.iterator();
-        while(iterator.hasNext()){
-            Map.Entry entry = (Map.Entry)iterator.next();
-            if(!partyResults.containsKey(entry.getKey())){
-                partyResults.put((Party)entry.getKey(), (int)entry.getValue());
-            }
-            else{
-                partyResults.put((Party)entry.getKey(), partyResults.get(entry.getKey()) + (Integer)entry.getValue());
-            }
-        }
-        Party winningParty = null;
-        int max = 0;
-        Set results = partyResults.entrySet();
-        Iterator loop = results.iterator();
-        while(loop.hasNext()){
-            Map.Entry entry = (Map.Entry)iterator.next();
-            if((Integer)entry.getValue() > max){
-                max = (Integer) entry.getValue();
-                winningParty = (Party)entry.getKey();
-            }
-        }
-        return winningParty;
-    }
-    public boolean isBorderPrecinct(Precinct precinct){
+
+    public boolean isSABorderPrecinct(Precinct precinct){
         List<Precinct> neighbors = precinct.getNeighbors();
         for(Precinct p : neighbors){
             if(p.getParentDistrictID() != precinct.getParentDistrictID())
@@ -162,21 +159,8 @@ public class District {
         }
         return false;
     }
-    public Precinct getRandomPrecinct(){
-        //Return a random precinct
-        int numPrecincts = borderPrecincts.size();
-        Random rand = new Random();
-        int n = rand.nextInt(numPrecincts) + 0;
-        return borderPrecincts.get(n);
-    }
-    public Move modifyDistrict(){
-        Precinct precinct = getRandomPrecinct();
-        Precinct pNeighbor = precinct.getRandomNeighbor();
-        while(!pNeighbor.isBorder())
-            pNeighbor = precinct.getRandomNeighbor();
-        Move move = new Move(pNeighbor, pNeighbor.getParentDistrictID(), precinct.getParentDistrictID());
-        return move;
-    }
+
+
     public int getDistrictID(){
         return districtId;
     }
@@ -206,34 +190,124 @@ public class District {
         float score = 1;
         if (population <= idealPop) return score;
         float difference = population - idealPop;
-        float lowerThreshold = Float.parseFloat(properties.getProperty("population_lowThreshold"));
-        float midThreshold = Float.parseFloat(properties.getProperty("population_midThreshold"));
-        float highThreshold = Float.parseFloat(properties.getProperty("population_highThreshold"));
-        float lowPenalty = Float.parseFloat(properties.getProperty("population_lowPenalty"));
-        float midPenalty = Float.parseFloat(properties.getProperty("population_midPenalty"));
-        float highPenalty = Float.parseFloat(properties.getProperty("population_highPenalty"));
-        if (difference <= lowerThreshold) return score - lowPenalty;
-        else if (difference > lowerThreshold && difference <= midThreshold) return score - midPenalty;
-        else return score - highPenalty;
+//        System.out.println(properties.getProperty("population_lowThreshold"));
+//        float lowerThreshold = Float.parseFloat(properties.getProperty("population_lowThreshold"));
+//        float midThreshold = Float.parseFloat(properties.getProperty("population_midThreshold"));
+//        float highThreshold = Float.parseFloat(properties.getProperty("population_highThreshold"));
+//        float lowPenalty = Float.parseFloat(properties.getProperty("population_lowPenalty"));
+//        float midPenalty = Float.parseFloat(properties.getProperty("population_midPenalty"));
+//        float highPenalty = Float.parseFloat(properties.getProperty("population_highPenalty"));
+//        if (difference <= lowerThreshold) return score - lowPenalty;
+//        else if (difference > lowerThreshold && difference <= midThreshold) return score - midPenalty;
+//        else return score - highPenalty;
+        float dev = Float.parseFloat(properties.getProperty("population_deviation"));
+        float penalty = Float.parseFloat(properties.getProperty("population_penalty"));
+        float penaltyAmt = penalty;
+        float devAmt = dev;
+        while (score - penaltyAmt > 0) {
+            if (difference > idealPop * devAmt) {
+                penaltyAmt += penalty;
+                devAmt += dev;
+            }
+            else {
+                score -= penaltyAmt;
+                break;
+            }
+        }
+        return score;
     }
 
-    public static Set<District> makeSeedDistricts(Collection<Precinct> precincts){
+    public static Map<Integer, District> makeSeedDistricts(Collection<Precinct> precincts){
         int districtID=1;
-        Set<District> seedDistricts = new LinkedHashSet<>();
+        Map<Integer,District> seedDistricts = new LinkedHashMap<>();
+
         for(Precinct p : precincts){
-            seedDistricts.add(new District(districtID++,p));
+            District seedDistrict = new District(districtID,p);
+            seedDistricts.put(districtID,seedDistrict);
+            districtID++;
         }
         return  seedDistricts;
     }
-
+    public double getArea(Map<String, Precinct> map){
+        // parse Geometry from Feature
+        ArrayList<Feature> featureList = new ArrayList<>();
+        for(Precinct precinct : map.values()){
+            Feature feature = (Feature) GeoJSONFactory.create(precinct.getGeoJsonString());
+            featureList.add(feature);
+        }
+        GeoJSONReader reader = new GeoJSONReader();
+        ArrayList<Geometry> precinctGeometries = new ArrayList<Geometry>();
+        for(Feature feature : featureList){
+            Geometry precinctGeometry = reader.read(feature.getGeometry());
+            precinctGeometries.add(precinctGeometry);
+        }
+        GeometryFactory geoFac = new GeometryFactory();
+        GeometryCollection geometryCollection = (GeometryCollection) geoFac.buildGeometry(precinctGeometries);
+        return geometryCollection.getArea();
+    }
+    public double getPerimeter(Map<String, Precinct> map) {
+        ArrayList<Feature> featureList = new ArrayList<>();
+        for (Precinct precinct : map.values()) {
+            Feature feature = (Feature) GeoJSONFactory.create(precinct.getGeoJsonString());
+            featureList.add(feature);
+        }
+        GeoJSONReader reader = new GeoJSONReader();
+        ArrayList<Geometry> precinctGeometries = new ArrayList<Geometry>();
+        for (Feature feature : featureList) {
+            Geometry precinctGeometry = reader.read(feature.getGeometry());
+            precinctGeometries.add(precinctGeometry);
+        }
+        GeometryFactory geoFac = new GeometryFactory();
+        GeometryCollection geometryCollection = (GeometryCollection) geoFac.buildGeometry(precinctGeometries);
+        return geometryCollection.getLength();
+    }
     public String getSeedPrecinctId() {
         return seedPrecinctId;
     }
 
     public void setSeedPrecinctId(String seedPrecinctId) {
         this.seedPrecinctId = seedPrecinctId;
+
     }
 
+    public void updateNumOfUnassignNeighbors(Set<String> unassignIds){
 
+        int unassignNeighborCount = 0;
+
+        for(Precinct p : borderRgPrecincts){
+            for(Precinct neighbor : p.getNeighbors()){
+                if(unassignIds.contains(neighbor.getGeoID10())){
+                    unassignNeighborCount++;
+                }
+            }
+        }
+        this.numOfUnassignedNeighbors = unassignNeighborCount;
+    }
+
+    public Precinct getLargestBorderPrec() {
+        Precinct largest = borderSaPrecincts.get(0);
+        for (Precinct p : borderSaPrecincts) {
+            if (p.getPopulation() > largest.getPopulation())
+                largest = p;
+        }
+        return largest;
+    }
+
+    public Move moveLargestBorderPrec(){
+        Precinct p = getLargestBorderPrec();
+        Precinct pNeighbor = p.getRandomNeighbor();
+        while(!pNeighbor.isBorder())
+            pNeighbor = p.getRandomNeighbor();
+        // Move the largest border precint to a neighboring district
+        return new Move(p, p.getParentDistrictID(), pNeighbor.getParentDistrictID());
+    }
+
+    public List<Precinct> getBorderSaPrecincts() {
+        return borderSaPrecincts;
+    }
+
+    public void setBorderSaPrecincts(List<Precinct> borderSaPrecincts) {
+        this.borderSaPrecincts = borderSaPrecincts;
+    }
 }
 

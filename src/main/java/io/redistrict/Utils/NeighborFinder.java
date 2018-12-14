@@ -10,12 +10,12 @@ import java.util.Set;
 public class NeighborFinder {
 
     public static Set<Precinct> findUnassignedNeighbors(Map<String,
-            Precinct> allPrecincts, Set<String> unassignedIds, List<Precinct> keys)
+            Precinct> allPrecincts, Set<String> unassignedIds, List<Precinct> districtBorderPrecincts)
     {
 
         Set<Precinct> unassignedNeighbors = new LinkedHashSet<>();
 
-        for(Precinct precinct : keys)
+        for(Precinct precinct : districtBorderPrecincts)
         {
             List<Precinct> neighbor = precinct.getNeighbors();
             for(Precinct p : neighbor)

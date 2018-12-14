@@ -1,6 +1,9 @@
 package io.redistrict.Utils;
 
 
+import io.redistrict.Algorithm.AlgorithmType;
+import io.redistrict.Election.Party;
+import io.redistrict.Election.VoteData;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Precinct;
 import io.redistrict.Territory.State;
@@ -23,11 +26,13 @@ public class StateLoader {
          Map<String,State> stateMap = new LinkedHashMap<>();
 
          for(StateEnum stateEnum : arr) {
+             System.out.println("Loading "+ stateEnum+ "...");
              String stateName = stateEnum.toString();
              StateData stateData = loadStateData(stateName);
              State currentState = new State(stateName, stateData.getAllPrecinct());
              currentState.setDefaultDistrict(stateData.getDefaultDistricts());
              stateMap.put(stateName, currentState);
+             System.out.println("Done loading "+ stateEnum+ "...");
          }
         return stateMap;
     }
@@ -42,7 +47,7 @@ public class StateLoader {
                 defaultDistrict.put(parentId,newDistrict);
             }
             else{
-                defaultDistrict.get(parentId).addPrecinct(precinct);
+                defaultDistrict.get(parentId).addPrecinct(precinct, AlgorithmType.SA);
             }
         }
         return defaultDistrict;
@@ -54,7 +59,6 @@ public class StateLoader {
         String filePath = properties.getProperty(stateName);
         Map<String,Precinct> precinctMap =null;
         StateData stateData = new StateData();
-
         try {
             FileReader fileReader = new FileReader(filePath);
             JSONArray precinctArray = (JSONArray) new JSONParser().parse(fileReader);
@@ -82,10 +86,18 @@ public class StateLoader {
             String geoId10 = getStringValue(precinctJsObj.get(properties.getProperty("GEOID10")));
             String name = getStringValue(precinctJsObj.get(properties.getProperty("NAME10")));
             Long districtId = (Long) precinctJsObj.get(properties.get("DISTRICTID"));
+            JSONObject geoJson =(JSONObject) precinctJsObj.get(properties.get("GEOJSON"));
+            String geoJsonString= geoJson.toJSONString();
+            int demVotes =  getIntValue(precinctJsObj.get(properties.get("DEMVOTES")));
+            int repVotes =  getIntValue(precinctJsObj.get(properties.get("REPVOTES")));
 
-            Precinct precinct = new Precinct(geoId10,name,population.intValue());
+            VoteData voteData = new VoteData();
+            voteData.setDemVotes(demVotes);
+            voteData.setRepVotes(repVotes);
+
+            Precinct precinct = new Precinct(geoId10,name,population.intValue(), geoJsonString);
             precinct.setParentDistrictID(districtId.intValue());
-
+            precinct.setVoteData(voteData);
             precinctMap.put(geoId10,precinct);
         }
         return precinctMap;
@@ -110,6 +122,16 @@ public class StateLoader {
     }
     private static String getStringValue(Object obj){
         return obj instanceof Long? Long.toString((Long)obj) : (String)obj;
+    }
+
+    private static int getIntValue(Object obj){
+        if(obj instanceof Long){
+            return ((Long) obj).intValue();
+        }
+        else{
+            double value = (double)obj;
+            return (int)Math.round(value);
+        }
     }
 
 }

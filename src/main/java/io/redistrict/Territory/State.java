@@ -1,41 +1,52 @@
 package io.redistrict.Territory;
 
 import io.redistrict.Algorithm.Algorithm;
+import io.redistrict.Algorithm.AlgorithmType;
 import io.redistrict.Election.ElectionData;
 import io.redistrict.Election.Party;
+import io.redistrict.Election.VoteData;
 
 import java.util.*;
 
 public class State {
     private int population;
     private String stateName;
-    private Map<Integer, District> districts;
+    private Map<Integer, District> rgdistricts;
     private Map<Integer, ElectionData> districtVoteResults;
     private Map<Party, Integer> stateElectionResult;
-    private Stack<Move> moves;
+    private Stack<Move> moves = new Stack<Move>();
     private Map<String, Precinct> allPrecincts;
-    private Map<String, Precinct> unassignedPrecincts;
     private Set<String> unassignedPrecinctIds;
-    private Map<District, Float> popScores;
+    private Map<District, Float> popScores = new LinkedHashMap<>();
     private Map<Integer,District> defaultDistrict;
 
 
     public State(State state){
+        //if u want rgdistricts set it urself
         this.stateName = state.getStateName();
         this.allPrecincts= new LinkedHashMap<>(state.getAllPrecincts());
+        this.population=state.getPopulation();
+        rgdistricts = new LinkedHashMap<>();
+        this.allPrecincts= new LinkedHashMap<>(state.getAllPrecincts());
+        // THIS MIGHT BE REMOVED LATER
         this.defaultDistrict = new LinkedHashMap<>(state.getDefaultDistrict());
-        this.population= state.getPopulation();
-        districts = new LinkedHashMap<>();
     }
     public State(String name, Map<String,Precinct> allPrecincts){
         this.stateName=name;
         this.allPrecincts = allPrecincts;
-        districts = new LinkedHashMap<>();
+        this.population = calculateStatePopulation();
+        rgdistricts = new LinkedHashMap<>();
     }
 
-    public int getNumDistrict(){
-        return districts.size();
+    public int calculateStatePopulation(){
+        int total =0;
+       Iterator<Precinct> precinctIterator = allPrecincts.values().iterator();
+        while(precinctIterator.hasNext()){
+            total +=precinctIterator.next().getPopulation();
+        }
+        return total;
     }
+
 
     public String getStateName(){
         return stateName;
@@ -63,47 +74,64 @@ public class State {
     public int getPopulation(){
         return population;
     }
+
+    public int getPopulationSA()
+    {
+        for (Integer i : defaultDistrict.keySet())
+            population += defaultDistrict.get(i).getPopulation();
+        return population;
+    }
+
     public void undoLastMove(Move move){
         Precinct modifiedPrecinct = move.getPrecinct();
         modifiedPrecinct.setParentDistrictID(move.getSrcDistrictID());
-        District srcDistrict = districts.get(move.getSrcDistrictID());
-        District dstDistrict = districts.get(move.getDstDistrictID());
+        District srcDistrict = defaultDistrict.get(move.getSrcDistrictID());
+        District dstDistrict = defaultDistrict.get(move.getDstDistrictID());
         dstDistrict.removePrecinct(modifiedPrecinct);
-        srcDistrict.addPrecinct(modifiedPrecinct);
+        srcDistrict.addPrecinct(modifiedPrecinct,AlgorithmType.SA);
     }
-    public District getRandomDistrict(){
-        int numDistricts = districts.size();
-        Random rand = new Random();
-        int n = rand.nextInt(numDistricts) + 0;
-        return districts.get(n);
+
+    public District getRandomDistrictSA(){
+        int numDistricts = defaultDistrict.size();
+//        Random rand = new Random();
+//        int n = rand.nextInt(numDistricts) + 0;
+        // when n == 0 it returns null because it is a Map with values starting from 1
+        int n = (int)(Math.random() * numDistricts) + 1;
+        return defaultDistrict.get(n);
     }
     public void addToMoveStack(Move move){
         moves.add(move);
     }
-    public void addToDistrictList(District district){
-        districts.put(district.getDistrictID(), district);
+
+    //works for sa and rg
+    public float calculateIdealPop(AlgorithmType type){
+        if(type == AlgorithmType.RG)
+            return (float)population / rgdistricts.size();
+        else
+            return (float)population/defaultDistrict.size();
     }
-    public float calculateIdealPop(){
-        return (float)population / districts.size();
-    }
-    public void updatePopScores(District source, District dest, float score1, float score2){
-        popScores.put(source, score1);
-        popScores.put(dest, score2);
-    }
+
     public double getDistrictScore(District d){
-        return 0;
+        return popScores.get(d);
     }
     public void updateDistrictScore(float score, District dest){
-
+        popScores.put(dest, score);
+    }
+    public void initPopScores() {
+        float idealPop = (float)population / defaultDistrict.size();
+        for (Integer i : defaultDistrict.keySet()) {
+            District d = defaultDistrict.get(i);
+            popScores.put(d, d.calculatePopEqualScore(idealPop));
+        }
     }
     public void resetUnassignedPrecinctIds(){
         unassignedPrecinctIds = new LinkedHashSet<>(allPrecincts.keySet());
     }
-    public Map<Integer, District> getDistricts() {
-        return districts;
+    public Map<Integer, District> getRgdistricts() {
+        return rgdistricts;
     }
-    public void setDistricts(Map<Integer, District> districts) {
-        this.districts = districts;
+    public void setRgdistricts(Map<Integer, District> rgdistricts) {
+        this.rgdistricts = rgdistricts;
     }
     public Set<String> getUnassignedPrecinctIds() {
         return unassignedPrecinctIds;
@@ -113,39 +141,63 @@ public class State {
         this.unassignedPrecinctIds = unassignedPrecinctIds;
     }
 
-    public void removeFromUnassigned(Set<String> removalIds){
+    public void removeFromUnassignedIds(Set<String> removalIds){
         removalIds.forEach(id-> unassignedPrecinctIds.remove(id));
     }
 
-    public void removeFromUnassigned(String id){
+    public void removeFromUnassignedIds(String id){
         unassignedPrecinctIds.remove(id);
     }
 
-    public void executeMove(Move move){
+    public void executeRgMove(Move move){
         Precinct precinct = move.getPrecinct();
         int destDistId = move.getDstDistrictID();
-        int srcDistId = move.getSrcDistrictID();
-        District srcDist = districts.get(srcDistId);
-        District destDist = districts.get(destDistId);
-        removeFromUnassigned(precinct.getGeoID10());
-        if(srcDist != null){
-            districts.get(srcDistId).removePrecinct(precinct);
-        }
-
-        districts.get(destDistId).addPrecinct(precinct);
-        districts.get(destDistId).updateBorderPrecincts(unassignedPrecinctIds);
-        updatePopulationEqualityMeasure(move);
-
+        District destDist = rgdistricts.get(destDistId);
+//        removeFromUnassignedIds(precinct.getGeoID10());
+        destDist.addPrecinct(precinct,AlgorithmType.RG);
+        updatePopulationEqualityMeasure(move, AlgorithmType.RG);
     }
-    public void updatePopulationEqualityMeasure(Move m) {
-        float idealPop = calculateIdealPop();
+
+    // works for both SA and RG
+    public void updatePopulationEqualityMeasure(Move m, AlgorithmType type) {
+        float score1;
+        float score2;
+        float idealPop = calculateIdealPop(type);
         int srcDistrictID = m.getSrcDistrictID();
         int destDistrictID = m.getDstDistrictID();
-        District src = districts.get(srcDistrictID);
-        District dest = districts.get(destDistrictID);
-        float score1 = src.calculatePopEqualScore(idealPop);
-        float score2 = dest.calculatePopEqualScore(idealPop);
-        updatePopScores(src, dest, score1, score2);
+        District src;
+        District dest;
+
+        if(type == AlgorithmType.SA){
+            src = defaultDistrict.get(srcDistrictID);
+            dest = defaultDistrict.get(destDistrictID);
+        }
+        else {
+            src = rgdistricts.get(srcDistrictID);
+            dest = rgdistricts.get(destDistrictID);
+        }
+
+        if(src != null) {
+            score1 = src.calculatePopEqualScore(idealPop);
+            popScores.put(src,score1);
+        }
+        if(dest != null){
+            score2 = dest.calculatePopEqualScore(idealPop);
+            popScores.put(dest,score2);
+        }
+    }
+
+    public void assignAllUnassignedPrecincts(int districtId){
+        District d = rgdistricts.get(districtId);
+
+        for(String id : unassignedPrecinctIds){
+            Precinct unassignedPrecinct=  allPrecincts.get(id);
+            d.addPrecinct(unassignedPrecinct,AlgorithmType.RG);
+
+            //dont need to update border because all precincts are assigned
+            //TODO calculate obj score of state
+        }
+        unassignedPrecinctIds.clear();
     }
 
     public void setPopulation(int population) {
@@ -162,5 +214,41 @@ public class State {
 
     public void setDefaultDistrict(Map<Integer, District> defaultDistrict) {
         this.defaultDistrict = defaultDistrict;
+    }
+
+    public Stack<Move> getMoves() {
+        return moves;
+    }
+
+    public District getLowestPopScoreDistrict() {
+        District dist = getRandomDistrictSA();
+        for (District d : popScores.keySet()) {
+            if (popScores.get(d) < popScores.get(dist))
+                dist = d;
+        }
+        return dist;
+    }
+    public VoteData getStateVoteResult(boolean isDefault)
+    {
+        VoteData voteData = new VoteData();
+        int demVotes= 0;
+        int repVotes = 0;
+        if(isDefault) {
+            for(District district : defaultDistrict.values()){
+                VoteData votes = district.getVoteResult();
+                demVotes+= votes.getDemVotes();
+                repVotes+= votes.getRepVotes();
+            }
+        }
+        else{
+            for(District district : rgdistricts.values()){
+                VoteData votes = district.getVoteResult();
+                demVotes+= votes.getDemVotes();
+                repVotes+= votes.getRepVotes();
+            }
+        }
+        voteData.setRepVotes(repVotes);
+        voteData.setDemVotes(demVotes);
+        return voteData;
     }
 }

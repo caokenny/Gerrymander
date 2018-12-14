@@ -2,6 +2,7 @@ package io.redistrict.auth.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
 @Table(name = "User")
@@ -12,14 +13,22 @@ public class User {
     private String password;
     private String passwordConfirm;
     private String email;
-    private boolean admin;
-//    private String salt;
+    private Set<Role> roles;
 
     public User(){}
 
+    public User(User user) {
+        this.uid = user.getUid();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.passwordConfirm = user.getPasswordConfirm();
+        this.email = user.getEmail();
+        this.roles = user.getRoles();
+    }
+
     @Id
     @NotNull
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(unique = true)
     public Integer getUid() { return this.uid; }
 
@@ -63,21 +72,13 @@ public class User {
         this.email = email;
     }
 
-    @NotNull
-    public boolean getAdmin() {
-        return this.admin;
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    public Set<Role> getRoles() {
+        return this.roles;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
-
-//    @NotNull
-//    public String getSalt() {
-//        return salt;
-//    }
-//
-//    public void setSalt(String salt) {
-//        this.salt = salt;
-//    }
 }

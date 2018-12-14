@@ -29,7 +29,16 @@ public class NeighborsLoader {
                 JSONArray neighborValues =  (JSONArray) neighborJSObj.get(key);
                 Precinct keyPrecinct = precinctMap.get(key);
 
-                neighborValues.forEach(n-> neighbors.add( precinctMap.get((String)n)));
+                for(Object geoidobj : neighborValues) {
+                    String neighborGeoId =(String) geoidobj;
+                    Precinct neighbor = precinctMap.get(neighborGeoId);
+                    if(neighbor == null){
+                        throw new NullPointerException("YOU ARE ADDING A NULL NEIGHBOR(" + neighborGeoId+
+                                ") TO PRECINCT: "+keyPrecinct.getGeoID10());
+                    }
+                    neighbors.add(neighbor);
+                }
+                //neighborValues.forEach(n-> neighbors.add( precinctMap.get((String)n)));
                 //keyPrecinct.setNeighborIds(neighbors);
                 keyPrecinct.setNeighbors(neighbors);
             }
