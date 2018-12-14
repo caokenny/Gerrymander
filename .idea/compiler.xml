@@ -16,6 +16,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Gerrymander" options="-parameters" />
+      <module name="Gerrymander3" options="-parameters" />
       <module name="course-api" options="-parameters" />
     </option>
   </component>
