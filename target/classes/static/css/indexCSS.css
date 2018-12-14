@@ -102,7 +102,6 @@ html, body {
 }
 
 #measuresContainer {
-    /*display: flex;*/
     position: relative;
     display: flex;
     flex-direction: column;
@@ -196,7 +195,8 @@ input[type=text], input[type=password], input[type=email] {
     position: relative;
     display: flex;
     margin: auto;
-    top: 90px;
+    top: 10%;
+    z-index: 10;
 }
 
 #algorithmChoice {
@@ -205,13 +205,13 @@ input[type=text], input[type=password], input[type=email] {
 
 
 #infoPopup {
-    display: none;
     position: absolute;
-    height: 100px;
+    top: 50px;
+    right: 425px;
+    z-index: 2;
+    display: none;
+    height: auto;
     width: auto;
-    margin-top: 3%;
-    margin-left: 60%;
-    z-index: 3;
     background-color: black;
     color: white;
 }
@@ -303,8 +303,4 @@ input[type=range]:active + output {
 #runButton {
     margin-right: 100px;
 }
-
-
-
-
 

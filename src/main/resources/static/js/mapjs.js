@@ -97,23 +97,38 @@ function zoomState(bounds, geoObj, stateName) {
                 }
             }).addTo(mymap);
         });
-        mymap.fitBounds(bounds);
+        zoomLevel = mymap.getBoundsZoom(bounds) - 1;
+        // mymap.setZoom(zoomLevel);
+        mymap.setView(bounds.getCenter(), zoomLevel);
+        // mymap.fitBounds(bounds);
         $.getJSON("/js/json/" + stateName + "_final.json", function (data) {
             precinctLayer = L.geoJSON(data, {
                 style: function (feature) {
                     return {color: "#DCDCDC", opacity: 0.5, fillColor: colors[feature.properties.DISTRICT], fillOpacity: 1};
                 },
+                onEachFeature: function(feature, layer) {
+                    layer.on('mouseover', function () {
+                        $('#infoPopup').css("display", "block");
+                        $('#geoid').text("GEOID: " + feature.properties.GEOID10);
+                        $('#populationInfo').text("Population: " + feature.properties.POP100);
+                        $('#presidentialD').text("Democrat: " + parseInt(feature.properties.PRES_D_08));
+                        $('#presidentialR').text("Republican: " + parseInt(feature.properties.PRES_R_08));4
+                    });
+                    layer.on('mouseout', function () {
+                        $('#infoPopup').css("display", "none");
+                    });
+                },
                 name: stateName,
                 abbr: geoObj.abbr
-            });
+            })
         });
-        zoomLevel = mymap.getBoundsZoom(bounds);
         checkZoom();
     }
 
 }
 
 function checkZoom() {
+    // mymap.setView()
     mymap.on('zoomend', function () {
         var currentZoomLevel = mymap.getZoom();
         if (currentZoomLevel > zoomLevel) {
@@ -123,6 +138,7 @@ function checkZoom() {
             if (mymap.hasLayer(precinctLayer)) {
                 mymap.removeLayer(precinctLayer);
                 mymap.addLayer(districtLayer);
+                $('#infoPopup').css("display", "none");
             }
         }
     })

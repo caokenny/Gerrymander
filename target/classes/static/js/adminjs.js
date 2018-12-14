@@ -4,6 +4,7 @@ $('#addBtn').on('click', function () {
 
 $('.closeRegisterBox').on('click', function () {
     $('#registerDiv').css("display", "none");
+    $('#editDiv').css("display", "none");
 });
 
 $('.deleteBtn').on('click', function () {
@@ -20,4 +21,19 @@ $('.deleteBtn').on('click', function () {
             }
         })
     }
+});
+
+$('.editBtn').on('click', function () {
+    $('#editDiv').css("display", "block");
+    var user = $(this).attr('id');
+    $.ajax({
+        url: "/secure/edit",
+        type: "GET",
+        async: false,
+        data: {"username" : user},
+        success: function (response) {
+            $('#editUsername').val(user);
+            $('#editEmail').val(response);
+        }
+    })
 });

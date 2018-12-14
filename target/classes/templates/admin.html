@@ -11,20 +11,33 @@
 
     <div id="mySidenav" class="sidenav" style="width: 250px;">
         <a href="/">Home</a>
+        <a href="/secure/admin">Dashboard</a>
     </div>
 
     <div id="registerDiv" th:style="${registerFail} ? 'display:block' : 'display:none'">
         <form action="/user/register" id="registercontent" method="POST" modelAttribute="userForm">
-            <span class="closeRegisterBox" onclick="closeRegister()">&times;</span>
+            <span class="closeRegisterBox">&times;</span>
             <input type="text" name="username" id="registerUsername" placeholder="Enter Username" required autofocus>
             <div th:if="${userTaken == true}">
                 Username is already taken.
             </div>
-            <input type="password" name="password" id="registerPassword" placeholder="Enter Password" required>
-            <input type="password" name="passwordConfirm" id="registerVerifyPassword" placeholder="Verify Password" required>
-            <input type="email" name="email" id="registerEmail" placeholder="Enter Email Address" required>
+            <input type="password" name="password" id="registerPassword" placeholder="Enter Password" required/>
+            <input type="password" name="passwordConfirm" id="registerVerifyPassword" placeholder="Verify Password" required/>
+            <input type="email" name="email" id="registerEmail" placeholder="Enter Email Address" required/>
             <input type="hidden" name="page" value="admin"/>
             <button class="registerSubmit" type="submit">Add User</button>
+        </form>
+    </div>
+
+    <div id="editDiv">
+        <form action="/secure/edit" id="editContent" method="post" modelAttribute="userForm">
+            <span class="closeRegisterBox">&times;</span>
+            <h3>Username</h3>
+            <input type="text" name="username" id="editUsername" required autofocus/>
+            <h3>Email</h3>
+            <input type="email" name="email" id="editEmail" required/>
+            <input type="hidden" id="oldUserHolder" name="oldusername"/>
+            <button class="editSubmit" type="submit">Save</button>
         </form>
     </div>
 

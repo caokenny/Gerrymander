@@ -75,6 +75,10 @@ $('#redistrictBtn').on('click', function () {
     }
 });
 
+$('#algorithmChoice').dropdown({
+    gutter: 5
+});
+
 
 
 

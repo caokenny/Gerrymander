@@ -15,6 +15,14 @@
 <body>
 <div id="wrapper">
 
+    <div id="infoPopup">
+        <p id="geoid"></p>
+        <p id="populationInfo"></p>
+        <h4>Presidential Votes</h4>
+        <p id="presidentialD"></p>
+        <p id="presidentialR"></p>
+    </div>
+
     <div id="loginDiv" th:style="${loginFail} ? 'display:block' : 'display:none'">
         <form action="/user/login" id="logincontent" method="post" modelAttribute="userForm">
             <span class="closeLoginBox" onclick="closeLogin()">&times;</span>
@@ -85,7 +93,7 @@
                 <button class="algoButtons" type="button" id="stopButton"><i class="fa fa-stop"></i> Stop</button>
             </div>
             <div id="algorithmChoiceDiv">
-                <select id="algorithmChoice">
+                <select id="algorithmChoice" name="algorithmChoice">
                     <option value=-1 selected>Choose Algorithm</option>
                     <option value="sa">Simulated Annealing</option>
                     <option value="rg">Region Growing</option>
@@ -111,10 +119,6 @@
     </div>
 
     <span id="openSideNav">&#9776;</span>
-
-    <div id="infoPopup">
-        <p class="precinctInfo" id="population"></p>
-    </div>
 
     <div id="mapid"></div>
 </div>

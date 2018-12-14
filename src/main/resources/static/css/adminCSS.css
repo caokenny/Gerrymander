@@ -41,6 +41,10 @@ h1 {
     text-align: center;
 }
 
+h3 {
+    margin: auto;
+}
+
 .editBtn, .deleteBtn, #addBtn {
     background-color: #489ec9;
     border: none;
@@ -63,7 +67,7 @@ body {
 }
 
 
-#registerDiv {
+#registerDiv, #editDiv {
     position: fixed;
     display: none;
     z-index: 3;
@@ -76,11 +80,11 @@ body {
     border: 1px solid #888;
 }
 
-#registerDiv {
+#registerDiv, #editDiv {
     height: 360px;
 }
 
-#registercontent {
+#registercontent, #editContent {
     padding-top: 45px;
     margin: auto;
     width: 100%;
@@ -96,7 +100,7 @@ input[type=text], input[type=password], input[type=email] {
     font-size:16px;
 }
 
-.registerSubmit {
+.registerSubmit, .editSubmit {
     background-color: blue;
     color: white;
     padding: 14px 20px;
