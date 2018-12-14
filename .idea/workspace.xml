@@ -3,15 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="63732b58-ba36-443a-9eb2-8532f8aa7aee" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmWeights.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmWeights.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/Algorithm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/Algorithm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/AlgorithmWeights.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/AlgorithmWeights.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/precinctLoaderTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/precinctLoaderTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/mapjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/mapjs.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,14 +32,14 @@
         <counts>
           <entry key="java" value="3687" />
           <entry key="js" value="177" />
-          <entry key="txt" value="132" />
+          <entry key="txt" value="184" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="3687" />
           <entry key="JavaScript" value="177" />
-          <entry key="PLAIN_TEXT" value="132" />
+          <entry key="PLAIN_TEXT" value="184" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -77,8 +68,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="41" column="32" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
+            <state relative-caret-position="623">
+              <caret line="55" column="13" lean-forward="true" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
               <folding>
                 <element signature="e#8097#8098#0" expanded="true" />
                 <element signature="e#8124#8125#0" expanded="true" />
@@ -377,7 +368,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544827775706" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544830766736" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RunDashboard">
@@ -462,7 +453,7 @@
       <workItem from="1544817924230" duration="4233000" />
       <workItem from="1544827123472" duration="523000" />
       <workItem from="1544827710903" duration="66000" />
-      <workItem from="1544827907310" duration="2689000" />
+      <workItem from="1544827907310" duration="2956000" />
     </task>
     <task id="LOCAL-00001" summary="final push">
       <created>1544752694778</created>
@@ -492,11 +483,18 @@
       <option name="project" value="LOCAL" />
       <updated>1544777320596</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="variance added for rg and to algorithmWeights class">
+      <created>1544830721338</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1544830721338</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53101000" />
+    <option name="totallyTimeSpent" value="53368000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="7" y="23" width="1624" height="998" extended-state="0" />
@@ -548,7 +546,8 @@
     <MESSAGE value="final push" />
     <MESSAGE value="updated moveupdater to include score" />
     <MESSAGE value="getStateMethod now returns copy of the state instead." />
-    <option name="LAST_COMMIT_MESSAGE" value="getStateMethod now returns copy of the state instead." />
+    <MESSAGE value="variance added for rg and to algorithmWeights class" />
+    <option name="LAST_COMMIT_MESSAGE" value="variance added for rg and to algorithmWeights class" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
@@ -804,8 +803,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="41" column="32" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
+        <state relative-caret-position="623">
+          <caret line="55" column="13" lean-forward="true" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
           <folding>
             <element signature="e#8097#8098#0" expanded="true" />
             <element signature="e#8124#8125#0" expanded="true" />
