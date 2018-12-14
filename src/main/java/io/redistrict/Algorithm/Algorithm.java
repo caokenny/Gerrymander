@@ -18,7 +18,8 @@ public class Algorithm {
 
     private static Properties properties = new Properties();
     private AlgorithmData data = new AlgorithmData();
-    private static int badMoves = 0;
+    private int badMoves = 0;
+    double accecptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
 
     public MoveUpdater do10RgIteration(){
         State state = data.getWorkingState();
@@ -29,7 +30,7 @@ public class Algorithm {
         ObjectiveFunctionCalculator calculator = new ObjectiveFunctionCalculator();
         calculator.setWeights(data.getWeights());
 
-        while (!state.getUnassignedPrecinctIds().isEmpty() && iterationsDone <10){
+        while (!state.getUnassignedPrecinctIds().isEmpty() && iterationsDone <100){
             // IF ONLY 1 DISTRICT THEN WE ASSIGN ALL TO IT
             if(rgDistricts.size() == 1){
                 District district = rgDistricts.values().iterator().next();
@@ -63,31 +64,15 @@ public class Algorithm {
             System.out.println("num of unassigned left: "+state.getUnassignedPrecinctIds().size());
             iterationsDone++;
         }
+        MoveUpdater updater = new MoveUpdater();
         if(state.getUnassignedPrecinctIds().isEmpty())
         {
             System.out.println("state current score score is: "+ calculator.getStateObjectiveFunction(state,AlgorithmType.RG));
+            updater.setCurrentScore(calculator.getStateObjectiveFunction(state,AlgorithmType.RG));
         }
-        MoveUpdater updater = new MoveUpdater();
         updater.setUpdates(updates);
-        updater.setCurrentScore(calculator.getStateObjectiveFunction(state,AlgorithmType.RG));
+        //updater.setCurrentScore(calculator.getStateObjectiveFunction(state,AlgorithmType.RG));
         return updater;
-    }
-
-
-    private Map<Integer, District> makeSeedDistricts(Set<Precinct> seeds){
-        int startDistrictId=1;
-        Map<Integer,District> seedDistricts = new LinkedHashMap<>();
-        for(Precinct precinct : seeds){
-            seedDistricts.put(startDistrictId,new District(startDistrictId,precinct));
-            startDistrictId++;
-        }
-        return  seedDistricts;
-    }
-
-    private Set<String> getInitUnassignedPrecinctIds(Set<Precinct> exclusions,Set<String> allPrecinctsIds){
-        Set<String> initUnAssignedPIds = new LinkedHashSet<>(allPrecinctsIds);
-        exclusions.forEach(precinct -> initUnAssignedPIds.remove(precinct.getGeoID10()));
-        return initUnAssignedPIds;
     }
 
     private District getLowestPopDistrict(Map<Integer,District> districtMap) {
@@ -218,7 +203,6 @@ public class Algorithm {
         int count = 0;
         State s = data.getWorkingState();
         int max_bad_move = Integer.parseInt(properties.getProperty("max_bad_moves"));
-        double accecptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
         double constantMultiplier = Double.parseDouble(properties.getProperty("constant_multiplier"));
 
         while(badMoves < max_bad_move && count < 10){

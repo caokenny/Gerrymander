@@ -18,9 +18,7 @@ public class Precinct {
     private String geoID10;
     private VoteData voteData;
     private List<Precinct> neighbors;
-    private List<Precinct> unassignedNeighbors;
     private int parentDistrictID;
-    private Set<Precinct> borderPrecincts;
     private boolean isBorder;
     String geoJsonString;
 
@@ -94,17 +92,6 @@ public class Precinct {
         this.name = name;
     }
 
-    public Set<Precinct> getBorderPrecincts() {
-        return borderPrecincts;
-    }
-
-    public void setBorderPrecincts(Set<Precinct> borderPrecincts) {
-        this.borderPrecincts = borderPrecincts;
-    }
-
-    public void setBorder(boolean border) {
-        isBorder = border;
-    }
     public double getArea(){
         Feature feature = (Feature) GeoJSONFactory.create(geoJsonString);
         GeoJSONReader reader = new GeoJSONReader();
@@ -116,14 +103,6 @@ public class Precinct {
         GeoJSONReader reader = new GeoJSONReader();
         Geometry precinctGeometry = reader.read(feature.getGeometry());
         return precinctGeometry.getLength();
-    }
-
-    public List<Precinct> getUnassignedNeighbors() {
-        return unassignedNeighbors;
-    }
-
-    public void setUnassignedNeighbors(List<Precinct> unassignedNeighbors) {
-        this.unassignedNeighbors = unassignedNeighbors;
     }
 
     public String getGeoJsonString() {
