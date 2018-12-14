@@ -29,14 +29,19 @@ public class precinctLoaderTest {
         State mo = AppData.getState("MO");
         State co = AppData.getState("CO");
         State ks = AppData.getState("KS");
-        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(ks.getAllPrecincts().values(),10);
+
+        State moCopy = AppData.getStateCopy("MO");
+        State coCopy = AppData.getStateCopy("CO");
+        State ksCopy = AppData.getStateCopy("KS");
+
+        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(moCopy.getAllPrecincts().values(),10);
         Map<Integer,District> seedDistricts = District.makeSeedDistricts(seeds);
-        ks.setRgdistricts(seedDistricts);
-        ks.resetUnassignedPrecinctIds();
+        moCopy.setRgdistricts(seedDistricts);
+        moCopy.resetUnassignedPrecinctIds();
 
         Algorithm algorithm = new Algorithm();
         AlgorithmData data = new AlgorithmData();
-        data.setWorkingState(ks);
+        data.setWorkingState(moCopy);
         data.setStartingSeeds(seeds);
         data.setType(AlgorithmType.RG);
         algorithm.setData(data);

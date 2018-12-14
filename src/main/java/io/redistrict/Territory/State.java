@@ -22,6 +22,8 @@ public class State {
     private int totalDemVotes;
     private int totalRepVotes;
 
+    public State(){}
+
     public State(State state){
         //if u want rgdistricts set it urself
         this.stateName = state.getStateName();
