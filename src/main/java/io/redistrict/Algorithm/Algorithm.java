@@ -220,9 +220,10 @@ public class Algorithm {
 
         while(movesDone < maxMoves && count < 50){
 
-            District additionDistrict; /*= s.getLowestPopDistrictSA();*/
-            if(data.getWeights().isVariance()) {additionDistrict = s.getRandomDistrictSA();}
-            else{additionDistrict = s.getLowestPopDistrictSA();}
+            District additionDistrict = s.getRandomDistrictSA();
+            //The following below will be used when variance is set
+//            if(data.getWeights().isVariance()) {additionDistrict = s.getRandomDistrictSA();}
+//            else{additionDistrict = s.getLowestPopDistrictSA();}
 
             double oldStateScore = getCurrentStateScore(s, AlgorithmType.SA);
             double newScore;

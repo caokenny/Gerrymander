@@ -4,12 +4,6 @@
     <list default="true" id="63732b58-ba36-443a-9eb2-8532f8aa7aee" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/District.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Test/TestClassJinOliver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Test/TestClassJinOliver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/PrecinctSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/PrecinctSelector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/Algorithm.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/AlgorithmController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/AlgorithmController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/RgSeedSelector.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/RgSeedSelector.class" afterDir="false" />
@@ -46,16 +40,16 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="8791" />
+          <entry key="java" value="8863" />
           <entry key="js" value="177" />
-          <entry key="txt" value="184" />
+          <entry key="txt" value="191" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="8791" />
+          <entry key="JAVA" value="8863" />
           <entry key="JavaScript" value="177" />
-          <entry key="PLAIN_TEXT" value="184" />
+          <entry key="PLAIN_TEXT" value="191" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -93,8 +87,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="224" column="66" selection-start-line="224" selection-start-column="66" selection-end-line="224" selection-end-column="66" />
+            <state relative-caret-position="288">
+              <caret line="222" column="37" selection-start-line="222" selection-start-column="37" selection-end-line="222" selection-end-column="37" />
               <folding>
                 <element signature="e#8295#8296#0" expanded="true" />
                 <element signature="e#8322#8323#0" expanded="true" />
@@ -335,7 +329,10 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544852770639" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544853040014" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RunDashboard">
@@ -423,7 +420,7 @@
       <workItem from="1544827123472" duration="523000" />
       <workItem from="1544827710903" duration="66000" />
       <workItem from="1544827907310" duration="6351000" />
-      <workItem from="1544838471461" duration="14102000" />
+      <workItem from="1544838471461" duration="14404000" />
     </task>
     <task id="LOCAL-00001" summary="final push">
       <created>1544752694778</created>
@@ -460,17 +457,23 @@
       <option name="project" value="LOCAL" />
       <updated>1544830721338</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="SA DONE">
+      <created>1544852963069</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1544852963069</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71845000" />
+    <option name="totallyTimeSpent" value="72147000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="23" width="1923" height="998" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.31897926" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.31897926" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -480,7 +483,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32671082" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49926472" weight="0.26821193" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49926472" visible="true" weight="0.26821193" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.29359823" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -517,7 +520,8 @@
     <MESSAGE value="updated moveupdater to include score" />
     <MESSAGE value="getStateMethod now returns copy of the state instead." />
     <MESSAGE value="variance added for rg and to algorithmWeights class" />
-    <option name="LAST_COMMIT_MESSAGE" value="variance added for rg and to algorithmWeights class" />
+    <MESSAGE value="SA DONE" />
+    <option name="LAST_COMMIT_MESSAGE" value="SA DONE" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
@@ -802,8 +806,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="224" column="66" selection-start-line="224" selection-start-column="66" selection-end-line="224" selection-end-column="66" />
+        <state relative-caret-position="288">
+          <caret line="222" column="37" selection-start-line="222" selection-start-column="37" selection-end-line="222" selection-end-column="37" />
           <folding>
             <element signature="e#8295#8296#0" expanded="true" />
             <element signature="e#8322#8323#0" expanded="true" />
