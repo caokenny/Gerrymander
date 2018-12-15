@@ -299,12 +299,14 @@ function continueAlgorithm() {
             var response = JSON.stringify(data, null, 4);
             summaryBox.val(summaryBox.val() + "\n" + response);
             console.log("SUCCESS : ", response);
-            if (data.updates.length === 0)
-                stopAlgorithm = true;
-            if (!stopAlgorithm)
+            // if (data.updates.length === 0)
+            //     stopAlgorithm = true;
+            // if (!stopAlgorithm)
+            //     continueAlgorithm();
+            // else
+            //     return;
+            if (data.updates.length > 0)
                 continueAlgorithm();
-            else
-                return;
         }
     });
 }
