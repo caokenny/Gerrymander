@@ -1,9 +1,6 @@
 package io.redistrict.Test;
 
-import io.redistrict.Algorithm.Algorithm;
-import io.redistrict.Algorithm.AlgorithmData;
-import io.redistrict.Algorithm.AlgorithmType;
-import io.redistrict.Algorithm.AlgorithmWeights;
+import io.redistrict.Algorithm.*;
 import io.redistrict.AppData.AppData;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Move;
@@ -29,6 +26,10 @@ public class TestClassJinOliver {
         //IF YOU HAVE WEIGHTS YOU WANT TO USE TO TEST. USE AlgorithmWeights setters to set them.
         //WEIGHTS ARE ALL EMPTY RN
         AlgorithmWeights weights = new AlgorithmWeights();
+        weights.setPopulationEquality(0.5);
+        weights.setCompactness(0.5);
+        weights.setEfficencyGap(0.5);
+        weights.setPartisanFairness(0.5);
         data.setWeights(weights);
 
         State state = AppData.getState("KS"); //ENTER YOUR STATE NAME HERE
@@ -49,5 +50,6 @@ public class TestClassJinOliver {
             for (Move m : moves)
                 System.out.println(m);
         }
+        System.out.println("program completed");
     }
 }

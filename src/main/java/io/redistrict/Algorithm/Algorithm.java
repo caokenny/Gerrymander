@@ -206,11 +206,14 @@ public class Algorithm {
         double constantMultiplier = Double.parseDouble(properties.getProperty("constant_multiplier"));
 
         while(badMoves < max_bad_move && count < 10){
-            District d = s.getLowestPopScoreDistrict();
+//            District d = s.getLowestPopScoreDistrict();
+            District d = s.getRandomDistrictSA();
             int distOldPop = d.getPopulation();
             double oldScore = s.getDistrictScore(d);
             double oldtotalPopScore = s.getTotalPopScore();
-            Move move = d.moveLargestBorderPrec();
+            double oldObjFuncVal = getCurrentStateScore(s, AlgorithmType.SA);
+//            Move move = d.moveLargestBorderPrec();
+            Move move = d.moveRandomBorderPrec();
             Precinct modifiedPrecinct = move.getPrecinct();
             modifiedPrecinct.setParentDistrictID(move.getDstDistrictID());
             District srcDistrict = s.getDefaultDistrict().get(move.getSrcDistrictID());
@@ -220,14 +223,17 @@ public class Algorithm {
             int distNewPop = d.getPopulation();
 //            double newScore = s.getDistrictScore(d);
             s.updatePopulationEqualityMeasure(move, data.getType());
+            double newTotalPopScore = s.getTotalPopScore();
+            double newObjFuncVal = getCurrentStateScore(s, AlgorithmType.SA);
             double newScore = s.getDistrictScore(d);
 //            if(newScore > oldScore){
 //                s.addToMoveStack(move);
 //            }
 //            with the above if statement a precinct can be traded back and forth between two districts and
 //            the newScore > oldScore always
-            if(s.getTotalPopScore() > oldtotalPopScore) {
+            if(newObjFuncVal > oldObjFuncVal) {
                 s.addToMoveStack(move);
+                System.out.println("New obj function score is " + newObjFuncVal);
             }
             else{
                 boolean acceptBadMove = s.acceptBadMove(oldScore, newScore, accecptanceConstant);

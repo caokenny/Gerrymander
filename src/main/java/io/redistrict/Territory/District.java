@@ -342,6 +342,20 @@ public class District {
         return new Move(p, p.getParentDistrictID(), pNeighbor.getParentDistrictID());
     }
 
+    public Precinct getRandomBorderPrec() {
+        int i = borderSaPrecincts.size();
+        int n = (int)(Math.random() * i);
+        return borderSaPrecincts.get(n);
+    }
+    public Move moveRandomBorderPrec(){
+        Precinct p = getRandomBorderPrec();
+        Precinct pNeighbor = p.getRandomNeighbor();
+        while(!pNeighbor.isBorder() || pNeighbor.getParentDistrictID() == p.getParentDistrictID())
+            pNeighbor = p.getRandomNeighbor();
+        // Move the largest border precint to a neighboring district
+        return new Move(p, p.getParentDistrictID(), pNeighbor.getParentDistrictID());
+    }
+
     public List<Precinct> getBorderSaPrecincts() {
         return borderSaPrecincts;
     }
