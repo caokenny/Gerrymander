@@ -97,6 +97,7 @@ public class AlgorithmController {
         moves.clear();
 
         double currentScore = calculator.getStateObjectiveFunction(alg.getData().getWorkingState(),AlgorithmType.SA);
+//        double currentScore = alg.getCurrentStateScore(data.getWorkingState(), AlgorithmType.SA);
         updater.setCurrentScore(currentScore);
         return updater;
     }

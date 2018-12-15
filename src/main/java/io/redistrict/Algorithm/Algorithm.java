@@ -126,7 +126,7 @@ public class Algorithm {
         return resultCanidate;
     }
 
-    private double getCurrentStateScore(State state,AlgorithmType type){
+    public double getCurrentStateScore(State state,AlgorithmType type){
         double popScoreWeight = data.getWeights().getPopulationEquality();
         double partianFairnessWeight = data.getWeights().getPartisanFairness();
         double efficiencyGapWeight = data.getWeights().getEfficencyGap();
