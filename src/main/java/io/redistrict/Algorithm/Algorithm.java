@@ -19,6 +19,7 @@ public class Algorithm {
     private static Properties properties = new Properties();
     private AlgorithmData data = new AlgorithmData();
     private int badMoves = 0;
+    private int movesDone= 0;
     double accecptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
 
     public MoveUpdater do10RgIteration(){
@@ -132,7 +133,9 @@ public class Algorithm {
         double popScoreWeight = data.getWeights().getPopulationEquality();
         double partianFairnessWeight = data.getWeights().getPartisanFairness();
         double efficiencyGapWeight = data.getWeights().getEfficencyGap();
-        double popScore = state.getAverageStatePopScore(type);
+        double totalWeights = popScoreWeight+partianFairnessWeight+efficiencyGapWeight;
+        if(totalWeights == 0){return 0;}
+        double popScore = state.getAverageStatePopScore(AlgorithmType.SA);
         double efficiencyGapScore;
         double partisanFairness;
         Map<Integer, District> districtMap;
@@ -142,9 +145,10 @@ public class Algorithm {
 
         partisanFairness = state.calculatePartisanBias(districtMap);
         efficiencyGapScore = state.calculateEfficiencyGap(districtMap);
-
-        return (popScore*popScoreWeight) + (efficiencyGapScore*efficiencyGapWeight) + (partianFairnessWeight*partisanFairness);
-    }
+        double weightScore = ((popScore*popScoreWeight) + (efficiencyGapScore*efficiencyGapWeight) + (partianFairnessWeight*partisanFairness))/totalWeights;
+        weightScore = (Math.round(weightScore*1000))/1000.00;
+        return weightScore;
+}
 
     private double getTempObjectiveScore(State state, District district , Precinct precinct,AlgorithmType type){
         double popScoreWeight = data.getWeights().getPopulationEquality();
@@ -202,15 +206,48 @@ public class Algorithm {
         return  updater;
     }
     public Stack<Move> run10SA(){
-        int count = 0;
         State s = data.getWorkingState();
-        int max_bad_move = Integer.parseInt(properties.getProperty("max_bad_moves"));
-        double constantMultiplier = Double.parseDouble(properties.getProperty("constant_multiplier"));
+        int maxMoves = 1000;
+        int count = 0;
 
+        double compactnessWeight = data.getWeights().getCompactness();
+        double efficencyWeight = data.getWeights().getEfficencyGap();
+        double populationWeight = data.getWeights().getPopulationEquality();
+        double partisanWeight = data.getWeights().getPartisanFairness();
+        double weightTotal = compactnessWeight+efficencyWeight+populationWeight+partisanWeight;
+        double compactnessAcceptanceRate = compactnessWeight/weightTotal;
+        double originalScore = getCurrentStateScore(s,AlgorithmType.SA);
 
-        while(badMoves < max_bad_move && count < 10){
-            District district = s.getRandomDistrictSA();
+        while(movesDone < maxMoves && count < 50){
 
+            District additionDistrict; /*= s.getLowestPopDistrictSA();*/
+            if(data.getWeights().isVariance()) {additionDistrict = s.getRandomDistrictSA();}
+            else{additionDistrict = s.getLowestPopDistrictSA();}
+
+            double oldStateScore = getCurrentStateScore(s, AlgorithmType.SA);
+            double newScore;
+            double compactnessRandomizer = Math.random();
+            Precinct candidate;
+
+            if(compactnessRandomizer <= compactnessAcceptanceRate)
+            {
+                    candidate = getRandomCompactedCanidate(additionDistrict);
+            }
+            else{
+                    candidate = getRandomCanidate(additionDistrict);
+            }
+            if(candidate.getParentDistrictID() == additionDistrict.getDistrictId()){ throw new NullPointerException(" YOU SELECTED A PRECINCT IN ADDITION DISTRICT");}
+
+            Move move = new Move(candidate,candidate.getParentDistrictID(),additionDistrict.getDistrictId());
+            s.executeSaMove(move);
+            newScore = getCurrentStateScore(s,AlgorithmType.SA);
+            if (newScore >= oldStateScore)
+            {
+                s.addToMoveStack(move);
+            }
+            else {
+                s.undoLastMove(move);
+            }
 
 //            District d = s.getLowestPopScoreDistrict();
 //            int distOldPop = d.getPopulation();
@@ -247,6 +284,16 @@ public class Algorithm {
 //                }
 //            }
             count++;
+            movesDone++;
+        }
+        if(s.getMoves().empty() || movesDone >maxMoves){
+            ObjectiveFunctionCalculator calculator = new ObjectiveFunctionCalculator();
+            calculator.setWeights(data.getWeights());
+            System.out.println("state score = " + calculator.getStateObjectiveFunction(s,AlgorithmType.SA));
+        }
+        else {
+            System.out.println("Original score:" + originalScore);
+            System.out.println("new Score: " + getCurrentStateScore(s, AlgorithmType.SA));
         }
         return s.getMoves();
     }
@@ -258,8 +305,8 @@ public class Algorithm {
     }
 
 
-    public List<Precinct> getCompactedAdditions (District district){
-        List<Precinct> borderPrecincts = district.getBorderRgPrecincts();
+    public List<Precinct> getCompactedAdditions (District district, double idealCompactness){
+        List<Precinct> borderPrecincts = district.getBorderSaPrecincts();
         List<Precinct> compactedAdditions = new ArrayList<>();
 
         for(Precinct precinct : borderPrecincts){
@@ -267,16 +314,17 @@ public class Algorithm {
             for (Precinct neighbor : neighbors){
                 if(neighbor.getParentDistrictID() !=district.getDistrictId())
                 {
-                    if(isCompacted(precinct,district)){compactedAdditions.add(neighbor);}
+                    if(isCompacted(precinct,district,idealCompactness)){compactedAdditions.add(neighbor);}
                 }
             }
         }
+        if (compactedAdditions.size() == 0){return null;}
         return compactedAdditions;
     }
 
     //precinct var is the precinct you going to add to this district var(true only if it is compact if you add the precinct to that neighbor)
-    public boolean isCompacted(Precinct precinct, District district){
-        double idealRatio = .5;
+    public boolean isCompacted(Precinct precinct, District district, double idealRatio){
+
 
         List<Precinct> neighbors = precinct.getNeighbors();
         int nonParentNeighbors = 0;
@@ -289,8 +337,33 @@ public class Algorithm {
         }
 
         double total = nonParentNeighbors+parentNeighbors;
+//        System.out.println("ratio: "+ ((double)(parentNeighbors))/total);
         if (((double)(parentNeighbors))/total >= idealRatio) { return  true;}
         else{return false;}
+    }
+
+    public Precinct getRandomCanidate(District district)
+    {
+        Precinct randomBorderPrecinct = PrecinctSelector.selectRandomPrecinct(district.getBorderSaPrecincts());
+        List<Precinct> possibleCanidates = district.possiblePrecinctAdditionsSa(randomBorderPrecinct);
+        return PrecinctSelector.selectRandomPrecinct(possibleCanidates);
+    }
+
+    public Precinct getRandomCompactedCanidate(District additionDistrict)
+    {
+        boolean compactnessMet= false;
+        double idealCompactness = .9;
+        List<Precinct> compactedCanidates;
+        while (!compactnessMet){
+            compactedCanidates = getCompactedAdditions(additionDistrict,idealCompactness);
+            if(compactedCanidates !=null)
+            {
+                compactnessMet = true;
+                return PrecinctSelector.selectRandomPrecinct(compactedCanidates);
+            }
+            else{idealCompactness -= .05;}
+        }
+        return  null;  // should never get here
     }
 
 }

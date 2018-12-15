@@ -4,9 +4,21 @@
     <list default="true" id="63732b58-ba36-443a-9eb2-8532f8aa7aee" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/ColorRandomizer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/ColorRandomizer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/District.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Test/TestClassJinOliver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Test/TestClassJinOliver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/PrecinctSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/PrecinctSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/Algorithm.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/AlgorithmController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Algorithm/AlgorithmController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/RgSeedSelector.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/RgSeedSelector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/District.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/District.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/State.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Territory/State.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Test/TestClassJinOliver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Test/TestClassJinOliver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/PrecinctSelector.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/PrecinctSelector.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/auth/model/CustomUserDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/auth/model/CustomUserDetails.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/mapjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/mapjs.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,32 +46,32 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="5214" />
+          <entry key="java" value="8791" />
           <entry key="js" value="177" />
           <entry key="txt" value="184" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="5214" />
+          <entry key="JAVA" value="8791" />
           <entry key="JavaScript" value="177" />
           <entry key="PLAIN_TEXT" value="184" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="4" />
-          <entry key="java" value="86" />
-          <entry key="js" value="4" />
+          <entry key="class" value="6" />
+          <entry key="java" value="106" />
+          <entry key="js" value="5" />
           <entry key="json" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="4" />
-          <entry key="JAVA" value="86" />
+          <entry key="CLASS" value="6" />
+          <entry key="JAVA" value="106" />
           <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="4" />
+          <entry key="JavaScript" value="5" />
         </counts>
       </usages-collector>
     </session>
@@ -69,17 +81,48 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="245">
+              <caret line="87" column="38" selection-start-line="87" selection-start-column="38" selection-end-line="87" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="256" selection-start-line="256" selection-end-line="256" />
+            <state relative-caret-position="318">
+              <caret line="224" column="66" selection-start-line="224" selection-start-column="66" selection-end-line="224" selection-end-column="66" />
               <folding>
-                <element signature="e#8120#8121#0" expanded="true" />
-                <element signature="e#8147#8148#0" expanded="true" />
-                <element signature="e#8193#8194#0" expanded="true" />
-                <element signature="e#8225#8226#0" expanded="true" />
+                <element signature="e#8295#8296#0" expanded="true" />
+                <element signature="e#8322#8323#0" expanded="true" />
+                <element signature="e#8368#8369#0" expanded="true" />
+                <element signature="e#8400#8401#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="556">
+              <caret line="175" column="30" selection-start-line="175" selection-start-column="30" selection-end-line="175" selection-end-column="30" />
+              <folding>
+                <element signature="e#6629#6630#0" expanded="true" />
+                <element signature="e#6660#6661#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/PrecinctSelector.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="16" column="63" selection-start-line="16" selection-start-column="63" selection-end-line="16" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -88,18 +131,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>infopop</find>
-      <find>pres</find>
-      <find>Pres</find>
-      <find>measurescon</find>
-      <find>algorithm</find>
-      <find>usercon</find>
-      <find>algorithmchoice</find>
-      <find>data</find>
-      <find>peri</find>
-      <find>rgpop</find>
-      <find>sim</find>
-      <find>continue</find>
       <find>setneig</find>
       <find>population</find>
       <find>votedata</find>
@@ -113,13 +144,30 @@
       <find>area</find>
       <find>isbor</find>
       <find>getdistrictid</find>
+      <find>und</find>
+      <find>popequa</find>
+      <find>pop</find>
+      <find>calcu</find>
+      <find>execute</find>
+      <find>undolas</find>
+      <find>getborderRgPre</find>
+      <find>updatepre</find>
+      <find>getcurrentstate</find>
+      <find>maxmove</find>
+      <find>get</find>
+      <find>1</find>
+      <find>getmove</find>
+      <find>currentstat</find>
+      <find>idealpop</find>
+      <find>10sa`</find>
+      <find>10sa</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="10SA-variant" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
   </component>
@@ -135,14 +183,16 @@
         <option value="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/AppData/MoveUpdater.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/AppData/MoveUpdate.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/AppData/AppData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmWeights.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Utils/PrecinctSelector.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/District.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Test/TestClassJinOliver.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" />
+        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java" />
       </list>
     </option>
@@ -160,10 +210,10 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="48" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-3" />
     <option name="y" value="23" />
-    <option name="width" value="1624" />
+    <option name="width" value="1519" />
     <option name="height" value="998" />
   </component>
   <component name="ProjectView">
@@ -225,6 +275,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="redistrict" type="462c0819:PsiDirectoryNode" />
+              <item name="Territory" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="redistrict" type="462c0819:PsiDirectoryNode" />
               <item name="Test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -235,6 +294,30 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="redistrict" type="462c0819:PsiDirectoryNode" />
               <item name="Utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gerrymander" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gerrymander" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -252,7 +335,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544835958576" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544852770639" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RunDashboard">
@@ -340,6 +423,7 @@
       <workItem from="1544827123472" duration="523000" />
       <workItem from="1544827710903" duration="66000" />
       <workItem from="1544827907310" duration="6351000" />
+      <workItem from="1544838471461" duration="14102000" />
     </task>
     <task id="LOCAL-00001" summary="final push">
       <created>1544752694778</created>
@@ -380,13 +464,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57761000" />
+    <option name="totallyTimeSpent" value="71845000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1089" y="23" width="1624" height="998" extended-state="0" />
+    <frame x="-3" y="23" width="1923" height="998" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.21112517" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.31897926" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -397,7 +481,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32671082" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49926472" weight="0.26821193" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.307947" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.29359823" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -421,41 +505,6 @@
       <window_info anchor="right" id="Bean Validation" order="9" />
       <window_info anchor="right" id="Maven Projects" order="10" />
     </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49917898" weight="0.2567237" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="Capture Tool" order="4" />
-      <window_info id="UI Designer" order="5" />
-      <window_info id="Favorites" order="6" sideWeight="0.500821" side_tool="true" weight="0.20588236" />
-      <window_info id="Web" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32854864" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49926472" visible="true" weight="0.1589041" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="1.0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Spring" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="11" />
-      <window_info anchor="bottom" id="Java Enterprise" order="12" />
-      <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info anchor="bottom" id="Version Control" order="14" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" />
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Database" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info anchor="right" id="Bean Validation" order="9" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -557,13 +606,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_71.jdk/Contents/Home/jre/lib/rt.jar!/sun/nio/ch/KQueueArrayWrapper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="133" column="23" selection-start-line="133" selection-start-column="23" selection-end-line="133" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/AppData/MoveUpdater.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -592,13 +634,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/StateData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/AppData/AppData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="169">
@@ -606,36 +641,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Move.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/mapjs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="275" column="1" lean-forward="true" selection-start-line="275" selection-start-column="1" selection-end-line="275" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/Missouri.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="686">
-          <caret line="305" column="21" lean-forward="true" selection-start-line="305" selection-start-column="21" selection-end-line="305" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/ObjectiveFunctionCalculator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Precinct.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -655,13 +662,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="38" selection-start-line="38" selection-end-line="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="98" column="8" selection-start-line="98" selection-start-column="8" selection-end-line="99" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -685,47 +685,130 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Test/TestClassJinOliver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="45" column="33" lean-forward="true" selection-start-line="45" selection-start-column="33" selection-end-line="45" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/precinctLoaderTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
-          <caret line="4" column="30" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/StateData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/Move.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/District.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="184" selection-start-line="184" selection-end-line="184" />
+        <state relative-caret-position="496">
+          <caret line="367" column="77" selection-start-line="367" selection-start-column="77" selection-end-line="367" selection-end-column="77" />
           <folding>
             <element signature="e#1622#1623#0" expanded="true" />
             <element signature="e#1655#1656#0" expanded="true" />
+            <element signature="e#3134#3135#0" expanded="true" />
+            <element signature="e#3167#3168#0" expanded="true" />
+            <element signature="e#4481#4482#0" expanded="true" />
+            <element signature="e#4521#4522#0" expanded="true" />
+            <element signature="e#4974#4975#0" expanded="true" />
+            <element signature="e#5032#5033#0" expanded="true" />
+            <element signature="e#5081#5082#0" expanded="true" />
+            <element signature="e#5125#5126#0" expanded="true" />
+            <element signature="e#5173#5174#0" expanded="true" />
+            <element signature="e#5220#5221#0" expanded="true" />
+            <element signature="e#5424#5425#0" expanded="true" />
+            <element signature="e#5460#5461#0" expanded="true" />
+            <element signature="e#5533#5534#0" expanded="true" />
+            <element signature="e#5583#5584#0" expanded="true" />
+            <element signature="e#11262#11263#0" expanded="true" />
+            <element signature="e#11299#11300#0" expanded="true" />
+            <element signature="e#12620#12621#0" expanded="true" />
+            <element signature="e#12660#12661#0" expanded="true" />
+            <element signature="e#12734#12735#0" expanded="true" />
+            <element signature="e#12792#12793#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_71.jdk/Contents/Home/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="652" selection-start-line="652" selection-end-line="652" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/mapjs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-22">
+          <caret line="269" column="8" lean-forward="true" selection-start-line="269" selection-start-column="8" selection-end-line="269" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Test/TestClassJinOliver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="34" column="38" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_71.jdk/Contents/Home/jre/lib/rt.jar!/sun/nio/ch/KQueueArrayWrapper.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="133" column="23" selection-start-line="133" selection-start-column="23" selection-end-line="133" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/ObjectiveFunctionCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="21" selection-start-column="21" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="87" column="38" selection-start-line="87" selection-start-column="38" selection-end-line="87" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Utils/PrecinctSelector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="180">
+          <caret line="16" column="63" selection-start-line="16" selection-start-column="63" selection-end-line="16" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Territory/State.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="556">
+          <caret line="175" column="30" selection-start-line="175" selection-start-column="30" selection-end-line="175" selection-end-column="30" />
+          <folding>
+            <element signature="e#6629#6630#0" expanded="true" />
+            <element signature="e#6660#6661#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="256" selection-start-line="256" selection-end-line="256" />
+        <state relative-caret-position="318">
+          <caret line="224" column="66" selection-start-line="224" selection-start-column="66" selection-end-line="224" selection-end-column="66" />
           <folding>
-            <element signature="e#8120#8121#0" expanded="true" />
-            <element signature="e#8147#8148#0" expanded="true" />
-            <element signature="e#8193#8194#0" expanded="true" />
-            <element signature="e#8225#8226#0" expanded="true" />
+            <element signature="e#8295#8296#0" expanded="true" />
+            <element signature="e#8322#8323#0" expanded="true" />
+            <element signature="e#8368#8369#0" expanded="true" />
+            <element signature="e#8400#8401#0" expanded="true" />
           </folding>
         </state>
       </provider>

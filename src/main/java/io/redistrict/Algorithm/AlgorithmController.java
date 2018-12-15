@@ -84,20 +84,20 @@ public class AlgorithmController {
         if (moves.isEmpty())
             System.out.println("moves is empty");
         for (Move m : moves) {
-            System.out.println(m);
+//            System.out.println(m);
             MoveUpdate update = new MoveUpdate(m.getSrcDistrictID(), m.getDstDistrictID(), m.getPrecinct().getGeoID10());
             updater.getUpdates().add(update);
         }
-        System.out.println("\n\n");
-        for (MoveUpdate m : updater.getUpdates()) {
-            System.out.println(m);
-        }
+//        System.out.println("\n\n");
+//        for (MoveUpdate m : updater.getUpdates()) {
+//            System.out.println(m);
+//        }
 //        ADD moves.clear() and updater.getupdates().clear() if run10SA() returns the moveStack associated with
 //        state bc it is never cleared. This clears it because it is pointing to the same state moveStack
         moves.clear();
 
-        double currentScore = calculator.getStateObjectiveFunction(alg.getData().getWorkingState(),AlgorithmType.SA);
-        updater.setCurrentScore(currentScore);
+        //double currentScore = calculator.getStateObjectiveFunction(alg.getData().getWorkingState(),AlgorithmType.SA);
+        //updater.setCurrentScore(currentScore);
         return updater;
     }
 
@@ -106,6 +106,7 @@ public class AlgorithmController {
         alg = new Algorithm();
         data = new AlgorithmData();
         alg.setData(data);
+
         wts.setEfficencyGap(wts.getEfficencyGap()/100);
         wts.setPartisanFairness(wts.getPartisanFairness()/100);
         wts.setPopulationEquality(wts.getPopulationEquality()/100);
@@ -122,6 +123,9 @@ public class AlgorithmController {
         System.out.println(data);
         JSONObject item = new JSONObject();
         item.put("success", "Weights successfully set");
+        ObjectiveFunctionCalculator calculator = new ObjectiveFunctionCalculator();
+        calculator.setWeights(data.getWeights());
+        System.out.println("ORIGINAL SCORE IS:" + calculator.getStateObjectiveFunction(state,AlgorithmType.SA));
 //        return "Weights successfully set";
 //        can't return String because we specify in Ajax call that a json is expected to be returned
         return item.toString();

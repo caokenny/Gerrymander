@@ -265,9 +265,9 @@ function updatePrecinctVisual(response) {
             }
         });
     }
-    if (!paused) {
-        $('#runButton').trigger('click');
-    }
+    // if (!paused) {
+    //     $('#runButton').trigger('click');
+    // }
 }
 
 
