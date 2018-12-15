@@ -59,12 +59,14 @@ public class District {
         allDPrecincts.put(precinct.getGeoID10(), precinct);
         population += precinct.getPopulation();
         if(type == AlgorithmType.SA) {
-            if (isSABorderPrecinct(precinct)) {
-                precinct.setIsBorder(true);
-                borderSaPrecincts.add(precinct);
-            } else
-                precinct.setIsBorder(false);
+            updateBorderSAPrecincts();
         }
+//            if (isSABorderPrecinct(precinct)) {
+//                precinct.setIsBorder(true);
+//                borderSaPrecincts.add(precinct);
+//            } else
+//                precinct.setIsBorder(false);
+//        }
     }
 
     public void removePrecinctList(List<Precinct> precincts, AlgorithmType type){
@@ -85,9 +87,10 @@ public class District {
         allDPrecincts.remove(precinct.getGeoID10());
         population -= precinct.getPopulation();
         if(type == AlgorithmType.SA) {
-            if (precinct.isBorder()) {
-                borderSaPrecincts.remove(precinct);
-            }
+            updateBorderSAPrecincts();
+//            if (precinct.isBorder()) {
+//                borderSaPrecincts.remove(precinct);
+//            }
         }
     }
 
@@ -364,5 +367,17 @@ public class District {
         this.borderSaPrecincts = borderSaPrecincts;
     }
 
+    public void updateBorderSAPrecincts(){
+        borderSaPrecincts.clear();
+        for(Precinct precinct: allDPrecincts.values()){
+            if(isSABorderPrecinct(precinct)){
+                precinct.setIsBorder(true);
+                borderSaPrecincts.add(precinct);
+            }
+            else{
+                precinct.setIsBorder(false);
+            }
+        }
+    }
 }
 
