@@ -255,6 +255,22 @@ public class Algorithm {
     }
 
 
+    public List<Precinct> getCompactedAdditions (District district){
+        List<Precinct> borderPrecincts = district.getBorderRgPrecincts();
+        List<Precinct> compactedAdditions = new ArrayList<>();
+
+        for(Precinct precinct : borderPrecincts){
+            List<Precinct> neighbors = precinct.getNeighbors();
+            for (Precinct neighbor : neighbors){
+                if(neighbor.getParentDistrictID() !=district.getDistrictId())
+                {
+                    if(isCompacted(precinct,district)){compactedAdditions.add(neighbor);}
+                }
+            }
+        }
+        return compactedAdditions;
+    }
+
     //precinct var is the precinct you going to add to this district var(true only if it is compact if you add the precinct to that neighbor)
     public boolean isCompacted(Precinct precinct, District district){
         double idealRatio = .5;
