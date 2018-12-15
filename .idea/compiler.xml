@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="course-api" />
         <module name="CSE308" />
+        <module name="FinalProject" />
         <module name="Gerrymander" />
         <module name="Gerrymander3" />
       </profile>
@@ -15,6 +16,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="FinalProject" options="-parameters" />
       <module name="Gerrymander" options="-parameters" />
       <module name="course-api" options="-parameters" />
     </option>

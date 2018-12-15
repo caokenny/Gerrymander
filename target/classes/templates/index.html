@@ -7,6 +7,7 @@
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
     <link rel="stylesheet" type="text/css" href="/css/indexCSS.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/aboutCSS.css"/>
     <link rel="stylesheet" type="text/css" href="/css/sidenavCSS.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -23,6 +24,48 @@
         <p id="presidentialR"></p>
     </div>
 
+    <div id="aboutDiv" th:style="'display:none'">
+            <span class="closeAboutBox" onclick="closeAbout()">&times;</span>
+            <table id="info" style="width:100%">
+                <tr>
+                    <th>State</th>
+                    <th>Legislative or Congressional</th>
+                    <th>Criteria</th>
+                </tr>
+                <tr>
+                    <td>Colorado</td>
+                    <td>Legislative</td>
+                    <td>Required: Compact, Contiguous, Preserve Political Subdivisions, Preserve Communities of Interest</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Congressional</td>
+                    <td>Required: Compact, Contiguous, Preserve Political Subdivisions, Preserve Communities of Interest</td>
+                </tr>
+                <tr>
+                    <td>Kansas</td>
+                    <td>Legislative</td>
+                    <td>Required: Compact, Contiguous, Preserve Political Subdivisions, Preserve Communities of Interest, Avoid Pairing Incumbents</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Congressional</td>
+                    <td>Required: Contiguous, Preserve Political Subdivisions, Preserve Communities of Interest, Preserve Cores of Prior Districts</td>
+                </tr>
+                <tr>
+                    <td>Missouri</td>
+                    <td>Legislative</td>
+                    <td>Required: Compact, Contiguous, Preserve Political Subdivisions</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Congressional</td>
+                    <td>Required: Compact, Contiguous</td>
+                </tr>
+
+            </table>
+            <a href="http://www.ncsl.org/research/redistricting/redistricting-criteria.aspx">Source</a>
+    </div>
     <div id="loginDiv" th:style="${loginFail} ? 'display:block' : 'display:none'">
         <form action="/user/login" id="logincontent" method="post" modelAttribute="userForm">
             <span class="closeLoginBox" onclick="closeLogin()">&times;</span>
@@ -81,7 +124,7 @@
             <a href="/secure/admin">Admin</a>
         </div>
         <div id="otherSideNavLinks">
-            <a href="#">About</a>
+            <a href="#" id = "aboutButton">About</a>
             <a href="#">Contact</a>
         </div>
 

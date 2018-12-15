@@ -1,6 +1,6 @@
 var loginOpen = false;
 var registerOpen = false;
-
+var aboutOpen = false;
 $('#loginButton').on('click', function () {
     if (registerOpen) {
         closeRegister();
@@ -13,7 +13,13 @@ function closeLogin() {
     loginOpen = false;
     $('#loginDiv').css("display", "none");
 }
-
+$('#aboutButton').on('click', function () {
+    aboutOpen = true;
+    $('#aboutDiv').css("display", "block");
+});
+function closeAbout() {
+    $('#aboutDiv').css("display", "none");
+}
 $('#registerButton').on('click', function () {
     if (loginOpen) {
         closeLogin();

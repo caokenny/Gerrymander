@@ -129,7 +129,7 @@ html, body {
     top: 5%;
 }
 
-#loginDiv, #registerDiv {
+#loginDiv, #registerDiv, #aboutDiv {
     position: fixed;
     display: none;
     z-index: 3;
@@ -148,6 +148,9 @@ html, body {
 
 #registerDiv {
     height: 360px;
+}
+#aboutDiv{
+    height: 400px;
 }
 
 #logincontent, #registercontent {
@@ -182,7 +185,7 @@ input[type=text], input[type=password], input[type=email] {
 }
 
 
-.closeLoginBox {
+.closeLoginBox, .closeAboutBox {
     position: absolute;
     right: 25px;
     top: 0;
