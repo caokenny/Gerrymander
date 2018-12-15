@@ -39,7 +39,7 @@ public class Algorithm {
                 return updater;
             }
             //ELSE
-            District rgDistrict;
+            District rgDistrict ;
             if(data.getWeights().isVariance()){ rgDistrict= getLowestPopDistrict(rgDistricts);}
             else{ rgDistrict= getRandomDistrict(rgDistricts);}
 
@@ -209,40 +209,43 @@ public class Algorithm {
 
 
         while(badMoves < max_bad_move && count < 10){
-            District d = s.getLowestPopScoreDistrict();
-            int distOldPop = d.getPopulation();
-            double oldScore = s.getDistrictScore(d);
-            double oldtotalPopScore = s.getTotalPopScore();
-            Move move = d.moveLargestBorderPrec();
-            Precinct modifiedPrecinct = move.getPrecinct();
-            modifiedPrecinct.setParentDistrictID(move.getDstDistrictID());
-            District srcDistrict = s.getDefaultDistrict().get(move.getSrcDistrictID());
-            District dstDistrict =s.getDefaultDistrict().get(move.getDstDistrictID());
-            srcDistrict.removePrecinct(modifiedPrecinct,AlgorithmType.SA);
-            dstDistrict.addPrecinct(modifiedPrecinct,AlgorithmType.SA);
-            int distNewPop = d.getPopulation();
+            District district = s.getRandomDistrictSA();
+
+
+//            District d = s.getLowestPopScoreDistrict();
+//            int distOldPop = d.getPopulation();
+//            double oldScore = s.getDistrictScore(d);
+//            double oldtotalPopScore = s.getTotalPopScore();
+//            Move move = d.moveLargestBorderPrec();
+//            Precinct modifiedPrecinct = move.getPrecinct();
+//            modifiedPrecinct.setParentDistrictID(move.getDstDistrictID());
+//            District srcDistrict = s.getDefaultDistrict().get(move.getSrcDistrictID());
+//            District dstDistrict =s.getDefaultDistrict().get(move.getDstDistrictID());
+//            srcDistrict.removePrecinct(modifiedPrecinct,AlgorithmType.SA);
+//            dstDistrict.addPrecinct(modifiedPrecinct,AlgorithmType.SA);
+//            int distNewPop = d.getPopulation();
+////            double newScore = s.getDistrictScore(d);
+//            s.updatePopulationEqualityMeasure(move, data.getType());
 //            double newScore = s.getDistrictScore(d);
-            s.updatePopulationEqualityMeasure(move, data.getType());
-            double newScore = s.getDistrictScore(d);
-//            if(newScore > oldScore){
+////            if(newScore > oldScore){
+////                s.addToMoveStack(move);
+////            }
+////            with the above if statement a precinct can be traded back and forth between two districts and
+////            the newScore > oldScore always
+//            if(s.getTotalPopScore() > oldtotalPopScore) {
 //                s.addToMoveStack(move);
 //            }
-//            with the above if statement a precinct can be traded back and forth between two districts and
-//            the newScore > oldScore always
-            if(s.getTotalPopScore() > oldtotalPopScore) {
-                s.addToMoveStack(move);
-            }
-            else{
-                boolean acceptBadMove = s.acceptBadMove(oldScore, newScore, accecptanceConstant);
-                if(acceptBadMove){
-                    s.addToMoveStack(move);
-                }
-                else {
-                    s.undoLastMove(move);
-                    badMoves++; // THIS MIGHT NEED TO BE SWAPPED TO SOMEWHERE ELSE(UNDER S.UNDOLASTMove())
-                    accecptanceConstant *= constantMultiplier;
-                }
-            }
+//            else{
+//                boolean acceptBadMove = s.acceptBadMove(oldScore, newScore, accecptanceConstant);
+//                if(acceptBadMove){
+//                    s.addToMoveStack(move);
+//                }
+//                else {
+//                    s.undoLastMove(move);
+//                    badMoves++; // THIS MIGHT NEED TO BE SWAPPED TO SOMEWHERE ELSE(UNDER S.UNDOLASTMove())
+//                    accecptanceConstant *= constantMultiplier;
+//                }
+//            }
             count++;
         }
         return s.getMoves();
