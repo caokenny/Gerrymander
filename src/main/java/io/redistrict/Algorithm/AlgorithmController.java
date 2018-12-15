@@ -96,8 +96,8 @@ public class AlgorithmController {
 //        state bc it is never cleared. This clears it because it is pointing to the same state moveStack
         moves.clear();
 
-        double currentScore = calculator.getStateObjectiveFunction(alg.getData().getWorkingState(),AlgorithmType.SA);
-//        double currentScore = alg.getCurrentStateScore(data.getWorkingState(), AlgorithmType.SA);
+//        double currentScore = calculator.getStateObjectiveFunction(alg.getData().getWorkingState(),AlgorithmType.SA);
+        double currentScore = alg.getCurrentStateScore(data.getWorkingState(), AlgorithmType.SA);
         updater.setCurrentScore(currentScore);
         return updater;
     }

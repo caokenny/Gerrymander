@@ -205,7 +205,8 @@ public class Algorithm {
         int max_bad_move = Integer.parseInt(properties.getProperty("max_bad_moves"));
         double constantMultiplier = Double.parseDouble(properties.getProperty("constant_multiplier"));
 
-        while(badMoves < max_bad_move && count < 10){
+        while(badMoves < max_bad_move && count < 100){
+            badMoves = 0;
 //            District d = s.getLowestPopScoreDistrict();
             District d = s.getRandomDistrictSA();
             int distOldPop = d.getPopulation();
