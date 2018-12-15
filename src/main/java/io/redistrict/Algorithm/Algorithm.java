@@ -254,4 +254,24 @@ public class Algorithm {
         return districts.get(random);
     }
 
+
+    //precinct var is the precinct you going to add to this district var(true only if it is compact if you add the precinct to that neighbor)
+    public boolean isCompacted(Precinct precinct, District district){
+        double idealRatio = .5;
+
+        List<Precinct> neighbors = precinct.getNeighbors();
+        int nonParentNeighbors = 0;
+        int parentNeighbors = 0;
+        int additionDistrictId = district.getDistrictId();
+
+        for (Precinct neighbor : neighbors){
+            if(neighbor.getParentDistrictID() == additionDistrictId){ parentNeighbors++;}
+            else{nonParentNeighbors++;}
+        }
+
+        double total = nonParentNeighbors+parentNeighbors;
+        if (((double)(parentNeighbors))/total >= idealRatio) { return  true;}
+        else{return false;}
+    }
+
 }
