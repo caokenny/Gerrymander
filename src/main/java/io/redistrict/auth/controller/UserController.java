@@ -70,7 +70,7 @@ public class UserController {
             return "index";
         }
 
-        Role adminRole = createIfNotFound("ROLE_ADMIN");
+//        Role adminRole = createIfNotFound("ROLE_ADMIN");
         Role userRole = createIfNotFound("ROLE_USER");
 
         Set<Role> roleSet = new HashSet<>();
@@ -79,19 +79,19 @@ public class UserController {
         String rawPassword = userForm.getPassword();
         userForm.setPassword(passwordEncoder.encode(userForm.getPassword()));
 
-        adminRole.getUsers().add(userForm);
+//        adminRole.getUsers().add(userForm);
         userRole.getUsers().add(userForm);
 
-        roleSet.add(adminRole);
+//        roleSet.add(adminRole);
         roleSet.add(userRole);
 
         userForm.setRoles(roleSet);
 
         userDao.save(userForm);
 
-        if (userForm.getRoles().contains(roleDao.findByName("ROLE_ADMIN"))) {
-            model.addAttribute("adminUser", true);
-        }
+//        if (userForm.getRoles().contains(roleDao.findByName("ROLE_ADMIN"))) {
+//            model.addAttribute("adminUser", true);
+//        }
 
 
         if (page.equals("user")) {

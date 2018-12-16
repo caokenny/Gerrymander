@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <button class="homeBtn"><i class="fa fa-home"></i> Home</button>
+<button class="homeBtn"><a href="/" id="home"><i class="fa fa-home"></i> Home</a></button>
 
     <div id="registerDiv" th:style="${registerFail} ? 'display:block' : 'display:none'">
         <form action="/user/register" id="registercontent" method="POST" modelAttribute="userForm">

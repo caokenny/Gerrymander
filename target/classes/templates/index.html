@@ -16,13 +16,61 @@
 <div id="wrapper">
 
     <div id="infoPopup">
-        <p id="geoid"></p>
+        <p id="precinctname"></p>
+        <p id="caucasian"></p>
+        <p id="africanAmerican"></p>
+        <p id="americanIndian"></p>
+        <p id="asian"></p>
+        <p id="twoOrMoreRaces"></p>
+        <p id="hispanic"></p>
         <p id="populationInfo"></p>
         <h4>Presidential Votes</h4>
         <p id="presidentialD"></p>
         <p id="presidentialR"></p>
     </div>
+    <div id="aboutDiv" th:style="'display:none'">
+        <span class="closeAboutBox" onclick="closeAbout()">X</span>
+        <table id="info" style="width:100%">
 
+            <tr>
+                <th>State</th>
+                <th>Legislative or Congressional</th>
+                <th>Criteria</th>
+            </tr>
+            <tr>
+                <td>Colorado</td>
+                <td>Legislative</td>
+                <td>Required: Compact, Contiguous, Preserve Political Subdivisions, Preserve Communities of Interest</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Congressional</td>
+                <td>Required: Compact, Contiguous, Preserve Political Subdivisions, Preserve Communities of Interest</td>
+            </tr>
+            <tr>
+                <td>Kansas</td>
+                <td>Legislative</td>
+                <td>Required: Compact, Contiguous, Preserve Political Subdivisions, Preserve Communities of Interest, Avoid Pairing Incumbents</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Congressional</td>
+                <td>Required: Contiguous, Preserve Political Subdivisions, Preserve Communities of Interest, Preserve Cores of Prior Districts</td>
+            </tr>
+            <tr>
+                <td>Missouri</td>
+                <td>Legislative</td>
+                <td>Required: Compact, Contiguous, Preserve Political Subdivisions</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Congressional</td>
+                <td>Required: Compact, Contiguous</td>
+            </tr>
+
+        </table>
+        <a href="/about">Source</a>
+    </div>
     <div id="loginDiv" th:style="${loginFail} ? 'display:block' : 'display:none'">
         <form action="/user/login" id="logincontent" method="post" modelAttribute="userForm">
             <span class="closeLoginBox" onclick="closeLogin()">&times;</span>
@@ -56,8 +104,21 @@
         </form>
     </div>
 
+    <div id="loadWeightsDiv">
+
+    </div>
+
     <div id="mapheader">
-        <button class="homeBtn"><i class="fa fa-home"></i> Home</button>
+        <div>
+            <button class="homeBtn"><i class="fa fa-home"></i> Home</button>
+            <!--<form action="" method="get">-->
+            <input id="search" name="search" type="text" placeholder="Search...">
+            <input type="button" onclick="return handleSearch()" value="Search">
+            <!--</form>-->
+            <!--<input type="text" id = "search" name="search" placeholder="Search...">-->
+            <!--<button class="searchButton"><i class="fa fa-search"></i></button>-->
+
+        </div>
     </div>
 
     <div id="mySidenav" class="sidenav">
@@ -81,7 +142,7 @@
             <a href="/secure/admin">Admin</a>
         </div>
         <div id="otherSideNavLinks">
-            <a href="#">About</a>
+            <a href="#" id = "aboutButton">About</a>
             <a href="#">Contact</a>
         </div>
 
@@ -90,7 +151,8 @@
                 <button class="algoButtons" type="button" id="updateButton"><i class="fa fa-refresh"></i> Update</button>
                 <button class="algoButtons" type="button" id="runButton"><i class="fa fa-play"></i> Play</button>
                 <button class="algoButtons" type="button" id="pauseButton"><i class="fa fa-pause"></i> Pause</button>
-                <button class="algoButtons" type="button" id="stopButton"><i class="fa fa-stop"></i> Stop</button>
+                <button class="algoButtons" type="button" id="stopButton"><i class="fa fa-stop"></i><br> Stop</button>
+                <button class="algoButtons" type="button" id="resetButton"><i class="fa fa-undo"></i><br> Reset</button>
             </div>
             <div id="algorithmChoiceDiv">
                 <select id="algorithmChoice" name="algorithmChoice">
@@ -102,21 +164,61 @@
                 </select>
             </div>
             <div id="measuresContainer">
-                <h2 class="measureSliderTitle">Compactness </h2>
+                <h3 class="measureSliderTitle">Compactness </h3>
                 <input type="range" min="1" max="100" value="50" class="measureSlider" id="compactnessSlider" data-thumbwidth="20">
                 <output id="compactnessOutput" name="rangeVal">50</output>
-                <h2 class="measureSliderTitle">Population</h2>
+                <h3 class="measureSliderTitle">Population</h3>
                 <input type="range" min="1" max="100" value="50" class="measureSlider" id="populationSlider" data-thumbwidth="20">
                 <output id="populationOutput" name="rangeVal">50</output>
-                <h2 class="measureSliderTitle">Partisan Fairness</h2>
+                <h3 class="measureSliderTitle">Partisan Fairness</h3>
                 <input type="range" min="1" max="100" value="50" class="measureSlider" id="partisanFairnessSlider" data-thumbwidth="20">
                 <output id="pfOutput" name="rangeVal">50</output>
-                <h2 class="measureSliderTitle">Efficiency Gap</h2>
+                <h3 class="measureSliderTitle">Efficiency Gap</h3>
                 <input type="range" min="1" max="100" value="50" class="measureSlider" id="efficiencyGapSlider" data-thumbwidth="20">
                 <output id="egOutput" name="rangeVal">50</output>
             </div>
-            <p id = "objFunc"> Obj Func Value</p>
-            <textarea id="summaryBox" readonly>Summary</textarea>
+            <div id="saveLoad">
+                <button type="button" class="saveLoadButton" id="saveWeights"><i class="fa fa-save"></i> Save</button>
+                <button type="button" class="saveLoadButton" id="loadWeights"><i class="fa fa-upload"></i> Load</button>
+            </div>
+            <div id="toggleDiv">
+                <button type="button" class="algoButtons" id="toggledBtn">Toggle Map</button>
+            </div>
+            <div id="scoreDiv">
+                <table id="scoreTable">
+                    <tr>
+                        <th>Measure</th>
+                        <th>Old</th>
+                        <th>New</th>
+                    </tr>
+                    <tr id="compactnessScore">
+                        <td>Compactness</td>
+                        <td id="oldCompactness"></td>
+                        <td id="newCompactness"></td>
+                    </tr>
+                    <tr id="populationScore">
+                        <td>Population</td>
+                        <td id="oldPopulation"></td>
+                        <td id="newPopulation"></td>
+                    </tr>
+                    <tr id="pfScore">
+                        <td>Partisan Fairness</td>
+                        <td id="oldPf"></td>
+                        <td id="newPf"></td>
+                    </tr>
+                    <tr id="egScore">
+                        <td>Efficiency Gap</td>
+                        <td id="oldEg"></td>
+                        <td id="newEg"></td>
+                    </tr>
+                    <tr id="objScore">
+                        <td>Objective Score</td>
+                        <td id="oldObj"></td>
+                        <td id="newObj"></td>
+                    </tr>
+                </table>
+            </div>
+            <textarea id="summaryBox" readonly></textarea>
         </div>
 
     </div>
@@ -134,6 +236,7 @@
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous"></script>
 <script src="/js/us-states.js"></script>
+<script src="/js/states.js"></script>
 <script src="/js/Colorado.js"></script>
 <script src="/js/Kansas.js"></script>
 <script src="/js/Missouri.js"></script>

@@ -80,14 +80,25 @@ body {
     border: 1px solid #888;
 }
 
-#registerDiv, #editDiv {
+#registerDiv {
     height: 360px;
 }
 
+#editDiv {
+    height: 280px;
+}
+
 #registercontent, #editContent {
-    padding-top: 45px;
     margin: auto;
     width: 100%;
+}
+
+#registercontent {
+    padding-top: 45px;
+}
+
+#editContent {
+    padding-top: 20px;
 }
 
 input[type=text], input[type=password], input[type=email] {
@@ -125,6 +136,14 @@ input[type=text], input[type=password], input[type=email] {
     font-weight: bold;
 }
 
+h3 {
+    margin-left: 10px;
+}
+
+#home {
+    color: white;
+    text-decoration: none;
+}
 
 
 
