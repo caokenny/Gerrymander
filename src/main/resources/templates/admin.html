@@ -9,10 +9,7 @@
 </head>
 <body>
 
-    <div id="mySidenav" class="sidenav" style="width: 250px;">
-        <a href="/">Home</a>
-        <a href="/secure/admin">Dashboard</a>
-    </div>
+    <button class="homeBtn"><i class="fa fa-home"></i> Home</button>
 
     <div id="registerDiv" th:style="${registerFail} ? 'display:block' : 'display:none'">
         <form action="/user/register" id="registercontent" method="POST" modelAttribute="userForm">
@@ -58,10 +55,9 @@
                 <td><button class="editBtn" th:id="${user.username}"><i class="fa fa-edit"></i></button><button class="deleteBtn" th:id="${user.username}"><i class="fa fa-close"></i></button> </td>
             </tr>
         </table>
-    </div>
-
-    <div id="addUserDiv">
-        <button id="addBtn"><i class="fa fa-plus"></i> Add User</button>
+        <div id="addUserDiv">
+            <button id="addBtn"><i class="fa fa-plus"></i> Add User</button>
+        </div>
     </div>
 
 <script

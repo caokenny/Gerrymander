@@ -9,6 +9,7 @@
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .sidenav a, .sidenav div {
