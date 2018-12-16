@@ -2,24 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="63732b58-ba36-443a-9eb2-8532f8aa7aee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/FinalProject2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/old_colorado_final.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/old_kansas_final.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/old_missouri_final.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/json/colorado_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/colorado_final.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/json/kansas_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/kansas_final.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/json/missouri_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/json/missouri_final.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/ColorRandomizer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/ColorRandomizer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/RgSeedSelector.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/RegionGrowing/RgUtilities/RgSeedSelector.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/JsonColorConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/Utils/JsonColorConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/redistrict/auth/model/CustomUserDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/redistrict/auth/model/CustomUserDetails.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/json/colorado_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/json/colorado_final.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/json/kansas_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/json/kansas_final.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/json/missouri_final.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/json/missouri_final.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/static/js/mapjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/mapjs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
     </list>
@@ -87,6 +73,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="css" value="1" />
           <entry key="html" value="1" />
           <entry key="java" value="1" />
           <entry key="js" value="3" />
@@ -96,6 +83,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="CSS" value="1" />
           <entry key="HTML" value="1" />
           <entry key="JAVA" value="1" />
           <entry key="JSON" value="2" />
@@ -105,14 +93,18 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="81" />
-          <entry key="js" value="484" />
+          <entry key="css" value="5" />
+          <entry key="html" value="134" />
+          <entry key="js" value="1170" />
+          <entry key="txt" value="45" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="81" />
-          <entry key="JavaScript" value="484" />
+          <entry key="CSS" value="5" />
+          <entry key="HTML" value="134" />
+          <entry key="JavaScript" value="1170" />
+          <entry key="PLAIN_TEXT" value="45" />
         </counts>
       </usages-collector>
     </session>
@@ -153,8 +145,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/indexjs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="79" column="3" selection-start-line="79" selection-start-column="3" selection-end-line="79" selection-end-column="3" />
+            <state relative-caret-position="154">
+              <caret line="66" column="42" selection-start-line="66" selection-start-column="42" selection-end-line="66" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -162,8 +154,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+            <state relative-caret-position="154">
+              <caret line="97" column="67" selection-start-line="97" selection-start-column="62" selection-end-line="97" selection-end-column="67" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="296" column="6" selection-start-line="296" selection-start-column="6" selection-end-line="296" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -171,8 +172,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/mapjs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="112" column="98" selection-start-line="112" selection-start-column="98" selection-end-line="112" selection-end-column="98" />
+            <state relative-caret-position="424">
+              <caret line="308" column="17" selection-start-line="308" selection-start-column="17" selection-end-line="308" selection-end-column="17" />
               <folding>
                 <element signature="e#9#15#0" expanded="true" />
               </folding>
@@ -198,20 +199,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>infopop</find>
-      <find>pres</find>
-      <find>Pres</find>
-      <find>measurescon</find>
-      <find>algorithm</find>
-      <find>usercon</find>
-      <find>algorithmchoice</find>
-      <find>data</find>
-      <find>peri</find>
-      <find>rgpop</find>
-      <find>sim</find>
-      <find>continue</find>
-      <find>setneig</find>
-      <find>population</find>
       <find>votedata</find>
       <find>add</find>
       <find>addprecinct</find>
@@ -225,8 +212,23 @@
       <find>getdistrictid</find>
       <find>cauca</find>
       <find>geoid</find>
+      <find>stopalgor</find>
       <find>presidentialD</find>
       <find>presidential</find>
+      <find>stopButton</find>
+      <find>pauseButton</find>
+      <find>stop</find>
+      <find>pauseB</find>
+      <find>pause</find>
+      <find>paused</find>
+      <find>resetButt</find>
+      <find>stopB</find>
+      <find>zoomst</find>
+      <find>zoomstate</find>
+      <find>stateNumber</find>
+      <find>stateNum</find>
+      <find>stateSelected</find>
+      <find>bounds</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -244,7 +246,6 @@
         <option value="$PROJECT_DIR$/src/main/resources/static/js/adminjs.js" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/admin.html" />
         <option value="$PROJECT_DIR$/src/main/resources/static/css/adminCSS.css" />
-        <option value="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/AppData/MoveUpdater.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/AppData/MoveUpdate.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/AlgorithmController.java" />
@@ -257,6 +258,7 @@
         <option value="$PROJECT_DIR$/src/main/java/io/redistrict/Algorithm/Algorithm.java" />
         <option value="$PROJECT_DIR$/src/main/resources/static/js/indexjs.js" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css" />
         <option value="$PROJECT_DIR$/src/main/resources/static/js/mapjs.js" />
       </list>
     </option>
@@ -339,6 +341,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FinalProject2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FinalProject2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -375,7 +386,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544919919201" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544924094750" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RecentsManager">
@@ -482,7 +493,7 @@
       <workItem from="1544827123472" duration="523000" />
       <workItem from="1544827710903" duration="66000" />
       <workItem from="1544827907310" duration="6351000" />
-      <workItem from="1544917897904" duration="1853000" />
+      <workItem from="1544917897904" duration="6286000" />
     </task>
     <task id="LOCAL-00001" summary="final push">
       <created>1544752694778</created>
@@ -519,14 +530,21 @@
       <option name="project" value="LOCAL" />
       <updated>1544830721338</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Displays demographic data now">
+      <created>1544920022495</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1544920022495</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59162000" />
+    <option name="totallyTimeSpent" value="63595000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1613" height="873" extended-state="7" />
+    <frame x="-6" y="-6" width="1613" height="873" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49917898" visible="true" weight="0.15369774" />
@@ -611,7 +629,8 @@
     <MESSAGE value="updated moveupdater to include score" />
     <MESSAGE value="getStateMethod now returns copy of the state instead." />
     <MESSAGE value="variance added for rg and to algorithmWeights class" />
-    <option name="LAST_COMMIT_MESSAGE" value="variance added for rg and to algorithmWeights class" />
+    <MESSAGE value="Displays demographic data now" />
+    <option name="LAST_COMMIT_MESSAGE" value="Displays demographic data now" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
@@ -655,13 +674,6 @@
       <provider selected="true" editor-type-id="LargeFileEditor">
         <state relative-caret-position="17">
           <caret line="1" column="6946" selection-start-line="1" selection-start-column="6946" selection-end-line="1" selection-end-column="6946" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="198" column="16" lean-forward="true" selection-start-line="198" selection-start-column="16" selection-end-line="198" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -866,24 +878,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/indexjs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+        <state relative-caret-position="154">
+          <caret line="66" column="42" selection-start-line="66" selection-start-column="42" selection-end-line="66" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/indexjs.js">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/indexCSS.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="79" column="3" selection-start-line="79" selection-start-column="3" selection-end-line="79" selection-end-column="3" />
+        <state relative-caret-position="204">
+          <caret line="296" column="6" selection-start-line="296" selection-start-column="6" selection-end-line="296" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="97" column="67" selection-start-line="97" selection-start-column="62" selection-end-line="97" selection-end-column="67" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/mapjs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="112" column="98" selection-start-line="112" selection-start-column="98" selection-end-line="112" selection-end-column="98" />
+        <state relative-caret-position="424">
+          <caret line="308" column="17" selection-start-line="308" selection-start-column="17" selection-end-line="308" selection-end-column="17" />
           <folding>
             <element signature="e#9#15#0" expanded="true" />
           </folding>

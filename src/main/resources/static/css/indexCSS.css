@@ -294,7 +294,10 @@ input[type=range]:active + output {
     left: 200px;
     display: none;
 }
-
+#resetButton {
+    left: 200px;
+    display: none;
+}
 #pauseButton {
     display: none;
     margin-right: 100px;

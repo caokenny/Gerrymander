@@ -23,7 +23,6 @@ var colors = {"01" : "red", "02" : "green", "03" : "purple", "04" : "#489ec9", "
 var initialStyle = {color: "white", opacity: 1, fillColor: "#5FBD5A", fillOpacity: 0.2};
 
 var onStateAlready = false;
-
 var stateNames = [
     {name : "colorado", jsvar: colorado, abbr: "CO"},
     {name : "kansas", jsvar: kansas, abbr: "KS"},
@@ -65,8 +64,13 @@ var districtLayer;
 var stateLayer;
 var zoomLevel;
 var stateSelected;
-
+var oldBounds;
+var oldGeoObj;
+var oldStateName;
 function zoomState(bounds, geoObj, stateName) {
+    oldBounds = bounds;
+    oldGeoObj = geoObj;
+    oldStateName = stateName;
     stateSelected = geoObj.options.abbr;
     if (!onStateAlready) {
         onStateAlready = true;
@@ -110,24 +114,12 @@ function zoomState(bounds, geoObj, stateName) {
                     layer.on('mouseover', function () {
                         $('#infoPopup').css("display", "block");
                         $('#geoid').text("GEOID: " + feature.properties.GEOID10);
-                        if(Math.floor(feature.properties.CAUCASIAN * feature.properties.POP100) != 0) {
-                            $('#caucasian').text("Caucasian: " + Math.floor(feature.properties.CAUCASIAN * feature.properties.POP100));
-                        }
-                        if(Math.floor(feature.properties.AFRICAN_AMERICAN * feature.properties.POP100) != 0) {
-                            $('#africanAmerican').text("African American: " + Math.floor(feature.properties.AFRICAN_AMERICAN * feature.properties.POP100));
-                        }
-                        if(Math.floor(feature.properties.AMERICAN_INDIAN * feature.properties.POP100) != 0) {
-                            $('#americanIndian').text("American Indian: " + Math.floor(feature.properties.AMERICAN_INDIAN * feature.properties.POP100));
-                        }
-                        if(Math.floor(feature.properties.ASIAN * feature.properties.POP100) != 0) {
-                            $('#asian').text("Asian: " + Math.floor(feature.properties.ASIAN * feature.properties.POP100));
-                        }
-                        if(Math.floor(feature.properties.TWO_OR_MORE_RACES * feature.properties.POP100) != 0) {
-                            $('#twoOrMoreRaces').text("Two or More Races: " + Math.floor(feature.properties.TWO_OR_MORE_RACES * feature.properties.POP100));
-                        }
-                        if(Math.floor(feature.properties.HISPANIC * feature.properties.POP100) != 0) {
-                            $('#hispanic').text("Hispanic: " + Math.floor(feature.properties.HISPANIC * feature.properties.POP100));                        $('#populationInfo').text("Total Population: " + feature.properties.POP100);
-                        }
+                        $('#caucasian').text("Caucasian: " + Math.floor(feature.properties.CAUCASIAN * feature.properties.POP100));
+                        $('#africanAmerican').text("African American: " + Math.floor(feature.properties.AFRICAN_AMERICAN * feature.properties.POP100));
+                        $('#americanIndian').text("American Indian: " + Math.floor(feature.properties.AMERICAN_INDIAN * feature.properties.POP100));
+                        $('#asian').text("Asian: " + Math.floor(feature.properties.ASIAN * feature.properties.POP100));
+                        $('#twoOrMoreRaces').text("Two or More Races: " + Math.floor(feature.properties.TWO_OR_MORE_RACES * feature.properties.POP100));
+                        $('#hispanic').text("Hispanic: " + Math.floor(feature.properties.HISPANIC * feature.properties.POP100));                        $('#populationInfo').text("Total Population: " + feature.properties.POP100);
                         $('#presidentialD').text("Democrat: " + parseInt(feature.properties.PRES_D_08));
                         $('#presidentialR').text("Republican: " + parseInt(feature.properties.PRES_R_08));4
                     });
@@ -294,6 +286,30 @@ $('#pauseButton').on('click', function () {
     paused = true;
 });
 var stopAlgorithm = false;
+$('#stopButton').on('click', function () {
+    $('#pauseButton').css("display", "none");
+    $('#stopButton').css("display", "none");
+    $('#runButton').css("display", "none");
+    $('#resetButton').css("display", "block");
+    $('#updateButton').css("display", "none");
+    paused = true;
+});
+$('#resetButton').on('click', function () {
+    var j;
+    for (j = 0; j < stateEvents.length; j++) {
+        stateEvents[j].setStyle(initialStyle);
+    }
+    mymap.removeLayer(precinctLayer);
+    mymap.removeLayer(districtLayer);
+    onStateAlready = false;
+    precinctLayer = null;
+    districtLayer = null;
+
+    $('#resetButton').css("display", "none");
+    $('#runButton').css("display", "block");
+    $('#updateButton').css("display", "block");
+    zoomState(oldBounds, oldGeoObj, oldStateName);
+});
 var mycount = 0;
 function continueAlgorithm() {
     var countObj = {counter: 0};
