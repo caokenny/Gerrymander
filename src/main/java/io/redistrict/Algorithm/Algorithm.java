@@ -3,6 +3,7 @@ package io.redistrict.Algorithm;
 import io.redistrict.AppData.AppData;
 import io.redistrict.AppData.MoveUpdate;
 import io.redistrict.AppData.MoveUpdater;
+import io.redistrict.AppData.Score;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Move;
 import io.redistrict.Territory.Precinct;
@@ -18,9 +19,9 @@ public class Algorithm {
 
     private static Properties properties = new Properties();
     private AlgorithmData data = new AlgorithmData();
-    private int badMoves = 0;
     private int movesDone= 0;
-    double accecptanceConstant = Double.parseDouble(properties.getProperty("acceptance_constant"));
+    private int maxMoves = 1000;
+    private Score oldScore;
 
     public MoveUpdater do10RgIteration(){
         State state = data.getWorkingState();
@@ -70,11 +71,11 @@ public class Algorithm {
         MoveUpdater updater = new MoveUpdater();
         if(state.getUnassignedPrecinctIds().isEmpty())
         {
-            System.out.println("state current score score is: "+ calculator.getStateObjectiveFunction(state,AlgorithmType.RG));
-            updater.setCurrentScore(calculator.getStateObjectiveFunction(state,AlgorithmType.RG));
+            Score newScore = calculator.getStateObjectiveFunction(state,AlgorithmType.RG);
+            System.out.println("state current score score is: "+ newScore);
+            updater.setNewScore(newScore);
         }
         updater.setUpdates(updates);
-        //updater.setCurrentScore(calculator.getStateObjectiveFunction(state,AlgorithmType.RG));
         return updater;
     }
 
@@ -207,7 +208,6 @@ public class Algorithm {
     }
     public Stack<Move> run10SA(){
         State s = data.getWorkingState();
-        int maxMoves = 1000;
         int count = 0;
 
         double compactnessWeight = data.getWeights().getCompactness();
@@ -249,48 +249,13 @@ public class Algorithm {
             else {
                 s.undoLastMove(move);
             }
-
-//            District d = s.getLowestPopScoreDistrict();
-//            int distOldPop = d.getPopulation();
-//            double oldScore = s.getDistrictScore(d);
-//            double oldtotalPopScore = s.getTotalPopScore();
-//            Move move = d.moveLargestBorderPrec();
-//            Precinct modifiedPrecinct = move.getPrecinct();
-//            modifiedPrecinct.setParentDistrictID(move.getDstDistrictID());
-//            District srcDistrict = s.getDefaultDistrict().get(move.getSrcDistrictID());
-//            District dstDistrict =s.getDefaultDistrict().get(move.getDstDistrictID());
-//            srcDistrict.removePrecinct(modifiedPrecinct,AlgorithmType.SA);
-//            dstDistrict.addPrecinct(modifiedPrecinct,AlgorithmType.SA);
-//            int distNewPop = d.getPopulation();
-////            double newScore = s.getDistrictScore(d);
-//            s.updatePopulationEqualityMeasure(move, data.getType());
-//            double newScore = s.getDistrictScore(d);
-////            if(newScore > oldScore){
-////                s.addToMoveStack(move);
-////            }
-////            with the above if statement a precinct can be traded back and forth between two districts and
-////            the newScore > oldScore always
-//            if(s.getTotalPopScore() > oldtotalPopScore) {
-//                s.addToMoveStack(move);
-//            }
-//            else{
-//                boolean acceptBadMove = s.acceptBadMove(oldScore, newScore, accecptanceConstant);
-//                if(acceptBadMove){
-//                    s.addToMoveStack(move);
-//                }
-//                else {
-//                    s.undoLastMove(move);
-//                    badMoves++; // THIS MIGHT NEED TO BE SWAPPED TO SOMEWHERE ELSE(UNDER S.UNDOLASTMove())
-//                    accecptanceConstant *= constantMultiplier;
-//                }
-//            }
             count++;
             movesDone++;
         }
         if(s.getMoves().empty() || movesDone >maxMoves){
-            ObjectiveFunctionCalculator calculator = new ObjectiveFunctionCalculator();
-            calculator.setWeights(data.getWeights());
-            System.out.println("state score = " + calculator.getStateObjectiveFunction(s,AlgorithmType.SA));
+//            ObjectiveFunctionCalculator calculator = new ObjectiveFunctionCalculator();
+//            calculator.setWeights(data.getWeights());
+//            System.out.println("state score = " + calculator.getStateObjectiveFunction(s,AlgorithmType.SA));
         }
         else {
             System.out.println("Original score:" + originalScore);
@@ -367,4 +332,27 @@ public class Algorithm {
         return  null;  // should never get here
     }
 
+    public int getMovesDone() {
+        return movesDone;
+    }
+
+    public void setMovesDone(int movesDone) {
+        this.movesDone = movesDone;
+    }
+
+    public int getMaxMoves() {
+        return maxMoves;
+    }
+
+    public void setMaxMoves(int maxMoves) {
+        this.maxMoves = maxMoves;
+    }
+
+    public Score getOldScore() {
+        return oldScore;
+    }
+
+    public void setOldScore(Score oldScore) {
+        this.oldScore = oldScore;
+    }
 }
