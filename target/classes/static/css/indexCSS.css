@@ -118,6 +118,9 @@ html, body {
     margin: 0 auto 50px auto;
     border: 2px solid;
     text-align: justify;
+    font-family: sans-serif, 'Helvetica', 'Arial';
+    color: lime;
+    background-color: #1A2739;
 }
 
 #buttons {

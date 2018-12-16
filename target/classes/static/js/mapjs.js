@@ -219,7 +219,12 @@ $('#runButton').on('click', function () {
     var population = $('#populationSlider').val();
     var partisanFariness = $('#partisanFairnessSlider').val();
     var efficencyGap = $('#efficiencyGapSlider').val();
-    var measuresObj = {"compactness" : compactness, "populationEquality" : population, "partisanFairness" : partisanFariness, "efficencyGap" : efficencyGap, "algorithm" : algorithmChoice, "stateAbbrv" : stateSelected};
+    var variance;
+    if (algorithmChoice === "sa" || algorithmChoice === "rg")
+        variance = true;
+    else
+        variance = false;
+    var measuresObj = {"compactness" : compactness, "populationEquality" : population, "partisanFairness" : partisanFariness, "efficencyGap" : efficencyGap, "algorithm" : algorithmChoice, "stateAbbrv" : stateSelected, "variance": variance};
     if (algorithmChoice === "sa") {
         $.ajax({
             url: "setWeights",
@@ -299,12 +304,14 @@ function continueAlgorithm() {
             var response = JSON.stringify(data, null, 4);
             summaryBox.val(summaryBox.val() + "\n" + response);
             console.log("SUCCESS : ", response);
-            if (data.updates.length === 0)
-                stopAlgorithm = true;
-            if (!stopAlgorithm)
+            // if (data.updates.length === 0)
+            //     stopAlgorithm = true;
+            // if (!stopAlgorithm)
+            //     continueAlgorithm();
+            // else
+            //     return;
+            if (data.updates.length > 0)
                 continueAlgorithm();
-            else
-                return;
         }
     });
 }
