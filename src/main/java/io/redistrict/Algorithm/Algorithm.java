@@ -22,6 +22,7 @@ public class Algorithm {
     private int movesDone= 0;
     private int maxMoves = 1000;
     private Score oldScore;
+    private boolean isDone= false;
 
     public MoveUpdater do10RgIteration(){
         State state = data.getWorkingState();
@@ -42,8 +43,8 @@ public class Algorithm {
             }
             //ELSE
             District rgDistrict ;
-            if(data.getWeights().isVariance()){ rgDistrict= getLowestPopDistrict(rgDistricts);}
-            else{ rgDistrict= getRandomDistrict(rgDistricts);}
+            if(data.getWeights().isVariance()){ rgDistrict= getRandomDistrict(rgDistricts);}
+            else{ rgDistrict= getLowestPopDistrict(rgDistricts);}
 
             if(rgDistrict.getBorderRgPrecincts().size() == 0) {
                 rgDistricts.remove(rgDistrict.getDistrictId());
@@ -69,11 +70,14 @@ public class Algorithm {
             iterationsDone++;
         }
         MoveUpdater updater = new MoveUpdater();
-        if(state.getUnassignedPrecinctIds().isEmpty())
+        if(isDone==true || updates.isEmpty())
         {
             Score newScore = calculator.getStateObjectiveFunction(state,AlgorithmType.RG);
             System.out.println("state current score score is: "+ newScore);
             updater.setNewScore(newScore);
+        }
+        if(state.getUnassignedPrecinctIds().isEmpty()){
+            isDone=true;
         }
         updater.setUpdates(updates);
         return updater;
@@ -220,10 +224,10 @@ public class Algorithm {
 
         while(movesDone < maxMoves && count < 50){
 
-            District additionDistrict = s.getRandomDistrictSA();
+            District additionDistrict;// = s.getRandomDistrictSA();
             //The following below will be used when variance is set
-//            if(data.getWeights().isVariance()) {additionDistrict = s.getRandomDistrictSA();}
-//            else{additionDistrict = s.getLowestPopDistrictSA();}
+            if(data.getWeights().isVariance()) {additionDistrict = s.getRandomDistrictSA();}
+            else{additionDistrict = s.getLowestPopDistrictSA();}
 
             double oldStateScore = getCurrentStateScore(s, AlgorithmType.SA);
             double newScore;
