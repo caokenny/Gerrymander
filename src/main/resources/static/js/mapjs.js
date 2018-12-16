@@ -110,7 +110,13 @@ function zoomState(bounds, geoObj, stateName) {
                     layer.on('mouseover', function () {
                         $('#infoPopup').css("display", "block");
                         $('#geoid').text("GEOID: " + feature.properties.GEOID10);
-                        $('#populationInfo').text("Population: " + feature.properties.POP100);
+                        if()
+                        $('#caucasian').text("Caucasian: " + Math.floor(feature.properties.CAUCASIAN * feature.properties.POP100));
+                        $('#africanAmerican').text("African American: " + Math.floor(feature.properties.AFRICAN_AMERICAN * feature.properties.POP100));
+                        $('#americanIndian').text("American Indian: " + Math.floor(feature.properties.AMERICAN_INDIAN * feature.properties.POP100));
+                        $('#asian').text("Asian: " + Math.floor(feature.properties.ASIAN * feature.properties.POP100));
+                        $('#twoOrMoreRaces').text("Two or More Races: " + Math.floor(feature.properties.TWO_OR_MORE_RACES * feature.properties.POP100));
+                        $('#hispanic').text("Hispanic: " + Math.floor(feature.properties.HISPANIC * feature.properties.POP100));                        $('#populationInfo').text("Total Population: " + feature.properties.POP100);
                         $('#presidentialD').text("Democrat: " + parseInt(feature.properties.PRES_D_08));
                         $('#presidentialR').text("Republican: " + parseInt(feature.properties.PRES_R_08));4
                     });
