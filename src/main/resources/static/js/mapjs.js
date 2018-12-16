@@ -315,7 +315,7 @@ function continueAlgorithm() {
             console.log(data);
             updatePrecinctVisualSA(data);
             var response = JSON.stringify(data, null, 4);
-            summaryBox.val(summaryBox.val() + "\n" + response);
+            summaryBox.val(summaryBox.val() + "\n" + response).on('change',scrollToBottom());
             console.log("SUCCESS : ", response);
             // if (data.updates.length === 0)
             //     stopAlgorithm = true;
@@ -329,6 +329,14 @@ function continueAlgorithm() {
     });
 }
 
+// summaryBox.on('input', function() {
+//     alert("It works");
+//     scrollToBottom();
+// });
+// above code didn't work had to attach it to when I change the val()
+function scrollToBottom() {
+    summaryBox.scrollTop(summaryBox[0].scrollHeight);
+}
 
 // var summaryBox = $('#summaryBox');
 // $('#runButton').click(function () {
