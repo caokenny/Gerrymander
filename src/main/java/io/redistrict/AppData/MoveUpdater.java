@@ -8,7 +8,8 @@ import java.util.List;
 
 public class MoveUpdater {
     String state ;
-    double currentScore;
+    Score oldScore;
+    Score newScore;
 
     private List<MoveUpdate> updates = new LinkedList<>();
 
@@ -32,11 +33,19 @@ public class MoveUpdater {
         this.state = state;
     }
 
-    public void setCurrentScore(double currentScore) {
-        this.currentScore = currentScore;
+    public Score getOldScore() {
+        return oldScore;
     }
 
-    public double getCurrentScore() {
-        return currentScore;
+    public void setOldScore(Score oldScore) {
+        this.oldScore = oldScore;
+    }
+
+    public Score getNewScore() {
+        return newScore;
+    }
+
+    public void setNewScore(Score newScore) {
+        this.newScore = newScore;
     }
 }

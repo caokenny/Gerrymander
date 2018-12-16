@@ -219,8 +219,13 @@ $('#runButton').on('click', function () {
     var population = $('#populationSlider').val();
     var partisanFariness = $('#partisanFairnessSlider').val();
     var efficencyGap = $('#efficiencyGapSlider').val();
-    var measuresObj = {"compactness" : compactness, "populationEquality" : population, "partisanFairness" : partisanFariness, "efficencyGap" : efficencyGap, "algorithm" : algorithmChoice, "stateAbbrv" : stateSelected};
-    if (algorithmChoice === "sa") {
+    var variance;
+    if (algorithmChoice === "sa" || algorithmChoice === "rg")
+        variance = true;
+    else
+        variance = false;
+    var measuresObj = {"compactness" : compactness, "populationEquality" : population, "partisanFairness" : partisanFariness, "efficencyGap" : efficencyGap, "algorithm" : algorithmChoice, "stateAbbrv" : stateSelected, "variance": variance};
+    if (algorithmChoice === "sa" || algorithmChoice === "sa1") {
         $.ajax({
             url: "setWeights",
             type: "POST",
@@ -248,7 +253,7 @@ $('#runButton').on('click', function () {
             data: JSON.stringify(measuresObj),
             success: function (data) {
                 if (data.updates.length !== 0) {
-                    updatePrecinctVisual(data);
+                    updatePrecinctVisualRG(data);
                 }
             }
         })
@@ -256,7 +261,21 @@ $('#runButton').on('click', function () {
 });
 
 var precinctMove;
-function updatePrecinctVisual(response) {
+function updatePrecinctVisualSA(response) {
+    for (var i = 0; i < response.updates.length; i++) {
+        precinctMove = response.updates[i];
+        precinctLayer.setStyle(function (feature) {
+            if (feature.properties.GEOID10 === precinctMove.precinctId) {
+                return {fillColor : colors["0" + precinctMove.destDistId], fillOpacity : 1};
+            }
+        });
+    }
+    // if (!paused) {
+    //     $('#runButton').trigger('click');
+    // }
+}
+
+function updatePrecinctVisualRG(response) {
     for (var i = 0; i < response.updates.length; i++) {
         precinctMove = response.updates[i];
         precinctLayer.setStyle(function (feature) {
@@ -269,7 +288,6 @@ function updatePrecinctVisual(response) {
         $('#runButton').trigger('click');
     }
 }
-
 
 $('#pauseButton').on('click', function () {
     $('#pauseButton').css("display", "none");
@@ -295,16 +313,18 @@ function continueAlgorithm() {
                 // updatePrecinctVisual(move);
             }
             console.log(data);
-            updatePrecinctVisual(data);
+            updatePrecinctVisualSA(data);
             var response = JSON.stringify(data, null, 4);
             summaryBox.val(summaryBox.val() + "\n" + response);
             console.log("SUCCESS : ", response);
-            if (data.updates.length === 0)
-                stopAlgorithm = true;
-            if (!stopAlgorithm)
+            // if (data.updates.length === 0)
+            //     stopAlgorithm = true;
+            // if (!stopAlgorithm)
+            //     continueAlgorithm();
+            // else
+            //     return;
+            if (data.updates.length > 0)
                 continueAlgorithm();
-            else
-                return;
         }
     });
 }

@@ -118,6 +118,9 @@ html, body {
     margin: 0 auto 50px auto;
     border: 2px solid;
     text-align: justify;
+    font-family: sans-serif, 'Helvetica', 'Arial';
+    color: lime;
+    background-color: #1A2739;
 }
 
 #buttons {
@@ -197,6 +200,7 @@ input[type=text], input[type=password], input[type=email] {
     margin: auto;
     top: 10%;
     z-index: 10;
+    max-width : 250px
 }
 
 #algorithmChoice {

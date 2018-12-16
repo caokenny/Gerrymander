@@ -29,6 +29,10 @@ public class TestClassJinOliver {
         //IF YOU HAVE WEIGHTS YOU WANT TO USE TO TEST. USE AlgorithmWeights setters to set them.
         //WEIGHTS ARE ALL EMPTY RN
         AlgorithmWeights weights = new AlgorithmWeights();
+        weights.setCompactness(.5);
+        weights.setPopulationEquality(.5);
+        weights.setEfficencyGap(.5);
+        weights.setPartisanFairness(.5);
         data.setWeights(weights);
 
         State state = AppData.getState("KS"); //ENTER YOUR STATE NAME HERE

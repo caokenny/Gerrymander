@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import io.redistrict.AppData.AppData;
 import io.redistrict.AppData.MoveUpdate;
 import io.redistrict.AppData.MoveUpdater;
+import io.redistrict.AppData.Score;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Move;
 import io.redistrict.Territory.State;
@@ -75,29 +76,45 @@ public class AlgorithmController {
     public MoveUpdater continueAlgorithm(@RequestBody String countObj) {
         ObjectiveFunctionCalculator calculator = new ObjectiveFunctionCalculator();
         calculator.setWeights(data.getWeights());
-        Stack<Move> moves = alg.run10SA();
+
         MoveUpdater updater = new MoveUpdater();
-//        System.out.println(countObj);
-//        JSONObject item = new JSONObject();
-//        int num = (int)(Math.random()*10+1);
-//        item.put("successful", num);
-        if (moves.isEmpty())
+
+        if(alg.getOldScore() == null)
+        {
+            Score oldScore = calculator.getStateObjectiveFunction(alg.getData().getWorkingState(),AlgorithmType.SA);
+            System.out.println("ORIGINAL SCORE: "+ oldScore);
+            alg.setOldScore(oldScore);
+            updater.setOldScore(oldScore);
+        }
+
+        Stack<Move> moves = alg.run10SA();
+
+        if (moves.isEmpty()){
             System.out.println("moves is empty");
+            Score newScore= calculator.getStateObjectiveFunction(alg.getData().getWorkingState(),AlgorithmType.SA);
+            if(alg.getOldScore() == null){ throw new NullPointerException("original score should be set already");}
+            updater.setNewScore(newScore);
+            updater.setOldScore(alg.getOldScore());
+            System.out.println(newScore);
+        }
+
+        if(alg.getMovesDone() >alg.getMaxMoves())
+        {
+            System.out.println("max moves reached");
+            Score newScore= calculator.getStateObjectiveFunction(alg.getData().getWorkingState(),AlgorithmType.SA);
+            if(alg.getOldScore() == null){ throw new NullPointerException("original score should be set already");}
+            updater.setOldScore(alg.getOldScore());
+            updater.setNewScore(newScore);
+        }
+
         for (Move m : moves) {
-            System.out.println(m);
             MoveUpdate update = new MoveUpdate(m.getSrcDistrictID(), m.getDstDistrictID(), m.getPrecinct().getGeoID10());
             updater.getUpdates().add(update);
         }
-        System.out.println("\n\n");
-        for (MoveUpdate m : updater.getUpdates()) {
-            System.out.println(m);
-        }
-//        ADD moves.clear() and updater.getupdates().clear() if run10SA() returns the moveStack associated with
-//        state bc it is never cleared. This clears it because it is pointing to the same state moveStack
         moves.clear();
 
-        double currentScore = calculator.getStateObjectiveFunction(alg.getData().getWorkingState(),AlgorithmType.SA);
-        updater.setCurrentScore(currentScore);
+        updater.setState(alg.getData().getWorkingState().getStateName());
+
         return updater;
     }
 
@@ -106,6 +123,7 @@ public class AlgorithmController {
         alg = new Algorithm();
         data = new AlgorithmData();
         alg.setData(data);
+
         wts.setEfficencyGap(wts.getEfficencyGap()/100);
         wts.setPartisanFairness(wts.getPartisanFairness()/100);
         wts.setPopulationEquality(wts.getPopulationEquality()/100);
@@ -119,11 +137,11 @@ public class AlgorithmController {
         AppData.setCurrentAlgorithm(alg);
         data.setType(AlgorithmType.SA);
 
-        System.out.println(data);
         JSONObject item = new JSONObject();
         item.put("success", "Weights successfully set");
-//        return "Weights successfully set";
-//        can't return String because we specify in Ajax call that a json is expected to be returned
+        ObjectiveFunctionCalculator calculator = new ObjectiveFunctionCalculator();
+        calculator.setWeights(data.getWeights());
+//        System.out.println("ORIGINAL SCORE IS:" + calculator.getStateObjectiveFunction(state,AlgorithmType.SA));
         return item.toString();
     }
 }
