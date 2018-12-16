@@ -182,9 +182,6 @@ public class District {
     }
 
 
-    public int getDistrictID(){
-        return districtId;
-    }
     public static void loadDefaultProperties(){
         InputStream aStream = District.class.getClassLoader().getResourceAsStream("algorithms.properties");
         try{

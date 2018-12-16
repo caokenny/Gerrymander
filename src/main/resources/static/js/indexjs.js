@@ -1,6 +1,6 @@
 var loginOpen = false;
 var registerOpen = false;
-
+var aboutOpen = false;
 $('#loginButton').on('click', function () {
     if (registerOpen) {
         closeRegister();
@@ -8,7 +8,14 @@ $('#loginButton').on('click', function () {
     loginOpen = true;
     $('#loginDiv').css("display", "block");
 });
-
+$('#aboutButton').on('click', function () {
+    aboutOpen = true;
+    $('#aboutDiv').css("display", "block");
+});
+function closeAbout() {
+    aboutOpen = false;
+    $('#aboutDiv').css("display", "none");
+}
 function closeLogin() {
     loginOpen = false;
     $('#loginDiv').css("display", "none");
@@ -78,7 +85,6 @@ $('#redistrictBtn').on('click', function () {
 $('#algorithmChoice').dropdown({
     gutter: 5
 });
-
 
 
 
