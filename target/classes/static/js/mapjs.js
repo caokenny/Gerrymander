@@ -1,4 +1,4 @@
-var mymap = L.map('mapid', {zoomControl: false}).setView([37.0902, -95.7129], 4);
+var mymap = L.map('mapid', {zoomControl: false}).setView([37.0902, -95.7129], 5);
 mymap.doubleClickZoom.disable();
 
 var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -8,20 +8,6 @@ var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8
     accessToken: 'pk.eyJ1IjoiY2Fva2VubnkiLCJhIjoiY2ptZHhzcmJoMHVlYjNwbW90cm1kZW11bSJ9.C6aOC-2bLmc9SIXXjI0tyQ'
 }).addTo(mymap);
 
-var searchControl = L.esri.Geocoding.geosearch({
-    providers: [
-        arcgisOnline,
-        L.esri.Geocoding.featureLayerProvider({
-            url: 'https://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/gisday/FeatureServer/0/',
-            searchFields: ['Name', 'Organization'],
-            label: 'GIS Day Events',
-            bufferRadius: 5000,
-            formatSuggestion: function(feature){
-                return feature.properties.Name + ' - ' + feature.properties.Organization;
-            }
-        })
-    ]
-}).addTo(map);
 var colors = {"01" : "red", "02" : "green", "03" : "purple", "04" : "#489ec9", "05" : "orange", "06" : "pink", "07" : "gray", "08" : "brown"};
 
 //Add geoJSON
@@ -117,7 +103,7 @@ function zoomState(bounds, geoObj, stateName) {
         });
         zoomLevel = mymap.getBoundsZoom(bounds) - 1;
         // mymap.setZoom(zoomLevel);
-        mymap.setView(bounds.getCenter(), zoomLevel);
+        mymap.flyTo(bounds.getCenter(), zoomLevel);
         // mymap.fitBounds(bounds);
         $.getJSON("/js/json/" + stateName + "_final.json", function (data) {
             precinctLayer = L.geoJSON(data, {
@@ -189,7 +175,7 @@ $('.homeBtn').on('click', function () {
     onStateAlready = false;
     precinctLayer = null;
     districtLayer = null;
-    mymap.setView([37.0902, -95.7129], 4);
+    mymap.flyTo([37.0902, -95.7129], 5);
     $('#mySidenav').css("width", "250px");
     $('#stateDropdown').css("display", "block");
     $('#otherSideNavLinks').css("display", "block");
@@ -365,15 +351,24 @@ $(document).ready(function(){
 function handleSearch(){
     var input = document.getElementById("search").value;
     input = input.toLowerCase();
+    var found = false;
     for (var i = 0; i < stateEvents.length; i++) {
-        console.log(stateEvents[i].options.name);
         if (stateEvents[i].options.name === input) {
+            found = true;
             stateEvents[i].fire('click');
             console.log('fired');
             break;
         }
     }
-    console.log(input);
+    if(found === false){
+        for(var j = 0; j < allStates.length; j++){
+            if(allStates[j].name === input){
+                mymap.flyTo(allStates[j].coordinates, 7);
+                break;
+            }
+        }
+    }
+
 }
 // var summaryBox = $('#summaryBox');
 // $('#runButton').click(function () {
