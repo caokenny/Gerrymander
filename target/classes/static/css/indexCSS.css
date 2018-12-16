@@ -129,7 +129,7 @@ html, body {
     top: 5%;
 }
 
-#loginDiv, #registerDiv {
+#loginDiv, #registerDiv, #aboutDiv {
     position: fixed;
     display: none;
     z-index: 3;
@@ -149,7 +149,9 @@ html, body {
 #registerDiv {
     height: 360px;
 }
-
+#aboutDiv{
+    height: 400px;
+}
 #logincontent, #registercontent {
     padding-top: 45px;
     margin: auto;
@@ -188,6 +190,14 @@ input[type=text], input[type=password], input[type=email] {
     top: 0;
     color: #000;
     font-size: 35px;
+    font-weight: bold;
+}
+.closeAboutBox {
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    color: #ffffff;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -294,7 +304,10 @@ input[type=range]:active + output {
     left: 200px;
     display: none;
 }
-
+#resetButton {
+    left: 200px;
+    display: none;
+}
 #pauseButton {
     display: none;
     margin-right: 100px;
@@ -303,4 +316,13 @@ input[type=range]:active + output {
 #runButton {
     margin-right: 100px;
 }
-
+table#info tr:nth-child(even) {
+    background-color: #eee;
+}
+table#info tr:nth-child(odd) {
+    background-color: #fff;
+}
+table#info th {
+    color: white;
+    background-color: black;
+}

@@ -133,7 +133,6 @@ function zoomState(bounds, geoObj, stateName) {
         });
         checkZoom();
     }
-
 }
 
 function checkZoom() {
@@ -342,7 +341,12 @@ function continueAlgorithm() {
     });
 }
 
-
+$(document).ready(function(){
+    $ ("#searchForm"). hide ();
+    $("#searchButton").click(function(){
+        $("#searchForm").show();
+    });
+});
 // var summaryBox = $('#summaryBox');
 // $('#runButton').click(function () {
 //     var req;
