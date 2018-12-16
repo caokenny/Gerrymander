@@ -253,7 +253,7 @@ $('#runButton').on('click', function () {
             data: JSON.stringify(measuresObj),
             success: function (data) {
                 if (data.updates.length !== 0) {
-                    updatePrecinctVisual(data);
+                    updatePrecinctVisualRG(data);
                 }
             }
         })
@@ -261,7 +261,7 @@ $('#runButton').on('click', function () {
 });
 
 var precinctMove;
-function updatePrecinctVisual(response) {
+function updatePrecinctVisualSA(response) {
     for (var i = 0; i < response.updates.length; i++) {
         precinctMove = response.updates[i];
         precinctLayer.setStyle(function (feature) {
@@ -275,6 +275,19 @@ function updatePrecinctVisual(response) {
     // }
 }
 
+function updatePrecinctVisualRG(response) {
+    for (var i = 0; i < response.updates.length; i++) {
+        precinctMove = response.updates[i];
+        precinctLayer.setStyle(function (feature) {
+            if (feature.properties.GEOID10 === precinctMove.precinctId) {
+                return {fillColor : colors["0" + precinctMove.destDistId], fillOpacity : 1};
+            }
+        });
+    }
+    if (!paused) {
+        $('#runButton').trigger('click');
+    }
+}
 
 $('#pauseButton').on('click', function () {
     $('#pauseButton').css("display", "none");
@@ -300,7 +313,7 @@ function continueAlgorithm() {
                 // updatePrecinctVisual(move);
             }
             console.log(data);
-            updatePrecinctVisual(data);
+            updatePrecinctVisualSA(data);
             var response = JSON.stringify(data, null, 4);
             summaryBox.val(summaryBox.val() + "\n" + response);
             console.log("SUCCESS : ", response);
