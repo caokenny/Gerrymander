@@ -1,9 +1,6 @@
 package io.redistrict.Utils;
 
-import io.redistrict.Algorithm.Algorithm;
-import io.redistrict.Algorithm.AlgorithmData;
-import io.redistrict.Algorithm.AlgorithmType;
-import io.redistrict.Algorithm.AlgorithmWeights;
+import io.redistrict.Algorithm.*;
 import io.redistrict.AppData.AppData;
 import io.redistrict.AppData.MoveUpdater;
 import io.redistrict.RegionGrowing.RgUtilities.RgSeedSelector;
@@ -25,16 +22,11 @@ public class precinctLoaderTest {
         StateLoader.loadDefaultProperties();
         AppData.setStateMap(StateLoader.loadAllStates(StateEnum.values()));
 
-        //setup
-        State mo = AppData.getState("MO");
-        State co = AppData.getState("CO");
-        State ks = AppData.getState("KS");
-
         State moCopy = AppData.getStateCopy("MO");
         State coCopy = AppData.getStateCopy("CO");
         State ksCopy = AppData.getStateCopy("KS");
 
-        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(moCopy.getAllPrecincts().values(),10);
+        Set<Precinct> seeds = RgSeedSelector.pickRandomSeeds(moCopy.getAllPrecincts().values(),5);
         Map<Integer,District> seedDistricts = District.makeSeedDistricts(seeds);
         moCopy.setRgdistricts(seedDistricts);
         moCopy.resetUnassignedPrecinctIds();
@@ -59,7 +51,6 @@ public class precinctLoaderTest {
         weights.setEfficencyGap(1);
         weights.setVariance(false);
         currentAlgorithm.getData().setWeights(weights);
-
 //
 //        //AREA AND PERIMETER TEST
 //        Map<String,State> stateMap = AppData.getStateMap();
@@ -90,10 +81,10 @@ public class precinctLoaderTest {
 
 //
 //        ALGORITHM TEST
-        Set<String> unassignedPrecinctIds = currentAlgorithm.getData().getWorkingState().getUnassignedPrecinctIds();
-        while (!unassignedPrecinctIds.isEmpty()) {
-            MoveUpdater updater = currentAlgorithm.do10RgIteration();
-        }
+//        Set<String> unassignedPrecinctIds = currentAlgorithm.getData().getWorkingState().getUnassignedPrecinctIds();
+//        while (!unassignedPrecinctIds.isEmpty()) {
+//            MoveUpdater updater = currentAlgorithm.do10RgIteration();
+//        }
 
 
 

@@ -1,11 +1,9 @@
 package io.redistrict.RegionGrowing.RgController;
 
-import io.redistrict.Algorithm.Algorithm;
-import io.redistrict.Algorithm.AlgorithmData;
-import io.redistrict.Algorithm.AlgorithmType;
-import io.redistrict.Algorithm.AlgorithmWeights;
+import io.redistrict.Algorithm.*;
 import io.redistrict.AppData.AppData;
 import io.redistrict.AppData.MoveUpdater;
+import io.redistrict.AppData.Score;
 import io.redistrict.RegionGrowing.RgUtilities.RgSeedSelector;
 import io.redistrict.Territory.District;
 import io.redistrict.Territory.Precinct;
@@ -54,7 +52,7 @@ public class RegionGrowingController {
     public MoveUpdater startRg(@RequestBody AlgorithmWeights weights) {
         Algorithm currentAlgorithm = AppData.getCurrentAlgorithm();
         if(currentAlgorithm == null){
-            return null;
+            throw  new NullPointerException("ALGORITHM IS NULL");
         }
         // set weight variable to current algorithm
         weights.setCompactness(weights.getCompactness()/100);
@@ -63,6 +61,7 @@ public class RegionGrowingController {
         weights.setEfficencyGap(weights.getEfficencyGap()/100);
         currentAlgorithm.getData().setWeights(weights);
         MoveUpdater updater = currentAlgorithm.do10RgIteration();
+        updater.setState(currentAlgorithm.getData().getWorkingState().getStateName());
         return updater;
     }
 

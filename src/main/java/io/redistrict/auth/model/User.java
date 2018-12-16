@@ -2,6 +2,7 @@ package io.redistrict.auth.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,6 +15,8 @@ public class User {
     private String passwordConfirm;
     private String email;
     private Set<Role> roles;
+    private List<SavedWeights> savedWeights;
+
 
     public User(){}
 
@@ -80,5 +83,15 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "user_savedweights", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "savedweights_id"))
+    public List<SavedWeights> getSavedWeights() {
+        return savedWeights;
+    }
+
+    public void setSavedWeights(List<SavedWeights> savedWeights) {
+        this.savedWeights = savedWeights;
     }
 }

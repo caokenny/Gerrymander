@@ -59,11 +59,7 @@ public class District {
         allDPrecincts.put(precinct.getGeoID10(), precinct);
         population += precinct.getPopulation();
         if(type == AlgorithmType.SA) {
-            if (isSABorderPrecinct(precinct)) {
-                precinct.setIsBorder(true);
-                borderSaPrecincts.add(precinct);
-            } else
-                precinct.setIsBorder(false);
+            updateBorderSAPrecincts();
         }
     }
 
@@ -85,9 +81,7 @@ public class District {
         allDPrecincts.remove(precinct.getGeoID10());
         population -= precinct.getPopulation();
         if(type == AlgorithmType.SA) {
-            if (precinct.isBorder()) {
-                borderSaPrecincts.remove(precinct);
-            }
+            updateBorderSAPrecincts();
         }
     }
 
@@ -347,5 +341,33 @@ public class District {
         this.borderSaPrecincts = borderSaPrecincts;
     }
 
+    public void updateBorderSAPrecincts(){
+        borderSaPrecincts.clear();
+        for(Precinct precinct: allDPrecincts.values()){
+            if(isSABorderPrecinct(precinct)){
+                precinct.setIsBorder(true);
+                borderSaPrecincts.add(precinct);
+            }
+            else{
+                precinct.setIsBorder(false);
+            }
+        }
+    }
+
+    public List<Precinct> possiblePrecinctAdditionsSa(Precinct borderPrecinct){
+        List<Precinct> resultList = new ArrayList<>();
+        for(Precinct precinct : borderPrecinct.getNeighbors())
+        {
+            if(precinct.getParentDistrictID() != districtId)
+            {
+                resultList.add(precinct);
+            }
+        }
+        if(resultList.size() == 0)
+        {
+            throw new NullPointerException("THIS IS NOT A BORDER PRECINCTS");
+        }
+        return  resultList;
+    }
 }
 

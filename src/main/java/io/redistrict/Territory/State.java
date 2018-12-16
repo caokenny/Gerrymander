@@ -152,6 +152,7 @@ public class State {
         District dstDistrict = defaultDistrict.get(move.getDstDistrictID());
         dstDistrict.removePrecinct(modifiedPrecinct,AlgorithmType.SA);
         srcDistrict.addPrecinct(modifiedPrecinct,AlgorithmType.SA);
+        updatePopulationEqualityMeasure(move,AlgorithmType.SA);
     }
 
     public District getRandomDistrictSA(){
@@ -161,6 +162,18 @@ public class State {
         // when n == 0 it returns null because it is a Map with values starting from 1
         int n = (int)(Math.random() * numDistricts) + 1;
         return defaultDistrict.get(n);
+    }
+    public District getLowestPopDistrictSA(){
+        District lowestDistrict = defaultDistrict.get(1);
+        double lowestPop = lowestDistrict.getPopulation();
+        for(District district :defaultDistrict.values())
+        {
+            if(district.getPopulation()<lowestPop){
+                lowestDistrict = district;
+                lowestPop= district.getPopulation();
+            }
+        }
+        return lowestDistrict;
     }
     public void addToMoveStack(Move move){
         moves.add(move);
@@ -223,6 +236,19 @@ public class State {
 //        removeFromUnassignedIds(precinct.getGeoID10());
         destDist.addPrecinct(precinct,AlgorithmType.RG);
         updatePopulationEqualityMeasure(move, AlgorithmType.RG);
+    }
+
+    public void executeSaMove(Move move){
+        Precinct precinct =move.getPrecinct();
+        int destDistId = move.getDstDistrictID();
+        int srcDistId = move.getSrcDistrictID();
+        District destDist = defaultDistrict.get(destDistId);
+        District srcDist = defaultDistrict.get(srcDistId);
+
+        destDist.addPrecinct(precinct,AlgorithmType.SA);
+        srcDist.removePrecinct(precinct,AlgorithmType.SA);
+        precinct.setParentDistrictID(destDistId);
+        updatePopulationEqualityMeasure(move,AlgorithmType.SA);
     }
 
     // works for both SA and RG
