@@ -39,7 +39,9 @@ html, body {
     width: auto;
     padding: 2% 5px 10px 5%;
     z-index: 2;
+    display:inline-block;
 }
+
 
 .homeBtn {
     background-color: #489ec9;
@@ -325,4 +327,13 @@ table#info tr:nth-child(odd) {
 table#info th {
     color: white;
     background-color: black;
+}
+#search {
+    width: 30%;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+#search:focus {
+    width: 90%;
 }

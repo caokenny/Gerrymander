@@ -347,6 +347,20 @@ $(document).ready(function(){
         $("#searchForm").show();
     });
 });
+
+function handleSearch(){
+    var input = document.getElementById("search").value;
+    input = input.toLowerCase();
+    for (var i = 0; i < stateEvents.length; i++) {
+        console.log(stateEvents[i].options.name);
+        if (stateEvents[i].options.name === input) {
+            stateEvents[i].fire('click');
+            console.log('fired');
+            break;
+        }
+    }
+    console.log(input);
+}
 // var summaryBox = $('#summaryBox');
 // $('#runButton').click(function () {
 //     var req;

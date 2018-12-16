@@ -105,11 +105,16 @@
     </div>
 
     <div id="mapheader">
-        <button class="homeBtn"><i class="fa fa-home"></i> Home</button>
-        <form id="searchForm">
-            <input type="text" name="search">
-        </form>
-        <input type="submit" id="searchButton"/>
+        <div>
+            <button class="homeBtn"><i class="fa fa-home"></i> Home</button>
+            <!--<form action="" method="get">-->
+            <input id="search" name="search" type="text" placeholder="Search...">
+            <input type="button" onclick="return handleSearch()" value="Search">
+            <!--</form>-->
+            <!--<input type="text" id = "search" name="search" placeholder="Search...">-->
+            <!--<button class="searchButton"><i class="fa fa-search"></i></button>-->
+
+        </div>
     </div>
 
     <div id="mySidenav" class="sidenav">

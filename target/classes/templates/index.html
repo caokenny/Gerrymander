@@ -9,7 +9,12 @@
     <link rel="stylesheet" type="text/css" href="/css/indexCSS.css"/>
     <link rel="stylesheet" type="text/css" href="/css/sidenavCSS.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.css"
+          integrity="sha512-v5YmWLm8KqAAmg5808pETiccEohtt8rPVMGQ1jA6jqkWVydV5Cuz3nJ9fQ7ittSxvuqsvI9RSGfVoKPaAJZ/AQ=="
+          crossorigin="">
+    <script src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.js"
+            integrity="sha512-zdT4Pc2tIrc6uoYly2Wp8jh6EPEWaveqqD3sT0lf5yei19BC1WulGuh5CesB0ldBKZieKGD7Qyf/G0jdSe016A=="
+            crossorigin=""></script>
 
 </head>
 <body>
@@ -28,7 +33,49 @@
         <p id="presidentialD"></p>
         <p id="presidentialR"></p>
     </div>
+    <div id="aboutDiv" th:style="'display:none'">
+        <span class="closeAboutBox" onclick="closeAbout()">X</span>
+        <table id="info" style="width:100%">
 
+            <tr>
+                <th>State</th>
+                <th>Legislative or Congressional</th>
+                <th>Criteria</th>
+            </tr>
+            <tr>
+                <td>Colorado</td>
+                <td>Legislative</td>
+                <td>Required: Compact, Contiguous, Preserve Political Subdivisions, Preserve Communities of Interest</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Congressional</td>
+                <td>Required: Compact, Contiguous, Preserve Political Subdivisions, Preserve Communities of Interest</td>
+            </tr>
+            <tr>
+                <td>Kansas</td>
+                <td>Legislative</td>
+                <td>Required: Compact, Contiguous, Preserve Political Subdivisions, Preserve Communities of Interest, Avoid Pairing Incumbents</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Congressional</td>
+                <td>Required: Contiguous, Preserve Political Subdivisions, Preserve Communities of Interest, Preserve Cores of Prior Districts</td>
+            </tr>
+            <tr>
+                <td>Missouri</td>
+                <td>Legislative</td>
+                <td>Required: Compact, Contiguous, Preserve Political Subdivisions</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Congressional</td>
+                <td>Required: Compact, Contiguous</td>
+            </tr>
+
+        </table>
+        <a href="http://www.ncsl.org/research/redistricting/redistricting-criteria.aspx">Source</a>
+    </div>
     <div id="loginDiv" th:style="${loginFail} ? 'display:block' : 'display:none'">
         <form action="/user/login" id="logincontent" method="post" modelAttribute="userForm">
             <span class="closeLoginBox" onclick="closeLogin()">&times;</span>
@@ -63,7 +110,16 @@
     </div>
 
     <div id="mapheader">
-        <button class="homeBtn"><i class="fa fa-home"></i> Home</button>
+        <div>
+            <button class="homeBtn"><i class="fa fa-home"></i> Home</button>
+            <!--<form action="" method="get">-->
+            <input id="search" name="search" type="text" placeholder="Search...">
+            <input type="button" onclick="return handleSearch()" value="Search">
+            <!--</form>-->
+            <!--<input type="text" id = "search" name="search" placeholder="Search...">-->
+            <!--<button class="searchButton"><i class="fa fa-search"></i></button>-->
+
+        </div>
     </div>
 
     <div id="mySidenav" class="sidenav">
@@ -87,7 +143,7 @@
             <a href="/secure/admin">Admin</a>
         </div>
         <div id="otherSideNavLinks">
-            <a href="#">About</a>
+            <a href="#" id = "aboutButton">About</a>
             <a href="#">Contact</a>
         </div>
 
