@@ -22,6 +22,48 @@ public class ObjectiveFunctionCalculator {
         this.weights = weights;
     }
 
+    public Score getDefaultStateScoreRG(State state)
+    {
+        double compactnessWeight = weights.getCompactness();
+        double popWeight = weights.getPopulationEquality();
+        double partisanWeight = weights.getPartisanFairness();
+        double effWeight =weights.getEfficencyGap();
+
+        Map<Integer,District> districtMap = state.getDefaultDistrict();
+        List<Double> popscoreList = new ArrayList();
+        List<Double> compactnessScoreList = new ArrayList<>();
+        double normalizedCompactnessScore = .45;
+        for(District d : districtMap.values()) {
+            double compactnessScore;
+            float ideaPop = state.calculateIdealPop(AlgorithmType.SA); // used to cacluate default districts thats why its on SA
+
+            //calculating compactness score
+            double area = d.getArea(d.getAllDPrecincts());
+            double perimeter = d.getPerimeter(d.getAllDPrecincts());
+            compactnessScore = d.calculatePolsbyPopper(area, perimeter) / normalizedCompactnessScore;
+            double popScore = d.calcuateRgPopScore(ideaPop);
+
+            popscoreList.add(popScore);
+            compactnessScoreList.add(compactnessScore);
+        }
+        double popScoreAvg = getAverageScore(popscoreList);
+        double compactnessScoreAvg = getAverageScore(compactnessScoreList);
+        double efficencyScore= state.calculateEfficiencyGap(districtMap);
+        double partisanScore = state.calculatePartisanBias(districtMap);
+
+        Score score = new Score();
+        score.setCompactnessScore(compactnessScoreAvg);
+        score.setEfficencyGapScore(efficencyScore);
+        score.setPopScore(popScoreAvg);
+        score.setPartisanScore(partisanScore);
+
+        double weightTotal = partisanWeight+compactnessWeight+effWeight+popWeight;
+        double objValue = (compactnessWeight*compactnessScoreAvg)+(popScoreAvg*popWeight)+ (partisanScore* partisanWeight) + (efficencyScore*effWeight);
+        double normalizedObjScore = objValue/weightTotal; // normalized score
+        score.setStateObjScore(normalizedObjScore);
+        return score;
+
+    }
 
     public Score getStateObjectiveFunction(State state, AlgorithmType type){
 
@@ -75,15 +117,15 @@ public class ObjectiveFunctionCalculator {
 //        System.out.println("___________________________________");
 //        System.out.println("District vote data");
 //        System.out.println("Total percentage of dem votes:" + (double)state.getTotalDemVotes()/state.getTotalVotes());
-        int demSeats=0;
-        for(District district : districtMap.values())
-        {
-            VoteData data = district.getVoteResult();
-//            System.out.println("District: "+district.getDistrictId() + " rep votes: "+data.getRepVotes() + " dem votes: "+ data.getDemVotes());
-            if(data.getDemVotes() > data.getRepVotes()){
-             demSeats++;
-            }
-        }
+//        int demSeats=0;
+//        for(District district : districtMap.values())
+//        {
+//            VoteData data = district.getVoteResult();
+////            System.out.println("District: "+district.getDistrictId() + " rep votes: "+data.getRepVotes() + " dem votes: "+ data.getDemVotes());
+//            if(data.getDemVotes() > data.getRepVotes()){
+//             demSeats++;
+//            }
+//        }
 //        System.out.println("Total dem seats won: " +demSeats);
 //        System.out.println("Total rep sears won:" + (districtMap.size()-demSeats));
 //        System.out.println("_____________________________________");

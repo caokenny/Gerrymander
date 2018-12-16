@@ -30,21 +30,33 @@ public class Algorithm {
         List<MoveUpdate> updates = new ArrayList<>();
         int iterationsDone = 0;
         int maxIteration = (state.getAllPrecincts().size()/100);
+        MoveUpdater updater = new MoveUpdater();
+
         ObjectiveFunctionCalculator calculator = new ObjectiveFunctionCalculator();
         calculator.setWeights(data.getWeights());
+        if(oldScore == null)
+        {
+            oldScore = calculator.getDefaultStateScoreRG(state);
+            updater.setOldScore(oldScore);
+            System.out.println("original score: "+ oldScore);
+        }
 
         while (!state.getUnassignedPrecinctIds().isEmpty() && iterationsDone <maxIteration){
             // IF ONLY 1 DISTRICT THEN WE ASSIGN ALL TO IT
+            District rgDistrict ;
             if(rgDistricts.size() == 1){
-                District district = rgDistricts.values().iterator().next();
-                System.out.println("LAST MOVE, rgdistrictId: "+district.getDistrictId() + " num of precinct to be assigned on last move: "+ state.getUnassignedPrecinctIds().size());
-                MoveUpdater updater = assignAll(district,state);
-                return updater;
+                rgDistrict = rgDistricts.values().iterator().next();
+                rgDistrict.updateBorderPrecinctsForRg(state.getUnassignedPrecinctIds());
+                System.out.println("LAST MOVE, rgdistrictId: "+rgDistrict.getDistrictId() + " num of precincts left: "+ state.getUnassignedPrecinctIds().size());
             }
             //ELSE
-            District rgDistrict ;
-            if(data.getWeights().isVariance()){ rgDistrict= getRandomDistrict(rgDistricts);}
-            else{ rgDistrict= getLowestPopDistrict(rgDistricts);}
+            else {
+                if (data.getWeights().isVariance()) {
+                    rgDistrict = getRandomDistrict(rgDistricts);
+                } else {
+                    rgDistrict = getLowestPopDistrict(rgDistricts);
+                }
+            }
 
             if(rgDistrict.getBorderRgPrecincts().size() == 0) {
                 rgDistricts.remove(rgDistrict.getDistrictId());
@@ -69,17 +81,22 @@ public class Algorithm {
             System.out.println("num of unassigned left: "+state.getUnassignedPrecinctIds().size());
             iterationsDone++;
         }
-        MoveUpdater updater = new MoveUpdater();
         if(isDone==true || updates.isEmpty())
         {
+            if(oldScore ==null){
+                throw new NullPointerException("OLD SCORE IS NULL !");
+            }
+
             Score newScore = calculator.getStateObjectiveFunction(state,AlgorithmType.RG);
             System.out.println("state current score score is: "+ newScore);
             updater.setNewScore(newScore);
+            updater.setOldScore(oldScore);
         }
         if(state.getUnassignedPrecinctIds().isEmpty()){
             isDone=true;
         }
         updater.setUpdates(updates);
+        System.out.println(updater);
         return updater;
     }
 
@@ -114,7 +131,10 @@ public class Algorithm {
                 (state.getAllPrecincts(),state.getUnassignedPrecinctIds(),borderPrecincts);
 
         if(unassignedNeighbors.size()==0){return null;}
-        if(unassignedNeighbors.size()==1) {return unassignedNeighbors.iterator().next();}
+        if(unassignedNeighbors.size()==1) {
+            district.updateBorderPrecinctsForRg(state.getUnassignedPrecinctIds());
+            return unassignedNeighbors.iterator().next();
+        }
 
         int maxNumOfPossible =(int)(unassignedNeighbors.size()*.9);
         int tried = 0;
