@@ -10,6 +10,7 @@ var mapboxtile = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/emerald-v8
 
 var colors = {"01" : "red", "02" : "green", "03" : "purple", "04" : "#489ec9", "05" : "orange", "06" : "pink", "07" : "gray", "08" : "brown"};
 
+var summaryBox = $('#summaryBox');
 //Add geoJSON
 
 var initialStyle = {color: "white", opacity: 1, fillColor: "#5FBD5A", fillOpacity: 0.2};
@@ -193,17 +194,34 @@ $('.homeBtn').on('click', function () {
         mymap.removeLayer(districtLayer);
     }
     onStateAlready = false;
+    paused = false;
+    sapaused = false;
     precinctLayer = null;
     districtLayer = null;
     mymap.flyTo([37.0902, -95.7129], 5);
     $('#mySidenav').css("width", "250px");
+    $('#openSideNav').css("display", "none");
     $('#stateDropdown').css("display", "block");
     $('#otherSideNavLinks').css("display", "block");
     $('.userLog').css("display", "block");
     $('#adminSettings').css("display", "block");
     $('#usercontrol').css("display", "none");
     $('.sidenav a').css("font-size", "25px");
-    $('.sidenav div').css("font-size", "25px");
+    $('#resetButton').css("display", "none");
+    $('#runButton').css("display", "block");
+    $('#updateButton').css("display", "block");
+    $('#updateButton').prop("disabled", false);
+    $('#oldCompactness').html("");
+    $('#oldPopulation').html("");
+    $('#oldPf').html("");
+    $('#oldEg').html("");
+    $('#oldObj').html("");
+    $('#newCompactness').html("");
+    $('#newPopulation').html("");
+    $('#newPf').html("");
+    $('#newEg').html("");
+    $('#newObj').html("");
+    summaryBox.val("");
 });
 
 var seed;
@@ -211,6 +229,7 @@ $('#updateButton').on('click', function () {
     if ($('#algorithmChoice').val() === "-1") {
         alert("Please select an algorithm");
     } else {
+        var userSeedAmount = prompt("Please Enter Number Of Seeds");
         $('#runButton').prop("disabled", false);
         $.ajax({
             url: "/rg/pickrgseed",
@@ -218,7 +237,7 @@ $('#updateButton').on('click', function () {
             // dataType: "json",
             type: "POST",
             // contentType: "application/json",
-            data: {"stateName": stateSelected, "seedNum": 5},
+            data: {"stateName": stateSelected, "seedNum": userSeedAmount},
             success: function (response) {
                 precinctLayer.setStyle(function () {
                     return {fillColor: "white"};
@@ -242,7 +261,7 @@ $('#updateButton').on('click', function () {
 
 $('#algorithmChoice').change(function () {
     var algorithm = $('#algorithmChoice').val();
-    if (algorithm === "rg") {
+    if (algorithm === "rg" || algorithm === "rg1") {
         $('#runButton').prop("disabled", true);
         $('#updateButton').prop("disabled", false);
     } else {
@@ -250,68 +269,99 @@ $('#algorithmChoice').change(function () {
     }
 });
 
+var sapaused = false;
 var paused = false;
-var summaryBox = $('#summaryBox');
 $('#runButton').on('click', function () {
-    $('#pauseButton').css("display", "block");
-    $('#stopButton').css("display", "block");
-    $(this).css("display", "none");
-    paused = false;
-    var algorithmChoice = $('#algorithmChoice').val();
-    var compactness = $('#compactnessSlider').val();
-    var population = $('#populationSlider').val();
-    var partisanFariness = $('#partisanFairnessSlider').val();
-    var efficencyGap = $('#efficiencyGapSlider').val();
-    var variance;
-    if (algorithmChoice === "sa" || algorithmChoice === "rg")
-        variance = true;
-    else
-        variance = false;
-    var measuresObj = {"compactness" : compactness, "populationEquality" : population, "partisanFairness" : partisanFariness, "efficencyGap" : efficencyGap, "algorithm" : algorithmChoice, "stateAbbrv" : stateSelected, "variance": variance};
-    if (algorithmChoice === "sa" || algorithmChoice === "sa1") {
-        $.ajax({
-            url: "setWeights",
-            type: "POST",
-            async: true,
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify(measuresObj),
-            success: function (data) {
-                console.log(data);
-                continueAlgorithm()
-            },
-            error: function (e) {
-                var json = "Ajax Response" + e.responseText;
-                summaryBox.val(summaryBox.val() + json);
-                console.log("ERROR : ", e);
-            }
-        })
+    if ($('#algorithmChoice').val() === "-1") {
+        alert("Please select an algorithm");
     } else {
-        $.ajax({
-            url: "/rg/do10Rg",
-            type: "POST",
-            async: true,
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify(measuresObj),
-            success: function (data) {
-                if (data.updates.length !== 0) {
-                    updatePrecinctVisualRG(data);
-                } else {
-                    $('#stopButton').css("display", "none");
-                    $('#pauseButton').css("display", "none");
-                    $('#updateButton').css("display", "none");
-                    $('#resetButton').css("display", "block");
-                }
+        $('#pauseButton').css("display", "block");
+        $('#stopButton').css("display", "block");
+        $('#updateButton').prop("disabled", true);
+        $(this).css("display", "none");
+        paused = false;
+        var algorithmChoice = $('#algorithmChoice').val();
+        var compactness = $('#compactnessSlider').val();
+        var population = $('#populationSlider').val();
+        var partisanFariness = $('#partisanFairnessSlider').val();
+        var efficencyGap = $('#efficiencyGapSlider').val();
+        var variance;
+        if (algorithmChoice === "sa" || algorithmChoice === "rg")
+            variance = true;
+        else
+            variance = false;
+        var measuresObj = {"compactness" : compactness, "populationEquality" : population, "partisanFairness" : partisanFariness, "efficencyGap" : efficencyGap, "algorithm" : algorithmChoice, "stateAbbrv" : stateSelected, "variance": variance};
+        if (algorithmChoice === "sa" || algorithmChoice === "sa1") {
+            if (sapaused) {
+                sapaused = false;
+                continueAlgorithm();
+            } else {
+                summaryBox.val("Loading...");
+                $.ajax({
+                    url: "setWeights",
+                    type: "POST",
+                    async: true,
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(measuresObj),
+                    success: function (data) {
+                        console.log(data);
+                        continueAlgorithm()
+                    },
+                    error: function (e) {
+                        var json = "Ajax Response" + e.responseText;
+                        summaryBox.val(summaryBox.val() + json);
+                        console.log("ERROR : ", e);
+                    }
+                })
             }
-        })
+        } else {
+            if (summaryBox.val() === "") {
+                summaryBox.val("Loading...");
+            }
+            $.ajax({
+                url: "/rg/do10Rg",
+                type: "POST",
+                async: true,
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(measuresObj),
+                success: function (data) {
+                    if (data.updates.length !== 0) {
+                        updatePrecinctVisualRG(data);
+                    } else {
+                        $('#stopButton').css("display", "none");
+                        $('#pauseButton').css("display", "none");
+                        $('#updateButton').css("display", "none");
+                        $('#resetButton').css("display", "block");
+                    }
+                }
+            })
+        }
     }
+
 });
 
 var precinctMove;
 function updatePrecinctVisualSA(response) {
+    if (response.oldScore !== null) {
+        $('#oldCompactness').html(response.oldScore.compactnessScore.toFixed(3));
+        $('#oldPopulation').html(response.oldScore.popScore.toFixed(3));
+        $('#oldPf').html(response.oldScore.partisanScore.toFixed(3));
+        $('#oldEg').html(response.oldScore.efficencyGapScore.toFixed(3));
+        $('#oldObj').html(response.oldScore.stateObjScore.toFixed(3));
+    }
+    if (response.newScore !== null) {
+        $('#newCompactness').html(response.newScore.compactnessScore.toFixed(3));
+        $('#newPopulation').html(response.newScore.popScore.toFixed(3));
+        $('#newPf').html(response.newScore.partisanScore.toFixed(3));
+        $('#newEg').html(response.newScore.efficencyGapScore.toFixed(3));
+        $('#newObj').html(response.newScore.stateObjScore.toFixed(3));
+    }
     for (var i = 0; i < response.updates.length; i++) {
         precinctMove = response.updates[i];
+        summaryBox.val(summaryBox.val() + "\n Precinct " + precinctMove.precinctId + " moved from District "
+            + precinctMove.srcDistId + " to District " + precinctMove.destDistId).on('change',scrollToBottom());
         precinctLayer.setStyle(function (feature) {
             if (feature.properties.GEOID10 === precinctMove.precinctId) {
                 return {fillColor : colors["0" + precinctMove.destDistId], fillOpacity : 1};
@@ -324,8 +374,25 @@ function updatePrecinctVisualSA(response) {
 }
 
 function updatePrecinctVisualRG(response) {
+    console.log(response);
+    if (response.oldScore !== null) {
+        $('#oldCompactness').html(response.oldScore.compactnessScore.toFixed(3));
+        $('#oldPopulation').html(response.oldScore.popScore.toFixed(3));
+        $('#oldPf').html(response.oldScore.partisanScore.toFixed(3));
+        $('#oldEg').html(response.oldScore.efficencyGapScore.toFixed(3));
+        $('#oldObj').html(response.oldScore.stateObjScore.toFixed(3));
+    }
+    if (response.newScore !== null) {
+        $('#newCompactness').html(response.newScore.compactnessScore.toFixed(3));
+        $('#newPopulation').html(response.newScore.popScore.toFixed(3));
+        $('#newPf').html(response.newScore.partisanScore.toFixed(3));
+        $('#newEg').html(response.newScore.efficencyGapScore.toFixed(3));
+        $('#newObj').html(response.newScore.stateObjScore.toFixed(3));
+    }
     for (var i = 0; i < response.updates.length; i++) {
         precinctMove = response.updates[i];
+        summaryBox.val(summaryBox.val() + "\n Precinct " + precinctMove.precinctId + " moved to District "
+            + precinctMove.destDistId).on('change',scrollToBottom());
         precinctLayer.setStyle(function (feature) {
             if (feature.properties.GEOID10 === precinctMove.precinctId) {
                 return {fillColor : colors["0" + precinctMove.destDistId], fillOpacity : 1};
@@ -341,6 +408,7 @@ $('#pauseButton').on('click', function () {
     $('#pauseButton').css("display", "none");
     $('#runButton').css("display", "block");
     paused = true;
+    sapaused = true;
 });
 var stopAlgorithm = false;
 $('#stopButton').on('click', function () {
@@ -366,8 +434,21 @@ $('#resetButton').on('click', function () {
     $('#resetButton').css("display", "none");
     $('#runButton').css("display", "block");
     $('#updateButton').css("display", "block");
+    $('#updateButton').prop("disabled", false);
+    $('#oldCompactness').html("");
+    $('#oldPopulation').html("");
+    $('#oldPf').html("");
+    $('#oldEg').html("");
+    $('#oldObj').html("");
+    $('#newCompactness').html("");
+    $('#newPopulation').html("");
+    $('#newPf').html("");
+    $('#newEg').html("");
+    $('#newObj').html("");
+    summaryBox.val("");
     zoomState(oldBounds, oldGeoObj, oldStateName);
     paused = false;
+    sapaused = false;
 });
 var mycount = 0;
 function continueAlgorithm() {
@@ -389,7 +470,7 @@ function continueAlgorithm() {
             console.log(data);
             updatePrecinctVisualSA(data);
             var response = JSON.stringify(data, null, 4);
-            summaryBox.val(summaryBox.val() + "\n" + response).on('change',scrollToBottom());
+            // summaryBox.val(summaryBox.val() + "\n" + response).on('change',scrollToBottom());
             console.log("SUCCESS : ", response);
             // if (data.updates.length === 0)
             //     stopAlgorithm = true;
@@ -397,8 +478,10 @@ function continueAlgorithm() {
             //     continueAlgorithm();
             // else
             //     return;
-            if (data.updates.length > 0)
-                continueAlgorithm();
+            if (!paused) {
+                if (data.updates.length > 0)
+                    continueAlgorithm();
+            }
         }
     });
 }

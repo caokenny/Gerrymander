@@ -26,6 +26,7 @@ $('.deleteBtn').on('click', function () {
 $('.editBtn').on('click', function () {
     $('#editDiv').css("display", "block");
     var user = $(this).attr('id');
+    $('#oldUserHolder').val(user);
     $.ajax({
         url: "/secure/edit",
         type: "GET",
@@ -37,3 +38,20 @@ $('.editBtn').on('click', function () {
         }
     })
 });
+
+// $('.editSubmit').on('click', function () {
+//     var oldUsername = $('#oldUserHolder').val();
+//     var newUsername = $('#editUsername').val();
+//     var newEmail = $('#editEmail').val();
+//     $.ajax({
+//         url: "/secure/edit",
+//         type: "POST",
+//         async: false,
+//         data: {"oldUsername" : oldUsername, "newUsername": newUsername, "newEmail": newEmail},
+//         success: function () {
+//             alert();
+//         }
+//     })
+// });
+
+

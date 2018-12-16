@@ -151,8 +151,8 @@
                 <button class="algoButtons" type="button" id="updateButton"><i class="fa fa-refresh"></i> Update</button>
                 <button class="algoButtons" type="button" id="runButton"><i class="fa fa-play"></i> Play</button>
                 <button class="algoButtons" type="button" id="pauseButton"><i class="fa fa-pause"></i> Pause</button>
-                <button class="algoButtons" type="button" id="stopButton"><i class="fa fa-stop"></i> Stop</button>
-                <button class="algoButtons" type="button" id="resetButton"><i class="fa fa-undo"></i> Reset</button>
+                <button class="algoButtons" type="button" id="stopButton"><i class="fa fa-stop"></i><br> Stop</button>
+                <button class="algoButtons" type="button" id="resetButton"><i class="fa fa-undo"></i><br> Reset</button>
             </div>
             <div id="algorithmChoiceDiv">
                 <select id="algorithmChoice" name="algorithmChoice">
@@ -184,8 +184,41 @@
             <div id="toggleDiv">
                 <button type="button" class="algoButtons" id="toggledBtn">Toggle Map</button>
             </div>
-            <p id="objectiveScore">Objective Score: </p>
-            <textarea id="summaryBox" readonly>Summary</textarea>
+            <div id="scoreDiv">
+                <table id="scoreTable">
+                    <tr>
+                        <th>Measure</th>
+                        <th>Old</th>
+                        <th>New</th>
+                    </tr>
+                    <tr id="compactnessScore">
+                        <td>Compactness</td>
+                        <td id="oldCompactness"></td>
+                        <td id="newCompactness"></td>
+                    </tr>
+                    <tr id="populationScore">
+                        <td>Population</td>
+                        <td id="oldPopulation"></td>
+                        <td id="newPopulation"></td>
+                    </tr>
+                    <tr id="pfScore">
+                        <td>Partisan Fairness</td>
+                        <td id="oldPf"></td>
+                        <td id="newPf"></td>
+                    </tr>
+                    <tr id="egScore">
+                        <td>Efficiency Gap</td>
+                        <td id="oldEg"></td>
+                        <td id="newEg"></td>
+                    </tr>
+                    <tr id="objScore">
+                        <td>Objective Score</td>
+                        <td id="oldObj"></td>
+                        <td id="newObj"></td>
+                    </tr>
+                </table>
+            </div>
+            <textarea id="summaryBox" readonly></textarea>
         </div>
 
     </div>

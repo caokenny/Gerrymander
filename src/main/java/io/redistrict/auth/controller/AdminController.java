@@ -44,4 +44,16 @@ public class AdminController {
         return user.getEmail();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/edit")
+    public String editUser(String oldusername, String username, String email) {
+        System.out.println(oldusername);
+        User user = userDao.findByUsername(oldusername);
+        user.setUsername(username);
+        user.setEmail(email);
+        userDao.save(user);
+
+        return "redirect:/secure/admin";
+    }
+
 }
