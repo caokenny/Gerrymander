@@ -225,7 +225,7 @@ $('#runButton').on('click', function () {
     else
         variance = false;
     var measuresObj = {"compactness" : compactness, "populationEquality" : population, "partisanFairness" : partisanFariness, "efficencyGap" : efficencyGap, "algorithm" : algorithmChoice, "stateAbbrv" : stateSelected, "variance": variance};
-    if (algorithmChoice === "sa") {
+    if (algorithmChoice === "sa" || algorithmChoice === "sa1") {
         $.ajax({
             url: "setWeights",
             type: "POST",
