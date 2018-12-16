@@ -16,7 +16,7 @@
 <div id="wrapper">
 
     <div id="infoPopup">
-        <p id="geoid"></p>
+        <p id="precinctname"></p>
         <p id="caucasian"></p>
         <p id="africanAmerican"></p>
         <p id="americanIndian"></p>
@@ -69,7 +69,7 @@
             </tr>
 
         </table>
-        <a href="http://www.ncsl.org/research/redistricting/redistricting-criteria.aspx">Source</a>
+        <a href="/about">Source</a>
     </div>
     <div id="loginDiv" th:style="${loginFail} ? 'display:block' : 'display:none'">
         <form action="/user/login" id="logincontent" method="post" modelAttribute="userForm">
@@ -102,6 +102,10 @@
             <input type="hidden" name="page" value="user"/>
             <button class="registerSubmit" type="submit">Register</button>
         </form>
+    </div>
+
+    <div id="loadWeightsDiv">
+
     </div>
 
     <div id="mapheader">
@@ -158,19 +162,27 @@
                 </select>
             </div>
             <div id="measuresContainer">
-                <h2 class="measureSliderTitle">Compactness </h2>
+                <h3 class="measureSliderTitle">Compactness </h3>
                 <input type="range" min="1" max="100" value="50" class="measureSlider" id="compactnessSlider" data-thumbwidth="20">
                 <output id="compactnessOutput" name="rangeVal">50</output>
-                <h2 class="measureSliderTitle">Population</h2>
+                <h3 class="measureSliderTitle">Population</h3>
                 <input type="range" min="1" max="100" value="50" class="measureSlider" id="populationSlider" data-thumbwidth="20">
                 <output id="populationOutput" name="rangeVal">50</output>
-                <h2 class="measureSliderTitle">Partisan Fairness</h2>
+                <h3 class="measureSliderTitle">Partisan Fairness</h3>
                 <input type="range" min="1" max="100" value="50" class="measureSlider" id="partisanFairnessSlider" data-thumbwidth="20">
                 <output id="pfOutput" name="rangeVal">50</output>
-                <h2 class="measureSliderTitle">Efficiency Gap</h2>
+                <h3 class="measureSliderTitle">Efficiency Gap</h3>
                 <input type="range" min="1" max="100" value="50" class="measureSlider" id="efficiencyGapSlider" data-thumbwidth="20">
                 <output id="egOutput" name="rangeVal">50</output>
             </div>
+            <div id="saveLoad">
+                <button type="button" class="saveLoadButton" id="saveWeights"><i class="fa fa-save"></i> Save</button>
+                <button type="button" class="saveLoadButton" id="loadWeights"><i class="fa fa-upload"></i> Load</button>
+            </div>
+            <div id="toggleDiv">
+                <button type="button" class="algoButtons" id="toggledBtn">Toggle Map</button>
+            </div>
+            <p id="objectiveScore">Objective Score: </p>
             <textarea id="summaryBox" readonly>Summary</textarea>
         </div>
 

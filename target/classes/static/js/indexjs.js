@@ -34,6 +34,10 @@ function closeRegister() {
     $('#registerDiv').css("display", "none");
 }
 
+function closeLoad() {
+    $('#loadWeightsDiv').css("display", "none");
+}
+
 $('input[type="range"]').on('input', function() {
 
     var control = $(this),
@@ -56,7 +60,7 @@ $('input[type="range"]').on('input', function() {
 
 $('#openSideNav').on('click', function () {
     if ($('#usercontrol').is(':visible')) {
-        $('#mySidenav').css("width", "400px");
+        $('#mySidenav').css("width", "350px");
     } else {
         $('#mySidenav').css("width", "250px");
     }
@@ -82,10 +86,56 @@ $('#redistrictBtn').on('click', function () {
     }
 });
 
-$('#algorithmChoice').dropdown({
-    gutter: 5
+
+$('#saveWeights').on('click', function () {
+    var compactness = $('#compactnessSlider').val();
+    var pf = $('#partisanFairnessSlider').val();
+    var population = $('#populationSlider').val();
+    var eg = $('#efficiencyGapSlider').val();
+    $.ajax({
+        url: "/user/saveweights",
+        async: true,
+        type: "POST",
+        data: {"compactness": compactness, "population" : population, "pf" : pf, "eg": eg},
+        success: function (data) {
+            alert(data);
+        }
+    });
 });
 
+$('#loadWeights').on('click', function () {
+    var loadDiv = $('#loadWeightsDiv');
+    loadDiv.empty();
+    loadDiv.css("display", "block");
+    loadDiv.append("<span class=\"closeLoginBox\" onclick=\"closeLoad()\">&times;</span>");
+    $.ajax({
+        url: "/user/getsavedweights",
+        async: true,
+        type: "GET",
+        success: function (data) {
+            var jsonObj = JSON.parse(data);
+            for (var i = 0; i < jsonObj.length; i++) {
+                loadDiv.append("<p></p><a href='#' name='" + jsonObj[i].id + "' onclick='loadFile(name)'>" + (i+1) + ". " + "Compactness: " + jsonObj[i].compactness + " Population: " + jsonObj[i].population + " Partisan Fairness: " + jsonObj[i].pf + " Efficiency Gap: " + jsonObj[i].eg + "</a>");
+            }
+        }
+    });
+});
+
+function loadFile(id) {
+    $.ajax({
+        url: "/user/loadweights",
+        async: true,
+        type: "POST",
+        data: {"id" : id},
+        success: function (data) {
+            var jsonObj = JSON.parse(data);
+            $('#compactnessSlider').val(jsonObj.compactness);
+            $('#populationSlider').val(jsonObj.population);
+            $('#partisanFairnessSlider').val(jsonObj.pf);
+            $('#efficiencyGapSlider').val(jsonObj.eg);
+        }
+    })
+}
 
 
 

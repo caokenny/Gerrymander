@@ -2,13 +2,16 @@ package io.redistrict.auth.controller;
 
 import io.redistrict.auth.model.CustomUserDetails;
 import io.redistrict.auth.model.Role;
+import io.redistrict.auth.model.SavedWeights;
 import io.redistrict.auth.model.User;
 import io.redistrict.auth.repository.RoleDao;
+import io.redistrict.auth.repository.SavedWeightsDao;
 import io.redistrict.auth.repository.UserDao;
 import io.redistrict.auth.service.CustomUserDetailsService;
 import io.redistrict.auth.validator.UserValidator;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,6 +27,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -41,6 +46,8 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private RoleDao roleDao;
+    @Autowired
+    private SavedWeightsDao savedWeightsDao;
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -63,7 +70,7 @@ public class UserController {
             return "index";
         }
 
-//        Role adminRole = createIfNotFound("ROLE_ADMIN");
+        Role adminRole = createIfNotFound("ROLE_ADMIN");
         Role userRole = createIfNotFound("ROLE_USER");
 
         Set<Role> roleSet = new HashSet<>();
@@ -72,22 +79,23 @@ public class UserController {
         String rawPassword = userForm.getPassword();
         userForm.setPassword(passwordEncoder.encode(userForm.getPassword()));
 
-//        adminRole.getUsers().add(userForm);
+        adminRole.getUsers().add(userForm);
         userRole.getUsers().add(userForm);
 
-//        roleSet.add(adminRole);
+        roleSet.add(adminRole);
         roleSet.add(userRole);
 
         userForm.setRoles(roleSet);
 
         userDao.save(userForm);
 
-//        if (userForm.getRoles().contains(roleDao.findByName("ROLE_ADMIN"))) {
-//            model.addAttribute("adminUser", true);
-//        }
+        if (userForm.getRoles().contains(roleDao.findByName("ROLE_ADMIN"))) {
+            model.addAttribute("adminUser", true);
+        }
 
 
         if (page.equals("user")) {
+            model.addAttribute("loggedIn", true);
             autoLogin(userForm.getUsername().toLowerCase(), rawPassword);
         }
 
@@ -160,6 +168,60 @@ public class UserController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/";
+    }
+
+
+    @PostMapping("/saveweights")
+    @ResponseBody
+    public void saveWeights(int compactness, int population, int pf, int eg) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        SavedWeights savedWeights = new SavedWeights();
+        savedWeights.setCompactness(compactness);
+        savedWeights.setPopulation(population);
+        savedWeights.setEfficiencyGap(eg);
+        savedWeights.setPartisanFairness(pf);
+
+        savedWeightsDao.save(savedWeights);
+
+        User user = userDao.findByUsername(username);
+        user.getSavedWeights().add(savedWeights);
+        userDao.save(user);
+    }
+
+
+    @GetMapping("/getsavedweights")
+    @ResponseBody
+    public String getSavedWeights() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        User user = userDao.findByUsername(username);
+        List<SavedWeights> savedWeights = user.getSavedWeights();
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < savedWeights.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id", savedWeights.get(i).getId());
+            jsonObject.put("compactness", savedWeights.get(i).getCompactness());
+            jsonObject.put("population", savedWeights.get(i).getPopulation());
+            jsonObject.put("pf", savedWeights.get(i).getPartisanFairness());
+            jsonObject.put("eg", savedWeights.get(i).getEfficiencyGap());
+            jsonArray.add(jsonObject);
+        }
+
+        return jsonArray.toJSONString();
+    }
+
+    @PostMapping("/loadweights")
+    @ResponseBody
+    public String loadSavedWeights(int id) {
+        SavedWeights savedWeights = savedWeightsDao.findById(id);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("compactness", savedWeights.getCompactness());
+        jsonObject.put("population", savedWeights.getPopulation());
+        jsonObject.put("pf", savedWeights.getPartisanFairness());
+        jsonObject.put("eg", savedWeights.getEfficiencyGap());
+
+        return jsonObject.toJSONString();
     }
 
 

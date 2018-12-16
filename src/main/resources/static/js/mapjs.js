@@ -12,14 +12,6 @@ var colors = {"01" : "red", "02" : "green", "03" : "purple", "04" : "#489ec9", "
 
 //Add geoJSON
 
-// L.geoJSON(usageo, {
-//     style: function (feature) {
-//         if (feature.properties.name !== "Colorado" && feature.properties.name !== "Kansas" && feature.properties.name !== "Missouri") {
-//             return {color: "black", fillColor: "blue", fillOpacity: 1}
-//         }
-//     }
-// }).addTo(mymap);
-
 var initialStyle = {color: "white", opacity: 1, fillColor: "#5FBD5A", fillOpacity: 0.2};
 
 var onStateAlready = false;
@@ -67,6 +59,7 @@ var stateSelected;
 var oldBounds;
 var oldGeoObj;
 var oldStateName;
+var originalPrecinctLayer;
 function zoomState(bounds, geoObj, stateName) {
     oldBounds = bounds;
     oldGeoObj = geoObj;
@@ -74,14 +67,15 @@ function zoomState(bounds, geoObj, stateName) {
     stateSelected = geoObj.options.abbr;
     if (!onStateAlready) {
         onStateAlready = true;
-        $('#mySidenav').css("width", "400px");
+        // $('#mySidenav').css("width", "400px");
         $('#stateDropdown').css("display", "none");
         $('#otherSideNavLinks').css("display", "none");
         $('.userLog').css("display", "none");
         $('#adminSettings').css("display", "none");
         $('#usercontrol').css("display", "flex");
-        $('.sidenav a').css("font-size", "20px");
-        $('.sidenav div').css("font-size", "20px");
+        $('#openSideNav').trigger('click');
+        // $('.sidenav a').css("font-size", "20px");
+        // $('.sidenav div').css("font-size", "20px");
         var j;
         for (j = 0; j < stateEvents.length; j++) {
             // mymap.removeLayer(stateEvents[j]);
@@ -113,15 +107,16 @@ function zoomState(bounds, geoObj, stateName) {
                 onEachFeature: function(feature, layer) {
                     layer.on('mouseover', function () {
                         $('#infoPopup').css("display", "block");
-                        $('#geoid').text("GEOID: " + feature.properties.GEOID10);
+                        $('#precinctname').text(feature.properties.NAME10);
                         $('#caucasian').text("Caucasian: " + Math.floor(feature.properties.CAUCASIAN * feature.properties.POP100));
                         $('#africanAmerican').text("African American: " + Math.floor(feature.properties.AFRICAN_AMERICAN * feature.properties.POP100));
                         $('#americanIndian').text("American Indian: " + Math.floor(feature.properties.AMERICAN_INDIAN * feature.properties.POP100));
                         $('#asian').text("Asian: " + Math.floor(feature.properties.ASIAN * feature.properties.POP100));
                         $('#twoOrMoreRaces').text("Two or More Races: " + Math.floor(feature.properties.TWO_OR_MORE_RACES * feature.properties.POP100));
-                        $('#hispanic').text("Hispanic: " + Math.floor(feature.properties.HISPANIC * feature.properties.POP100));                        $('#populationInfo').text("Total Population: " + feature.properties.POP100);
+                        $('#hispanic').text("Hispanic: " + Math.floor(feature.properties.HISPANIC * feature.properties.POP100));
+                        $('#populationInfo').text("Total Population: " + feature.properties.POP100);
                         $('#presidentialD').text("Democrat: " + parseInt(feature.properties.PRES_D_08));
-                        $('#presidentialR').text("Republican: " + parseInt(feature.properties.PRES_R_08));4
+                        $('#presidentialR').text("Republican: " + parseInt(feature.properties.PRES_R_08));
                     });
                     layer.on('mouseout', function () {
                         $('#infoPopup').css("display", "none");
@@ -129,7 +124,32 @@ function zoomState(bounds, geoObj, stateName) {
                 },
                 name: stateName,
                 abbr: geoObj.abbr
-            })
+            });
+            originalPrecinctLayer = L.geoJSON(data, {
+                style: function (feature) {
+                    return {color: "#DCDCDC", opacity: 0.5, fillColor: colors[feature.properties.DISTRICT], fillOpacity: 1};
+                },
+                onEachFeature: function(feature, layer) {
+                    layer.on('mouseover', function () {
+                        $('#infoPopup').css("display", "block");
+                        $('#precinctname').text(feature.properties.NAME10);
+                        $('#caucasian').text("Caucasian: " + Math.floor(feature.properties.CAUCASIAN * feature.properties.POP100));
+                        $('#africanAmerican').text("African American: " + Math.floor(feature.properties.AFRICAN_AMERICAN * feature.properties.POP100));
+                        $('#americanIndian').text("American Indian: " + Math.floor(feature.properties.AMERICAN_INDIAN * feature.properties.POP100));
+                        $('#asian').text("Asian: " + Math.floor(feature.properties.ASIAN * feature.properties.POP100));
+                        $('#twoOrMoreRaces').text("Two or More Races: " + Math.floor(feature.properties.TWO_OR_MORE_RACES * feature.properties.POP100));
+                        $('#hispanic').text("Hispanic: " + Math.floor(feature.properties.HISPANIC * feature.properties.POP100));
+                        $('#populationInfo').text("Total Population: " + feature.properties.POP100);
+                        $('#presidentialD').text("Democrat: " + parseInt(feature.properties.PRES_D_08));
+                        $('#presidentialR').text("Republican: " + parseInt(feature.properties.PRES_R_08));
+                    });
+                    layer.on('mouseout', function () {
+                        $('#infoPopup').css("display", "none");
+                    });
+                },
+                name: stateName,
+                abbr: geoObj.abbr
+            });
         });
         checkZoom();
     }
@@ -272,6 +292,11 @@ $('#runButton').on('click', function () {
             success: function (data) {
                 if (data.updates.length !== 0) {
                     updatePrecinctVisual(data);
+                } else {
+                    $('#stopButton').css("display", "none");
+                    $('#pauseButton').css("display", "none");
+                    $('#updateButton').css("display", "none");
+                    $('#resetButton').css("display", "block");
                 }
             }
         })
@@ -308,6 +333,7 @@ $('#stopButton').on('click', function () {
     $('#updateButton').css("display", "none");
     paused = true;
 });
+
 $('#resetButton').on('click', function () {
     var j;
     for (j = 0; j < stateEvents.length; j++) {
@@ -323,6 +349,7 @@ $('#resetButton').on('click', function () {
     $('#runButton').css("display", "block");
     $('#updateButton').css("display", "block");
     zoomState(oldBounds, oldGeoObj, oldStateName);
+    paused = false;
 });
 var mycount = 0;
 function continueAlgorithm() {
@@ -363,7 +390,7 @@ $(document).ready(function(){
     });
 });
 
-function handleSearch(){
+function handleSearch() {
     var input = document.getElementById("search").value;
     input = input.toLowerCase();
     var found = false;
@@ -375,16 +402,27 @@ function handleSearch(){
             break;
         }
     }
-    if(found === false){
-        for(var j = 0; j < allStates.length; j++){
-            if(allStates[j].name === input){
+    if (found === false) {
+        for (var j = 0; j < allStates.length; j++) {
+            if (allStates[j].name === input) {
                 mymap.flyTo(allStates[j].coordinates, 7);
                 break;
             }
         }
     }
-
 }
+
+$('#toggledBtn').on('click', function () {
+    if (mymap.hasLayer(precinctLayer)) {
+        console.log("has precinctLayer");
+        mymap.removeLayer(precinctLayer);
+        mymap.addLayer(originalPrecinctLayer);
+    } else {
+        console.log("HELLO");
+        mymap.removeLayer(originalPrecinctLayer);
+        mymap.addLayer(precinctLayer);
+    }
+});
 // var summaryBox = $('#summaryBox');
 // $('#runButton').click(function () {
 //     var req;
