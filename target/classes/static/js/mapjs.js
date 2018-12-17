@@ -330,6 +330,11 @@ $('#runButton').on('click', function () {
                     if (data.updates.length !== 0) {
                         updatePrecinctVisualRG(data);
                     } else {
+                        $('#newCompactness').html(data.newScore.compactnessScore.toFixed(3));
+                        $('#newPopulation').html(data.newScore.popScore.toFixed(3));
+                        $('#newPf').html(data.newScore.partisanScore.toFixed(3));
+                        $('#newEg').html(data.newScore.efficencyGapScore.toFixed(3));
+                        $('#newObj').html(data.newScore.stateObjScore.toFixed(3));
                         $('#stopButton').css("display", "none");
                         $('#pauseButton').css("display", "none");
                         $('#updateButton').css("display", "none");
@@ -361,7 +366,7 @@ function updatePrecinctVisualSA(response) {
     for (var i = 0; i < response.updates.length; i++) {
         precinctMove = response.updates[i];
         summaryBox.val(summaryBox.val() + "\n Precinct " + precinctMove.precinctId + " moved from District "
-            + precinctMove.srcDistId + " to District " + precinctMove.destDistId).on('change',scrollToBottom());
+            + precinctMove.srcDistId + " to District " + precinctMove.destDistId);
         precinctLayer.setStyle(function (feature) {
             if (feature.properties.GEOID10 === precinctMove.precinctId) {
                 return {fillColor : colors["0" + precinctMove.destDistId], fillOpacity : 1};
@@ -392,7 +397,7 @@ function updatePrecinctVisualRG(response) {
     for (var i = 0; i < response.updates.length; i++) {
         precinctMove = response.updates[i];
         summaryBox.val(summaryBox.val() + "\n Precinct " + precinctMove.precinctId + " moved to District "
-            + precinctMove.destDistId).on('change',scrollToBottom());
+            + precinctMove.destDistId);
         precinctLayer.setStyle(function (feature) {
             if (feature.properties.GEOID10 === precinctMove.precinctId) {
                 return {fillColor : colors["0" + precinctMove.destDistId], fillOpacity : 1};
