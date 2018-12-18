@@ -167,6 +167,7 @@ html, body {
     height: 360px;
     width: 600px;
     text-align: left;
+    left: 20%;
 }
 
 #loadWeightsDiv a {

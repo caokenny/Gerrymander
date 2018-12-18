@@ -98,7 +98,7 @@ $('#saveWeights').on('click', function () {
         type: "POST",
         data: {"compactness": compactness, "population" : population, "pf" : pf, "eg": eg},
         success: function (data) {
-            alert(data);
+            alert("Weights saved");
         }
     });
 });
